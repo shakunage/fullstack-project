@@ -1,0 +1,10 @@
+services:
+  app:
+    image: fullstack-project-dev
+    volumes:
+      - ./app:/usr/src/fullstack-project/app 
+    build:
+      dockerfile: dev.Dockerfile
+    ports:
+      - "5173:5173"
+    container_name: fullstack-project-dev
