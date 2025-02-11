@@ -1,6 +1,4 @@
 import type { Route } from "./+types/home";
-import { TopBar } from "../components/topBar";
-import { Welcome } from "../components/welcome";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -11,9 +9,16 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Home() {
   return (
-    <>
-      <TopBar />
-      <Welcome />
-    </>
-  );
+  <main className="flex items-center justify-center pt-16 pb-4">
+    <div className="flex-1 flex flex-col items-center gap-16 min-h-0">
+      Today's Matches:
+      <p></p>
+      <ul>
+        <li>- Match (fetched from NHL API)</li>
+        <li>- Match (fetched from NHL API)</li>
+        <li>- Match (fetched from NHL API)</li>
+      </ul>
+    </div>
+  </main>
+  )
 }

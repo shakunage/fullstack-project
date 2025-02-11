@@ -1,8 +1,10 @@
+import { Link } from "react-router";
 
-interface TopBarElement {
-  title: string;
-  href: string;
-}
+ 
+type TopBarElement = {
+    title: string;
+    href: string;
+};
 
 const topBarElements: { [key: string]: TopBarElement } = {
   home: {
@@ -27,13 +29,9 @@ export function TopBar() {
             key={key}
             className="group flex items-center gap-3 self-stretch p-3 leading-normal text-gray-700 hover:underline dark:text-blue-500"
           >
-            <a
-              href={topBarElements[key].href}
-              target="_blank"
-              rel="noreferrer"
-            >
+            <Link to={topBarElements[key].href}>
               {topBarElements[key].title}
-            </a>
+            </Link>
           </li>
         ))}
       </ul>
