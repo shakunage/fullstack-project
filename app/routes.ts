@@ -3,5 +3,7 @@ import { route } from "@react-router/dev/routes";
 
 export default [
     index("routes/home.tsx"),
-    route("about", "routes/about.tsx")
+    route("about", "routes/about.tsx"),
+    route("games", "routes/games.tsx"), 
+    route("games/:date", "routes/games/gameByDate.tsx")
 ] satisfies RouteConfig;
