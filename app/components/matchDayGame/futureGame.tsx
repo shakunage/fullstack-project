@@ -19,7 +19,17 @@ export function FutureGame({ game }: { game: GameItem }) {
       const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
 
-      setTimeUntilStart(`${days} days ${hours} hours ${minutes} minutes`);
+      if (days > 1) {
+        setTimeUntilStart(`${days} days ${hours} hours`);
+      }
+
+      if (days === 1) {
+        setTimeUntilStart(`1 day ${hours} hours`);
+      }
+
+      if (days < 1) {
+        setTimeUntilStart(`${hours} hours ${minutes} minutes`);
+      }
     };
 
     calculateTimeUntilStart();
