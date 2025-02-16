@@ -1,5 +1,7 @@
-import { useLoaderData } from "react-router"
-import { matchDayLoader as loader } from "../data/matchDayLoader"
+import { useLoaderData } from "react-router";
+import { matchDayLoader as loader } from "../data/matchDayLoader";
+import { EndedGame } from "./matchDayGame/endedGame";
+import { FutureGame } from "./matchDayGame/futureGame";
 
 export function MatchDayGames() {
   const data = useLoaderData<typeof loader>();
@@ -13,14 +15,18 @@ export function MatchDayGames() {
   }
 
   return (
-    <ul>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
       {data.map((game) => (
-        <li key={game.id}>
-          <p>Game ID: {game.id}</p>
-          <p>{game.homeTeam.name.default} vs. {game.awayTeam.name.default}</p>
-          <br />
-        </li>
+        <>
+          {game.gameState === "FUT" ? (
+            <FutureGame game={game} />
+          ) : game.gameState === "LIVE" ? (
+            <EndedGame game={game} />
+          ) : game.gameState === "OFF" ? (
+            <EndedGame game={game} />
+          ) : null}
+        </>
       ))}
-    </ul>
-    );
-  }
+    </div>
+  );
+}

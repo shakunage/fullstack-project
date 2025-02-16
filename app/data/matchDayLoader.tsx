@@ -1,13 +1,15 @@
 import axios from 'axios'
 import type { MatchDayData } from '../entities';
+import type { LoaderFunctionArgs } from "react-router";
 
-export async function matchDayLoader(): Promise<MatchDayData["games"]> {
-    try {
-        const response = await axios.get<MatchDayData>(`http://api-web.nhle.com/v1/score/now`);
-        const matchDayData: MatchDayData = response.data;
-        return matchDayData.games;
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        throw new Error('Error fetching data');
-      }
+export const matchDayLoader = async ({ params }: LoaderFunctionArgs) => {
+  const game_date = params.date ? params.date : 'now';
+  try {
+      const response = await axios.get<MatchDayData>(`http://api-web.nhle.com/v1/score/${game_date}`);
+      const matchDayData: MatchDayData = response.data;
+      return matchDayData.games;
+  } catch (error) {
+      console.error('Error fetching data:', error);
+      throw new Error('Error fetching data');
+  }
 };
