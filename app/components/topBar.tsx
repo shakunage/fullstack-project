@@ -1,15 +1,18 @@
 import { Link } from "react-router";
 
- 
 type TopBarElement = {
-    title: string;
-    href: string;
+  title: string;
+  href: string;
 };
 
 const topBarElements: { [key: string]: TopBarElement } = {
   home: {
     title: "Home",
     href: "/",
+  },
+  games: {
+    title: "Games",
+    href: "/games",
   },
   about: {
     title: "About",
@@ -22,18 +25,16 @@ const topBarElements: { [key: string]: TopBarElement } = {
 };
 
 export function TopBar() {
-    return (
-        <ul className="flex flex-row bg-gray-100 p-3">
-        {Object.keys(topBarElements).map((key) => (
-          <li 
-            key={key}
-            className="group flex items-center gap-3 self-stretch p-3 leading-normal text-gray-700 hover:underline dark:text-blue-500"
-          >
-            <Link to={topBarElements[key].href}>
-              {topBarElements[key].title}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    );
-  }
+  return (
+    <ul className="flex flex-row bg-gray-100 p-3">
+      {Object.keys(topBarElements).map((key) => (
+        <li
+          key={key}
+          className="group flex items-center gap-3 self-stretch p-3 leading-normal text-gray-700 hover:underline dark:text-blue-500"
+        >
+          <Link to={topBarElements[key].href}>{topBarElements[key].title}</Link>
+        </li>
+      ))}
+    </ul>
+  );
+}
