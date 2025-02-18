@@ -1,5 +1,6 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
+import type { LoaderFunctionArgs } from "react-router";
 import { useNavigate } from "react-router";
 import "react-datepicker/dist/react-datepicker.css";
 import { matchDayLoader } from "../data/matchDayLoader";
@@ -7,7 +8,8 @@ import { MatchDayGames } from "../components/matchDayGames";
 
 export const loader = matchDayLoader;
 
-export default function GameByDate() {
+export default function GameByDate({ params }: LoaderFunctionArgs) {
+
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const navigate = useNavigate();
 
@@ -30,7 +32,11 @@ export default function GameByDate() {
           className="border p-2 rounded"
         />
         <p/>
-        Today's Matches:
+        {params ? 
+          (<>Games for {params.date}</>)
+          : 
+          (<>Games for today</>)
+        }
         <p></p>
         <MatchDayGames />
       </div>
