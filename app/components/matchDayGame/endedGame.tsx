@@ -1,4 +1,5 @@
 import type { GameItem } from "../../entities/GameItem";
+import { formatTime } from "../../utils/formatTime";
 
 export function EndedGame({ game }: { game: GameItem }) {
   return (
@@ -17,7 +18,11 @@ export function EndedGame({ game }: { game: GameItem }) {
                 ? " (Final - SO)"
                 : "(Unknown)"}
         </p>
-        <p className="text-gray-700">Start Time: {new Date(game.startTimeUTC).toLocaleString()}</p>
+        <p className="text-gray-700">
+          Start Time: {
+            formatTime(new Date(game.startTimeUTC), "America/New_York") 
+          } ET
+        </p>
         <p className="text-gray-700">Venue: {game.venue.default}</p>
         <p className="text-gray-700 flex items-center">
           Watch Quick Recap (3 min)

@@ -3,6 +3,7 @@ import DatePicker from "react-datepicker";
 import type { LoaderFunctionArgs } from "react-router";
 import { useNavigate } from "react-router";
 import "react-datepicker/dist/react-datepicker.css";
+import moment from "moment-timezone";
 import { matchDayLoader } from "../data/matchDayLoader";
 import { MatchDayGames } from "../components/matchDayGames";
 
@@ -16,7 +17,9 @@ export default function GameByDate({ params }: LoaderFunctionArgs) {
   const handleDateChange = (date: Date | null) => {
     setSelectedDate(date);
     if (date) {
-      const formattedDate = date.toISOString().split("T")[0];
+      const easternDate = moment(date).tz("America/New_York").toDate();
+      setSelectedDate(easternDate);
+      const formattedDate = moment(easternDate).format("YYYY-MM-DD");
       navigate(`/games/${formattedDate}`);
     }
   };
