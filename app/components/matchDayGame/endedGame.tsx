@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useFetcher } from "react-router";
 import { boxscoreLoader } from "../../data/boxscoreLoader";
 import type { GameItem, BoxscoreData } from "../../entities";
@@ -11,15 +11,19 @@ export function EndedGame({ game }: { game: GameItem }) {
   const [boxscoreData, setBoxscoreData] = useState<BoxscoreData | null>(null);
   const fetcher = useFetcher();
 
-  const handleToggleDetails = async () => {
-    setShowDetails(!showDetails);
-    if (!showDetails) {
-      return;
+  useEffect(() => {
+    if (fetcher.data) {
+      setBoxscoreData(fetcher.data);
+      setShowDetails(true);
     }
-    await fetcher.load(`/games/${game.gameDate}/${game.id}`);
-    console.log(fetcher.data);
-    console.log(fetcher.state);
-    setBoxscoreData(fetcher.data);
+  }, [fetcher.data]);
+
+  const handleToggleDetails = async () => {
+    if (!showDetails) {
+      await fetcher.load(`/games/${game.gameDate}/${game.id}`);
+    } else {
+      setShowDetails(false);
+    }
   };
 
   return (
@@ -107,7 +111,7 @@ export function EndedGame({ game }: { game: GameItem }) {
               {boxscoreData.playerByGameStats.homeTeam.goalies.map(goalie => (
                 <>
                   {
-                    goalie.toi === "00:00" ? (<></>) : 
+                    goalie.toi === "00:00" ? (<div key={goalie.playerId}></div>) : 
                     (<p key={goalie.playerId}>{goalie.name.default} - {goalie.saveShotsAgainst} saves</p>)
                   }
                 </>
@@ -118,7 +122,7 @@ export function EndedGame({ game }: { game: GameItem }) {
               {boxscoreData.playerByGameStats.awayTeam.goalies.map(goalie => (
                 <>
                 {
-                  goalie.toi === "00:00" ? (<></>) : 
+                  goalie.toi === "00:00" ? (<div key={goalie.playerId}></div>) : 
                   (<p key={goalie.playerId}>{goalie.name.default} - {goalie.saveShotsAgainst} saves</p>)
                 }
               </>
