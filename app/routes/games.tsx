@@ -35,7 +35,7 @@ export default function GameByDate({ params }: LoaderFunctionArgs) {
           className="border p-2 rounded"
         />
         <p/>
-        {params ? 
+        {params.date ? 
           (<>Games for {params.date}</>)
           : 
           (<>Games for today</>)

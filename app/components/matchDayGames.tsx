@@ -20,11 +20,11 @@ export function MatchDayGames() {
       {data.map((game) => (
         <>
           {game.gameState === "FUT" ? (
-            <FutureGame game={game} />
+            <FutureGame key={game.id} game={game}/>
           ) : game.gameState === "LIVE" ? (
-            <LiveGame game={game} />
+            <LiveGame key={game.id} game={game}/>
           ) : game.gameState === "OFF" ? (
-            <EndedGame game={game} />
+            <EndedGame key={game.id} game={game}/>
           ) : null}
         </>
       ))}

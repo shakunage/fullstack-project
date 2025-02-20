@@ -8,12 +8,19 @@ export function FutureGame({ game }: { game: GameItem }) {
   const [showLocalTime, setShowLocalTime] = useState(false);
 
   useEffect(() => {
-    const timeUntilStart = calculateTimeUntilStart(game.startTimeUTC);
-    setTimeUntilStart(timeUntilStart);
-  }, [game.startTimeUTC]);
+    const updateTimeUntilStart = () => {
+      const timeUntilStart = calculateTimeUntilStart(game.startTimeUTC);
+      setTimeUntilStart(timeUntilStart);
+    };
+
+    updateTimeUntilStart(); // Initial call to set the time immediately
+
+    const interval = setInterval(updateTimeUntilStart, 60000);
+    return () => clearInterval(interval); // Cleanup interval on component unmount
+  }, []);
 
   const startTime = new Date(game.startTimeUTC);
-  const easternTime = formatTime(startTime, "America/New_York");
+  const easternTime = `${formatTime(startTime, "America/New_York")} ET`;
   const localTime = formatTime(startTime, Intl.DateTimeFormat().resolvedOptions().timeZone);
 
   return (
