@@ -16,7 +16,7 @@ export function FutureGame({ game }: { game: GameItem }) {
     updateTimeUntilStart(); // Initial call to set the time immediately
 
     const interval = setInterval(updateTimeUntilStart, 60000);
-    return () => clearInterval(interval); // Cleanup interval on component unmount
+    return () => clearInterval(interval); // Cleanup interval on component unmount to avoid memory leaks
   }, []);
 
   const startTime = new Date(game.startTimeUTC);
@@ -30,9 +30,7 @@ export function FutureGame({ game }: { game: GameItem }) {
           {game.homeTeam.name.default} vs. {game.awayTeam.name.default}
         </h2>
         <div className="flex items-center text-gray-700">
-          <span>
-            Start Time: {showLocalTime ? localTime : easternTime}
-          </span>
+          <span>Start Time: {showLocalTime ? localTime : easternTime}</span>
           <button
             onClick={() => setShowLocalTime(!showLocalTime)}
             className="ml-2 p-1 bg-blue-500 text-white rounded text-xs"
