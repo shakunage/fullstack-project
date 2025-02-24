@@ -9,3 +9,4 @@
 | 18 Feb 2025 | Overhauling route config, updating the UI (calendar component for selecting a date), adding the shadcn ui library | 2 |
 | 19 Feb 2025 | Refactoring utilities, implementing handling of live games, improving the handling of time zones  | 1.5 |
 | 20 Feb 2025 | Expanding data loading capabilities, implementing the ability to show details for ended game cards (buggy) | 2.5 |
+| 24 Feb 2025 | Refactoring and fixing Typescript typing for objects and methods | 3 |
