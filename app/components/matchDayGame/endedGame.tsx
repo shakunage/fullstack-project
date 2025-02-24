@@ -8,17 +8,17 @@ export const loader = boxscoreLoader;
 
 export function EndedGame({ game }: { game: GameItem }) {
   const [showDetails, setShowDetails] = useState(false);
-  const [boxscoreData, setBoxscoreData] = useState<BoxscoreData | null>(null);
+  const [boxscoreData, setBoxscoreData] = useState<BoxscoreData>({} as BoxscoreData);
   const fetcher = useFetcher();
 
   useEffect(() => {
     if (fetcher.data) {
-      setBoxscoreData(fetcher.data);
+      setBoxscoreData(fetcher.data as BoxscoreData);
       setShowDetails(true);
     }
   }, [fetcher.data]);
 
-  const handleToggleDetails = async () => {
+  const handleToggleDetails = async (): Promise<void> => {
     if (!showDetails) {
       await fetcher.load(`/games/${game.gameDate}/${game.id}`);
     } else {
@@ -43,9 +43,7 @@ export function EndedGame({ game }: { game: GameItem }) {
                 : "(Unknown)"}
         </p>
         <p className="text-gray-700">
-          Start Time: {
-            formatTime(new Date(game.startTimeUTC), "America/New_York") 
-          } ET
+          Start Time: {formatTime(new Date(game.startTimeUTC), "America/New_York")} ET
         </p>
         <p className="text-gray-700">Venue: {game.venue.default}</p>
         <p className="text-gray-700 flex items-center">
@@ -81,7 +79,9 @@ export function EndedGame({ game }: { game: GameItem }) {
           </a>
         </p>
         <button
-          onClick={handleToggleDetails}
+          onClick={() => {
+            void handleToggleDetails();
+          }}
           className="w-full mt-4 p-2 bg-blue-500 text-white rounded text-center"
         >
           {showDetails ? "Hide Details" : "Show Goal Scorers and Goalies"}
@@ -92,40 +92,50 @@ export function EndedGame({ game }: { game: GameItem }) {
             <div>
               <h4 className="font-semibold">Home Team</h4>
               {game.goals
-                .filter(goal => goal.teamAbbrev === game.homeTeam.abbrev)
-                .map(goal => (
-                  <p key={`${goal.period}_${goal.timeInPeriod}`}>{goal.name.default} - {goal.goalsToDate} goals</p>
+                .filter((goal) => goal.teamAbbrev === game.homeTeam.abbrev)
+                .map((goal) => (
+                  <p key={`${goal.period}_${goal.timeInPeriod}`}>
+                    {goal.name.default} - {goal.goalsToDate} goals
+                  </p>
                 ))}
             </div>
             <div>
               <h4 className="font-semibold">Away Team</h4>
               {game.goals
-                .filter(goal => goal.teamAbbrev === game.awayTeam.abbrev)
-                .map(goal => (
-                  <p key={`${goal.period}_${goal.timeInPeriod}`}>{goal.name.default} - {goal.goalsToDate} goals</p>
+                .filter((goal) => goal.teamAbbrev === game.awayTeam.abbrev)
+                .map((goal) => (
+                  <p key={`${goal.period}_${goal.timeInPeriod}`}>
+                    {goal.name.default} - {goal.goalsToDate} goals
+                  </p>
                 ))}
             </div>
             <h3 className="text-lg font-bold mt-4">Goalies</h3>
             <div>
               <h4 className="font-semibold">Home Team</h4>
-              {boxscoreData.playerByGameStats.homeTeam.goalies.map(goalie => (
+              {boxscoreData.playerByGameStats.homeTeam.goalies.map((goalie) => (
                 <>
-                  {
-                    goalie.toi === "00:00" ? (<div key={goalie.playerId}></div>) : 
-                    (<p key={goalie.playerId}>{goalie.name.default} - {goalie.saveShotsAgainst} saves</p>)
-                  }
+                  {goalie.toi === "00:00" ? (
+                    <div key={goalie.playerId}></div>
+                  ) : (
+                    <p key={goalie.playerId}>
+                      {goalie.name.default} - {goalie.saveShotsAgainst} saves
+                    </p>
+                  )}
                 </>
               ))}
             </div>
             <div>
               <h4 className="font-semibold">Away Team</h4>
-              {boxscoreData.playerByGameStats.awayTeam.goalies.map(goalie => (
+              {boxscoreData.playerByGameStats.awayTeam.goalies.map((goalie) => (
                 <>
-                {
-                  goalie.toi === "00:00" ? (<div key={goalie.playerId}></div>) : 
-                  (<p key={goalie.playerId}>{goalie.name.default} - {goalie.saveShotsAgainst} saves</p>)
-                }
-              </>
+                  {goalie.toi === "00:00" ? (
+                    <div key={goalie.playerId}></div>
+                  ) : (
+                    <p key={goalie.playerId}>
+                      {goalie.name.default} - {goalie.saveShotsAgainst} saves
+                    </p>
+                  )}
+                </>
               ))}
             </div>
           </div>

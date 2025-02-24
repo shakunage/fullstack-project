@@ -10,17 +10,18 @@ import { MatchDayGames } from "../components/matchDayGames";
 export const loader = matchDayLoader;
 
 export default function GameByDate({ params }: LoaderFunctionArgs) {
-
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [selectedDate, setSelectedDate] = useState<Date>(
+    params.date ? new Date(params.date) : new Date()
+  );
   const navigate = useNavigate();
 
-  const handleDateChange = (date: Date | null) => {
-    setSelectedDate(date);
+  const handleDateChange = (date: Date | null): void => {
     if (date) {
-      const easternDate = moment(date).tz("America/New_York").toDate();
+      setSelectedDate(date);
+      const easternDate: Date = moment(date).tz("America/New_York").toDate();
       setSelectedDate(easternDate);
-      const formattedDate = moment(easternDate).format("YYYY-MM-DD");
-      navigate(`/games/${formattedDate}`);
+      const formattedDate: string = moment(easternDate).format("YYYY-MM-DD");
+      void navigate(`/games/${formattedDate}`);
     }
   };
 
@@ -34,12 +35,8 @@ export default function GameByDate({ params }: LoaderFunctionArgs) {
           placeholderText="Select a date"
           className="border p-2 rounded"
         />
-        <p/>
-        {params.date ? 
-          (<>Games for {params.date}</>)
-          : 
-          (<>Games for today</>)
-        }
+        <p />
+        {params.date ? <>Games for {params.date}</> : <>Games for today</>}
         <p></p>
         <MatchDayGames />
       </div>
