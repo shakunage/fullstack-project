@@ -3,6 +3,7 @@ import { useFetcher } from "react-router";
 import { boxscoreLoader } from "../../data/boxscoreLoader";
 import type { GameItem, BoxscoreData } from "../../entities";
 import { formatTime } from "../../utils/formatTime";
+import { PlayVideoButton } from "../icons/PlayVideoButton";
 
 export const loader = boxscoreLoader;
 
@@ -52,14 +53,7 @@ export function EndedGame({ game }: { game: GameItem }) {
             href={`https://www.nhl.com${game.threeMinRecap}`}
             className="text-blue-500 hover:underline flex items-center ml-2"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 mr-1"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path d="M4.5 3.5a1 1 0 011.5-.87l10 5.5a1 1 0 010 1.74l-10 5.5A1 1 0 014.5 14.5v-11z" />
-            </svg>
+            <PlayVideoButton />
           </a>
         </p>
         <p className="text-gray-700 flex items-center">
@@ -68,14 +62,7 @@ export function EndedGame({ game }: { game: GameItem }) {
             href={`https://www.nhl.com${game.condensedGame}`}
             className="text-blue-500 hover:underline flex items-center ml-2"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 mr-1"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path d="M4.5 3.5a1 1 0 011.5-.87l10 5.5a1 1 0 010 1.74l-10 5.5A1 1 0 014.5 14.5v-11z" />
-            </svg>
+            <PlayVideoButton />
           </a>
         </p>
         <button
