@@ -2,7 +2,8 @@
 - add shadcn ui library
     - 2025/02/18: installed, need to learn how to use
 - enrich match card components. scorers, assists, winning goalie etc. when user expands the card
-    - implemented but feels unresponsive. need to brush up implementation (hydration etc.) 
+    - implemented but feels unresponsive. need to brush up implementation (hydration etc.)
+- consider adding a nginx proxy to enable data loading SSR 
 - add user management & auth, enable adding games to favs
 - consider polling the api
     - need to do this to limited extent to implement statistics pages with custom filters
