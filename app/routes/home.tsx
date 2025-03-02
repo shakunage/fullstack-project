@@ -1,4 +1,4 @@
-import { MatchDayGames } from "../components/matchDayGames";
+import { MatchDayGames } from "../components/MatchDayGames";
 import { matchDayLoader } from "../data/matchDayLoader";
 
 export const loader = matchDayLoader;

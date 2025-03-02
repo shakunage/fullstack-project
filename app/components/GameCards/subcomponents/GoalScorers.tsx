@@ -1,11 +1,11 @@
-import type { GameItem } from "../../entities/GameItem";
+import type { GameItem } from "../../../entities/GameItem";
 
 export function GoalScorers({ game }: { game: GameItem }) {
   return (
     <>
       <h3 className="text-lg font-bold">Goal Scorers</h3>
       <div>
-        <h4 className="font-semibold">Home Team</h4>
+        <h4 className="font-semibold">{game.homeTeam.name.default}</h4>
         {game.goals
           .filter((goal) => goal.teamAbbrev === game.homeTeam.abbrev)
           .map((goal) => (
@@ -15,7 +15,7 @@ export function GoalScorers({ game }: { game: GameItem }) {
           ))}
       </div>
       <div>
-        <h4 className="font-semibold">Away Team</h4>
+        <h4 className="font-semibold">{game.awayTeam.name.default}</h4>
         {game.goals
           .filter((goal) => goal.teamAbbrev === game.awayTeam.abbrev)
           .map((goal) => (

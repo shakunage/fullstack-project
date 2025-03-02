@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { formatTime } from "../../utils/formatTime";
 import { calculateTimeUntilStart } from "../../utils/calculateTimeUntilStart";
 import type { GameItem } from "../../entities/GameItem";
+import { StartTimeToggle } from "./subcomponents/StartTimeToggle";
+import { Venue } from "./subcomponents/Venue";
 
 export function FutureGame({ game }: { game: GameItem }) {
   const [timeUntilStart, setTimeUntilStart] = useState<string | undefined>("");
-  const [showLocalTime, setShowLocalTime] = useState(false);
 
   useEffect(() => {
     const updateTimeUntilStart = () => {
@@ -19,10 +19,6 @@ export function FutureGame({ game }: { game: GameItem }) {
     return () => clearInterval(interval); // Cleanup interval on component unmount to avoid memory leaks
   }, []);
 
-  const startTime = new Date(game.startTimeUTC);
-  const easternTime = `${formatTime(startTime, "America/New_York")} ET`;
-  const localTime = formatTime(startTime, Intl.DateTimeFormat().resolvedOptions().timeZone);
-
   return (
     <>
       <div key={game.id} className="bg-white shadow-md rounded-lg p-4">
@@ -30,16 +26,10 @@ export function FutureGame({ game }: { game: GameItem }) {
           {game.homeTeam.name.default} vs. {game.awayTeam.name.default}
         </h2>
         <div className="flex items-center text-gray-700">
-          <span>Start Time: {showLocalTime ? localTime : easternTime}</span>
-          <button
-            onClick={() => setShowLocalTime(!showLocalTime)}
-            className="ml-2 p-1 bg-blue-500 text-white rounded text-xs"
-          >
-            Show {showLocalTime ? "Eastern Time" : "User Time"}
-          </button>
+          <StartTimeToggle game={game} />
         </div>
         <p className="text-gray-700">Time until start time: {timeUntilStart}</p>
-        <p className="text-gray-700">Venue: {game.venue.default}</p>
+        <Venue game={game} />
       </div>
     </>
   );

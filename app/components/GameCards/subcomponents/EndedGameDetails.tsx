@@ -1,7 +1,7 @@
-import type { GameItem } from "../../entities/GameItem";
-import { PlayVideoButton } from "../icons/PlayVideoButton";
+import type { GameItem } from "../../../entities/GameItem";
+import { PlayVideoButton } from "../../icons/PlayVideoButton";
 
-export function GameDetails({ game }: { game: GameItem }) {
+export function EndedGameDetails({ game }: { game: GameItem }) {
   return (
     <>
       <p className="text-gray-700 flex items-center">

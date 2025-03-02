@@ -1,9 +1,9 @@
 import React from "react";
 import { useLoaderData } from "react-router";
 import { matchDayLoader as loader } from "../data/matchDayLoader";
-import { EndedGame } from "./matchDayGame/endedGame";
-import { FutureGame } from "./matchDayGame/futureGame";
-import { LiveGame } from "./matchDayGame/liveGame";
+import { EndedGame } from "./GameCards/EndedGame";
+import { FutureGame } from "./GameCards/FutureGame";
+import { LiveGame } from "./GameCards/LiveGame";
 
 export function MatchDayGames() {
   const data = useLoaderData<typeof loader>();
@@ -24,7 +24,7 @@ export function MatchDayGames() {
             <FutureGame game={game} />
           ) : game.gameState === "LIVE" ? (
             <LiveGame game={game} />
-          ) : game.gameState === "OFF" ? (
+          ) : game.gameState === "OFF" || game.gameState === "FINAL" ? (
             <EndedGame game={game} />
           ) : null}
         </React.Fragment>

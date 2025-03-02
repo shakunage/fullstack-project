@@ -5,13 +5,14 @@ import { useNavigate } from "react-router";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment-timezone";
 import { matchDayLoader } from "../data/matchDayLoader";
-import { MatchDayGames } from "../components/matchDayGames";
+import { MatchDayGames } from "../components/MatchDayGames";
 
 export const loader = matchDayLoader;
 
 export default function GameByDate({ params }: LoaderFunctionArgs) {
+  const currentDateET = moment().tz("America/Los_Angeles").startOf("day").toDate();
   const [selectedDate, setSelectedDate] = useState<Date>(
-    params.date ? new Date(params.date) : new Date()
+    params.date ? new Date(params.date) : currentDateET
   );
   const navigate = useNavigate();
 
