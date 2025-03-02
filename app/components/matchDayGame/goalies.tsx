@@ -1,3 +1,4 @@
+import React from "react";
 import type { BoxscoreData } from "../../entities/BoxscoreData";
 
 export function Goalies({ boxscoreData }: { boxscoreData: BoxscoreData }) {
@@ -7,29 +8,29 @@ export function Goalies({ boxscoreData }: { boxscoreData: BoxscoreData }) {
       <div>
         <h4 className="font-semibold">Home Team</h4>
         {boxscoreData.playerByGameStats.homeTeam.goalies.map((goalie) => (
-          <>
+          <React.Fragment key={goalie.playerId}>
             {goalie.toi === "00:00" ? (
-              <div key={goalie.playerId}></div>
+              <div></div>
             ) : (
-              <p key={goalie.playerId}>
+              <p>
                 {goalie.name.default} - {goalie.saveShotsAgainst} saves
               </p>
             )}
-          </>
+          </React.Fragment>
         ))}
       </div>
       <div>
         <h4 className="font-semibold">Away Team</h4>
         {boxscoreData.playerByGameStats.awayTeam.goalies.map((goalie) => (
-          <>
+          <React.Fragment key={goalie.playerId}>
             {goalie.toi === "00:00" ? (
-              <div key={goalie.playerId}></div>
+              <div></div>
             ) : (
-              <p key={goalie.playerId}>
+              <p>
                 {goalie.name.default} - {goalie.saveShotsAgainst} saves
               </p>
             )}
-          </>
+          </React.Fragment>
         ))}
       </div>
     </>
