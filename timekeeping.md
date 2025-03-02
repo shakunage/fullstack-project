@@ -10,3 +10,5 @@
 | 19 Feb 2025 | Refactoring utilities, implementing handling of live games, improving the handling of time zones  | 1.5 |
 | 20 Feb 2025 | Expanding data loading capabilities, implementing the ability to show details for ended game cards (buggy) | 2.5 |
 | 24 Feb 2025 | Refactoring and fixing Typescript typing for objects and methods | 3 |
+| 1 Mar 2025 | Configure & debug a nginx reverse proxy setup for development, fix hydration errors in rendering | 5 |
+| 2 Mar 2025 |  | 5 |
