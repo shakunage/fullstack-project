@@ -1,5 +1,5 @@
 services:
-  app:
+  rrv7front:
     image: fullstack-project-dev
     volumes:
       - ./app:/usr/src/fullstack-project/app
@@ -7,6 +7,21 @@ services:
       - ./package-lock.json:/usr/src/fullstack-project/package-lock.json
     build:
       dockerfile: dev.Dockerfile
+    networks:
+      - fs-network
+    container_name: rrv7front
+  reverseproxy:
+    image: nginx:1.20.1
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
     ports:
-      - "5173:5173"
-    container_name: fullstack-project-dev
+      - 9998:9998
+    networks:
+      - fs-network
+    depends_on:
+      - rrv7front
+    container_name: reverseproxy
+networks:
+  fs-network:
+    driver: bridge
+    name: fs-network
