@@ -2,9 +2,11 @@
 
 - add shadcn ui library
   - 2025/02/18: installed, need to learn how to use
-- add user management & auth, enable adding games to favs
 - consider polling the api
-  - need to do this to limited extent to implement statistics pages with custom filters
+  - first, scrape past 10 seasons and store them into a database
+  - then implement a polling feature to the backend
+  - after scraping game data, scrape odds data
+- add user management & auth, enable adding games to favs
 - testing/formatting pipeline
 - some ideas:
   - add statistics pages
