@@ -5,7 +5,7 @@ import type { LoaderFunctionArgs } from "react-router";
 export const matchDayLoader = async ({ params }: LoaderFunctionArgs) => {
   const game_date = params.date ? params.date : "now";
   try {
-    const response = await axios.get<MatchDayData>(`http://api-web.nhle.com/v1/score/${game_date}`);
+    const response = await axios.get<MatchDayData>(`http://reverseproxy:9998/api/v1/score/${game_date}`);
     const matchDayData: MatchDayData = response.data;
     return matchDayData.games;
   } catch (error) {
