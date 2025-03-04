@@ -12,3 +12,4 @@
 | 24 Feb 2025 | Refactoring and fixing Typescript typing for objects and methods | 3 |
 | 1 Mar 2025 | Configure & debug a nginx reverse proxy setup for development, fix hydration errors in rendering | 5 |
 | 2 Mar 2025 | Major refactoring of the project, fixing date-related bugs | 3.5 |
+| 3 Mar 2025 | Enrich LiveGame component, attmepting solve prop drilling issues, eliminating duplicate code thru refactoring  | 2 |

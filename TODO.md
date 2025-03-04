@@ -6,6 +6,9 @@
   - first, scrape past 10 seasons and store them into a database
   - then implement a polling feature to the backend
   - after scraping game data, scrape odds data
+- get rid of prop drilling, make passing props more implicit
+- consider client side rendering and hydration fallback for boxscore data
+- move endpoint address to ENV file
 - add user management & auth, enable adding games to favs
 - testing/formatting pipeline
 - some ideas:
