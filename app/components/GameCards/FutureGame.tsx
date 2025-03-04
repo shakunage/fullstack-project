@@ -20,17 +20,15 @@ export function FutureGame({ game }: { game: GameItem }) {
   }, []);
 
   return (
-    <>
-      <div key={game.id} className="bg-white shadow-md rounded-lg p-4">
-        <h2 className="text-xl font-bold mb-2">
-          {game.homeTeam.name.default} vs. {game.awayTeam.name.default}
-        </h2>
-        <div className="flex items-center text-gray-700">
-          <StartTimeToggle game={game} />
-        </div>
-        <p className="text-gray-700">Time until start time: {timeUntilStart}</p>
-        <Venue game={game} />
+    <div className="bg-white shadow-md rounded-lg p-4">
+      <h2 className="text-xl font-bold mb-2">
+        {game.homeTeam.name.default} vs. {game.awayTeam.name.default}
+      </h2>
+      <div className="flex items-center text-gray-700">
+        <StartTimeToggle game={game} />
       </div>
-    </>
+      <p className="text-gray-700">Time until start time: {timeUntilStart}</p>
+      <Venue game={game} />
+    </div>
   );
 }

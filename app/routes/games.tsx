@@ -10,9 +10,9 @@ import { MatchDayGames } from "../components/MatchDayGames";
 export const loader = matchDayLoader;
 
 export default function GameByDate({ params }: LoaderFunctionArgs) {
-  const currentDateET = moment().tz("America/Los_Angeles").startOf("day").toDate();
+  const currentDatePST = moment().tz("America/Los_Angeles").startOf("day").toDate();
   const [selectedDate, setSelectedDate] = useState<Date>(
-    params.date ? new Date(params.date) : currentDateET
+    params.date ? new Date(params.date) : currentDatePST
   );
   const navigate = useNavigate();
 

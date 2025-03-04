@@ -22,7 +22,7 @@ export function MatchDayGames() {
         <React.Fragment key={game.id}>
           {game.gameState === "FUT" ? (
             <FutureGame game={game} />
-          ) : game.gameState === "LIVE" ? (
+          ) : game.gameState === "LIVE" || game.gameState === "CRIT" ? (
             <LiveGame game={game} />
           ) : game.gameState === "OFF" || game.gameState === "FINAL" ? (
             <EndedGame game={game} />
