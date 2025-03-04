@@ -1,18 +1,21 @@
 import type { GameItem } from "../../../entities/GameItem";
 
-export function EndedGameHeader({ game }: { game: GameItem }) {
+export function EndedGameHeader(
+  { lastPeriod, awayTeam, homeTeam }: 
+  { lastPeriod: string, awayTeam: GameItem["awayTeam"], homeTeam: GameItem["homeTeam"] }
+) {
   return (
     <>
       <h2 className="text-xl font-bold mb-2">
-        {game.homeTeam.name.default} vs. {game.awayTeam.name.default}
+        {homeTeam.name.default} vs. {awayTeam.name.default}
       </h2>
       <p className="text-gray-700">
-        Score: {game.homeTeam.score} - {game.awayTeam.score}
-        {game.gameOutcome.lastPeriodType === "REG"
+        Score: {homeTeam.score} - {awayTeam.score}
+        {lastPeriod === "REG"
           ? " (Final)"
-          : game.gameOutcome.lastPeriodType === "OT"
+          : lastPeriod === "OT"
             ? " (Final - OT)"
-            : game.gameOutcome.lastPeriodType === "SO"
+            : lastPeriod === "SO"
               ? " (Final - SO)"
               : "(Unknown)"}
       </p>

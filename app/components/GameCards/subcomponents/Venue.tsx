@@ -1,10 +1,10 @@
 import type { GameItem } from "../../../entities/GameItem";
 
-export function Venue({ game }: { game: GameItem }) {
+export function Venue({ venue, homeTeamAbbrev }: { venue: string, homeTeamAbbrev: string }) {
   return (
     <>
       <p className="text-gray-700">
-        Venue: {game.venue.default} ({game.homeTeam.abbrev} home)
+        Venue: {venue} ({homeTeamAbbrev} home)
       </p>
     </>
   );

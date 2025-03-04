@@ -2,10 +2,10 @@ import { useState } from "react";
 import type { GameItem } from "../../../entities/GameItem";
 import { formatTime } from "../../../utils/formatTime";
 
-export function StartTimeToggle({ game }: { game: GameItem }) {
+export function StartTimeToggle({ gameStartTime }: { gameStartTime: string }) {
   const [showLocalTime, setShowLocalTime] = useState(false);
 
-  const startTime = new Date(game.startTimeUTC);
+  const startTime = new Date(gameStartTime);
   const easternTime = `${formatTime(startTime, "America/New_York")} ET`;
   const localTime = formatTime(startTime, Intl.DateTimeFormat().resolvedOptions().timeZone);
 

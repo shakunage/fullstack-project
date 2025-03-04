@@ -11,7 +11,10 @@ export function LiveGame({ game }: { game: GameItem }) {
       <p className="text-gray-700">
         Live score: {game.homeTeam.score} - {game.awayTeam.score} (Period {game.period})
       </p>
-      <Venue game={game} />
+      <Venue 
+        venue={game.venue.default} 
+        homeTeamAbbrev={game.homeTeam.abbrev} 
+      />
       <GameDetailsButton game={game} />
     </div>
   );
