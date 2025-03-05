@@ -21,7 +21,10 @@ export function EndedGame({ game }: { game: GameItem }) {
         venue={game.venue.default} 
         homeTeamAbbrev={game.homeTeam.abbrev} 
       />
-      <EndedGameDetails game={game} />
+      <EndedGameDetails 
+        threeMinRecapLink={game.threeMinRecap}
+        condensedGameLink={game.condensedGame}
+      />
       <GameDetailsButton game={game} />
     </div>
   );
