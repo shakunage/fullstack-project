@@ -1,6 +1,12 @@
 import { PlayVideoButton } from "../../icons/PlayVideoButton";
 
-export function EndedGameDetails({ threeMinRecapLink, condensedGameLink }: { threeMinRecapLink: string, condensedGameLink: string }) {
+export function EndedGameDetails({
+  threeMinRecapLink,
+  condensedGameLink,
+}: {
+  threeMinRecapLink: string;
+  condensedGameLink: string;
+}) {
   return (
     <>
       <p className="text-gray-700 flex items-center">

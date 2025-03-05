@@ -11,20 +11,14 @@ export const loader = boxscoreLoader;
 export function EndedGame({ game }: { game: GameItem }) {
   return (
     <div className="bg-white shadow-md rounded-lg p-4">
-      <EndedGameHeader 
+      <EndedGameHeader
         lastPeriod={game.gameOutcome.lastPeriodType}
         homeTeam={game.homeTeam}
         awayTeam={game.awayTeam}
       />
       <StartTimeToggle gameStartTime={game.startTimeUTC} />
-      <Venue 
-        venue={game.venue.default} 
-        homeTeamAbbrev={game.homeTeam.abbrev} 
-      />
-      <EndedGameDetails 
-        threeMinRecapLink={game.threeMinRecap}
-        condensedGameLink={game.condensedGame}
-      />
+      <Venue venue={game.venue.default} homeTeamAbbrev={game.homeTeam.abbrev} />
+      <EndedGameDetails threeMinRecapLink={game.threeMinRecap} condensedGameLink={game.condensedGame} />
       <GameDetailsButton game={game} />
     </div>
   );

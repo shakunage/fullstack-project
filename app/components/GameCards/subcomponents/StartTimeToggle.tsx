@@ -1,5 +1,4 @@
 import { useState } from "react";
-import type { GameItem } from "../../../entities/GameItem";
 import { formatTime } from "../../../utils/formatTime";
 
 export function StartTimeToggle({ gameStartTime }: { gameStartTime: string }) {

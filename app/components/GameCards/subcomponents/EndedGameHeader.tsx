@@ -1,9 +1,14 @@
 import type { GameItem } from "../../../entities/GameItem";
 
-export function EndedGameHeader(
-  { lastPeriod, awayTeam, homeTeam }: 
-  { lastPeriod: string, awayTeam: GameItem["awayTeam"], homeTeam: GameItem["homeTeam"] }
-) {
+export function EndedGameHeader({
+  lastPeriod,
+  awayTeam,
+  homeTeam,
+}: {
+  lastPeriod: string;
+  awayTeam: GameItem["awayTeam"];
+  homeTeam: GameItem["homeTeam"];
+}) {
   return (
     <>
       <h2 className="text-xl font-bold mb-2">

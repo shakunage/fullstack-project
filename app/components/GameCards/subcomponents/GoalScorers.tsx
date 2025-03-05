@@ -1,6 +1,6 @@
 import type { GameItem } from "../../../entities/GameItem";
 
-const TeamGoalScorers = ({ game, home }: {game: GameItem, home: boolean}) => {
+const TeamGoalScorers = ({ game, home }: { game: GameItem; home: boolean }) => {
   const teamName: string = home ? game.homeTeam.name.default : game.awayTeam.name.default;
   const teamAbbrev: string = home ? game.homeTeam.abbrev : game.awayTeam.abbrev;
   return (
@@ -14,15 +14,15 @@ const TeamGoalScorers = ({ game, home }: {game: GameItem, home: boolean}) => {
           </p>
         ))}
     </div>
-  )
-}
+  );
+};
 
 export function GoalScorers({ game }: { game: GameItem }) {
   return (
     <>
       <h3 className="text-lg font-bold">Goal Scorers</h3>
       <TeamGoalScorers game={game} home={true} />
-      <br/>
+      <br />
       <TeamGoalScorers game={game} home={false} />
     </>
   );

@@ -1,6 +1,4 @@
-import type { GameItem } from "../../../entities/GameItem";
-
-export function Venue({ venue, homeTeamAbbrev }: { venue: string, homeTeamAbbrev: string }) {
+export function Venue({ venue, homeTeamAbbrev }: { venue: string; homeTeamAbbrev: string }) {
   return (
     <>
       <p className="text-gray-700">
