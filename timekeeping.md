@@ -10,6 +10,7 @@
 | 19 Feb 2025 | Refactoring utilities, implementing handling of live games, improving the handling of time zones  | 1.5 |
 | 20 Feb 2025 | Expanding data loading capabilities, implementing the ability to show details for ended game cards (buggy) | 2.5 |
 | 24 Feb 2025 | Refactoring and fixing Typescript typing for objects and methods | 3 |
-| 1 Mar 2025 | Configure & debug a nginx reverse proxy setup for development, fix hydration errors in rendering | 5 |
+| 1 Mar 2025 | Configuring & debugging a nginx reverse proxy setup for development, fix hydration errors in rendering | 5 |
 | 2 Mar 2025 | Major refactoring of the project, fixing date-related bugs | 3.5 |
-| 3 Mar 2025 | Enrich LiveGame component, attmepting solve prop drilling issues, eliminating duplicate code thru refactoring  | 2 |
+| 3 Mar 2025 | Enriching LiveGame component, attmepting solve prop drilling issues, eliminating duplicate code thru refactoring  | 2 |
+| 6 Mar 2025 | Add Postgres & Prisma ORM to the project, create a simple User model  | 2 |

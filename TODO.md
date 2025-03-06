@@ -2,6 +2,8 @@
 
 - add shadcn ui library
   - 2025/02/18: installed, need to learn how to use
+  - maybe watch a youtube video
+  - let AI create the custom components
 - consider polling the api
   - first, scrape past 10 seasons and store them into a database
   - then implement a polling feature to the backend
@@ -10,6 +12,9 @@
 - consider client side rendering and hydration fallback for boxscore data
 - move endpoint address to ENV file
 - add user management & auth, enable adding games to favs
+  - add backend using postgres, add to docker-compose
+  - add basic migrations, confirm that appropriate data tables are created
+    - check fullstack part13 work
 - testing/formatting pipeline
 - some ideas:
   - add statistics pages
