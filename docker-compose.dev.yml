@@ -3,6 +3,7 @@ services:
     image: fullstack-project-dev
     volumes:
       - ./app:/usr/src/fullstack-project/app
+      - ./prisma:/usr/src/fullstack-project/prisma
       - ./package.json:/usr/src/fullstack-project/package.json
       - ./package-lock.json:/usr/src/fullstack-project/package-lock.json
     build:
@@ -10,6 +11,15 @@ services:
     networks:
       - fs-network
     container_name: rrv7front
+  postgres:
+    image: postgres:17.4
+    env_file:
+      - ./postgres/.env
+    volumes:
+      - ./postgres/postgres_data:/var/lib/postgresql/data
+    networks:
+      - fs-network
+    container_name: postgres
   reverseproxy:
     image: nginx:1.20.1
     volumes:
@@ -20,6 +30,7 @@ services:
       - fs-network
     depends_on:
       - rrv7front
+      - postgres
     container_name: reverseproxy
 networks:
   fs-network:
