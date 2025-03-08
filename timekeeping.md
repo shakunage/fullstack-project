@@ -13,4 +13,4 @@
 | 1 Mar 2025 | Configuring & debugging a nginx reverse proxy setup for development, fix hydration errors in rendering | 5 |
 | 2 Mar 2025 | Major refactoring of the project, fixing date-related bugs | 3.5 |
 | 3 Mar 2025 | Enriching LiveGame component, attmepting solve prop drilling issues, eliminating duplicate code thru refactoring  | 2 |
-| 6 Mar 2025 | Add Postgres & Prisma ORM to the project, create a simple User model  | 2 |
+| 6 Mar 2025 | Adding Postgres & Prisma ORM to the project, creating a simple User model  | 2 |
