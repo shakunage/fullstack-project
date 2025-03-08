@@ -27,7 +27,7 @@ export function FutureGame({ game }: { game: GameItem }) {
       <div className="flex items-center text-gray-700">
         <StartTimeToggle gameStartTime={game.startTimeUTC} />
       </div>
-      <p className="text-gray-700">Time until start time: {timeUntilStart}</p>
+      <p className="text-gray-700">Time until start: {timeUntilStart}</p>
       <Venue venue={game.venue.default} homeTeamAbbrev={game.homeTeam.abbrev} />
     </div>
   );

@@ -14,3 +14,4 @@
 | 2 Mar 2025 | Major refactoring of the project, fixing date-related bugs | 3.5 |
 | 3 Mar 2025 | Enriching LiveGame component, attmepting solve prop drilling issues, eliminating duplicate code thru refactoring  | 2 |
 | 6 Mar 2025 | Adding Postgres & Prisma ORM to the project, creating a simple User model  | 2 |
+| 8 Mar 2025 | Configuring docker compose setup for Prisma, creating schemas  | 3 |

@@ -16,5 +16,21 @@ datasource db {
 model User {
   id    String  @id @default(uuid())
   email String  @unique
+  password String
   name  String?
+  favoriteGames  Game[]
+}
+
+model Game {
+  id         String   @id @default(uuid())
+  startTime DateTime
+  gameType  String
+  homeTeam  String
+  awayTeam  String
+  scoreHome Int
+  scoreAway Int
+  final      String
+  season     String
+  venue      String
+  favoritedBy User[]
 }

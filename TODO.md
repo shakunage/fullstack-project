@@ -15,6 +15,8 @@
   - add backend using postgres, add to docker-compose
   - add basic migrations, confirm that appropriate data tables are created
     - check fullstack part13 work
+  - add table for games
+- edit user schema (add auth info) and implement auth in frontend
 - testing/formatting pipeline
 - some ideas:
   - add statistics pages

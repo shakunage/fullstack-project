@@ -1,11 +1,15 @@
 services:
   rrv7front:
     image: fullstack-project-dev
+    ports:
+      # prisma studio
+      - 5555:5555
     volumes:
       - ./app:/usr/src/fullstack-project/app
       - ./prisma:/usr/src/fullstack-project/prisma
       - ./package.json:/usr/src/fullstack-project/package.json
       - ./package-lock.json:/usr/src/fullstack-project/package-lock.json
+      - ./vite.config.ts:/usr/src/fullstack-project/vite.config.ts
     build:
       dockerfile: dev.Dockerfile
     networks:
@@ -25,6 +29,7 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     ports:
+      # react router app
       - 9998:9998
     networks:
       - fs-network
