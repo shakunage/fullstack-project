@@ -5,6 +5,7 @@
   - maybe watch a youtube video
   - let AI create the custom components
 - consider polling the api
+- move prisma client from rrv7 to to a node/express separate api
   - first, scrape past 10 seasons and store them into a database
   - then implement a polling feature to the backend
   - after scraping game data, scrape odds data

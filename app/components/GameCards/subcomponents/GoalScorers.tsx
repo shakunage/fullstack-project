@@ -3,11 +3,17 @@ import type { GameItem } from "../../../entities/GameItem";
 const TeamGoalScorers = ({ game, home }: { game: GameItem; home: boolean }) => {
   const teamName: string = home ? game.homeTeam.name.default : game.awayTeam.name.default;
   const teamAbbrev: string = home ? game.homeTeam.abbrev : game.awayTeam.abbrev;
+
+  const teamGoals = game.goals.filter((goal) => goal.teamAbbrev === teamAbbrev);
+
+  if (teamGoals.length === 0) {
+    return null;
+  }
+
   return (
     <div>
       <h4 className="font-semibold">{teamName}</h4>
-      {game.goals
-        .filter((goal) => goal.teamAbbrev === teamAbbrev)
+      {teamGoals
         .map((goal) => (
           <p key={`${goal.period}_${goal.timeInPeriod}`}>
             {goal.name.default} - {goal.goalsToDate} goals
