@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { AuthButtons } from "./AuthButtons";
 
 type TopBarElement = {
   title: string;
@@ -26,15 +27,18 @@ const topBarElements: { [key: string]: TopBarElement } = {
 
 export function TopBar() {
   return (
-    <ul className="flex flex-row bg-gray-100 p-3">
-      {Object.keys(topBarElements).map((key) => (
-        <li
-          key={key}
-          className="group flex items-center gap-3 self-stretch p-3 leading-normal text-gray-700 hover:underline dark:text-blue-500"
-        >
-          <Link to={topBarElements[key].href}>{topBarElements[key].title}</Link>
-        </li>
-      ))}
-    </ul>
+    <div className="flex flex-row bg-gray-100 p-3">
+      <ul className="flex flex-row bg-gray-100 p-3">
+        {Object.keys(topBarElements).map((key) => (
+          <li
+            key={key}
+            className="group flex items-center gap-3 self-stretch p-3 leading-normal text-gray-700 hover:underline dark:text-blue-500"
+          >
+            <Link to={topBarElements[key].href}>{topBarElements[key].title}</Link>
+          </li>
+        ))}
+      </ul>
+      <AuthButtons />
+    </div>
   );
 }
