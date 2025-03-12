@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "@prisma/client": "^6.4.1",
+    "bcrypt": "^5.1.1",
+    "express": "^4.21.2",
+    "prisma": "^6.4.1",
+    "prisma-client": "^0.0.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0"
+  }
+}

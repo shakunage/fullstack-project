@@ -1,16 +1,14 @@
 services:
   rrv7front:
     image: fullstack-project-dev
-    ports:
-      # prisma studio
-      - 5555:5555
     volumes:
-      - ./app:/usr/src/fullstack-project/app
-      - ./prisma:/usr/src/fullstack-project/prisma
-      - ./package.json:/usr/src/fullstack-project/package.json
-      - ./package-lock.json:/usr/src/fullstack-project/package-lock.json
-      - ./vite.config.ts:/usr/src/fullstack-project/vite.config.ts
+      - ./frontend/app:/usr/src/fullstack-project/frontend/app
+      - ./frontend/prisma:/usr/src/fullstack-project/frontend/prisma
+      - ./frontend/package.json:/usr/src/fullstack-project/frontend/package.json
+      - ./frontend/package-lock.json:/usr/src/fullstack-project/frontend/package-lock.json
+      - ./frontend/vite.config.ts:/usr/src/fullstack-project/frontend/vite.config.ts
     build:
+      context: ./frontend
       dockerfile: dev.Dockerfile
     networks:
       - fs-network
@@ -37,6 +35,19 @@ services:
       - rrv7front
       - postgres
     container_name: reverseproxy
+  backend:
+    image: node:lts-bullseye-slim
+    build:
+      context: './backend'
+    volumes:
+      - .:/usr/src/fullstack-project/backend
+    ports:
+      - 8080:8080
+    networks:
+      - fs-network
+    command: ["tail",  "-f", "/dev/null"]
+    container_name: backend
+
 networks:
   fs-network:
     driver: bridge
