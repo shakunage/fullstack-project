@@ -1,18 +1,16 @@
-import { prisma } from "../dbserver/db.server";
-import bcrypt from 'bcryptjs';
-
+import { prisma } from "../dbserver/dbserver";
+import bcrypt from 'bcrypt';
 
 export interface UserSignupData {
-  username: string;
+  name: string;
   email: string;
   password: string;
 }
 
 export interface UserResponse {
   id: string;
-  username: string;
+  name: string;
   email: string;
-  createdAt: Date;
 }
 
 export async function createUser(userData: UserSignupData): Promise<UserResponse> {
@@ -26,15 +24,6 @@ export async function createUser(userData: UserSignupData): Promise<UserResponse
         throw new Error('Email already in use');
       }
 
-      // Check if username is already taken
-      const existingUserByUsername = await prisma.user.findUnique({
-        where: { username: userData.username },
-      });
-
-      if (existingUserByUsername) {
-        throw new Error('Username already taken');
-      }
-
       // Hash the password
       const saltRounds = 10;
       const hashedPassword = await bcrypt.hash(userData.password, saltRounds);
@@ -42,7 +31,7 @@ export async function createUser(userData: UserSignupData): Promise<UserResponse
       // Create the user
       const newUser = await prisma.user.create({
         data: {
-          username: userData.username,
+          name: userData.name,
           email: userData.email,
           password: hashedPassword,
         },
@@ -59,25 +48,3 @@ export async function createUser(userData: UserSignupData): Promise<UserResponse
       throw new Error('Failed to create user');
     }
   }
-
-// Find a user by their ID
-export async function findUserById(id: string): Promise<UserResponse | null> {
-    const user = await prisma.user.findUnique({
-        where: { id },
-    });
-
-    if (!user) return null;
-
-    // Return user without password
-    const { password, ...userWithoutPassword } = user;
-    return userWithoutPassword as UserResponse;
-}
-
-// Find a user by email - useful for login functionality
-export async function findUserByEmail(email: string): Promise<(UserResponse & { password: string }) | null> {
-    const user = await prisma.user.findUnique({
-        where: { email },
-    });
-
-    return user;
-}
