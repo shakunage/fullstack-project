@@ -1,6 +1,6 @@
 FROM node:22.13.1
 
-WORKDIR /usr/src/fullstack-project
+WORKDIR /usr/src/fullstack-project/frontend
 
 COPY . .
 

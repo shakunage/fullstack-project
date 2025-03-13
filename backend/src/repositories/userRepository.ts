@@ -1,4 +1,4 @@
-import { prisma } from "../dbserver/db";
+import { prisma } from "../dbserver/db.server";
 import bcrypt from 'bcryptjs';
 
 
