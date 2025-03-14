@@ -16,4 +16,5 @@
 | 6 Mar 2025 | Adding Postgres & Prisma ORM to the project, creating a simple User model  | 2 |
 | 8 Mar 2025 | Configuring docker compose setup for Prisma, creating schemas  | 3 |
 | 11 Mar 2025 | Tinkering with backend configurations (failing to run Prisma from frontend -> creating a separate express backend)  | 3 |
-| 12 Mar 2025 |  | - |
+| 13 Mar 2025 | Major refactoring of the project, setting up backend in the Docker compose setup, shaping up basic API architecture | 4 |
+| 14 Mar 2025 | Implementing backend functionality (signup, login) | 2 |
