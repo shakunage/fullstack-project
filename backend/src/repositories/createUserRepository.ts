@@ -1,4 +1,4 @@
-import { prisma } from "../dbserver/dbserver";
+import { prisma } from "../dbserver/dbserver.ts";
 import bcrypt from 'bcrypt';
 
 export interface UserSignupData {
@@ -13,7 +13,7 @@ export interface UserResponse {
   email: string;
 }
 
-export async function createUser(userData: UserSignupData): Promise<UserResponse> {
+export async function createUserRepository(userData: UserSignupData): Promise<UserResponse> {
     try {
       // Check if user with this email already exists
       const existingUserByEmail = await prisma.user.findUnique({

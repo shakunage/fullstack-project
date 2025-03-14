@@ -1,8 +1,13 @@
 import express from 'express';
 import { prisma } from './dbserver/dbserver.ts';
+import SignupRouter from './controllers/signupController.ts';
 
 const app = express();
 const PORT = 8080;
+
+app.use(express.json())
+
+app.use('/api/signup', SignupRouter)
 
 const start = async () => {
   try {
