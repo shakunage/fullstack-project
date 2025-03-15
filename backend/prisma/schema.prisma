@@ -14,25 +14,38 @@ datasource db {
 }
 
 model User {
-  id    String  @id @default(uuid())
-  email String  @unique
-  password String
-  name  String?
-  favoriteGames  Game[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id            String      @id @default(uuid())
+  email         String      @unique
+  password      String
+  name          String?
+  favoriteGames Game[]
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  AuthToken     AuthToken[]
 }
 
 model Game {
-  id         String   @id @default(uuid())
-  startTime DateTime
-  gameType  String
-  homeTeam  String
-  awayTeam  String
-  scoreHome Int
-  scoreAway Int
-  final      String
-  season     String
-  venue      String
+  id          String   @id @default(uuid())
+  startTime   DateTime
+  gameType    String
+  homeTeam    String
+  awayTeam    String
+  scoreHome   Int
+  scoreAway   Int
+  final       String
+  season      String
+  venue       String
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
   favoritedBy User[]
+}
+
+model AuthToken {
+  id        Int      @id @default(autoincrement())
+  token     String
+  userId    String
+  revoked   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
 }
