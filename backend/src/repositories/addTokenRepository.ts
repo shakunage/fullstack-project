@@ -11,6 +11,8 @@ export async function addTokenRepository(token: string, userId: string): Promise
       throw new Error("Error: User not found");
     }
 
+    // TODO: revoke any existing tokens for this user
+
     // Store the token into the database
     await prisma.authToken.create({
       data: {

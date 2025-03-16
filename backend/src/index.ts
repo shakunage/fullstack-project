@@ -9,9 +9,9 @@ const PORT = 8080;
 
 app.use(express.json());
 
-app.use("/api/signup", SignupRouter);
-app.use("/api/logout", LogoutRouter);
-app.use("/api/login", LoginRouter);
+app.use("/signup", SignupRouter);
+app.use("/logout", LogoutRouter);
+app.use("/login", LoginRouter);
 
 const start = async () => {
   try {

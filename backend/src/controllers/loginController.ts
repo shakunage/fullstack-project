@@ -3,14 +3,11 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { findUserByEmail } from "../repositories/findUserRepository.ts";
 import { addTokenRepository } from "../repositories/addTokenRepository.ts";
+import { UserLoginData } from "../interfaces";
 
 const router: Router = express.Router();
+// TODO: replace with secure way of storing secret keys
 const SECRET_KEY = "your_secret_key";
-
-export interface UserLoginData {
-  email: string;
-  password: string;
-}
 
 router.post(
   "/",
@@ -31,7 +28,7 @@ router.post(
       console.log(user, isPasswordValid);
 
       // Generate token
-      const token = jwt.sign({ userId: user.id }, SECRET_KEY, { expiresIn: "1h" });
+      const token = jwt.sign({ userId: user.id }, SECRET_KEY, { expiresIn: "6h" });
 
       // Save token to AuthToken table
       await addTokenRepository(token, user.id);

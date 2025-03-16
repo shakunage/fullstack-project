@@ -1,12 +1,8 @@
 import express, { Request, Response, Router } from "express";
 import { revokeTokenRepository } from "../repositories/revokeTokenRepository.ts";
+import { type Token } from "../interfaces";
 
 const router: Router = express.Router();
-const SECRET_KEY = "your_secret_key";
-
-interface Token {
-  token: string;
-}
 
 router.post("/", async (req: Request<{}, {}, Token>, res: Response<{ message: string }>) => {
   try {

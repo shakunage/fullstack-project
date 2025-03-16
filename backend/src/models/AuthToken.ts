@@ -1,6 +1,6 @@
 import type { User } from "./User";
 
-export type Token = {
+export type AuthToken = {
   id: number;
   token: string;
   userId: string;
