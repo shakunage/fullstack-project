@@ -12,6 +12,10 @@ export async function addTokenRepository(token: string, userId: string): Promise
     }
 
     // TODO: revoke any existing tokens for this user
+    await prisma.authToken.updateMany({
+      where: { userId: userId },
+      data: { revoked: true },
+    });
 
     // Store the token into the database
     await prisma.authToken.create({
@@ -20,6 +24,7 @@ export async function addTokenRepository(token: string, userId: string): Promise
         userId: userId,
       },
     });
+
     return;
   } catch (error) {
     if (error instanceof Error) {

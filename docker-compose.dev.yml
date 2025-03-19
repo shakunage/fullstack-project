@@ -27,6 +27,8 @@ services:
     networks:
       - fs-network
     container_name: backend
+    depends_on:
+      - postgres
   postgres:
     image: postgres:17.4
     env_file:

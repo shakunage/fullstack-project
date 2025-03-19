@@ -2,7 +2,6 @@ import { prisma } from "../dbserver/dbserver.ts";
 
 export async function revokeTokenRepository(token: string): Promise<void> {
   try {
-    // Check if auth token exists
     const authToken = await prisma.authToken.findFirst({
       where: { token: token, revoked: false },
     });

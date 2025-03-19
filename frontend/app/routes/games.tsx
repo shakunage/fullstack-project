@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState } from "react"
+import { useLoaderData } from "react-router";
+
 import DatePicker from "react-datepicker";
 import type { LoaderFunctionArgs } from "react-router";
 import { useNavigate } from "react-router";
@@ -10,6 +12,8 @@ import { MatchDayGames } from "../components/MatchDayGames";
 export const loader = matchDayLoader;
 
 export default function GameByDate({ params }: LoaderFunctionArgs) {
+  const data = useLoaderData<typeof loader>();
+  
   const currentDatePST = moment().tz("America/Los_Angeles").startOf("day").toDate();
   const [selectedDate, setSelectedDate] = useState<Date>(
     params.date ? new Date(params.date) : currentDatePST
@@ -37,7 +41,7 @@ export default function GameByDate({ params }: LoaderFunctionArgs) {
           className="border p-2 rounded"
         />
         <p />
-        {params.date ? <>Games for {params.date}</> : <>Games for today</>}
+        {params.date ? <>{data.length} games scheduled for {params.date}</> : <>{data.length} games scheduled for today</>}
         <p></p>
         <MatchDayGames />
       </div>
