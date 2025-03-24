@@ -9,7 +9,6 @@ export async function validateTokenRepository(token: string): Promise<boolean> {
       where: { token: token },
     });
     if (tokenInDb) {
-      console.log("Token found in db", tokenInDb.token);
       return checkAuthTokenValidity(tokenInDb.token);
     }
   } catch (error) {

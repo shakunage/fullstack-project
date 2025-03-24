@@ -10,7 +10,6 @@ router.get("/", async (req: Request<{}, {}, Token>, res: Response<{ message: str
     return res.status(401).json({ message: "Not authenticated" });
   }
   try {
-    console.log("token to be revoked is: ", token);
     await revokeTokenRepository(token);
     res.cookie("token", "", {
       httpOnly: true,

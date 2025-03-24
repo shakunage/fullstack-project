@@ -13,7 +13,6 @@ router.post(
   "/",
   async (req: Request<unknown, unknown, UserSignupData>, res: Response<Token | { message: string }>) => {
     try {
-      console.log(req.body);
       const user: UserSigninResponse = await createUserRepository(req.body);
       const token: string = jwt.sign({ id: user.id }, SECRET_KEY, { expiresIn: "24h" });
       await addTokenRepository(token, user.id);

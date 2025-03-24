@@ -19,7 +19,6 @@ router.get(
     try {
       const tokenValidity = await validateTokenRepository(token);
       if (!tokenValidity) {
-        console.log("Invalid token:" + tokenValidity);
         return res.status(401).json({ message: "Invalid token" });
       }
       const user = await findUserByToken({ token: token });

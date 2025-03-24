@@ -19,7 +19,6 @@ export async function findUserByToken(token: Token): Promise<UserSigninResponse>
 
   if (!tokenInDb) throw new Error(`Invalid token - please log in and try again`);
 
-  console.log(tokenInDb.userId);
   const user = await prisma.user.findUnique({
     where: { id: tokenInDb.userId },
   });
