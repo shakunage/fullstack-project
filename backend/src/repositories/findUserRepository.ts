@@ -1,5 +1,4 @@
 import { prisma } from "../dbserver/dbserver.ts";
-import { type User } from "../models/User.ts";
 import { type UserToValidate, type Token, type UserSigninResponse } from "../interfaces";
 
 export async function findUserByEmail(email: string): Promise<UserToValidate> {

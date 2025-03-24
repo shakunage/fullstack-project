@@ -2,13 +2,13 @@ import { prisma } from "../dbserver/dbserver.ts";
 import { checkAuthTokenValidity } from "../utils/checkAuthTokenValidity.ts";
 import { type Token } from "../interfaces";
 
-export async function validateTokenRepository(token: Token): Promise<Boolean> {
+export async function validateTokenRepository(token: Token): Promise<boolean> {
   try {
     const tokenInDb = await prisma.authToken.findFirst({
       where: { token: token.token, revoked: false },
     });
     if (tokenInDb) {
-      return checkAuthTokenValidity(tokenInDb.token) as Boolean;
+      return checkAuthTokenValidity(tokenInDb.token);
     }
   } catch (error) {
     if (error instanceof Error) {
