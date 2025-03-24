@@ -4,11 +4,19 @@ import { type Token } from "../interfaces";
 
 const router: Router = express.Router();
 
-router.post("/", async (req: Request<{}, {}, Token>, res: Response<{ message: string }>) => {
+router.get("/", async (req: Request<{}, {}, Token>, res: Response<{ message: string }>) => {
+  const token = req.cookies.token; 
+  if (!token) {
+    return res.status(401).json({ message: "Not authenticated" });
+  }
   try {
-    console.log(req.body);
-    const { token } = req.body;
+    console.log("token to be revoked is: ", token);
     await revokeTokenRepository(token);
+    res.cookie("token", "", {
+      httpOnly: true,
+      sameSite: "strict",
+      expires: new Date(0)
+    });
     res.status(200).json({ message: "Logged out successfully" });
   } catch (error) {
     res.status(400).json({ message: "An unknown error occured" });

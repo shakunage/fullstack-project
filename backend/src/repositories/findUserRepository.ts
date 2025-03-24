@@ -12,12 +12,14 @@ export async function findUserByEmail(email: string): Promise<UserToValidate> {
 }
 
 export async function findUserByToken(token: Token): Promise<UserSigninResponse> {
-  const tokenInDb = await prisma.authToken.findFirst({
-    where: { token: token.token, revoked: false },
+  console.log("Token in findUserByToken", token);
+  const tokenInDb = await prisma.authToken.findUnique({
+    where: { token: token.token },
   });
 
   if (!tokenInDb) throw new Error(`Invalid token - please log in and try again`);
 
+  console.log(tokenInDb.userId);
   const user = await prisma.user.findUnique({
     where: { id: tokenInDb.userId },
   });

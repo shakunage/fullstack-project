@@ -7,6 +7,8 @@ export function checkAuthTokenValidity(token: string): boolean {
     jwt.verify(token, SECRET_KEY);
     return true;
   } catch (error) {
+    console.error("Error while verifying token", error);
+    console.log("Invalid token value:" + token);
     return false;
   }
 }

@@ -1,17 +1,21 @@
 import express from "express";
+import cookieParser from "cookie-parser";
 import { prisma } from "./dbserver/dbserver.ts";
 import SignupRouter from "./controllers/signupController.ts";
 import LogoutRouter from "./controllers/logoutController.ts";
 import LoginRouter from "./controllers/loginController.ts";
+import AuthcheckRouter from "./controllers/authcheckController.ts";
 
 const app = express();
 const PORT = 8080;
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.use("/signup", SignupRouter);
 app.use("/logout", LogoutRouter);
 app.use("/login", LoginRouter);
+app.use("/authcheck", AuthcheckRouter);
 
 const start = async () => {
   try {

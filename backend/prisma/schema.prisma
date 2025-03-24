@@ -42,8 +42,8 @@ model Game {
 
 model AuthToken {
   id        Int      @id @default(autoincrement())
-  token     String
-  userId    String
+  token     String  @unique
+  userId    String 
   revoked   Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())

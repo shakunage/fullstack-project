@@ -15,8 +15,6 @@ router.post(
   "/",
   async (req: Request<unknown, unknown, UserLoginData>, res: Response<string | { message: string }>) => {
     const { email, password } = req.body;
-    console.log(email);
-    console.log(password);
     try {
       const user = await findUserByEmail(email);
       if (!user) {
@@ -27,15 +25,19 @@ router.post(
         return res.status(401).json({ message: "Invalid email or password" });
       }
 
-      console.log(user, isPasswordValid);
-
       // Generate token
-      const token = jwt.sign({ userId: user.id }, SECRET_KEY, { expiresIn: "24" });
+      const token = jwt.sign({ userId: user.id }, SECRET_KEY, { expiresIn: "24h" });
 
       // Save token to AuthToken table
       await addTokenRepository(token, user.id);
 
-      res.status(200).json(token);
+      res.cookie("token", token, {
+        httpOnly: true,
+        sameSite: "strict",
+        maxAge: 24 * 60 * 60 * 1000, // 24 hours
+      });
+
+      res.status(200).json({ message: "Signup successful" });
     } catch (error) {
       res.status(400).json({ message: `An unknown error occured. Details: ${error}` });
     }
