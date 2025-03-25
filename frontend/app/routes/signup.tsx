@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { useNavigate } from "react-router";
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { navigateToHome } from '~/utils/navigateToHome';
 
 export default function Signup() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -16,7 +15,7 @@ export default function Signup() {
       const { token } = response.data;
       Cookies.set('token', token, { httpOnly: true, secure: true, sameSite: 'Strict' });
       alert('Signup successful!');
-      void navigate(`/`);
+      void navigateToHome();
     } catch (error) {
       console.error('Signup failed:', error);
       alert('Signup failed. Please try again.');
