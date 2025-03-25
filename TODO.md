@@ -11,14 +11,12 @@
   - after scraping game data, scrape odds data
 - get rid of prop drilling, make passing props more implicit
 - consider client side rendering and hydration fallback for boxscore data
+  - high priority
 - move endpoint address to ENV file
 - add user management & auth, enable adding games to favs
-  - add backend using postgres, add to docker-compose
-  - add basic migrations, confirm that appropriate data tables are created
-    - check fullstack part13 work
-  - add table for games
 - edit user schema (add auth info) and implement auth in frontend
 - testing/formatting pipeline
+- add redis for caching
 - some ideas:
   - add statistics pages
     - centered around betting odds. which teams have outperformed, underperformed the odds?
