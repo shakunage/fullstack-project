@@ -1,56 +1,176 @@
-import React, { useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { useForm } from '@tanstack/react-form'
+import type { AnyFieldApi } from '@tanstack/react-form'
 import { navigateToHome } from '~/utils/navigateToHome';
 
-export default function Signup() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+function FieldInfo({ field }: { field: AnyFieldApi }) {
+  return (
+    <>
+      {field.state.meta.isTouched && field.state.meta.errors.length ? (
+        <em>{field.state.meta.errors.join(',')}</em>
+      ) : null}
+      {field.state.meta.isValidating ? 'Validating...' : null}
+    </>
+  )
+}
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    try {
-      const response = await axios.post('http://localhost:9998/backend/signup', { name, email, password });
-      const { token } = response.data;
-      Cookies.set('token', token, { httpOnly: true, secure: true, sameSite: 'Strict' });
-      alert('Signup successful!');
-      void navigateToHome();
-    } catch (error) {
-      console.error('Signup failed:', error);
-      alert('Signup failed. Please try again.');
-    }
-  };
+export default function Signup() {
+  const form = useForm({
+    defaultValues: {
+      name: '',
+      email: '',
+      password: ''
+    },
+    onSubmit: async ({ value }) => {
+      // Do something with form data
+      try {
+       const { name, email, password } = value;
+        const response = await axios.post('http://localhost:9998/backend/signup', { name, email, password });
+        const { token } = response.data;
+        Cookies.set('token', token, { httpOnly: true, secure: true, sameSite: 'Strict' });
+        alert('Signup successful!');
+        void navigateToHome();
+      } catch (error) {
+        console.error('Signup failed:', error);
+        alert('Signup failed. Please try again.');
+      }
+    },
+  })
 
   return (
-    <main className="flex items-center justify-center pt-16 pb-4">
-      <div className="flex-1 flex flex-col items-center gap-16 min-h-0">
-        <h1>Signup</h1>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <input
-            type="text"
-            placeholder="Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
+    <div>
+      <h1>Simple Form Example</h1>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault()
+          e.stopPropagation()
+          form.handleSubmit()
+        }}
+      >
+        <div>
+          {/* A type-safe field component*/}
+          <form.Field
+            name="name"
+            validators={{
+              onChange: ({ value }) =>
+                !value
+                  ? 'A name is required'
+                  : value.length < 3
+                    ? 'name must be at least 3 characters'
+                    : undefined,
+              onChangeAsyncDebounceMs: 500,
+              onChangeAsync: async ({ value }) => {
+                await new Promise((resolve) => setTimeout(resolve, 1000))
+                return (
+                  value.includes('error') && 'No "error" allowed in password'
+                )
+              },
+            }}
+            children={(field) => {
+              // Avoid hasty abstractions. Render props are great!
+              return (
+                <>
+                  <label htmlFor={field.name}>Name:</label>
+                  <input
+                    id={field.name}
+                    name={field.name}
+                    value={field.state.value}
+                    onBlur={field.handleBlur}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                  />
+                  <FieldInfo field={field} />
+                </>
+              )
+            }}
           />
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
+        </div>
+        <div>
+        <form.Field
+            name="email"
+            validators={{
+              onChange: ({ value }) =>
+                !value
+                  ? 'An e-mail address is required'
+                  : value.length < 3
+                    ? 'e-mail must be at least 3 characters'
+                    : undefined,
+              onChangeAsyncDebounceMs: 500,
+              onChangeAsync: async ({ value }) => {
+                await new Promise((resolve) => setTimeout(resolve, 1000))
+                return (
+                  value.includes('error') && 'No "error" allowed in e-mail'
+                )
+              },
+            }}
+            children={(field) => {
+              // Avoid hasty abstractions. Render props are great!
+              return (
+                <>
+                  <label htmlFor={field.name}>E-mail:</label>
+                  <input
+                    id={field.name}
+                    name={field.name}
+                    value={field.state.value}
+                    onBlur={field.handleBlur}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                  />
+                  <FieldInfo field={field} />
+                </>
+              )
+            }}
           />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
+        </div>
+        <div>
+        <form.Field
+            name="password"
+            validators={{
+              onChange: ({ value }) =>
+                !value
+                  ? 'A password is required'
+                  : value.length < 3
+                    ? 'password must be at least 3 characters'
+                    : undefined,
+              onChangeAsyncDebounceMs: 500,
+              onChangeAsync: async ({ value }) => {
+                await new Promise((resolve) => setTimeout(resolve, 1000))
+                return (
+                  value.includes('error') && 'No "error" allowed in password'
+                )
+              },
+            }}
+            children={(field) => {
+              // Avoid hasty abstractions. Render props are great!
+              return (
+                <>
+                  <label htmlFor={field.name}>Password:</label>
+                  <input
+                    id={field.name}
+                    name={field.name}
+                    value={field.state.value}
+                    onBlur={field.handleBlur}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                  />
+                  <FieldInfo field={field} />
+                </>
+              )
+            }}
           />
-          <button type="submit">Signup</button>
-        </form>
-      </div>
-    </main>
-  );
+        </div>
+        <form.Subscribe
+          selector={(state) => [state.canSubmit, state.isSubmitting]}
+          children={([canSubmit, isSubmitting]) => (
+            <>
+              <button type="submit" disabled={!canSubmit}>
+                {isSubmitting ? '...' : 'Submit'}
+              </button>
+              <button type="reset" onClick={() => form.reset()}>
+                Reset
+              </button>
+            </>
+          )}
+        />
+      </form>
+    </div>
+  )
 }

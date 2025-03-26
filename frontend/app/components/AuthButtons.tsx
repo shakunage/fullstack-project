@@ -3,8 +3,6 @@ import { useQuery } from '@tanstack/react-query'
 import axios from "axios";
 import { navigateToHome } from "~/utils/navigateToHome";
 
-
-
 export function AuthButtons() {
   
     const result = useQuery({
