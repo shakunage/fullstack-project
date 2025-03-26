@@ -22,3 +22,4 @@
 | 16 Mar 2025 | Reconsidering backend auth logic, refactoring backend code | 3.5 |
 | 19 Mar 2025 | Backend fixes, frontend login functionality | 3.5 |
 | 24 Mar 2025 | Implementing cookies-based auth, adopting the use of React Query for login functionality | 3.5 |
+| 26 Mar 2025 | Rudimentary introduction of TanStack Form | 1 |
