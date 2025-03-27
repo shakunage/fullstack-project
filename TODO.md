@@ -7,17 +7,15 @@
 - consider polling the api
 - move prisma client from rrv7 to to a node/express separate api
   - first, scrape past 10 seasons and store them into a database
-  - then implement a polling feature to the backend
+  - then implement a polling feature on the backend
   - after scraping game data, scrape odds data
 - get rid of prop drilling, make passing props more implicit
-- consider client side rendering and hydration fallback for boxscore data
-  - high priority
-- move endpoint address to ENV file
-- add user management & auth, enable adding games to favs
-- edit user schema (add auth info) and implement auth in frontend
+  - state management. zustand, react query
+- move endpoint addresses and secrets to ENV files
+- enable adding games to favs
 - testing/formatting pipeline
 - add redis for caching
-- some ideas:
+- some feature ideas:
   - add statistics pages
     - centered around betting odds. which teams have outperformed, underperformed the odds?
   - add features to record parlays and returns

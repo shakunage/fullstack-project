@@ -120,8 +120,8 @@ export default function Login() {
           />
         </div>
         <form.Subscribe
-          selector={(state) => [state.canSubmit, state.isSubmitting]}
-          children={([canSubmit, isSubmitting]) => (
+          selector={(state: { canSubmit: boolean; isSubmitting: boolean }) => [state.canSubmit, state.isSubmitting]}
+          children={([canSubmit, isSubmitting]: [boolean, boolean]) => (
             <>
               <button type="submit" disabled={!canSubmit}>
                 {isSubmitting ? '...' : 'Submit'}

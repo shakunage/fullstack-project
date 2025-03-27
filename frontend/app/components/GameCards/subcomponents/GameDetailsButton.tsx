@@ -9,6 +9,7 @@ export function GameDetailsButton({ game }: { game: GameItem }) {
   const [showDetails, setShowDetails] = useState(false);
   const [boxscoreData, setBoxscoreData] = useState<BoxscoreData>({} as BoxscoreData);
   const fetcher = useFetcher();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (fetcher.data) {
@@ -19,7 +20,9 @@ export function GameDetailsButton({ game }: { game: GameItem }) {
 
   const handleToggleDetails = async (): Promise<void> => {
     if (!showDetails) {
+      setLoading(true);
       await fetcher.load(`/games/${game.gameDate}/${game.id}`);
+      setLoading(false);
     } else {
       setShowDetails(false);
     }
@@ -34,6 +37,7 @@ export function GameDetailsButton({ game }: { game: GameItem }) {
       >
         {showDetails ? "Hide Details" : "Show Goal Scorers and Goalies"}
       </button>
+      {loading && <div className="spinner mt-4">Loading...</div>}
       {showDetails && boxscoreData && (
         <div className="mt-4">
           <GoalScorers game={game} />

@@ -1,8 +1,5 @@
 import { Link } from "react-router";
 import { AuthButtons } from "./AuthButtons";
-import { useNavigate } from "react-router"; 
-import { useQuery } from '@tanstack/react-query'
-import axios from "axios";
 
 type TopBarElement = {
   title: string;

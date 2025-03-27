@@ -25,8 +25,12 @@ router.post(
         return res.status(401).json({ message: "Invalid email or password" });
       }
 
+      const payload = {
+        sub: user.id,
+        iat: Math.floor(Date.now() / 1000),
+      }      
       // Generate token
-      const token = jwt.sign({ userId: user.id }, SECRET_KEY, { expiresIn: "24h" });
+      const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "24h" });
 
       // Save token to AuthToken table
       await addTokenRepository(token, user.id);

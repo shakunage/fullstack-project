@@ -5,6 +5,7 @@ import SignupRouter from "./controllers/signupController.ts";
 import LogoutRouter from "./controllers/logoutController.ts";
 import LoginRouter from "./controllers/loginController.ts";
 import AuthcheckRouter from "./controllers/authcheckController.ts";
+import FavoriteController from "./controllers/addFavoriteController.ts";
 
 const app = express();
 const PORT = 8080;
@@ -16,6 +17,7 @@ app.use("/signup", SignupRouter);
 app.use("/logout", LogoutRouter);
 app.use("/login", LoginRouter);
 app.use("/authcheck", AuthcheckRouter);
+app.use("/favorite", FavoriteController);
 
 const start = async () => {
   try {
