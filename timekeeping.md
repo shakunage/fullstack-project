@@ -23,3 +23,4 @@
 | 19 Mar 2025 | Backend fixes, frontend login functionality | 3.5 |
 | 24 Mar 2025 | Implementing cookies-based auth, adopting the use of React Query for auth check functionality | 3.5 |
 | 26 Mar 2025 | Rudimentary introduction of TanStack Form | 1 |
+| 27 Mar 2025 | Implement favoriting games, add spinner to game details button | 2 |
