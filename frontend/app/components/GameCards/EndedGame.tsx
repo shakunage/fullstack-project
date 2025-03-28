@@ -38,24 +38,25 @@ export function EndedGame({ game }: { game: GameItem }) {
   return (
     <div className="relative">
       <button
-        className={`absolute top-2 right-2 ${
-          isFavorite ? "text-yellow-500" : "text-gray-400"
-        }`}
+        className={`absolute top-2 right-2 ${isFavorite ? "text-yellow-500" : "text-gray-400"}`}
         onClick={isFavorite ? handleUnfavoriteClick : handleFavoriteClick}
         aria-label={isFavorite ? "Unfavorite" : "Favorite"}
       >
         {isFavorite ? "★" : "☆"}
       </button>
       <div className="bg-white shadow-md rounded-lg p-4">
-      <EndedGameHeader
-        lastPeriod={game.gameOutcome.lastPeriodType}
-        homeTeam={game.homeTeam}
-        awayTeam={game.awayTeam}
-      />
-      <StartTimeToggle gameStartTime={game.startTimeUTC} />
-      <Venue venue={game.venue.default} homeTeamAbbrev={game.homeTeam.abbrev} />
-      <EndedGameDetails threeMinRecapLink={game.threeMinRecap} condensedGameLink={game.condensedGame} />
-      <GameDetailsButton game={game} />
+        <EndedGameHeader
+          lastPeriod={game.gameOutcome.lastPeriodType}
+          homeTeam={game.homeTeam}
+          awayTeam={game.awayTeam}
+        />
+        <StartTimeToggle gameStartTime={game.startTimeUTC} />
+        <Venue venue={game.venue.default} homeTeamAbbrev={game.homeTeam.abbrev} />
+        <EndedGameDetails
+          threeMinRecapLink={game.threeMinRecap}
+          condensedGameLink={game.condensedGame}
+        />
+        <GameDetailsButton game={game} />
       </div>
     </div>
   );

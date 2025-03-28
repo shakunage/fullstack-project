@@ -1,68 +1,66 @@
-import { useForm } from '@tanstack/react-form'
-import axios from 'axios';
-import Cookies from 'js-cookie';
-import { navigateToHome } from '~/utils/navigateToHome';
-import type { AnyFieldApi } from '@tanstack/react-form'
+import { useForm } from "@tanstack/react-form";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { navigateToHome } from "~/utils/navigateToHome";
+import type { AnyFieldApi } from "@tanstack/react-form";
 
 function FieldInfo({ field }: { field: AnyFieldApi }) {
   return (
     <>
       {field.state.meta.isTouched && field.state.meta.errors.length ? (
-        <em>{field.state.meta.errors.join(',')}</em>
+        <em>{field.state.meta.errors.join(",")}</em>
       ) : null}
-      {field.state.meta.isValidating ? 'Validating...' : null}
+      {field.state.meta.isValidating ? "Validating..." : null}
     </>
-  )
+  );
 }
 
 export default function Login() {
   const form = useForm({
     defaultValues: {
-      email: '',
-      password: ''
+      email: "",
+      password: "",
     },
     onSubmit: async ({ value }) => {
       // Do something with form data
       try {
         const { email, password } = value;
-        const response = await axios.post('http://localhost:9998/backend/login', { email, password });
+        const response = await axios.post("http://localhost:9998/backend/login", { email, password });
         const { token } = response.data;
-        Cookies.set('token', token, { httpOnly: true, secure: true, sameSite: 'Strict' });
-        alert('Login successful!');
+        Cookies.set("token", token, { httpOnly: true, secure: true, sameSite: "Strict" });
+        alert("Login successful!");
         navigateToHome();
       } catch (error) {
-        console.error('Login failed:', error);
-        alert('Login failed. Please try again.');
+        console.error("Login failed:", error);
+        alert("Login failed. Please try again.");
       }
     },
-  })
+  });
 
   return (
     <div>
       <h1>Simple Form Example</h1>
       <form
         onSubmit={(e) => {
-          e.preventDefault()
-          e.stopPropagation()
-          form.handleSubmit()
+          e.preventDefault();
+          e.stopPropagation();
+          form.handleSubmit();
         }}
       >
         <div>
-        <form.Field
+          <form.Field
             name="email"
             validators={{
               onChange: ({ value }) =>
                 !value
-                  ? 'An e-mail address is required'
+                  ? "An e-mail address is required"
                   : value.length < 3
-                    ? 'e-mail must be at least 3 characters'
+                    ? "e-mail must be at least 3 characters"
                     : undefined,
               onChangeAsyncDebounceMs: 500,
               onChangeAsync: async ({ value }) => {
-                await new Promise((resolve) => setTimeout(resolve, 1000))
-                return (
-                  value.includes('error') && 'No "error" allowed in e-mail'
-                )
+                await new Promise((resolve) => setTimeout(resolve, 1000));
+                return value.includes("error") && 'No "error" allowed in e-mail';
               },
             }}
             children={(field) => {
@@ -79,26 +77,24 @@ export default function Login() {
                   />
                   <FieldInfo field={field} />
                 </>
-              )
+              );
             }}
           />
         </div>
         <div>
-        <form.Field
+          <form.Field
             name="password"
             validators={{
               onChange: ({ value }) =>
                 !value
-                  ? 'A password is required'
+                  ? "A password is required"
                   : value.length < 3
-                    ? 'password must be at least 3 characters'
+                    ? "password must be at least 3 characters"
                     : undefined,
               onChangeAsyncDebounceMs: 500,
               onChangeAsync: async ({ value }) => {
-                await new Promise((resolve) => setTimeout(resolve, 1000))
-                return (
-                  value.includes('error') && 'No "error" allowed in password'
-                )
+                await new Promise((resolve) => setTimeout(resolve, 1000));
+                return value.includes("error") && 'No "error" allowed in password';
               },
             }}
             children={(field) => {
@@ -115,16 +111,19 @@ export default function Login() {
                   />
                   <FieldInfo field={field} />
                 </>
-              )
+              );
             }}
           />
         </div>
         <form.Subscribe
-          selector={(state: { canSubmit: boolean; isSubmitting: boolean }) => [state.canSubmit, state.isSubmitting]}
+          selector={(state: { canSubmit: boolean; isSubmitting: boolean }) => [
+            state.canSubmit,
+            state.isSubmitting,
+          ]}
           children={([canSubmit, isSubmitting]: [boolean, boolean]) => (
             <>
               <button type="submit" disabled={!canSubmit}>
-                {isSubmitting ? '...' : 'Submit'}
+                {isSubmitting ? "..." : "Submit"}
               </button>
               <button type="reset" onClick={() => form.reset()}>
                 Reset
@@ -134,5 +133,5 @@ export default function Login() {
         />
       </form>
     </div>
-  )
+  );
 }
