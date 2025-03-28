@@ -24,16 +24,27 @@ export function EndedGame({ game }: { game: GameItem }) {
     }
   };
 
+  const handleUnfavoriteClick = async () => {
+    try {
+      const response = await axios.delete(`http://localhost:9998/backend/favorite?id=${game.id}`);
+      if (response.status === 200) {
+        setIsFavorite(false);
+      }
+    } catch (error) {
+      console.error("Failed to unfavorite the game:", error);
+    }
+  };
+
   return (
     <div className="relative">
       <button
         className={`absolute top-2 right-2 ${
           isFavorite ? "text-yellow-500" : "text-gray-400"
         }`}
-        onClick={handleFavoriteClick}
-        aria-label="Favorite"
+        onClick={isFavorite ? handleUnfavoriteClick : handleFavoriteClick}
+        aria-label={isFavorite ? "Unfavorite" : "Favorite"}
       >
-        ★
+        {isFavorite ? "★" : "☆"}
       </button>
       <div className="bg-white shadow-md rounded-lg p-4">
       <EndedGameHeader
