@@ -13,7 +13,6 @@ export const loader = boxscoreLoader;
 export function EndedGame({ game }: { game: GameItem }) {
   const queryClient = useQueryClient();
   
-  // Query for favorite status
   const { data: favoriteStatus, isLoading } = useQuery({
     queryKey: ["checkfavorite", game.id],
     queryFn: () =>
@@ -24,22 +23,18 @@ export function EndedGame({ game }: { game: GameItem }) {
 
   const isFavorite = favoriteStatus === 200;
 
-  // Mutation for favoriting a game
   const favoriteMutation = useMutation({
     mutationFn: () => 
       axios.post(`http://localhost:9998/backend/favorite?id=${game.id}`, {}, { withCredentials: true }),
     onSuccess: () => {
-      // Invalidate the favorite status query to trigger a refetch
       queryClient.invalidateQueries({ queryKey: ["checkfavorite", game.id] });
     },
   });
 
-  // Mutation for unfavoriting a game
   const unfavoriteMutation = useMutation({
     mutationFn: () => 
       axios.delete(`http://localhost:9998/backend/favorite?id=${game.id}`, { withCredentials: true }),
     onSuccess: () => {
-      // Invalidate the favorite status query to trigger a refetch
       queryClient.invalidateQueries({ queryKey: ["checkfavorite", game.id] });
     },
   });

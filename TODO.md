@@ -5,14 +5,12 @@
   - maybe watch a youtube video
   - let AI create the custom components
 - consider polling the api
-- move prisma client from rrv7 to to a node/express separate api
   - first, scrape past 10 seasons and store them into a database
   - then implement a polling feature on the backend
   - after scraping game data, scrape odds data
 - get rid of prop drilling, make passing props more implicit
   - state management. zustand, react query
 - move endpoint addresses and secrets to ENV files
-- enable adding games to favs
 - testing/formatting pipeline
 - add redis for caching
 - some feature ideas:
@@ -24,3 +22,4 @@
   - add "statistics about the season" page
     - goal averages, PP averages, save-% averages, etc.
   - add capability to import/export data
+s
