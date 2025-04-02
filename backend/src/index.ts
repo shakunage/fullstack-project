@@ -5,7 +5,7 @@ import SignupRouter from "./controllers/signupController.ts";
 import LogoutRouter from "./controllers/logoutController.ts";
 import LoginRouter from "./controllers/loginController.ts";
 import AuthcheckRouter from "./controllers/authcheckController.ts";
-import FavoriteController from "./controllers/addFavoriteController.ts";
+import FavoriteController from "./controllers/favoriteController.ts";
 
 const app = express();
 const PORT = 8080;

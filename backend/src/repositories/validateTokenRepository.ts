@@ -6,7 +6,7 @@ export async function validateTokenRepository(token: string): Promise<boolean> {
   console.log("Token in validateTokenRepository", token);
   try {
     const tokenInDb = await prisma.authToken.findUnique({
-      where: { token: token },
+      where: { token: token, revoked: false },
     });
     if (tokenInDb) {
       return checkAuthTokenValidity(tokenInDb.token);

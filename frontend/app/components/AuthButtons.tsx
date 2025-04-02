@@ -11,7 +11,6 @@ export function AuthButtons() {
         .get("http://localhost:9998/backend/authcheck", { withCredentials: true })
         .then((res) => res.data),
   });
-  console.log(JSON.parse(JSON.stringify(result)));
 
   let username = result.data;
 
@@ -31,7 +30,7 @@ export function AuthButtons() {
   };
 
   if (result.isLoading) {
-    return <></>;
+    return <>loading..</>;
   }
 
   if (!username) {

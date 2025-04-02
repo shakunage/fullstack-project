@@ -5,6 +5,7 @@ import { findUserByToken } from "../repositories/findUserRepository.ts";
 import { validateTokenRepository } from "../repositories/validateTokenRepository.ts";
 import { addFavoriteRepository } from "../repositories/addFavoriteRepository.ts";
 import { removeFavoriteRepository } from "../repositories/removeFavoriteRepository.ts";
+import { checkFavoriteRepository } from "../repositories/checkFavoriteRepository.ts";
 
 const router: Router = express.Router();
 
@@ -63,6 +64,41 @@ router.delete(
       await removeFavoriteRepository(game_id, user.id);
 
       res.status(200).json({ message: "Game removed from favorites" });
+    } catch (error) {
+      res.status(500).json({ message: `An error occurred: ${error}` });
+    }
+  }
+);
+
+router.get(
+  "/",
+  async (req: Request, res: Response<{ message: string }>) => {
+    const token = req.cookies.token; 
+    if (!token) {
+      return res.status(401).json({ message: "Not authenticated" });
+    }
+    
+    try {
+      const tokenValidity = await validateTokenRepository(token);
+      if (!tokenValidity) {
+        return res.status(401).json({ message: "Invalid token" });
+      }
+      
+      const user = await findUserByToken({ token: token });
+      const game_id = req.query.id;
+
+      if (!game_id || typeof game_id !== 'string') {
+        return res.status(400).json({ message: "Game ID is required and must be a string" });
+      }
+
+      // Remove the game from user's favorites
+      const favoritedGameId = await checkFavoriteRepository(game_id, user.id);
+
+      if (!favoritedGameId) {
+        return res.status(204).json({ message: "Game not found in favorites" });
+      }
+
+      res.status(200).json({ message: "Game favorited by user" });
     } catch (error) {
       res.status(500).json({ message: `An error occurred: ${error}` });
     }
