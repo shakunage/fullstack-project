@@ -26,3 +26,4 @@
 | 27 Mar 2025 | Implement favoriting games, add spinner to game details button | 2 |
 | 28 Mar 2025 | Improving the game favoriting feature | 2 |
 | 2 Apr 2025 | Add endpoint to check game favorite status, fix auth check functionality, improve login & signup form look and feel | 2.5 |
+| 4 Apr 2025 |  | 1.5 |

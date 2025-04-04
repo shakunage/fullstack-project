@@ -10,6 +10,7 @@
   - after scraping game data, scrape odds data
 - get rid of prop drilling, make passing props more implicit
   - state management. zustand, react query
+  - implement login state management, so that the favorite star is not displayed when not logged in
 - move endpoint addresses and secrets to ENV files
 - testing/formatting pipeline
 - add redis for caching
@@ -22,4 +23,3 @@
   - add "statistics about the season" page
     - goal averages, PP averages, save-% averages, etc.
   - add capability to import/export data
-s
