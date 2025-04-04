@@ -1,39 +1,32 @@
 import { Link } from "react-router";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "~/store/store";
+import { fetchStatus, logout } from "../store/authSlice";
 import { navigateToHome } from "~/utils/navigateToHome";
 
+
 export function AuthButtons() {
-  const result = useQuery({
-    queryKey: ["authcheck"],
-    queryFn: () =>
-      axios
-        .get("http://localhost:9998/backend/authcheck", { withCredentials: true })
-        .then((res) => res.data),
-  });
+  const dispatch: AppDispatch = useDispatch();
 
-  let username = result.data;
-
-  const handleLogout = async () => {
-    try {
-      await axios.get(
-        "http://localhost:9998/backend/logout",
-        { withCredentials: true } // Important: this ensures cookies are sent
-      );
-      // Update local state
-      username = undefined;
-      alert("Logged out successfully!");
-      void navigateToHome();
-    } catch (error) {
-      console.error("Logout failed:", error);
-    }
+  const handleLogout = () => {
+    dispatch(logout());
+    void navigateToHome();
   };
 
-  if (result.isLoading) {
-    return <>loading..</>;
+  const { data: username, isLoading } = useQuery({
+    queryKey: ["authStatus"],
+    queryFn: async () => {
+      const response = fetchStatus();
+      return response;
+    },
+  });
+
+  if (isLoading) {
+    return <div>Loading...</div>;
   }
 
-  if (!username) {
+  if (username) {
     return (
       <div className="ml-auto flex items-center gap-3">
         <Link to="/login" className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
