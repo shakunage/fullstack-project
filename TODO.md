@@ -8,17 +8,16 @@
   - first, scrape past 10 seasons and store them into a database
   - then implement a polling feature on the backend
   - after scraping game data, scrape odds data
-- get rid of prop drilling, make passing props more implicit
-  - state management. zustand, react query
-  - implement login state management, so that the favorite star is not displayed when not logged in
-- make login endpoint return username (not just token cookie)
-- implement proper management of invalid cookies
 - move endpoint addresses and secrets to ENV files
+- add favorite games backend api endpoint and UI view
+- overhaul login and signup forms (lots of spaghetti code atm)
+- big refactor needed (clean architecture? service layer / data layer / business logic separation)
 - testing/formatting pipeline
 - add redis for caching
 - some feature ideas:
   - add statistics pages
     - centered around betting odds. which teams have outperformed, underperformed the odds?
+    - past winning odds
   - add features to record parlays and returns
   - simulate betting strategies
     - "for the past 30 games, simulate the returns for betting for a Hellebuyck win"
