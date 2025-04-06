@@ -22,6 +22,7 @@ export function EndedGame({ game }: { game: GameItem }) {
       axios
         .get(`http://localhost:9998/backend/favorite?id=${game.id}`, { withCredentials: true })
         .then((res) => res.status),
+    enabled: !!username,
   });
 
   const isFavorite = favoriteStatus === 200;

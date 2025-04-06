@@ -15,18 +15,26 @@ export const logout = createAsyncThunk("backend/logout", async () => {
 
 const authSlice = createSlice({
   name: "auth",
-  initialState: { username: false, status: "idle" },
+  initialState: { username: false, status: "idle", tokenInvalid: false },
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchStatus.fulfilled, (state, action) => {
         state.username = action.payload;
+        state.tokenInvalid = false;
+      })
+      .addCase(fetchStatus.rejected, (state, action) => {
+        if (action.error.message === "Request failed with status code 401") {
+          state.tokenInvalid = true;
+        }
       })
       .addCase(login.fulfilled, (state, action) => {
         state.username = true;
+        state.tokenInvalid = false;
       })
       .addCase(logout.fulfilled, (state) => {
         state.username = false;
+        state.tokenInvalid = false;
       });
   },
 });

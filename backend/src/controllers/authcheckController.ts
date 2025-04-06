@@ -19,6 +19,11 @@ router.get(
     try {
       const tokenValidity = await validateTokenRepository(token);
       if (!tokenValidity) {
+        res.cookie("token", "", {
+          httpOnly: true,
+          sameSite: "strict",
+          expires: new Date(0)
+        });
         return res.status(401).json({ message: "Invalid token" });
       }
       const user = await findUserByToken({ token: token });
