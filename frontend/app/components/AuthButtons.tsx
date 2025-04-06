@@ -1,12 +1,12 @@
 import { Link } from "react-router";
 import { useQuery } from "@tanstack/react-query";
-import { useDispatch } from "react-redux";
-import type { AppDispatch } from "~/store/store";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "~/store/store";
 import { fetchStatus, logout } from "../store/authSlice";
 import { navigateToHome } from "~/utils/navigateToHome";
 
-
 export function AuthButtons() {
+  const username = useSelector((state: RootState) => state.auth.username)
   const dispatch: AppDispatch = useDispatch();
 
   const handleLogout = () => {
@@ -14,19 +14,19 @@ export function AuthButtons() {
     void navigateToHome();
   };
 
-  const { data: username, isLoading } = useQuery({
+  const initialAuthQuery = useQuery({
     queryKey: ["authStatus"],
     queryFn: async () => {
-      const response = fetchStatus();
-      return response;
+      await dispatch(fetchStatus());
+      return "Fetched auth status";
     },
   });
 
-  if (isLoading) {
+  if (initialAuthQuery.isLoading) {
     return <div>Loading...</div>;
   }
 
-  if (username) {
+  if (!username) {
     return (
       <div className="ml-auto flex items-center gap-3">
         <Link to="/login" className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">

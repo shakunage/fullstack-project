@@ -1,5 +1,7 @@
 import axios from "axios";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useSelector } from "react-redux";
+import type { RootState } from "~/store/store";
 import { GameDetailsButton } from "./subcomponents/GameDetailsButton";
 import { boxscoreLoader } from "../../data/boxscoreLoader";
 import type { GameItem } from "../../entities";
@@ -12,6 +14,7 @@ export const loader = boxscoreLoader;
 
 export function EndedGame({ game }: { game: GameItem }) {
   const queryClient = useQueryClient();
+  const username = useSelector((state: RootState) => state.auth.username)
   
   const { data: favoriteStatus, isLoading } = useQuery({
     queryKey: ["checkfavorite", game.id],
@@ -55,9 +58,13 @@ export function EndedGame({ game }: { game: GameItem }) {
         aria-label={isFavorite ? "Unfavorite" : "Favorite"}
         disabled={isLoading || favoriteMutation.isPending || unfavoriteMutation.isPending}
       >
-        {isLoading || favoriteMutation.isPending || unfavoriteMutation.isPending 
-          ? "..." 
-          : (isFavorite ? "★" : "☆")}
+        {username
+        ? 
+        (isLoading || favoriteMutation.isPending || unfavoriteMutation.isPending 
+          ? "..."
+          : (isFavorite ? "★" : "☆")) 
+        : (<></>)
+        }
       </button>
       <div className="bg-white shadow-md rounded-lg p-4">
         {/* Rest of your component */}

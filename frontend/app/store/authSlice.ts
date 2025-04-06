@@ -15,18 +15,18 @@ export const logout = createAsyncThunk("backend/logout", async () => {
 
 const authSlice = createSlice({
   name: "auth",
-  initialState: { isLoggedIn: false, status: "idle" },
+  initialState: { username: false, status: "idle" },
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchStatus.fulfilled, (state, action) => {
-        state.isLoggedIn = action.payload.isLoggedIn;
+        state.username = action.payload;
       })
       .addCase(login.fulfilled, (state, action) => {
-        state.isLoggedIn = true;
+        state.username = true;
       })
       .addCase(logout.fulfilled, (state) => {
-        state.isLoggedIn = false;
+        state.username = false;
       });
   },
 });

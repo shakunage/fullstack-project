@@ -11,6 +11,8 @@
 - get rid of prop drilling, make passing props more implicit
   - state management. zustand, react query
   - implement login state management, so that the favorite star is not displayed when not logged in
+- make login endpoint return username (not just token cookie)
+- implement proper management of invalid cookies
 - move endpoint addresses and secrets to ENV files
 - testing/formatting pipeline
 - add redis for caching
