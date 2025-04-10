@@ -3,7 +3,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSelector } from "react-redux";
 import type { RootState } from "~/store/store";
 import { GameDetailsButton } from "./subcomponents/GameDetailsButton";
-import { boxscoreLoader } from "../../data/boxscoreLoader";
+import { boxscoreLoader } from "../../loaders/boxscoreLoader";
 import type { GameItem } from "../../entities";
 import { EndedGameHeader } from "./subcomponents/EndedGameHeader";
 import { EndedGameDetails } from "./subcomponents/EndedGameDetails";

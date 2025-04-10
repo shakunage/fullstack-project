@@ -1,5 +1,5 @@
 import { MatchDayGames } from "../components/MatchDayGames";
-import { matchDayLoader } from "../data/matchDayLoader";
+import { matchDayLoader } from "../loaders/matchDayLoader";
 
 export const loader = matchDayLoader;
 

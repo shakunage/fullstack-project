@@ -6,7 +6,7 @@ import type { LoaderFunctionArgs } from "react-router";
 import { useNavigate } from "react-router";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment-timezone";
-import { matchDayLoader } from "../data/matchDayLoader";
+import { matchDayLoader } from "../loaders/matchDayLoader";
 import { MatchDayGames } from "../components/MatchDayGames";
 
 export const loader = matchDayLoader;

@@ -19,7 +19,7 @@ app.use("/logout", LogoutRouter);
 app.use("/login", LoginRouter);
 app.use("/authcheck", AuthcheckRouter);
 app.use("/favorite", FavoriteRouter);
-app.use("/favoritelist", FavoriteListRouter);
+app.use("/favoritegames", FavoriteListRouter);
 
 const start = async () => {
   try {

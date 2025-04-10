@@ -1,6 +1,6 @@
 import React from "react";
 import { useLoaderData } from "react-router";
-import { matchDayLoader as loader } from "../data/matchDayLoader";
+import { matchDayLoader as loader } from "../loaders/matchDayLoader";
 import { EndedGame } from "./GameCards/EndedGame";
 import { FutureGame } from "./GameCards/FutureGame";
 import { LiveGame } from "./GameCards/LiveGame";

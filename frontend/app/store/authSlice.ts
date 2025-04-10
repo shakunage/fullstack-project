@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { checkAuthStatus, logoutUser } from "../services/authApi";
+import { checkAuthStatus, logoutUser } from "../services/backend/authApi";
 
 export const fetchStatus = createAsyncThunk("backend/authcheck", async () => {
   return await checkAuthStatus();

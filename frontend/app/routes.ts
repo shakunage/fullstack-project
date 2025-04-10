@@ -9,6 +9,7 @@ export default [
     route(":date/:game_id", "components/GameCards/EndedGame.tsx", {
       id: "routes/games-bydate-w-details",
     }),
+    route("/favoritegames", "routes/favoritegames.tsx"),
   ]),
   route("about", "routes/about.tsx"),
   route("contact", "routes/contact.tsx"),

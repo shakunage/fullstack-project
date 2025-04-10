@@ -9,10 +9,11 @@
   - then implement a polling feature on the backend
   - after scraping game data, scrape odds data
 - move endpoint addresses and secrets to ENV files
-- add favorite games backend api endpoint and UI view
 - overhaul login and signup forms (lots of spaghetti code atm)
 - big refactor needed (clean architecture? service layer / data layer / business logic separation)
 - testing/formatting pipeline
+- fix backend crashing on docker restart (backend cannot connect to postgres so it crashes)
+- slight UI improvements. e.g. date format on specific views etc.
 - add redis for caching
 - some feature ideas:
   - add statistics pages
