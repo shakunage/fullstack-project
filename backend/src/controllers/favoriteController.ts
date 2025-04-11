@@ -72,7 +72,7 @@ router.delete(
 
 router.get(
   "/",
-  async (req: Request, res: Response<{ message: string }>) => {
+  async (req: Request, res: Response<{ message: string } | {favorited: boolean}>) => {
     const token = req.cookies.token; 
     if (!token) {
       return res.status(401).json({ message: "Not authenticated" });
@@ -92,13 +92,13 @@ router.get(
       }
 
       // Remove the game from user's favorites
-      const favoritedGameId = await checkFavoriteRepository(game_id, user.id);
+      const isFavorited = await checkFavoriteRepository(game_id, user.id);
 
-      if (!favoritedGameId) {
-        return res.status(204).json({ message: "Game not found in favorites" });
+      if (!isFavorited) {
+        return res.status(200).json({ favorited: isFavorited });
       }
 
-      res.status(200).json({ message: "Game favorited by user" });
+      res.status(200).json({ favorited: isFavorited });
     } catch (error) {
       res.status(500).json({ message: `An error occurred: ${error}` });
     }

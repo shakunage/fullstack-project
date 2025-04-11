@@ -8,6 +8,7 @@ import type { GameItem } from "../../entities";
 import { EndedGameHeader } from "./subcomponents/EndedGameHeader";
 import { EndedGameDetails } from "./subcomponents/EndedGameDetails";
 import { StartTimeToggle } from "./subcomponents/StartTimeToggle";
+import { FavoriteService } from "~/services/backendServices/favoriteService";
 import { Venue } from "./subcomponents/Venue";
 
 export const loader = boxscoreLoader;
@@ -18,33 +19,26 @@ export function EndedGame({ game }: { game: GameItem }) {
   
   const { data: favoriteStatus, isLoading } = useQuery({
     queryKey: ["checkfavorite", game.id],
-    queryFn: () =>
-      axios
-        .get(`http://localhost:9998/backend/favorite?id=${game.id}`, { withCredentials: true })
-        .then((res) => res.status),
+    queryFn: () => FavoriteService.checkFavorite(game.id),
     enabled: !!username,
   });
 
-  const isFavorite = favoriteStatus === 200;
-
   const favoriteMutation = useMutation({
-    mutationFn: () => 
-      axios.post(`http://localhost:9998/backend/favorite?id=${game.id}`, {}, { withCredentials: true }),
+    mutationFn: () => FavoriteService.addFavorite(game.id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["checkfavorite", game.id] });
     },
   });
 
   const unfavoriteMutation = useMutation({
-    mutationFn: () => 
-      axios.delete(`http://localhost:9998/backend/favorite?id=${game.id}`, { withCredentials: true }),
+    mutationFn: () => FavoriteService.removeFavorite(game.id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["checkfavorite", game.id] });
     },
   });
 
   const handleFavoriteToggle = () => {
-    if (isFavorite) {
+    if (favoriteStatus) {
       unfavoriteMutation.mutate();
     } else {
       favoriteMutation.mutate();
@@ -54,16 +48,16 @@ export function EndedGame({ game }: { game: GameItem }) {
   return (
     <div className="relative">
       <button
-        className={`absolute top-2 right-2 ${isFavorite ? "text-yellow-500" : "text-gray-400"}`}
+        className={`absolute top-2 right-2 ${favoriteStatus ? "text-yellow-500" : "text-gray-400"}`}
         onClick={handleFavoriteToggle}
-        aria-label={isFavorite ? "Unfavorite" : "Favorite"}
+        aria-label={favoriteStatus ? "Unfavorite" : "Favorite"}
         disabled={isLoading || favoriteMutation.isPending || unfavoriteMutation.isPending}
       >
         {username
         ? 
         (isLoading || favoriteMutation.isPending || unfavoriteMutation.isPending 
           ? "..."
-          : (isFavorite ? "★" : "☆")) 
+          : (favoriteStatus ? "★" : "☆")) 
         : (<></>)
         }
       </button>
