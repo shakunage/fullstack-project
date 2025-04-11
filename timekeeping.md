@@ -29,4 +29,4 @@
 | 4 Apr 2025 | Attempting implementation of Redux Toolkit for storing login state | 1.5 |
 | 6 Apr 2025 | Proper implementation of Redux Toolkit for login state, improve Games page by adding navigation UI elements and React Query state management, add proper handling of expired cookies, remove unneeded code, favorite list endpoint | 4.5 |
 | 10 Apr 2025 | Add favorites page functionality for backend and frontend, UI brush up, some refactoring (wip) | 2 |
-| 11 Apr 2025 | Major refactor of code,  | 3 |
+| 11 Apr 2025 | Major refactoring of the app: move data loading into service layer, QoL improvements | 4 |
