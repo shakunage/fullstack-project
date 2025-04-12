@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useFetcher } from 'react-router'
+import { getBoxscore } from "~/services/nhlApiServices/boxscoreService";
 import type { GameItem } from "../../../entities/GameItem";
 import type { BoxscoreData } from "../../../entities/BoxscoreData";
 import { GoalScorers } from "./GoalScorers";
@@ -14,11 +15,7 @@ export function GameDetailsButton({ game }: { game: GameItem }) {
   const { data: boxscoreData, refetch, isFetching } = useQuery<BoxscoreData>({
     queryKey: ["boxscoreData", game.id],
     queryFn: async () => {
-      const response = await fetch(`/games/${game.gameDate}/${game.id}`);
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      return response.json();
+      return await getBoxscore(game.gameDate, game.id);
     },
     enabled: false, // Don't run on mount
     staleTime: 60*1000, // 1 minute
