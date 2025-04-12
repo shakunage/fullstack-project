@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
-import { useFetcher } from "react-router";
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useFetcher } from 'react-router'
 import type { GameItem } from "../../../entities/GameItem";
 import type { BoxscoreData } from "../../../entities/BoxscoreData";
 import { GoalScorers } from "./GoalScorers";
@@ -7,26 +8,40 @@ import { Goalies } from "./Goalies";
 
 export function GameDetailsButton({ game }: { game: GameItem }) {
   const [showDetails, setShowDetails] = useState(false);
-  const [boxscoreData, setBoxscoreData] = useState<BoxscoreData>({} as BoxscoreData);
-  const fetcher = useFetcher();
   const [loading, setLoading] = useState(false);
+  const fetcher = useFetcher();
 
-  useEffect(() => {
-    if (fetcher.data) {
-      setBoxscoreData(fetcher.data as BoxscoreData);
-      setShowDetails(true);
-    }
-  }, [fetcher.data]);
+  const { data: boxscoreData, refetch, isFetching } = useQuery<BoxscoreData>({
+    queryKey: ["boxscoreData", game.id],
+    queryFn: async () => {
+      const response = await fetch(`/games/${game.gameDate}/${game.id}`);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    },
+    enabled: false, // Don't run on mount
+    staleTime: 60*1000, // 1 minute
+  });
 
   const handleToggleDetails = async (): Promise<void> => {
     if (!showDetails) {
       setLoading(true);
-      await fetcher.load(`/games/${game.gameDate}/${game.id}`);
+      
+      // Only fetch if we don't already have data
+      if (!boxscoreData) {
+        await refetch();
+      }
+      
+      setShowDetails(true);
       setLoading(false);
     } else {
       setShowDetails(false);
     }
   };
+
+  const isLoadingData = loading || isFetching;
+
   return (
     <>
       <button
@@ -34,10 +49,17 @@ export function GameDetailsButton({ game }: { game: GameItem }) {
           void handleToggleDetails();
         }}
         className="w-full mt-4 p-2 bg-blue-500 text-white rounded text-center"
+        disabled={isLoadingData}
       >
         {showDetails ? "Hide Details" : "Show Goal Scorers and Goalies"}
       </button>
-      {loading && <div className="spinner mt-4">Loading...</div>}
+      
+      {isLoadingData && (
+        <div className="flex justify-center mt-4">
+          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
+        </div>
+      )}
+      
       {showDetails && boxscoreData && (
         <div className="mt-4">
           <GoalScorers game={game} />
