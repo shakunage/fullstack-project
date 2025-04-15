@@ -1,23 +1,16 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { calculateTimeUntilStart } from "../../utils/calculateTimeUntilStart";
 import type { GameItem } from "../../entities/GameItem";
 import { StartTimeToggle } from "./subcomponents/StartTimeToggle";
 import { Venue } from "./subcomponents/Venue";
 
 export function FutureGame({ game }: { game: GameItem }) {
-  const [timeUntilStart, setTimeUntilStart] = useState<string | undefined>("");
-
-  useEffect(() => {
-    const updateTimeUntilStart = () => {
-      const timeUntilStart = calculateTimeUntilStart(game.startTimeUTC);
-      setTimeUntilStart(timeUntilStart);
-    };
-
-    updateTimeUntilStart(); // Initial call to set the time immediately
-
-    const interval = setInterval(updateTimeUntilStart, 60000);
-    return () => clearInterval(interval); // Cleanup interval on component unmount to avoid memory leaks
-  }, []);
+  const { data: timeUntilStart } = useQuery({
+    queryKey: ["timeUntilStart", game.startTimeUTC],
+    queryFn: () => calculateTimeUntilStart(game.startTimeUTC),
+    refetchInterval: 60000, // Refetch every minute
+    refetchOnWindowFocus: false,
+  });
 
   return (
     <div className="bg-white shadow-md rounded-lg p-4">

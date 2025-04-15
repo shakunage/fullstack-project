@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useFetcher } from 'react-router'
 import { getBoxscore } from "~/services/nhlApiServices/boxscoreService";
 import type { GameItem } from "../../../entities/GameItem";
 import type { BoxscoreData } from "../../../entities/BoxscoreData";
@@ -10,26 +9,29 @@ import { Goalies } from "./Goalies";
 export function GameDetailsButton({ game }: { game: GameItem }) {
   const [showDetails, setShowDetails] = useState(false);
   const [loading, setLoading] = useState(false);
-  const fetcher = useFetcher();
 
-  const { data: boxscoreData, refetch, isFetching } = useQuery<BoxscoreData>({
+  const {
+    data: boxscoreData,
+    refetch,
+    isFetching,
+  } = useQuery<BoxscoreData>({
     queryKey: ["boxscoreData", game.id],
     queryFn: async () => {
       return await getBoxscore(game.gameDate, game.id);
     },
     enabled: false, // Don't run on mount
-    staleTime: 60*1000, // 1 minute
+    staleTime: 60 * 1000, // 1 minute
   });
 
   const handleToggleDetails = async (): Promise<void> => {
     if (!showDetails) {
       setLoading(true);
-      
+
       // Only fetch if we don't already have data
       if (!boxscoreData) {
         await refetch();
       }
-      
+
       setShowDetails(true);
       setLoading(false);
     } else {
@@ -50,13 +52,13 @@ export function GameDetailsButton({ game }: { game: GameItem }) {
       >
         {showDetails ? "Hide Details" : "Show Goal Scorers and Goalies"}
       </button>
-      
+
       {isLoadingData && (
         <div className="flex justify-center mt-4">
           <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
         </div>
       )}
-      
+
       {showDetails && boxscoreData && (
         <div className="mt-4">
           <GoalScorers game={game} />
