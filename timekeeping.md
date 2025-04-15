@@ -31,3 +31,4 @@
 | 10 Apr 2025 | Add favorites page functionality for backend and frontend, UI brush up, some refactoring (wip) | 2 |
 | 11 Apr 2025 | Major refactoring of the app: move data loading into service layer, QoL improvements | 4 |
 | 12 Apr 2025 | Further refactoring and separating layers | 2 |
+| 15 Apr 2025 | Bug fixing, state management improvements, miscallenous code improvements | 1.5 |

@@ -10,8 +10,8 @@
   - after scraping game data, scrape odds data
 - move endpoint addresses and secrets to ENV files
 - overhaul login and signup forms (lots of spaghetti code atm)
-- move the loader calls from GameDetailsButton into services
-- more proactive use of useQuery (rather than useState/useEffect)
+- make use of goalie/skater/team specific endpoints
+  - betting lines, drafts etc. 
 - testing/formatting pipeline
 - fix backend crashing on docker restart (backend cannot connect to postgres so it crashes)
 - slight UI improvements. e.g. date format on specific views etc.
