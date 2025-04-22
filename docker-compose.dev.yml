@@ -11,6 +11,21 @@ services:
     networks:
       - fs-network
     container_name: rrv7front
+  postgres:
+    image: postgres:17.4
+    env_file:
+      - ./postgres/.env
+    volumes:
+      - ./postgres/postgres_data:/var/lib/postgresql/data
+    networks:
+      - fs-network
+    container_name: postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U myuser -d mydatabase"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
   backend:
     build:
       context: ./backend
@@ -29,15 +44,6 @@ services:
     container_name: backend
     depends_on:
       - postgres
-  postgres:
-    image: postgres:17.4
-    env_file:
-      - ./postgres/.env
-    volumes:
-      - ./postgres/postgres_data:/var/lib/postgresql/data
-    networks:
-      - fs-network
-    container_name: postgres
   reverseproxy:
     image: nginx:1.20.1
     volumes:
@@ -48,9 +54,8 @@ services:
     networks:
       - fs-network
     depends_on:
-      - rrv7front
-      - postgres
-      - backend
+      postgres:
+        condition: service_healthy
     container_name: reverseproxy
 networks:
   fs-network:
