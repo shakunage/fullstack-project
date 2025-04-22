@@ -13,7 +13,6 @@
 - make use of goalie/skater/team specific endpoints
   - betting lines, drafts etc. 
 - testing/formatting pipeline
-- fix backend crashing on docker restart (backend cannot connect to postgres so it crashes)
 - slight UI improvements. e.g. date format on specific views etc.
 - add redis for caching
 - some feature ideas:
