@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { getBoxscore } from "~/services/nhlApiServices/boxscoreService";
+import { fetchBoxscore } from "~/services/nhlApiServices/boxscoreService";
 import type { GameItem } from "../../../entities/GameItem";
 import type { BoxscoreData } from "../../../entities/BoxscoreData";
 import { GoalScorers } from "./GoalScorers";
@@ -17,7 +17,7 @@ export function GameDetailsButton({ game }: { game: GameItem }) {
   } = useQuery<BoxscoreData>({
     queryKey: ["boxscoreData", game.id],
     queryFn: async () => {
-      return await getBoxscore(game.gameDate, game.id);
+      return await fetchBoxscore(game.gameDate, game.id);
     },
     enabled: false, // Don't run on mount
     staleTime: 60 * 1000, // 1 minute

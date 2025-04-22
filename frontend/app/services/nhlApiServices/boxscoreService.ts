@@ -1,6 +1,15 @@
+import axios from "axios";
 import type { BoxscoreData } from "../../entities";
 
-export async function getBoxscore(
+const API_URL = "http://reverseproxy:9998/api/v1/gamecenter";
+
+// API call to be used in boxscoreLoader
+export async function getBoxscore(game_id: string | undefined): Promise<BoxscoreData> {
+  return await axios.get<BoxscoreData>(`${API_URL}/${game_id}/boxscore`).then((res) => res.data);
+}
+
+// For further fetching after the intial page load (calls boxscoreLoader)
+export async function fetchBoxscore(
   gameDate: string,
   game_id: string | number | undefined
 ): Promise<BoxscoreData> {

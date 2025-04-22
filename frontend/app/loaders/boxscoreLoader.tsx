@@ -1,14 +1,11 @@
-import axios from "axios";
+import { getBoxscore } from "../services/nhlApiServices/boxscoreService";
 import type { LoaderFunctionArgs } from "react-router";
 import type { BoxscoreData } from "../entities";
 
 export const boxscoreLoader = async ({ params }: LoaderFunctionArgs) => {
   const game_id = params.game_id;
   try {
-    const response = await axios.get<BoxscoreData>(
-      `http://reverseproxy:9998/api/v1/gamecenter/${game_id}/boxscore`
-    );
-    const matchDayData: BoxscoreData = response.data;
+    const matchDayData: BoxscoreData = await getBoxscore(game_id);
     return matchDayData;
   } catch (error) {
     console.error("Error fetching data:", error);
