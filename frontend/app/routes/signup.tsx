@@ -2,6 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useForm } from "@tanstack/react-form";
 import type { AnyFieldApi } from "@tanstack/react-form";
+import { signupService } from "~/services/backendServices/signupService";
 import { navigateToHome } from "~/utils/navigateToHome";
 
 function FieldInfo({ field }: { field: AnyFieldApi }) {
@@ -24,21 +25,13 @@ export default function Signup() {
     },
     onSubmit: async ({ value }) => {
       // Do something with form data
-      try {
-        const { name, email, password } = value;
-        const response = await axios.post("http://localhost:9998/backend/signup", {
-          name,
-          email,
-          password,
-        });
-        const { token } = response.data;
-        Cookies.set("token", token, { httpOnly: true, secure: true, sameSite: "Strict" });
-        alert("Signup successful!");
-        void navigateToHome();
-      } catch (error) {
-        console.error("Signup failed:", error);
-        alert("Signup failed. Please try again.");
+      const token = await signupService(value);
+      if (!token) { 
+        return;
       }
+      Cookies.set("token", token, { httpOnly: true, secure: true, sameSite: "Strict" });
+      alert("Signup successful!");
+      void navigateToHome();
     },
   });
 

@@ -2,6 +2,7 @@ import { useForm } from "@tanstack/react-form";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { navigateToHome } from "~/utils/navigateToHome";
+import { loginUser } from "../services/backendServices/loginService";
 import type { AnyFieldApi } from "@tanstack/react-form";
 
 function FieldInfo({ field }: { field: AnyFieldApi }) {
@@ -23,17 +24,14 @@ export default function Login() {
     },
     onSubmit: async ({ value }) => {
       // Do something with form data
-      try {
-        const { email, password } = value;
-        const response = await axios.post("http://localhost:9998/backend/login", { email, password });
-        const { token } = response.data;
-        Cookies.set("token", token, { httpOnly: true, secure: true, sameSite: "Strict" });
-        alert("Login successful!");
-        navigateToHome();
-      } catch (error) {
-        console.error("Login failed:", error);
-        alert("Login failed. Please try again.");
+      const token = await loginUser(value);
+      if (!token) {
+        console.error("Login failed. token value is:", token);
+        return;
       }
+      Cookies.set("token", token, { httpOnly: true, secure: true, sameSite: "Strict" });
+      alert("Login successful!");
+      navigateToHome();
     },
   });
 

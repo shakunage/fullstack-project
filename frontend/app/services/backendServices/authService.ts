@@ -1,13 +1,5 @@
 import axios from "axios";
 
-interface AuthCheckResponse {
-  username: string | false;
-}
-
-interface LogoutResponse {
-  message: string;
-}
-
 const API_URL = "http://localhost:9998/backend";
 
 export async function checkAuthStatus(): Promise<boolean> {
