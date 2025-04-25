@@ -32,4 +32,5 @@
 | 11 Apr 2025 | Major refactoring of the app: move data loading into service layer, QoL improvements | 4 |
 | 12 Apr 2025 | Further refactoring and separating layers | 2 |
 | 15 Apr 2025 | Bug fixing, state management improvements, miscallenous code improvements | 1.5 |
-| 2 Apr 2025 | Improving Docker setup, further refactoring of the service layer (data fetching and loaders) | 1 |
+| 22 Apr 2025 | Improving Docker setup, further refactoring of the service layer (data fetching and loaders) | 1 |
+| 24 Apr 2025 | Tidying up the API call logic in the forms (login, signup)  | 1 |
