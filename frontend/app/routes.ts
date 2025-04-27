@@ -11,8 +11,14 @@ export default [
     }),
     route("/favoritegames", "routes/favoritegames.tsx"),
   ]),
+  ...prefix("teams", [
+    index("routes/teams.tsx", { id: "routes/teams-index" }),
+    route(":date", "routes/teams.tsx", { id: "routes/teams-bydate" }),
+  ]),
   route("about", "routes/about.tsx"),
   route("contact", "routes/contact.tsx"),
+  route("players", "routes/players.tsx"),
+  route("bettinglines", "routes/bettinglines.tsx"),
   route("login", "routes/login.tsx"),
   route("signup", "routes/signup.tsx"),
 ] satisfies RouteConfig;

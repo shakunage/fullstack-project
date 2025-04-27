@@ -12,6 +12,7 @@
 - overhaul login and signup forms (lots of spaghetti code atm)
 - make use of goalie/skater/team specific endpoints
   - betting lines, drafts etc. 
+  - top bar tabs: games, teams, playoffs/regular season, players, betting lines, 
 - testing/formatting pipeline
 - slight UI improvements. e.g. date format on specific views etc.
 - add redis for caching
