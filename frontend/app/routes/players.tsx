@@ -15,8 +15,6 @@ export default function Players({ params }: LoaderFunctionArgs) {
     return <div>Error loading players</div>;
   }
 
-  console.log("Data from loader:", data);
-
   return (
     <main className="flex pt-16 pb-4 items-center gap-3 relative justify-center h-screen">
       <ul className="flex flex-col items-center">
