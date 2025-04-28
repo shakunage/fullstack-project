@@ -36,6 +36,16 @@ const topBarElements: { [key: string]: TopBarElement } = {
   players: {
     title: "Players",
     href: "/players",
+    dropdown: [
+      {
+        title: "Skaters",
+        href: "/players/skaters/",
+      },
+      {
+        title: "Goalies",
+        href: "/players/goalies/",
+      },
+    ],
   },
   bettinglines: {
     title: "Betting Lines",

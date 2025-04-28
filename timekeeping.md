@@ -34,3 +34,5 @@
 | 15 Apr 2025 | Bug fixing, state management improvements, miscallenous code improvements | 1.5 |
 | 22 Apr 2025 | Improving Docker setup, further refactoring of the service layer (data fetching and loaders) | 1 |
 | 24 Apr 2025 | Tidying up the API call logic in the forms (login, signup)  | 1 |
+| 27 Apr 2025 | Expanding functionality, adding top teams and top skaters views  | 3.5 |
+| 28 Apr 2025 |   |  |
