@@ -19,9 +19,9 @@ export function EndedGameHeader({
         {lastPeriod === "REG"
           ? " (Final)"
           : lastPeriod === "OT"
-            ? " (Final - OT)"
+            ? " (Final/OT)"
             : lastPeriod === "SO"
-              ? " (Final - SO)"
+              ? " (Final/SO)"
               : "(Unknown)"}
       </p>
     </>
