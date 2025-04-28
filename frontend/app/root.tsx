@@ -1,10 +1,11 @@
 import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Provider } from "react-redux";
 import store from "./store/store";
 import type { Route } from "./+types/root";
 import "./app.css";
 import { TopBar } from "./components/TopBar";
+import { Footer } from "./components/Footer";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -37,7 +38,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
 export default function App() {
   return (
@@ -46,6 +47,7 @@ export default function App() {
         <QueryClientProvider client={queryClient}>
           <TopBar />
           <Outlet />
+          <Footer />
         </QueryClientProvider>
       </Provider>
     </>

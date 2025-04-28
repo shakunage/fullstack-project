@@ -41,14 +41,6 @@ const topBarElements: { [key: string]: TopBarElement } = {
     title: "Betting Lines",
     href: "/bettinglines",
   },
-  about: {
-    title: "About",
-    href: "/about",
-  },
-  contact: {
-    title: "Contact",
-    href: "/contact",
-  },
 };
 
 export function TopBar() {
