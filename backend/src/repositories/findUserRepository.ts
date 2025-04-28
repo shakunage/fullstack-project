@@ -12,7 +12,7 @@ export async function findUserByEmail(email: string): Promise<UserToValidate> {
 }
 
 export async function findUserByToken(token: Token): Promise<UserSigninResponse> {
-  const tokenInDb = await prisma.authToken.findUnique({
+  const tokenInDb = await prisma.authToken.findFirst({
     where: { token: token.token },
   });
 
