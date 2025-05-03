@@ -1,6 +1,6 @@
 import { useLoaderData } from "react-router";
 import { topskatersLoader } from "../loaders/topskatersLoader";
-import { type TopSkaters } from "~/entities/TopSkaters";
+import { type TopSkaters } from "../entities/TopSkaters";
 
 export const loader = topskatersLoader;
 
@@ -41,8 +41,9 @@ export default function Players() {
     if (category === "faceoffLeaders" && typeof value === "number")
       return `${(value * 100).toFixed(1)}%`;
     if (category === "toi" && typeof value === "number") {
-      const minutes = Math.floor(value / 60);
-      const seconds = value % 60;
+      const totalSeconds = Math.floor(value); // Ensure we start with whole seconds
+      const minutes = Math.floor(totalSeconds / 60);
+      const seconds = totalSeconds % 60; // This will now be an integer
       return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
     }
     return String(value);
