@@ -3,15 +3,15 @@ import { AuthButtons } from "./AuthButtons";
 import { useSelector } from "react-redux";
 import type { RootState } from "~/store/store";
 
-type DropdownItem = {
-  title: string;
-  href: string;
+type Dropdown = {
+  loginRequired: boolean;
+  tabs: TopBarElement[];
 };
 
 type TopBarElement = {
   title: string;
   href: string;
-  dropdown?: DropdownItem[];
+  dropdown?: Dropdown;
 };
 
 const topBarElements: { [key: string]: TopBarElement } = {
@@ -22,12 +22,15 @@ const topBarElements: { [key: string]: TopBarElement } = {
   games: {
     title: "Games",
     href: "/games",
-    dropdown: [
-      {
-        title: "Favorited Games",
-        href: "/games/favoritegames/",
-      },
-    ],
+    dropdown: {
+      loginRequired: true,
+      tabs: [
+        {
+          title: "Favorited Games",
+          href: "/games/favoritegames/",
+        },
+      ],
+    },
   },
   teams: {
     title: "Teams",
@@ -36,16 +39,19 @@ const topBarElements: { [key: string]: TopBarElement } = {
   players: {
     title: "Players",
     href: "/players",
-    dropdown: [
-      {
-        title: "Skaters",
-        href: "/players/skaters/",
-      },
-      {
-        title: "Goalies",
-        href: "/players/goalies/",
-      },
-    ],
+    dropdown: {
+      loginRequired: false,
+      tabs: [
+        {
+          title: "Skaters",
+          href: "/players/skaters/",
+        },
+        {
+          title: "Goalies",
+          href: "/players/goalies/",
+        },
+      ],
+    },
   },
   bettinglines: {
     title: "Betting Lines",
@@ -61,7 +67,8 @@ export function TopBar() {
       <ul className="flex flex-row bg-gray-100 p-3">
         {Object.keys(topBarElements).map((key) => {
           const element = topBarElements[key];
-          const hasDropdown = element.dropdown && username;
+          const hasDropdown = element.dropdown;
+          const needsLogin = element.dropdown?.loginRequired;
 
           return (
             <li
@@ -71,13 +78,13 @@ export function TopBar() {
               <Link to={element.href}>
                 {element.title}
                 {/* Only show arrow if there's a dropdown and user is logged in */}
-                {hasDropdown && <span className="ml-1">∨</span>}
+                {hasDropdown && (!needsLogin || username) && <span className="ml-1">∨</span>}
               </Link>
 
-              {hasDropdown && (
+              {hasDropdown && (!needsLogin || username) && (
                 <div className="absolute top-full left-0 hidden w-48 bg-white shadow-md group-hover:block">
                   <ul>
-                    {element.dropdown?.map((item: DropdownItem, index: number) => (
+                    {element.dropdown?.tabs.map((item: TopBarElement, index: number) => (
                       <li key={index} className="p-2 hover:bg-gray-100">
                         <Link to={item.href}>{item.title}</Link>
                       </li>
