@@ -83,10 +83,18 @@ export function TopBar() {
 
               {hasDropdown && (!needsLogin || username) && (
                 <div className="absolute top-full left-0 hidden w-48 bg-white shadow-md group-hover:block">
-                  <ul>
+                  <ul className="list-none p-0 m-0">
+                    {" "}
+                    {/* Ensure ul has no default padding/margin */}
                     {element.dropdown?.tabs.map((item: TopBarElement, index: number) => (
-                      <li key={index} className="p-2 hover:bg-gray-100">
-                        <Link to={item.href}>{item.title}</Link>
+                      <li key={index}>
+                        {" "}
+                        {/* Remove classes from li */}
+                        <Link to={item.href} className="block p-2 hover:bg-gray-100">
+                          {" "}
+                          {/* Add classes to Link */}
+                          {item.title}
+                        </Link>
                       </li>
                     ))}
                   </ul>
