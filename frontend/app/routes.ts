@@ -20,7 +20,7 @@ export default [
   ...prefix("players", [
     index("routes/players.tsx", { id: "routes/players-index" }),
     route("skaters", "routes/players.tsx", { id: "routes/skaters" }),
-    route("goalies", "routes/players.tsx", {
+    route("goalies", "routes/goalies.tsx", {
       id: "routes/goalies",
     }),
   ]),
