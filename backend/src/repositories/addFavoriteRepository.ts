@@ -15,15 +15,6 @@ export async function addFavoriteRepository(game_id: Game["id"], user_id: User["
       await prisma.game.create({
         data: {
           id: game_id,
-          startTime: new Date(),
-          gameType: "Regular Season",
-          homeTeam: "Boston Bruins",
-          awayTeam: "Toronto Maple Leafs",
-          scoreHome: 3,
-          scoreAway: 2,
-          final: "Final",
-          season: "2024-2025",
-          venue: "TD Garden",
         },
       });
     }

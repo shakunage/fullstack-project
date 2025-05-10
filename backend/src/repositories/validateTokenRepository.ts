@@ -4,7 +4,7 @@ import { type Token } from "../interfaces";
 
 export async function validateTokenRepository(token: string): Promise<boolean> {
   try {
-    const tokenInDb = await prisma.authToken.findUnique({
+    const tokenInDb = await prisma.authToken.findFirst({
       where: { token: token, revoked: false },
     });
     if (tokenInDb) {

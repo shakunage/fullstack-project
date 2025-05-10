@@ -26,17 +26,6 @@ model User {
 
 model Game {
   id          String   @id
-  startTime   DateTime
-  gameType    String
-  homeTeam    String
-  awayTeam    String
-  scoreHome   Int
-  scoreAway   Int
-  final       String
-  season      String
-  venue       String
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
   favoritedBy User[]
 }
 
