@@ -1,16 +1,8 @@
-import React from "react";
-import { EndedGame } from "../components/GameCards/EndedGame";
-import { FutureGame } from "../components/GameCards/FutureGame";
-import { LiveGame } from "../components/GameCards/LiveGame";
 import { useLoaderData } from "react-router";
 import { favoritegamesLoader } from "~/loaders/favoritegamesLoader";
 import { fetchBoxscore } from "~/services/nhlApiServices/boxscoreService";
-import type { BoxscoreData } from "~/entities/BoxscoreData"; // Ensure this path is correct
-import { EndedGameHeader } from "../components/GameCards/subcomponents/EndedGameHeader";
-import { EndedGameDetails } from "../components/GameCards/subcomponents/EndedGameDetails";
-import { StartTimeToggle } from "../components/GameCards/subcomponents/StartTimeToggle";
-import { FavoriteService } from "~/services/backendServices/favoriteService";
-import { Venue } from "../components/GameCards/subcomponents/Venue";
+import type { BoxscoreData } from "~/entities/BoxscoreData";
+import { FavoriteGame } from "~/components/GameCards/FavoriteGame";
 
 export async function clientLoader(): Promise<BoxscoreData[]> {
   const favoriteGameIds = await favoritegamesLoader();
@@ -40,20 +32,15 @@ export default function FavoriteGames() {
     );
   }
 
+  // Sort games by startTimeUTC, latest to earliest
+  const sortedFavoriteGames = [...favoriteGamesData].sort(
+    (a, b) => new Date(b.startTimeUTC).getTime() - new Date(a.startTimeUTC).getTime()
+  );
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
-      {favoriteGamesData.map((game) => (
-        <div className="bg-white shadow-md rounded-lg p-4">
-          <React.Fragment key={game.id}>
-            <EndedGameHeader
-              lastPeriod={game.gameOutcome.lastPeriodType}
-              homeTeam={game.homeTeam}
-              awayTeam={game.awayTeam}
-            />
-            <StartTimeToggle gameStartTime={game.startTimeUTC} />
-            <Venue venue={game.venue.default} homeTeamAbbrev={game.homeTeam.abbrev} />
-          </React.Fragment>
-        </div>
+      {sortedFavoriteGames.map((game) => (
+        <FavoriteGame key={game.id} game={game} />
       ))}
     </div>
   );
