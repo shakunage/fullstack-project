@@ -14,8 +14,8 @@ export const loader = boxscoreLoader;
 
 export function EndedGame({ game }: { game: GameItem }) {
   const queryClient = useQueryClient();
-  const username = useSelector((state: RootState) => state.auth.username)
-  
+  const username = useSelector((state: RootState) => state.auth.username);
+
   const { data: favoriteStatus, isLoading } = useQuery({
     queryKey: ["checkfavorite", game.id],
     queryFn: () => FavoriteService.checkFavorite(game.id),
@@ -52,16 +52,19 @@ export function EndedGame({ game }: { game: GameItem }) {
         aria-label={favoriteStatus ? "Unfavorite" : "Favorite"}
         disabled={isLoading || favoriteMutation.isPending || unfavoriteMutation.isPending}
       >
-        {username
-        ? 
-        (isLoading || favoriteMutation.isPending || unfavoriteMutation.isPending 
-          ? "..."
-          : (favoriteStatus ? "★" : "☆")) 
-        : (<></>)
-        }
+        {username ? (
+          isLoading || favoriteMutation.isPending || unfavoriteMutation.isPending ? (
+            "..."
+          ) : favoriteStatus ? (
+            "★"
+          ) : (
+            "☆"
+          )
+        ) : (
+          <></>
+        )}
       </button>
       <div className="bg-white shadow-md rounded-lg p-4">
-        {/* Rest of your component */}
         <EndedGameHeader
           lastPeriod={game.gameOutcome.lastPeriodType}
           homeTeam={game.homeTeam}

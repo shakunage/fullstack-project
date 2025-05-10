@@ -6,7 +6,8 @@ type Broadcast = {
   sequenceNumber: number;
 };
 
-type Team = {
+export type Team = {
+  // Added export
   id: number;
   commonName: {
     default: string;
