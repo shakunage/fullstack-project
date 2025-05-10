@@ -4,15 +4,11 @@
   - 2025/02/18: installed, need to learn how to use
   - maybe watch a youtube video
   - let AI create the custom components
-- consider polling the api
-  - first, scrape past 10 seasons and store them into a database
-  - then implement a polling feature on the backend
-  - after scraping game data, scrape odds data
 - move endpoint addresses and secrets to ENV files
 - overhaul login and signup forms (lots of spaghetti code atm)
-- make use of goalie/skater/team specific endpoints
-  - drafts etc. 
-  - top bar tabs: games, teams, playoffs/regular season, players, etc.
+- get rid axios api calls and migrate to fetch
+- add a calendar scroller for the betting lines view
+- make all game cards clickable and add a nice and beefy, as well as responsive view for individual games
 - testing/formatting pipeline
 - slight UI improvements. e.g. date format on specific views etc.
 - add redis for caching
@@ -25,4 +21,3 @@
     - "for the past 30 games, simulate the returns for betting for a Hellebuyck win"
   - add "statistics about the season" page
     - goal averages, PP averages, save-% averages, etc.
-  - add capability to import/export data

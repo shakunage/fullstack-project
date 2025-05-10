@@ -36,3 +36,5 @@
 | 24 Apr 2025 | Tidying up the API call logic in the forms (login, signup)  | 1 |
 | 27 Apr 2025 | Expanding functionality, adding top teams and top skaters views  | 3.5 |
 | 28 Apr 2025 | Expanding functionality: adding the view for betting lines, separating players' stats into skaters and goalies, implementing a footer  | 2.5 |
+| 3 May 2025 | Further expanding of functionality including data loading, improving the look and feel of routes, fixing Top Bar UI bugs  | 3.5 |
+| 10 May 2025 | Major overhaul of the Favorite Games view and backend functionality | 4.5 |
