@@ -23,7 +23,8 @@ export function GameDetailsButton({ game }: { game: GameItem }) {
     staleTime: 60 * 1000, // 1 minute
   });
 
-  const handleToggleDetails = async (): Promise<void> => {
+  const handleToggleDetails = async (event: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
+    event.stopPropagation();
     if (!showDetails) {
       setLoading(true);
 
@@ -44,8 +45,8 @@ export function GameDetailsButton({ game }: { game: GameItem }) {
   return (
     <>
       <button
-        onClick={() => {
-          void handleToggleDetails();
+        onClick={(event) => {
+          void handleToggleDetails(event);
         }}
         className="w-full mt-4 p-2 bg-blue-500 text-white rounded text-center"
         disabled={isLoadingData}

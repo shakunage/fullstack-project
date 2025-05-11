@@ -13,7 +13,7 @@ export function FutureGame({ game }: { game: GameItem }) {
   });
 
   return (
-    <div className="bg-white shadow-md rounded-lg p-4">
+    <div className="shadow-md rounded-lg p-4">
       <h2 className="text-xl font-bold mb-2">
         {game.homeTeam.name.default} vs. {game.awayTeam.name.default}
       </h2>

@@ -36,7 +36,8 @@ export function EndedGame({ game }: { game: GameItem }) {
     },
   });
 
-  const handleFavoriteToggle = () => {
+  const handleFavoriteToggle = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
     if (favoriteStatus) {
       unfavoriteMutation.mutate();
     } else {
@@ -48,7 +49,7 @@ export function EndedGame({ game }: { game: GameItem }) {
     <div className="relative">
       <button
         className={`absolute top-2 right-2 ${favoriteStatus ? "text-yellow-500" : "text-gray-400"}`}
-        onClick={handleFavoriteToggle}
+        onClick={(event) => handleFavoriteToggle(event)}
         aria-label={favoriteStatus ? "Unfavorite" : "Favorite"}
         disabled={isLoading || favoriteMutation.isPending || unfavoriteMutation.isPending}
       >
@@ -64,7 +65,7 @@ export function EndedGame({ game }: { game: GameItem }) {
           <></>
         )}
       </button>
-      <div className="bg-white shadow-md rounded-lg p-4">
+      <div className="shadow-md rounded-lg p-4">
         <EndedGameHeader
           lastPeriod={game.gameOutcome.lastPeriodType}
           homeTeam={game.homeTeam}

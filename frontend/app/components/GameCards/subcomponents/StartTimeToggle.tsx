@@ -12,7 +12,10 @@ export function StartTimeToggle({ gameStartTime }: { gameStartTime: string }) {
     <>
       <span>Start Time: {showLocalTime ? localTime : easternTime}</span>
       <button
-        onClick={() => setShowLocalTime(!showLocalTime)}
+        onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
+          event.stopPropagation();
+          setShowLocalTime(!showLocalTime);
+        }}
         className="ml-2 p-1 bg-blue-500 text-white rounded text-[10px]"
       >
         Show {showLocalTime ? "Eastern Time" : "User Time"}

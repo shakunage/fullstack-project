@@ -15,6 +15,7 @@ export function EndedGameDetails({
           <a
             href={`https://www.nhl.com${threeMinRecapLink}`}
             className="text-blue-500 hover:underline flex items-center ml-2"
+            onClick={(event) => event.stopPropagation()}
           >
             <PlayVideoButton />
           </a>
@@ -26,6 +27,7 @@ export function EndedGameDetails({
           <a
             href={`https://www.nhl.com${condensedGameLink}`}
             className="text-blue-500 hover:underline flex items-center ml-2"
+            onClick={(event) => event.stopPropagation()}
           >
             <PlayVideoButton />
           </a>

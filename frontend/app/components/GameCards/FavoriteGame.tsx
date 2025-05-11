@@ -3,6 +3,7 @@ import type { BoxscoreData } from "~/entities/BoxscoreData"; // Ensure this path
 import { EndedGameHeader } from "./subcomponents/EndedGameHeader";
 import { StartTimeToggle } from "./subcomponents/StartTimeToggle";
 import { Venue } from "./subcomponents/Venue";
+import { useNavigate } from "react-router";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSelector } from "react-redux";
 import type { RootState } from "~/store/store";
@@ -10,6 +11,7 @@ import { FavoriteService } from "~/services/backendServices/favoriteService";
 
 export function FavoriteGame({ game }: { game: BoxscoreData }) {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const username = useSelector((state: RootState) => state.auth.username);
 
   const { data: favoriteStatus, isLoading } = useQuery({
@@ -39,6 +41,11 @@ export function FavoriteGame({ game }: { game: BoxscoreData }) {
       favoriteMutation.mutate();
     }
   };
+
+  const handleGameClick = (gameId: number) => {
+    void navigate(`/about`);
+  };
+
   return (
     <div className="relative">
       <button
@@ -59,7 +66,11 @@ export function FavoriteGame({ game }: { game: BoxscoreData }) {
           <></>
         )}
       </button>
-      <div className="bg-white shadow-md rounded-lg p-4">
+      <div
+        key={game.id}
+        className="hover:bg-gray-200 cursor-pointer shadow-md rounded-lg p-4"
+        onClick={() => handleGameClick(game.id)}
+      >
         <React.Fragment key={game.id}>
           <EndedGameHeader
             lastPeriod={game.gameOutcome.lastPeriodType}
