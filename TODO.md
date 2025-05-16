@@ -9,6 +9,8 @@
 - get rid axios api calls and migrate to fetch
 - add a calendar scroller for the betting lines view
 - make all game cards clickable and add a nice and beefy, as well as responsive view for individual games
+- more data integrations, such as natural stat trick and moneypuck, polymarket sports
+- enable pagination for the /favoritegames page
 - testing/formatting pipeline
 - slight UI improvements. e.g. date format on specific views etc.
 - add redis for caching
