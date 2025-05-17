@@ -2,6 +2,13 @@ import axios, { type AxiosResponse, type Method } from "axios";
 
 const API_URL = "http://localhost:9998/backend";
 
+type PaginatedFavoritesResponse = {
+  gameIds: string[];
+  totalGames: number;
+  currentPage: number;
+  totalPages: number;
+};
+
 async function apiRequest<T>(
   method: Method,
   endpoint: string,
@@ -40,6 +47,11 @@ export const FavoriteService = {
   removeFavorite: (gameId: number): Promise<number> =>
     apiRequest<number>("delete", "/favorite", (res) => res.status, 0, `?id=${gameId}`),
 
-  getFavoriteList: (): Promise<string[]> =>
-    apiRequest<string[]>("get", "/favoritegames", (res) => res.data, []),
+  getFavoriteList: (page?: number | 1, limit?: number | 9): Promise<PaginatedFavoritesResponse> =>
+    apiRequest<PaginatedFavoritesResponse>(
+      "get",
+      `/favoritegames?page=${page}?limit=${limit}`,
+      (res) => res.data,
+      {} as PaginatedFavoritesResponse
+    ),
 };

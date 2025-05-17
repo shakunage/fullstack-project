@@ -40,3 +40,4 @@
 | 10 May 2025 | Major overhaul of the Favorite Games view and backend functionality | 4.5 |
 | 11 May 2025 | Making game cards clickable, adding a dedicated page for a single game, refactoring of components failed attempet to implement date view for betting lines | 3 |
 | 16 May 2025 | Improve database query logic for favorite games  | 0.5 |
+| 17 May 2025 | Initial implementation for pagination in the Favorite Games page  | 2.5 |
