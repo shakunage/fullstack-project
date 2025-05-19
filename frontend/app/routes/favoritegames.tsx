@@ -1,10 +1,13 @@
-import { useLoaderData, Link } from "react-router";
+import { useLoaderData, useSearchParams } from "react-router";
 import { favoritegamesLoader } from "~/loaders/favoritegamesLoader";
 import { FavoriteGame } from "~/components/GameCards/FavoriteGame";
 
 export const clientLoader = favoritegamesLoader;
 
 export default function FavoriteGames() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  // const page = parseInt(searchParams.get("page") ?? "1"); // Default to page 1
+  // const limit = parseInt(searchParams.get("limit") ?? "9"); // Default to limit 9
   const { games, currentPage, totalPages, totalGames } = useLoaderData<typeof clientLoader>();
 
   if (totalGames === 0) {
@@ -33,33 +36,30 @@ export default function FavoriteGames() {
     return (
       <nav aria-label="Pagination" className="flex justify-center items-center space-x-2 my-8">
         {currentPage > 1 && (
-          <Link
-            to={getPageLink(currentPage - 1)}
+          <button
+            onClick={() => {setSearchParams({ page: (parseInt(searchParams.get("page") ?? "1") - 1).toString() })}}
             className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100"
-            preventScrollReset // Optional: prevent scroll to top on navigation
           >
             Previous
-          </Link>
+          </button>
         )}
         {pages.map((page) => (
-          <Link
+          <button
             key={page}
-            to={getPageLink(page)}
+            onClick={() => {setSearchParams({ page: page.toString() })}}
             className={`px-4 py-2 border border-gray-300 rounded-md 
                         ${page === currentPage ? "bg-blue-500 text-white" : "text-gray-700 hover:bg-gray-100"}`}
-            preventScrollReset
           >
             {page}
-          </Link>
+          </button>
         ))}
         {currentPage < totalPages && (
-          <Link
-            to={getPageLink(currentPage + 1)}
+          <button
+            onClick={() => {setSearchParams({page: (parseInt(searchParams.get("page") ?? "1") - 1).toString()})}}
             className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100"
-            preventScrollReset
           >
             Next
-          </Link>
+          </button>
         )}
       </nav>
     );

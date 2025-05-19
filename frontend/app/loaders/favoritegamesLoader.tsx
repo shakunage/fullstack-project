@@ -1,4 +1,4 @@
-import { type LoaderFunctionArgs } from "react-router";
+import { type ClientLoaderFunctionArgs } from "react-router";
 import { FavoriteService } from "~/services/backendServices/favoriteService";
 import { fetchBoxscore } from "~/services/nhlApiServices/boxscoreService";
 import type { BoxscoreData } from "~/entities/BoxscoreData";
@@ -17,10 +17,12 @@ type FavoriteGamesLoaderData = {
   totalGames: number;
 };
 
-export const favoritegamesLoader = async ({ params }: LoaderFunctionArgs) => {
-  const page = params.page ? parseInt(params.page) : 1; // Default to page 1
-  const limit = params.limit ? parseInt(params.limit) : 9; // Default to limit 9
+export const favoritegamesLoader = async ({ request }: ClientLoaderFunctionArgs) => {
+  const url = new URL(request.url);
+  const page = parseInt(url.searchParams.get("page") ?? "1") ; // Default to page 1
+  const limit = parseInt(url.searchParams.get("limit") ?? "9")  // Default to limit 9
   console.log("Page:", page);
+  console.log("Limit:", limit);
   try {
     const favoriteGamesResponse: FavoriteGamesServiceData = await FavoriteService.getFavoriteList(
       page,
@@ -45,7 +47,7 @@ export const favoritegamesLoader = async ({ params }: LoaderFunctionArgs) => {
       currentPage,
       totalPages,
       totalGames,
-    };
+    } as FavoriteGamesLoaderData;
   } catch (error) {
     console.error("Error fetching data:", error);
     throw new Error("Error fetching data");
