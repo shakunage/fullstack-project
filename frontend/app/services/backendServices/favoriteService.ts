@@ -50,7 +50,7 @@ export const FavoriteService = {
   getFavoriteList: (page?: number | 1, limit?: number | 9): Promise<PaginatedFavoritesResponse> =>
     apiRequest<PaginatedFavoritesResponse>(
       "get",
-      `/favoritegames?page=${page}?limit=${limit}`,
+      `/favoritegames?page=${page}&limit=${limit}`,
       (res) => res.data,
       {} as PaginatedFavoritesResponse
     ),

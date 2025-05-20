@@ -26,11 +26,13 @@ router.get(
     }
 
     const page = parseInt(req.query.page as string) || 1; // Default to page 1
-    const limit = 9; // As per requirement
+    const limit = parseInt(req.query.limit as string) || 9; // As per requirement
     const skip = (page - 1) * limit;
     console.log("Page:", page);
     console.log("Skip:", skip);
-
+    console.log("limit:", limit);
+    console.log("req.query object:", req.query);
+    
     try {
       const tokenValidity = await validateTokenRepository(token);
       if (!tokenValidity) {

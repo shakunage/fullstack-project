@@ -41,4 +41,5 @@
 | 11 May 2025 | Making game cards clickable, adding a dedicated page for a single game, refactoring of components failed attempet to implement date view for betting lines | 3 |
 | 16 May 2025 | Improve database query logic for favorite games  | 0.5 |
 | 17 May 2025 | Initial implementation for pagination in the Favorite Games page  | 2.5 |
-| 19 May 2025 | Fix implementation of pagination  | 1.5 |
+| 19 May 2025 | Fix implementation of pagination | 1.5 |
+| 20 May 2025 | Add "items per page" to the favorite games navigation, and improve UI (loading animation) | 2.0 |

@@ -14,7 +14,7 @@ export async function favoriteListRepository(
         },
       },
       select: { id: true },
-      skip: skip, // Added skip
+      skip: skip,
       take: take,
     });
 

@@ -21,8 +21,6 @@ export const favoritegamesLoader = async ({ request }: ClientLoaderFunctionArgs)
   const url = new URL(request.url);
   const page = parseInt(url.searchParams.get("page") ?? "1") ; // Default to page 1
   const limit = parseInt(url.searchParams.get("limit") ?? "9")  // Default to limit 9
-  console.log("Page:", page);
-  console.log("Limit:", limit);
   try {
     const favoriteGamesResponse: FavoriteGamesServiceData = await FavoriteService.getFavoriteList(
       page,

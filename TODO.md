@@ -11,6 +11,7 @@
 - make all game cards clickable and add a nice and beefy, as well as responsive view for individual games
 - refactoring tasklist:
   - get rid of axios api calls and migrate to fetch
+- switch to db-side sorting of favorite games
 - add a view for individual games
 - more data integrations, such as natural stat trick and moneypuck, polymarket sports
 - enable pagination for the /favoritegames page
