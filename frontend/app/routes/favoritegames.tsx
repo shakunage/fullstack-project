@@ -74,8 +74,8 @@ export default function FavoriteGames() {
       <label htmlFor="itemsPerPage" className="mr-2 text-sm text-gray-700">Items per page:</label>
       <select
         id="itemsPerPage"
-        value={searchParams.get("limit") ?? 1}
-        onChange={(e) => {setSearchParams({ limit: e.target.value, page: searchParams.get("page")?.toString() ?? "1" }, { preventScrollReset: true })}}
+        value={searchParams.get("limit") ?? "9"}
+        onChange={(e) => {setSearchParams({ limit: e.target.value, page: "1" }, { preventScrollReset: true })}}
         className="px-3 py-2 border border-gray-300 rounded-md text-sm text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
       >
         {pageCountOptions.map(option => (

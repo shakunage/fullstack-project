@@ -17,10 +17,6 @@ export function MatchDayGames() {
     return <div>Loading...</div>;
   }
 
-  if (data.length === 0) {
-    return <div>No games scheduled for today</div>;
-  }
-
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
       {data.map((game) => (
