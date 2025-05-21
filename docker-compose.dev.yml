@@ -43,7 +43,8 @@ services:
       - fs-network
     container_name: backend
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
   reverseproxy:
     image: nginx:1.20.1
     volumes:
