@@ -43,11 +43,6 @@ export default function GameByDate({ params }: LoaderFunctionArgs) {
   return (
     <main className="flex pt-16 pb-4">
       <div className="flex-1 flex flex-col items-center gap-4 min-h-0">
-        <div className="relative w-full">
-          {changeDateQuery.isLoading && (
-            <div className="spinner border-t-4 border-blue-500 rounded-full w-8 h-8 animate-spin absolute top-[-2rem] left-1/2 transform -translate-x-1/2"></div>
-          )}
-        </div>
         <div className="flex items-center gap-2">
           <button
             onClick={() => {
@@ -76,9 +71,21 @@ export default function GameByDate({ params }: LoaderFunctionArgs) {
           </button>
         </div>
         <p />
-        {params.date ? <>{data.length} games scheduled for {params.date}</> : <>{data.length} games scheduled for today</>}
-        <p></p>
-        <MatchDayGames />
+        <div className="relative w-full">
+          {changeDateQuery.isLoading ? (
+            <div className="mb-500 mt-20">
+              <div className="spinner border-t-4 border-blue-500 rounded-full w-8 h-8 animate-spin absolute top-[-2rem] left-1/2 transform -translate-x-1/2"></div>
+            </div>
+          ): (
+            <>
+            <div className="flex flex-col items-center gap-4 min-h-0 flex items-center">
+              {params.date ? <>{data.length} games scheduled for {params.date}</> : <>{data.length} games scheduled for today</>}
+              <p></p>
+            </div>
+            <MatchDayGames/>
+            </>
+          )}
+        </div>
       </div>
     </main>
   );
