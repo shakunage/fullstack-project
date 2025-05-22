@@ -2,12 +2,12 @@ import { useLoaderData, useSearchParams, useNavigation } from "react-router";
 import { favoritegamesLoader } from "~/loaders/favoritegamesLoader";
 import { FavoriteGame } from "~/components/GameCards/FavoriteGame";
 
-export const clientLoader = favoritegamesLoader;
+export const loader = favoritegamesLoader;
 
 export default function FavoriteGames() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const { games, currentPage, totalPages, totalGames } = useLoaderData<typeof clientLoader>();
+  const { games, currentPage, totalPages, totalGames } = useLoaderData<typeof loader>();
   const navigation = useNavigation();
   const pageCountOptions = ["9", "18", "27"]
 
