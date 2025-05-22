@@ -16,6 +16,9 @@ export async function favoriteListRepository(
       select: { id: true },
       skip: skip,
       take: take,
+      orderBy: {
+        id: "desc", // Sort by id in descending order
+      },
     });
 
     // Return true if the game is in the user's favorites (length > 0)
