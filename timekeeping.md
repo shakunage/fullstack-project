@@ -44,3 +44,5 @@
 | 19 May 2025 | Fix implementation of pagination | 1.5 |
 | 20 May 2025 | Add an "items per page" menu to the favorite games navigation and improve UI (loading animation) | 2 |
 | 21 May 2025 | Fix backend-postgres healthcheck, UI overhaul during loading animation for the Games page | 1 |
+| 22 May 2025 | Fix DB side sorting for favorite games, move fetching of favorite games to server side | 1.5 |
+| 23 May 2025 | Significant refactoring of the favorite list fetching/loading logic | 1 |

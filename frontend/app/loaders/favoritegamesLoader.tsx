@@ -1,8 +1,8 @@
 import axios from "axios";
 import { type LoaderFunctionArgs } from "react-router";
-import { FavoriteService } from "~/services/backendServices/favoriteService";
-import { fetchBoxscore } from "~/services/nhlApiServices/boxscoreService";
+import { FavoriteListService } from "~/services/backendServices/favoriteListService";
 import type { BoxscoreData } from "~/entities/BoxscoreData";
+import { getBoxscore } from "~/services/nhlApiServices/boxscoreService";
 
 type FavoriteGamesServiceData = {
   gameIds: string[];
@@ -20,17 +20,12 @@ type FavoriteGamesLoaderData = {
 
 export const favoritegamesLoader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
-  console.log("URL:", url);
+  const headers = request.headers.get("Cookie")
   const page = parseInt(url.searchParams.get("page") ?? "1") ; // Default to page 1
   const limit = parseInt(url.searchParams.get("limit") ?? "9")  // Default to limit 9
 
-  console.log("page:", page);
-  console.log("limit:", limit);
-
   try {
-    const favoriteGamesResponse: FavoriteGamesServiceData = await axios.get(`http://backend:8080/favoritegames?page=${page}&limit=${limit}`, { headers: {"Cookie": request.headers.get("Cookie")}}).then((res) => res.data);
-
-    console.log("favoriteGamesResponse in loader", favoriteGamesResponse);
+    const favoriteGamesResponse: FavoriteGamesServiceData = await FavoriteListService(headers, page, limit);
 
     const { gameIds, totalGames, currentPage, totalPages } = favoriteGamesResponse;
 
@@ -38,7 +33,7 @@ export const favoritegamesLoader = async ({ request }: LoaderFunctionArgs) => {
       return { games: [], currentPage, totalPages, totalGames };
     }
     const gameDetailsPromises = gameIds.map((gameId) => {
-      return axios.get(`http://rrv7front:5173/games/0000-00-00/${gameId}`).then((res) => res.data); // Pass a dummy date for gameDate
+      return getBoxscore(gameId); // Pass a dummy date for gameDate
     });
     const gameDetailsResults = await Promise.all(gameDetailsPromises);
     // Sort games by startTimeUTC, latest to earliest, return games

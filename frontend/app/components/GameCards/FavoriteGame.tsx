@@ -7,8 +7,6 @@ import { FavoriteButton } from "./subcomponents/FavoriteButton";
 import { useNavigate } from "react-router";
 import { favoritegamesLoader } from "~/loaders/favoritegamesLoader"; // Ensure this path is correct
 
-export const loader = favoritegamesLoader;
-
 export function FavoriteGame({ game }: { game: BoxscoreData }) {
   const navigate = useNavigate();
 

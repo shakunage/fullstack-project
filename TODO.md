@@ -9,6 +9,7 @@
 - make all game cards clickable and add a nice and beefy, as well as responsive view for individual games
 - refactoring tasklist:
   - get rid of axios api calls and migrate to fetch
+  - split favoriteListService into its own file
 - more data integrations, such as natural stat trick and moneypuck, polymarket sports
 - testing/formatting pipeline
 - slight UI improvements. e.g. date format on specific views etc.
