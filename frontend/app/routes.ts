@@ -25,6 +25,8 @@ export default [
     }),
   ]),
   route("bettinglines", "routes/bettinglines.tsx"),
+  // individual game details
+  route("game/:game_id", "routes/game.tsx"),
   // login and signup
   route("login", "routes/login.tsx"),
   route("signup", "routes/signup.tsx"),

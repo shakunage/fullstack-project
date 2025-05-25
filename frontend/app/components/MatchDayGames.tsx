@@ -25,7 +25,7 @@ export function MatchDayGames() {
           className="hover:bg-gray-200 cursor-pointer"
           onClick={() => handleGameClick(game.id)}
         >
-          {game.gameState === "FUT" || "PRE" ? (
+          {game.gameState === "FUT" || game.gameState === "PRE" ? (
             <FutureGame game={game} />
           ) : game.gameState === "LIVE" || game.gameState === "CRIT" ? (
             <LiveGame game={game} />
