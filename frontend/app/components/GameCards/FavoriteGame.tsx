@@ -5,13 +5,12 @@ import { StartTimeToggle } from "./subcomponents/StartTimeToggle";
 import { Venue } from "./subcomponents/Venue";
 import { FavoriteButton } from "./subcomponents/FavoriteButton";
 import { useNavigate } from "react-router";
-import { favoritegamesLoader } from "~/loaders/favoritegamesLoader"; // Ensure this path is correct
 
 export function FavoriteGame({ game }: { game: BoxscoreData }) {
   const navigate = useNavigate();
 
   const handleGameClick = (gameId: number) => {
-    void navigate(`/about`);
+    void navigate(`/game/${gameId}`);
   };
 
   if (!game.id) {

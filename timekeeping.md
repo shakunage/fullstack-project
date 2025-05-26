@@ -46,3 +46,5 @@
 | 21 May 2025 | Fix backend-postgres healthcheck, UI overhaul during loading animation for the Games page | 1 |
 | 22 May 2025 | Fix DB side sorting for favorite games, move fetching of favorite games to server side | 1.5 |
 | 23 May 2025 | Significant refactoring of the favorite list fetching/loading logic | 1 |
+| 25 May 2025 | Add a new skeleton route for individual games | 0.5 |
+| 26 May 2025 | Implement a simple view for individual games | 1 |

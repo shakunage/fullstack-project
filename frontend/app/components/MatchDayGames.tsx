@@ -10,7 +10,7 @@ export function MatchDayGames() {
   const navigate = useNavigate();
 
   const handleGameClick = (gameId: number) => {
-    void navigate(`/about`);
+    void navigate(`/game/${gameId}`);
   };
 
   if (!data) {
