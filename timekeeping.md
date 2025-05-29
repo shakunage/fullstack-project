@@ -48,3 +48,4 @@
 | 23 May 2025 | Significant refactoring of the favorite list fetching/loading logic | 1 |
 | 25 May 2025 | Add a new skeleton route for individual games | 0.5 |
 | 26 May 2025 | Implement a simple view for individual games | 1 |
+| 29 May 2025 | Add a new loader & service for external data, start refactoring the data loading functions, brush up the individual game view | 2 |

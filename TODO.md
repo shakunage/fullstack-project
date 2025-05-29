@@ -7,6 +7,7 @@
 - move endpoint addresses and secrets to ENV files
 - overhaul login and signup forms (lots of spaghetti code atm)
 - make all game cards clickable and add a nice and beefy, as well as responsive view for individual games
+- fix entity imports
 - refactoring tasklist:
   - get rid of axios api calls and migrate to fetch
 - more data integrations, such as natural stat trick and moneypuck, polymarket sports
