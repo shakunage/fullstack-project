@@ -1,5 +1,4 @@
 import { useForm } from "@tanstack/react-form";
-import axios from "axios";
 import Cookies from "js-cookie";
 import { navigateToHome } from "~/utils/navigateToHome";
 import { loginUser } from "../services/backendServices/loginService";
@@ -24,7 +23,7 @@ export default function Login() {
     },
     onSubmit: async ({ value }) => {
       // Do something with form data
-      const token = await loginUser(value);
+      const token = await loginUser(value.email, value.password);
       if (!token) {
         console.error("Login failed. token value is:", token);
         return;

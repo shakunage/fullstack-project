@@ -1,4 +1,3 @@
-import axios from "axios";
 import Cookies from "js-cookie";
 import { useForm } from "@tanstack/react-form";
 import type { AnyFieldApi } from "@tanstack/react-form";
@@ -25,7 +24,7 @@ export default function Signup() {
     },
     onSubmit: async ({ value }) => {
       // Do something with form data
-      const token = await signupService(value);
+      const token = await signupService(value.name, value.email, value.password);
       if (!token) { 
         return;
       }

@@ -1,11 +1,37 @@
-import axios from "axios";
+import { type GenericFetchOptions, genericFetch } from "../genericApiService";
 
 const API_URL = "http://localhost:9998/backend";
 
 export async function checkAuthStatus(): Promise<boolean> {
-  return axios.get<boolean>(`${API_URL}/authcheck`, { withCredentials: true }).then((res) => res.data);
+  const fetchOptions: GenericFetchOptions<boolean> = {
+    method: "GET",
+    endpoint: `${API_URL}/authcheck`,
+    dataTransform: async (response) => await response.json() as boolean,
+    defaultValue: false,
+    credentials: "include", // Ensure cookies are sent with the request
+  };
+  try {
+    const authcheckResponse: boolean = await genericFetch(fetchOptions);
+    return authcheckResponse;
+  } catch (error) {
+    console.error("Error fetching auth status:", error);
+    throw error;
+  }
 }
 
-export async function logoutUser(): Promise<string | false> {
-  return axios.get(`${API_URL}/logout`, { withCredentials: true }).then((res) => res.data);
+export async function logoutUser(): Promise<string | boolean> {
+  const fetchOptions: GenericFetchOptions<boolean> = {
+    method: "GET",
+    endpoint: `${API_URL}/logout`,
+    dataTransform: async (response) => await response.json() as boolean,
+    defaultValue: false,
+    credentials: "include", // Ensure cookies are sent with the request
+  };
+  try {
+    const logoutResponse: boolean = await genericFetch(fetchOptions);
+    return logoutResponse;
+  } catch (error) {
+    console.error("Error logging out:", error);
+    throw error;
+  }
 }

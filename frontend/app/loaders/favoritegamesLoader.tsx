@@ -1,4 +1,3 @@
-import axios from "axios";
 import { type LoaderFunctionArgs } from "react-router";
 import { FavoriteListService } from "~/services/backendServices/favoriteListService";
 import type { BoxscoreData } from "~/entities/BoxscoreData";

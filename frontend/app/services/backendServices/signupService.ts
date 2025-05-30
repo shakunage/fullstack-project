@@ -1,16 +1,24 @@
-import axios from "axios";
-
+import { type GenericFetchOptions, genericFetch } from "../genericApiService";
 const API_URL = "http://localhost:9998/backend/signup";
 
-export async function signupService(value: {name: string, email: string, password: string,}): Promise<string | false> {
+export async function signupService(name: string, email: string, password: string): Promise<string | false> {
+    const GenericFetchOptions: GenericFetchOptions<string> = {
+        method: "POST",
+        endpoint: API_URL,
+        dataTransform: async (response) => response.json() as Promise<string>,
+        defaultValue: "",
+        body: {
+            name,
+            email,
+            password,
+        },
+    };
     try {
-        const { name, email, password } = value;
-        const response = await axios.post(API_URL, { name, email, password });
-        const token  = response.data;
+        const token: string = await genericFetch(GenericFetchOptions) as string;
         return token;
-    } catch (error) {
-        console.error("Signup failed:", error);
-        alert("Signup failed. Please try again.");
-        return false;
     }
-}
+    catch (error) {
+        console.error("Error during signup:", error);
+        return false; // Return false on error
+    };
+};

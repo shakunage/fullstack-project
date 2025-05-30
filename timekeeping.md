@@ -49,3 +49,4 @@
 | 25 May 2025 | Add a new skeleton route for individual games | 0.5 |
 | 26 May 2025 | Implement a simple view for individual games | 1 |
 | 29 May 2025 | Add a new loader & service for external data, start refactoring the data loading functions, brush up the individual game view | 2 |
+| 30 May 2025 | Complete (apart from FavoriteService) refactoring of data fetching functions & migration from axios to fetch | 4 |

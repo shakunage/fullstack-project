@@ -6,16 +6,18 @@ export type GenericFetchOptions<T> = {
   queryParameter?: string;
   body?: object;
   headers?: Record<string, string>;
+  credentials?: 'omit' | 'same-origin' | 'include';
 }
 
 export async function genericFetch<T>({
   method,
   endpoint,
+  queryParameter,
   dataTransform,
   defaultValue,
-  queryParameter,
-  body,
+  body = {}, // Default to an empty object for body
   headers = {}, // Default to an empty object for headers
+  credentials = 'omit',
 }: GenericFetchOptions<T>): Promise<T> {
   let url = `${endpoint}`;
   if (queryParameter) {
@@ -25,9 +27,6 @@ export async function genericFetch<T>({
   const fetchConfig: RequestInit = {
     method: method,
     headers: {
-      // Default headers - can be overridden or extended by the headers parameter
-      // 'Content-Type' is typically needed for POST/PUT/PATCH with a JSON body
-      // 'Accept' can be useful to specify expected response type
       ...headers, // User-provided headers will override defaults if keys match
     },
   };
@@ -38,13 +37,6 @@ export async function genericFetch<T>({
     if (!headers['Content-Type'] && !headers['content-type']) {
       fetchConfig.headers = { ...fetchConfig.headers, 'Content-Type': 'application/json' };
     }
-  }
-
-  // For GET or DELETE, a body is not typical, and Content-Type for the request might not be needed.
-  if (method === 'GET' || method === 'DELETE') {
-    // If a Content-Type was set by default and isn't overridden for a GET/DELETE,
-    // it might be fine, or you could explicitly remove it if it causes issues with your server.
-    // delete fetchConfig.headers['Content-Type']; // Example: if you want to ensure no Content-Type
   }
 
   try {
@@ -77,13 +69,9 @@ export async function genericFetch<T>({
       return defaultValue; // Return the default value on HTTP error
     }
 
-    // If response.ok, proceed to transform the data using the provided function
-    // The dataTransform function is responsible for calling .json(), .text(), etc.
     return await dataTransform(response);
 
   } catch (error) {
-    // This catches network errors (e.g., DNS resolution failure, server unreachable)
-    // or errors thrown during the response.json()/text() if dataTransform fails.
     console.error(
       `[API Fetch Error] Network or parsing error for ${method} ${url}:`,
       {

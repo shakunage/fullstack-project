@@ -1,16 +1,20 @@
-import axios from "axios";
+import { type GenericFetchOptions, genericFetch } from "../genericApiService";
 
 const API_URL = "http://localhost:9998/backend/login";
 
-export async function loginUser(value: {email: string, password: string,}): Promise<string | false> {
+export async function loginUser(email: string, password: string): Promise<string | boolean> {
+    const fetchOptions: GenericFetchOptions<Promise<string | false>> = {
+        method: "POST",
+        endpoint: API_URL,
+        dataTransform: async (response) => await response.json(),
+        defaultValue: Promise.resolve(false),
+        body: { email, password }
+    };
     try {
-        const { email, password } = value;
-        const response = await axios.post(API_URL, { email, password });
-        const token  = response.data;
-        return token;
+        const loginResponse: string | false = await genericFetch(fetchOptions);
+        return loginResponse;
     } catch (error) {
-        console.error("Login failed:", error);
-        alert("Login failed. Please try again.");
+        console.error("Error logging in:", error);
         return false;
     }
 }
