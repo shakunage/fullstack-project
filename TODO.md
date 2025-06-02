@@ -5,14 +5,15 @@
   - maybe watch a youtube video
   - let AI create the custom components
 - move endpoint addresses and secrets to ENV files
-- overhaul login and signup forms (lots of spaghetti code atm)
 - make all game cards clickable and add a nice and beefy, as well as responsive view for individual games
+  - make it so that game landing page is used for initial data, then boxscore is loaded upon button click
 - fix entity imports
 - refactoring tasklist:
-  - get rid of axios api calls and migrate to fetch
+  - usequery hooks into a separate file
+  - most files in the routes/ folder are terrible slop, refactor into components, utils, services, hooks
+  - refactor the useQuery boxscore hook into its own file
 - more data integrations, such as natural stat trick and moneypuck, polymarket sports
 - testing/formatting pipeline
-- slight UI improvements. e.g. date format on specific views etc.
 - add redis for caching
 - some feature ideas:
   - add statistics pages
@@ -23,3 +24,4 @@
     - "for the past 30 games, simulate the returns for betting for a Hellebuyck win"
   - add "statistics about the season" page
     - goal averages, PP averages, save-% averages, etc.
+  - enrich the view for past games, add filters, implement a proper search, using generative AI

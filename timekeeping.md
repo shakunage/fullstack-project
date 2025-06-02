@@ -50,4 +50,4 @@
 | 26 May 2025 | Implement a simple view for individual games | 1 |
 | 29 May 2025 | Add a new loader & service for external data, start refactoring the data loading functions, brush up the individual game view | 2 |
 | 30 May 2025 | Complete (apart from FavoriteService) refactoring of data fetching functions & migration from axios to fetch | 4 |
-| 2 Jun 2025 | Migrate FavoriteService into fetch & utilize a generic function to generate the requests | 1 |
+| 2 Jun 2025 | Migrate FavoriteService from axios to fetch & utilize a generic function to generate the requests, enrich individual game page & make use of SSR loading and CSR fetching properly | 3 |
