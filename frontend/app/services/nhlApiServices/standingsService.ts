@@ -1,10 +1,12 @@
 import { type GenericFetchOptions, genericFetch } from "../genericApiService";
 import type { StandingsItem } from "../../entities";
 
+const API_BASE_URL = "http://reverseproxy:9998/api/v1";
+
 export async function getStandings(date: string): Promise<StandingsItem[]> {
   const fetchOptions: GenericFetchOptions<StandingsItem[]> = {
     method: "GET",
-    endpoint: `/standings/${date}`, // Adjusted endpoint to be relative
+    endpoint: `${API_BASE_URL}/standings/${date}`, // Adjusted endpoint to be relative
     dataTransform: async (response) => {
       const fullResponseData = await response.json();
       if (fullResponseData && typeof fullResponseData === 'object' && 'standings' in fullResponseData && Array.isArray(fullResponseData.standings)) {
@@ -17,7 +19,6 @@ export async function getStandings(date: string): Promise<StandingsItem[]> {
     defaultValue: [],
   };
   try {
-    // genericFetch will return defaultValue on error, so standingsResponse will be StandingsItem[] or the defaultValue
     const standingsResponse: StandingsItem[] = await genericFetch(fetchOptions);
     return standingsResponse;
   } catch (error) {
