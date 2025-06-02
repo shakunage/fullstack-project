@@ -6,4 +6,4 @@ export * from "./StandingsItem";
 export * from "./TopSkaters";
 export * from "./TopGoalies";
 export * from "./BettingLinesData";
-export * from "./GameLanding";
+export * from "./GameLandingData";

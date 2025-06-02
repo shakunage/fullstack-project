@@ -2,7 +2,7 @@ import { getLanding } from "../services/nhlApiServices/gameLandingService";
 import type { LoaderFunctionArgs } from "react-router";
 import type { GameLandingData } from "../entities";
 
-export const boxscoreLoader = async ({ params }: LoaderFunctionArgs) => {
+export const gameLandingLoader = async ({ params }: LoaderFunctionArgs) => {
   const game_id = params.game_id;
   try {
     const landingData: GameLandingData = await getLanding(game_id);

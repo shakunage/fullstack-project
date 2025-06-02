@@ -106,10 +106,11 @@ export interface Penalty {
   timeInPeriod: string;
   type: string;
   duration: number;
-  committedByPlayer: NameDetails;
+  committedByPlayer?: NameDetails; // Made optional
   teamAbbrev: TeamAbbrev;
-  drawnBy: NameDetails;
+  drawnBy?: NameDetails; // Made optional
   descKey: string;
+  servedBy?: NameDetails; // Added for bench minors
 }
 
 export interface PenaltyPeriod {
