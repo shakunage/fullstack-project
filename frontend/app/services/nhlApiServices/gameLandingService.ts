@@ -1,6 +1,6 @@
 import type { GameLandingData } from "../../entities";
 
-const API_BASE_URL = "http://reverseproxy:9998/api/v1"; // More generic base URL
+const API_BASE_URL = "http://reverseproxy:9998/api/v1";
 
 // Generic data fetching function using Fetch API
 async function fetchData<T>(endpoint: string): Promise<T> {
