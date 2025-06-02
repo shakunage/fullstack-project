@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSelector } from "react-redux";
 import type { RootState } from "~/store/store";
-import { FavoriteService } from "~/services/backendServices/favoriteService";
+import { checkFavorite, addFavorite, removeFavorite } from "~/services/backendServices/favoriteService";
 
 export function FavoriteButton({ game_id }: { game_id: number }) {
   const queryClient = useQueryClient();
@@ -9,19 +9,19 @@ export function FavoriteButton({ game_id }: { game_id: number }) {
 
   const { data: favoriteStatus, isLoading } = useQuery({
     queryKey: ["checkfavorite", game_id],
-    queryFn: () => FavoriteService.checkFavorite(game_id),
+    queryFn: () => checkFavorite(game_id),
     enabled: !!username,
   });
 
   const favoriteMutation = useMutation({
-    mutationFn: () => FavoriteService.addFavorite(game_id),
+    mutationFn: () => addFavorite(game_id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["checkfavorite", game_id] });
     },
   });
 
   const unfavoriteMutation = useMutation({
-    mutationFn: () => FavoriteService.removeFavorite(game_id),
+    mutationFn: () => removeFavorite(game_id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["checkfavorite", game_id] });
     },

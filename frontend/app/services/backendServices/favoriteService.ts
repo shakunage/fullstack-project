@@ -1,42 +1,63 @@
-import axios, { type AxiosResponse, type Method } from "axios";
+import { type GenericFetchOptions, genericFetch } from "../genericApiService";
 const API_URL = "http://localhost:9998/backend";
 
-async function apiRequest<T>(
-  method: Method,
-  endpoint: string,
-  dataTransform: (res: AxiosResponse) => T,
-  defaultValue: T,
-  queryParameter?: string,
-  body?: object
-): Promise<T> {
+export async function checkFavorite(gameId: number): Promise<boolean> {
+  const fetchOptions: GenericFetchOptions<boolean> = {
+      method: "GET",
+      endpoint: `${API_URL}/favorite`,
+      queryParameter: `id=${gameId}`,
+      dataTransform: async (response) => {
+        const fullResponseData = await response.json();
+        if (fullResponseData && typeof fullResponseData === 'object' && 'favorited' in fullResponseData && typeof fullResponseData.favorited === 'boolean') {
+          return fullResponseData.favorited as boolean;
+        } else {
+          console.error("Reponse data is not in the expected format { favorited: boolean }", fullResponseData);
+          return false; 
+        }
+      },
+      defaultValue: false,
+      credentials: "include", // Ensure cookies are sent with the request
+  };
   try {
-    const response = await axios({
-      method,
-      url: `${API_URL}${endpoint}${queryParameter ? queryParameter : ""}`,
-      data: body || {},
-      withCredentials: true,
-    });
-
-
-    const result = dataTransform(response);
-
-    if (result === undefined) {
-      throw new Error("An unexpected error occurred");
-    }
-
-    return result;
+    const isFavorited: boolean = await genericFetch(fetchOptions);
+    return isFavorited;
   } catch (error) {
-    return defaultValue;
+    console.error("Error checking favorite status:", error);
+    return false;
   }
 }
 
-export const FavoriteService = {
-  checkFavorite: (gameId: number): Promise<boolean> =>
-    apiRequest<boolean>("get", "/favorite", (res) => res.data.favorited, false, `?id=${gameId}`),
-
-  addFavorite: (gameId: number): Promise<number> =>
-    apiRequest<number>("post", "/favorite", (res) => res.status, 0, `?id=${gameId}`),
-
-  removeFavorite: (gameId: number): Promise<number> =>
-    apiRequest<number>("delete", "/favorite", (res) => res.status, 0, `?id=${gameId}`),
-};
+export async function addFavorite(gameId: number): Promise<boolean> {
+  const fetchOptions: GenericFetchOptions<number> = {
+      method: "POST",
+      endpoint: `${API_URL}/favorite`,
+      queryParameter: `id=${gameId}`,
+      dataTransform: async (response) => response.status,
+      defaultValue: 0,
+      credentials: "include", // Ensure cookies are sent with the request
+  };
+  try {
+    const status: number = await genericFetch(fetchOptions);
+    return status === 200;
+  } catch (error) {
+    console.error("Error adding favorite:", error);
+    return false;
+  }
+}
+export async function removeFavorite(gameId: number): Promise<boolean> {
+  const fetchOptions: GenericFetchOptions<number> = {
+      method: "DELETE",
+      endpoint: `${API_URL}/favorite`,
+      queryParameter: `id=${gameId}`,
+      dataTransform: async (response) => response.status,
+      defaultValue: 0,
+      credentials: "include", // Ensure cookies are sent with the request
+  };
+  try {
+    const status: number = await genericFetch(fetchOptions);
+    return status === 200;
+  } catch (error) {
+    console.error("Error adding favorite:", error);
+    return false;
+  }
+}
