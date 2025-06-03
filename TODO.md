@@ -5,8 +5,6 @@
   - maybe watch a youtube video
   - let AI create the custom components
 - move endpoint addresses and secrets to ENV files
-- make all game cards clickable and add a nice and beefy, as well as responsive view for individual games
-  - make it so that game landing page is used for initial data, then boxscore is loaded upon button click
 - fix entity imports
 - refactoring tasklist:
   - usequery hooks into a separate file
