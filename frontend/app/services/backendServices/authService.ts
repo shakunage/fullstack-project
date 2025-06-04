@@ -6,7 +6,12 @@ export async function checkAuthStatus(): Promise<boolean> {
   const fetchOptions: GenericFetchOptions<boolean> = {
     method: "GET",
     endpoint: `${API_URL}/authcheck`,
-    dataTransform: async (response) => await response.json() as boolean,
+    dataTransform: async (response) => {
+      if (response.status !== 200) {
+        return false;
+      }
+      return await response.json() as boolean;
+    },
     defaultValue: false,
     credentials: "include", // Ensure cookies are sent with the request
   };
