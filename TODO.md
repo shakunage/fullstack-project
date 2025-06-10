@@ -6,6 +6,7 @@
   - let AI create the custom components
 - move endpoint addresses and secrets to ENV files
 - fix entity imports
+- implement middleware in the backend
 - refactoring tasklist:
   - usequery hooks into a separate file
   - most files in the routes/ folder are terrible slop, refactor into components, utils, services, hooks
