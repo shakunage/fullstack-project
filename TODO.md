@@ -26,3 +26,6 @@
   - add "statistics about the season" page
     - goal averages, PP averages, save-% averages, etc.
   - enrich the view for past games, add filters, implement a proper search, using generative AI
+
+  tasks for 6/12:
+  - consider redis caching for nginx using lua scripts
