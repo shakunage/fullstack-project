@@ -13,7 +13,7 @@
   - refactor the useQuery boxscore hook into its own file
 - more data integrations, such as natural stat trick and moneypuck, polymarket sports
 - in the game page, make it consistent so that player statistics dropdown is not shown if there is no data (rather than being grayed out)
-- add redis for caching. not only to the postgres backend, but also external nhl api thru nginx
+- add redis for caching and proper invalidation for the favoritelist api
 - create a mongodb database to store api info as-is
 - testing/formatting pipeline
 - some feature ideas:

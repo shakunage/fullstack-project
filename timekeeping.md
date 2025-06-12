@@ -53,3 +53,4 @@
 | 2 Jun 2025 | Migrate FavoriteService from axios to fetch & utilize a generic function to generate the requests, enrich individual game page & make use of SSR loading and CSR fetching properly | 3 |
 | 3 Jun 2025 | Refactoring the individual game page | 2 |
 | 4 Jun 2025 | Fix auth check service return value upon failed authentication, further bug fixing & refactoring in the individual game page | 1.5 |
+| 12 Jun 2025 | Add nginx-side caching to the external API and test the config to see the caching actually works, more refactoring of the individual game, make the penalties summary for individual game sensible  | 3.5 |
