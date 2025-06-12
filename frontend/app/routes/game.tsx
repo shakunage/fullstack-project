@@ -7,6 +7,7 @@ import { PenaltiesDropdown } from "~/components/GamePage/PenaltiesDropdown";
 import { ScoringSummary } from "~/components/GamePage/ScoringSummary";
 import { PlayerStatistics } from "~/components/GamePage/PlayerStatistics";
 import { GameInformation } from "~/components/GamePage/GameInformation";
+import { Team } from "~/components/GamePage/Team";
 
 export const loader = gameLandingLoader;
 
@@ -18,7 +19,7 @@ export default function Game() {
   if (!gameLandingData) {
     return (
       <div className="flex justify-center items-center h-full">
-          <p className="text-xl">Loading game data or game not found...</p>
+          <p className="text-xl">Game data not found...</p>
         </div>
     );
   }
@@ -30,38 +31,8 @@ export default function Game() {
         <div className="flex flex-col md:flex-row md:space-x-6 mb-6">
           {/* Left Column: Game Header (Teams & Score) */}
           <div className="md:w-1/2 flex flex-col items-center mb-6 md:mb-0 pb-4 md:border-r md:pr-6 border-gray-200 dark:border-gray-700">
-            {/* Away Team */}
-            <div className="flex items-center w-full mb-2">
-              <img
-                src={gameLandingData.awayTeam.logo}
-                alt={`${gameLandingData.awayTeam.commonName.default} logo`}
-                className="h-12 w-12 md:h-16 md:w-16 mr-3 md:mr-4"
-              />
-              <div className="flex-grow">
-                {gameLandingData.awayTeam.placeName && (
-                  <p className="text-md md:text-lg">{gameLandingData.awayTeam.placeName.default}</p>
-                )}
-                <h2 className="text-xl md:text-2xl font-bold">{gameLandingData.awayTeam.commonName.default}</h2>
-              </div>
-              <p className="text-3xl md:text-4xl font-bold">{gameLandingData.awayTeam.score}</p>
-            </div>
-
-            {/* Home Team */}
-            <div className="flex items-center w-full mt-2">
-              <img
-                src={gameLandingData.homeTeam.logo}
-                alt={`${gameLandingData.homeTeam.commonName.default} logo`}
-                className="h-12 w-12 md:h-16 md:w-16 mr-3 md:mr-4"
-              />
-              <div className="flex-grow">
-                {gameLandingData.homeTeam.placeName && (
-                  <p className="text-md md:text-lg">{gameLandingData.homeTeam.placeName.default}</p>
-                )}
-                <h2 className="text-xl md:text-2xl font-bold">{gameLandingData.homeTeam.commonName.default}</h2>
-              </div>
-              <p className="text-3xl md:text-4xl font-bold">{gameLandingData.homeTeam.score}</p>
-            </div>
-
+            <Team landingData={gameLandingData} home={false} />
+            <Team landingData={gameLandingData} home={true} />
             {/* Game Status */}
             <div className="text-center mt-3">
               <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400">
