@@ -27,35 +27,32 @@ const [showPenalties, setShowPenalties] = useState(false);
                     {period.penalties.length > 0 ? (
                       <ul className="divide-y divide-gray-200 dark:divide-gray-700">
                         {period.penalties.map((penalty, index) => {
-                          const committedBy = penalty.committedByPlayer
-                            ? penalty.committedByPlayer.default
-                            : "Bench";
+                          const committedByText = penalty.committedByPlayer
+                            ? `${penalty.committedByPlayer.default} ー`
+                            : "";
                           const drawnByText = penalty.drawnBy
-                            ? `Drawn by: ${penalty.drawnBy.default}`
+                            ? `on ${penalty.drawnBy.default} `
                             : "";
                           const servedByText = penalty.servedBy
-                            ? `Served by: ${penalty.servedBy.default}`
+                            ? `ー served by: ${penalty.servedBy.default}`
                             : "";
 
                           return (
                             <li key={`${penalty.descKey}-${index}`} className="py-2">
                               <p>
                                 <span className="font-semibold">
-                                  {penalty.teamAbbrev.default} Penalty:
+                                  {penalty.teamAbbrev.default} penalty at {penalty.timeInPeriod}
                                 </span>{" "}
-                                {committedBy} - {penalty.duration} mins for {penalty.type}
-                                {penalty.servedBy && committedBy === "Bench" && (
+                                {penalty.servedBy && committedByText === "Bench" && (
                                   <span className="text-sm text-gray-600 dark:text-gray-400">
-                                    {" "}
                                     ({servedByText})
                                   </span>
                                 )}
                               </p>
                               <p className="text-sm text-gray-600 dark:text-gray-400">
-                                At {penalty.timeInPeriod}. {drawnByText}
-                                {penalty.servedBy && committedBy !== "Bench" && (
+                                {committedByText} {penalty.duration} mins for {penalty.descKey} {drawnByText}
+                                {penalty.servedBy && (
                                   <>
-                                    {drawnByText ? ". " : ""}
                                     {servedByText}
                                   </>
                                 )}
