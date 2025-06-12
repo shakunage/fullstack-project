@@ -1,13 +1,21 @@
 import React from "react";
 import type { BoxscoreData, PlayerStats } from "../../../entities/BoxscoreData";
 
+interface TeamInfo {
+  teamName: string;
+  teamGoalies: PlayerStats[];
+}
+
 const TeamGoalies = ({ boxscoreData, home }: { boxscoreData: BoxscoreData; home: boolean }) => {
-  const teamName: string = home
-    ? boxscoreData.homeTeam.commonName.default
-    : boxscoreData.awayTeam.commonName.default;
-  const teamGoalies: PlayerStats[] = home
-    ? boxscoreData.playerByGameStats.homeTeam.goalies
-    : boxscoreData.playerByGameStats.awayTeam.goalies;
+   const { teamName, teamGoalies }: TeamInfo = home
+    ? {
+        teamName: boxscoreData.homeTeam.commonName.default,
+        teamGoalies: boxscoreData.playerByGameStats.homeTeam.goalies,
+      }
+    : {
+        teamName: boxscoreData.awayTeam.commonName.default,
+        teamGoalies: boxscoreData.playerByGameStats.awayTeam.goalies,
+      };
   return (
     <div>
       <h4 className="font-semibold">{teamName}</h4>
