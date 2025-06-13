@@ -45,6 +45,12 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+  redis:
+    image: "redis:alpine"
+    container_name: rediscache
+    restart: always
+    networks:
+      - fs-network
   reverseproxy:
     image: nginx:1.20.1
     volumes:

@@ -1,13 +1,33 @@
 import { prisma } from "../dbserver/dbserver.ts";
 import { type User } from "../models/User.ts";
+import { type FavoriteGamesFromDb } from "../interfaces/FavoriteGamesFromDb.ts";
+import redisClient from "../redis/redisClient.ts";
+
+const FAVORITES_CACHE_PREFIX = 'user_favorites:';
+const FAVORITES_CACHE_TTL = 3600; // 1 hour in seconds
 
 export async function favoriteListRepository(
   user_id: User["id"],
   skip: number,
   take: number
 ): Promise<string[] | false> {
+  const cacheKey = `${FAVORITES_CACHE_PREFIX}${user_id}`;
+
   try {
-    const favoritegames = await prisma.game.findMany({
+    const cachedFavoriteGames = await redisClient.get(cacheKey);
+    if (cachedFavoriteGames) {
+      console.log(`Cache HIT for ${cacheKey}`);
+      return JSON.parse(cachedFavoriteGames);
+    }
+  } catch (error) {
+    console.error('Redis GET error:', error);
+    // Proceed to fetch from DB if Redis fails
+  }
+
+  console.log(`Cache MISS for ${cacheKey}`);
+
+  try {
+    const favoriteGamesFromDb: FavoriteGamesFromDb[] = await prisma.game.findMany({
       where: {
         favoritedBy: {
           some: { id: user_id },
@@ -22,7 +42,18 @@ export async function favoriteListRepository(
     });
 
     // Return true if the game is in the user's favorites (length > 0)
-    return favoritegames.map((game) => game.id);
+    try {
+    // Store in Redis
+    await redisClient.setex(
+      cacheKey,
+      FAVORITES_CACHE_TTL,
+      JSON.stringify(favoriteGamesFromDb.map((game) => game.id))
+    );
+  } catch (error) {
+    console.error('Redis SETEX error:', error);
+  }
+
+    return favoriteGamesFromDb.map((game) => game.id);
   } catch (error) {
     console.error("Error checking favorite status:", error);
     throw new Error("Failed to check favorite status");

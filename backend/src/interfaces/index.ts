@@ -3,3 +3,4 @@ export * from "./UserSigninResponse";
 export * from "./UserSignupData";
 export * from "./UserLoginData";
 export * from "./UserToValidate";
+export * from "./FavoriteGamesFromDb"
