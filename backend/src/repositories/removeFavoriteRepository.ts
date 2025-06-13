@@ -1,8 +1,19 @@
 import { prisma } from "../dbserver/dbserver.ts";
 import { type User } from "../models/User.ts";
 import { type Game } from "../models/Game.ts";
+import redisClient from "../redis/redisClient.ts";
+
+const FAVORITES_CACHE_PREFIX = 'user_favorites:';
 
 export async function removeFavoriteRepository(game_id: Game["id"], user_id: User["id"]): Promise<void> {
+  // invalidate redis cache for the user's favorites
+  const cacheKey = `${FAVORITES_CACHE_PREFIX}${user_id}`;
+  try {
+    await redisClient.del(cacheKey);
+    console.log(`Cache invalidated for ${cacheKey}`);
+  } catch (error) {
+    console.error('Redis DEL error:', error);
+  }
   try {
     await prisma.user.update({
         where: { id: user_id },
