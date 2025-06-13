@@ -26,6 +26,18 @@ services:
       timeout: 5s
       retries: 5
       start_period: 10s
+  redis:
+    image: "redis:alpine"
+    container_name: rediscache
+    restart: always
+    networks:
+      - fs-network
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli PING | grep PONG"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s # Optional: gives Redis some time to start before healthchecks begin
   backend:
     build:
       context: ./backend
@@ -45,12 +57,8 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-  redis:
-    image: "redis:alpine"
-    container_name: rediscache
-    restart: always
-    networks:
-      - fs-network
+      redis:
+        condition: service_healthy
   reverseproxy:
     image: nginx:1.20.1
     volumes:
