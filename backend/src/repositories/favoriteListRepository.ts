@@ -17,7 +17,7 @@ export async function favoriteListRepository(
     const cachedFavoriteGames = await redisClient.get(cacheKey);
     if (cachedFavoriteGames) {
       console.log(`Cache HIT for ${cacheKey}`);
-      return JSON.parse(cachedFavoriteGames);
+      return JSON.parse(cachedFavoriteGames).slice(skip, (skip + take));
     }
   } catch (error) {
     console.error('Redis GET error:', error);
@@ -34,8 +34,6 @@ export async function favoriteListRepository(
         },
       },
       select: { id: true },
-      skip: skip,
-      take: take,
       orderBy: {
         id: "desc", // Sort by id in descending order
       },
@@ -53,7 +51,7 @@ export async function favoriteListRepository(
     console.error('Redis SETEX error:', error);
   }
 
-    return favoriteGamesFromDb.map((game) => game.id);
+    return favoriteGamesFromDb.map((game) => game.id).slice(skip, (skip + take));
   } catch (error) {
     console.error("Error checking favorite status:", error);
     throw new Error("Failed to check favorite status");

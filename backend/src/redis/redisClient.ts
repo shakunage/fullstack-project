@@ -2,7 +2,7 @@
 import IORedis from 'ioredis';
 
 const redisClient = new IORedis({
-  host: process.env.REDIS_HOST || 'rediscache', // Matches Docker service name
+  host: 'redis', // Matches Docker service name
   port: parseInt(process.env.REDIS_PORT || '6379', 10),
   // Add other options like password if needed
 });
