@@ -59,6 +59,7 @@ export type GameItem = {
   };
   gameOutcome: {
     lastPeriodType: string;
+    otPeriods?: number;
   };
   goals: {
     period: number;

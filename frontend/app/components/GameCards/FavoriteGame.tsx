@@ -30,6 +30,7 @@ export function FavoriteGame({ game }: { game: BoxscoreData }) {
             lastPeriod={game.gameOutcome.lastPeriodType}
             homeTeam={game.homeTeam}
             awayTeam={game.awayTeam}
+            otPeriods={game.gameOutcome.otPeriods}
           />
           <StartTimeToggle gameStartTime={game.startTimeUTC} />
           <Venue venue={game.venue.default} homeTeamAbbrev={game.homeTeam.abbrev} />

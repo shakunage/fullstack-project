@@ -41,6 +41,7 @@ type PeriodDescriptor = {
 
 type GameOutcome = {
   lastPeriodType: string;
+  otPeriods?: number;
 };
 
 export type PlayerStats = {

@@ -19,8 +19,8 @@ export default function Game() {
   if (!gameLandingData) {
     return (
       <div className="flex justify-center items-center h-full">
-          <p className="text-xl">Game data not found...</p>
-        </div>
+        <p className="text-xl">Game data not found...</p>
+      </div>
     );
   }
 
@@ -36,11 +36,23 @@ export default function Game() {
             {/* Game Status */}
             <div className="text-center mt-3">
               <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400">
-                {gameLandingData.gameState === "OFF"
+                {gameLandingData.gameState === "OFF" &&
+                gameLandingData.periodDescriptor.periodType === "REG"
                   ? "Final"
-                  : gameLandingData.gameState === "LIVE"
-                    ? "Live"
-                    : gameLandingData.gameScheduleState || "Scheduled"}
+                  : gameLandingData.gameState === "OFF" &&
+                      gameLandingData.periodDescriptor.periodType === "OT" &&
+                      !gameLandingData.periodDescriptor.otPeriods
+                    ? "Final/OT"
+                    : gameLandingData.gameState === "OFF" &&
+                        gameLandingData.periodDescriptor.periodType === "OT" &&
+                        gameLandingData.periodDescriptor.otPeriods
+                      ? `Final/${gameLandingData.periodDescriptor.otPeriods}OT`
+                      : gameLandingData.gameState === "OFF" &&
+                          gameLandingData.periodDescriptor.periodType === "SO"
+                        ? "Shootout"
+                        : gameLandingData.gameState === "LIVE"
+                          ? "Live"
+                          : gameLandingData.gameScheduleState || "Scheduled"}
                 {gameLandingData.clock &&
                   gameLandingData.clock.inIntermission &&
                   !gameLandingData.clock.running &&
@@ -54,7 +66,7 @@ export default function Game() {
             <GameInformation {...gameLandingData} />
           </div>
         </div>
-        
+
         {/* Team Stats - Placed below the two-column layout */}
         <div className="mb-6 border-t pt-6 border-gray-200 dark:border-gray-700">
           <h3 className="text-xl font-semibold mb-2 text-center">Team Stats</h3>
