@@ -10,8 +10,14 @@
 - refactoring tasklist:
   - usequery hooks into a separate folder and files
   - most files in the routes/ folder are terrible slop, refactor into components, utils, services, hooks
+    - bettinglines.tsx
+    - favoritegames.tsx
+    - goalies.tsx
+    - login.tsx
+    - players.tsx
+    - signup.tsx
+    - teams.tsx
 - more data integrations, such as natural stat trick and moneypuck, polymarket sports
-- add redis for caching and proper invalidation for the favoritelist api
 - create a mongodb database to store api info as-is
 - testing/formatting pipeline
 - some feature ideas:
