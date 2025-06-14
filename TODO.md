@@ -7,9 +7,11 @@
 - move endpoint addresses and secrets to ENV files
 - fix entity imports
 - implement middleware in the backend
+- smoothen up the experience a little bit
+  - e.g. when theres no recent or upcoming games, forward to games browser
 - refactoring tasklist:
   - usequery hooks into a separate folder and files
-  - most files in the routes/ folder are terrible slop, refactor into components, utils, services, hooks
+  - most files in the routes/ folder are terrible slop, e.g.:
     - bettinglines.tsx
     - favoritegames.tsx
     - goalies.tsx
@@ -17,9 +19,10 @@
     - players.tsx
     - signup.tsx
     - teams.tsx
+  - refactor the above into components, utils, services, hooks
 - more data integrations, such as natural stat trick and moneypuck, polymarket sports
 - create a mongodb database to store api info as-is
-- testing/formatting pipeline
+- testing/formatting pipeline ←　IMPORTANT
 - some feature ideas:
   - add statistics pages
     - centered around betting odds. which teams have outperformed, underperformed the odds?

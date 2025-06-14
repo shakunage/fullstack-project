@@ -55,4 +55,4 @@
 | 4 Jun 2025 | Fix auth check service return value upon failed authentication, further bug fixing & refactoring in the individual game page | 1.5 |
 | 12 Jun 2025 | Add nginx-side caching to the external API and test the config to see the caching actually works, more refactoring of the individual game, make the penalties summary for individual game sensible  | 3 |
 | 13 Jun 2025 | Add redis caching for user's favorite games list, change pagination (skip and limit) implementation to suit redis caching better, add redis healthcheck and cache invalidation | 3 |
-| 14 Jun 2025 | Enhance nginx logging options to better verify cache hits/misses,  | 3 |
+| 14 Jun 2025 | Enhance nginx logging options to better verify cache hits/misses, enhance handling of multiple OT periods in the UI, further refactoring of the individual game page | 3.5 |
