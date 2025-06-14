@@ -21,6 +21,7 @@ export interface VenueLocation extends DefaultName {}
 export interface PeriodDescriptor {
   number: number;
   periodType: string;
+  otPeriods?: number;
   maxRegulationPeriods: number;
 }
 
@@ -156,4 +157,4 @@ export type GameLandingData = {
   tiesInUse: boolean;
   summary: GameSummary;
   clock: ClockData;
-}
+};
