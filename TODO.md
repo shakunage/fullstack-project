@@ -7,6 +7,7 @@
 - move endpoint addresses and secrets to ENV files
 - fix entity imports
 - implement middleware in the backend
+- solve the problem where the boxscore fetch endpoint doesnt have a dedicated route
 - smoothen up the experience a little bit
   - e.g. when theres no recent or upcoming games, forward to games browser
 - refactoring tasklist:
@@ -33,3 +34,10 @@
   - add "statistics about the season" page
     - goal averages, PP averages, save-% averages, etc.
   - enrich the view for past games, add filters, implement a proper search, using generative AI
+  - change nginx reverse proxy settings to reflect the fact that proxying is not needed for SSR call -> API operations (maybe)
+
+  - implement some general UI improvements
+    - for example: better landing page experience when there are only few recent games
+  - enrich the team stats bar in the individual game view (faceoffs etc. add moneypuck link)
+  - start impelementing testing & linting & formatting pipeline (gh actions)
+  - sign up for hetzner to eventually deploy on a vps

@@ -56,3 +56,4 @@
 | 12 Jun 2025 | Add nginx-side caching to the external API and test the config to see the caching actually works, more refactoring of the individual game, make the penalties summary for individual game sensible  | 3 |
 | 13 Jun 2025 | Add redis caching for user's favorite games list, change pagination (skip and limit) implementation to suit redis caching better, add redis healthcheck and cache invalidation | 3 |
 | 14 Jun 2025 | Enhance nginx logging options to better verify cache hits/misses, enhance handling of multiple OT periods in the UI, further refactoring of the individual game page | 3.5 |
+| 15 Jun 2025 | Slight fix to docker compose setup, expand data fetching capabilities, introduce the concept of resource routes to the app and utilize them | 4.5 |
