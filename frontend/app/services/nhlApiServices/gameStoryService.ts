@@ -1,0 +1,20 @@
+import { type GenericFetchOptions, genericFetch } from "../genericApiService";
+import type { GameLandingData } from "../../entities";
+
+const API_URL = "http://reverseproxy:9998/api/v1/gamecenter";
+
+export async function getStory(game_id: string | undefined): Promise<GameLandingData> {
+  const fetchOptions: GenericFetchOptions<GameLandingData> = {
+    method: "GET",
+    endpoint: `${API_URL}/${game_id}/story`,
+    dataTransform: async (response) => response.json() as Promise<GameLandingData>,
+    defaultValue: {} as GameLandingData,
+  };
+  try {
+    const landingResponse: GameLandingData = await genericFetch(fetchOptions);
+    return landingResponse;
+  } catch (error) {
+    console.error("Error fetching boxscore:", error);
+    throw error;
+  }
+}

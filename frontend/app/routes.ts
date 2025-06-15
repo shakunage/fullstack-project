@@ -8,9 +8,6 @@ export default [
   ...prefix("games", [
     index("routes/games.tsx", { id: "routes/games-index" }),
     route(":date", "routes/games.tsx", { id: "routes/games-bydate" }),
-    route(":date/:game_id", "components/GameCards/EndedGame.tsx", {
-      id: "routes/games-bydate-w-details",
-    }),
     route("/favoritegames", "routes/favoritegames.tsx"),
   ]),
   ...prefix("teams", [
@@ -25,7 +22,7 @@ export default [
     }),
   ]),
   route("bettinglines", "routes/bettinglines.tsx"),
-  // individual game details
+  // individual game detailsß
   route("game/:game_id", "routes/game.tsx"),
   // login and signup
   route("login", "routes/login.tsx"),
@@ -33,4 +30,8 @@ export default [
   // footer
   route("about", "routes/about.tsx"),
   route("contact", "routes/contact.tsx"),
+  // resource routes
+  // these return JSON for originally served by the NHL API, but just routed through the frontend server
+  route("resources/boxscore/:game_id", "resourceRoutes/boxscoreResource.ts"),
+  route("resources/landing/:game_id", "resourceRoutes/landingResource.ts"),
 ] satisfies RouteConfig;

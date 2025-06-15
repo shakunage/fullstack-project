@@ -86,7 +86,7 @@ export default function FavoriteGames() {
             {" "}
             {/* Tailwind for margin and alignment */}
             <label htmlFor="itemsPerPage" className="mr-2 text-sm text-gray-700">
-              Items per page:
+              Show:
             </label>
             <select
               id="itemsPerPage"

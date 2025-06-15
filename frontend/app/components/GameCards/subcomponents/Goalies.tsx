@@ -1,5 +1,5 @@
 import React from "react";
-import type { BoxscoreData, PlayerStats } from "../../../entities/BoxscoreData";
+import type { BoxscoreData, PlayerStats } from "../../../entities/Boxscore";
 
 interface TeamInfo {
   teamName: string;
@@ -7,7 +7,7 @@ interface TeamInfo {
 }
 
 const TeamGoalies = ({ boxscoreData, home }: { boxscoreData: BoxscoreData; home: boolean }) => {
-   const { teamName, teamGoalies }: TeamInfo = home
+  const { teamName, teamGoalies }: TeamInfo = home
     ? {
         teamName: boxscoreData.homeTeam.commonName.default,
         teamGoalies: boxscoreData.playerByGameStats.homeTeam.goalies,

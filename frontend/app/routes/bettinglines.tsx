@@ -11,7 +11,7 @@ import {
   type Team,
   type Odds,
   type BettingPartner,
-} from "../entities/BettingLinesData"; // Import necessary types
+} from "../entities/BettingLines"; // Import necessary types
 
 export const loader = bettingLinesLoader;
 

@@ -1,5 +1,5 @@
 import React from "react";
-import type { BoxscoreData } from "~/entities/BoxscoreData"; // Ensure this path is correct
+import type { BoxscoreData } from "~/entities/Boxscore"; // Ensure this path is correct
 import { EndedGameHeader } from "./subcomponents/EndedGameHeader";
 import { StartTimeToggle } from "./subcomponents/StartTimeToggle";
 import { Venue } from "./subcomponents/Venue";

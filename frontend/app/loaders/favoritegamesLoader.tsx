@@ -1,6 +1,6 @@
 import { type LoaderFunctionArgs } from "react-router";
 import { FavoriteListService } from "~/services/backendServices/favoriteListService";
-import type { BoxscoreData } from "~/entities/BoxscoreData";
+import type { BoxscoreData } from "~/entities/Boxscore";
 import { getBoxscore } from "~/services/nhlApiServices/boxscoreService";
 
 type FavoriteGamesServiceData = {
@@ -19,12 +19,16 @@ type FavoriteGamesLoaderData = {
 
 export const favoritegamesLoader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
-  const headers = request.headers.get("Cookie")
-  const page = parseInt(url.searchParams.get("page") ?? "1") ; // Default to page 1
-  const limit = parseInt(url.searchParams.get("limit") ?? "9")  // Default to limit 9
+  const headers = request.headers.get("Cookie");
+  const page = parseInt(url.searchParams.get("page") ?? "1"); // Default to page 1
+  const limit = parseInt(url.searchParams.get("limit") ?? "9"); // Default to limit 9
 
   try {
-    const favoriteGamesResponse: FavoriteGamesServiceData = await FavoriteListService(headers, page, limit);
+    const favoriteGamesResponse: FavoriteGamesServiceData = await FavoriteListService(
+      headers,
+      page,
+      limit
+    );
 
     const { gameIds, totalGames, currentPage, totalPages } = favoriteGamesResponse;
 

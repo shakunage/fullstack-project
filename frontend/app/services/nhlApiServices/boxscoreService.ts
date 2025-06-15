@@ -3,7 +3,7 @@ import type { BoxscoreData } from "../../entities";
 
 const API_URL = "http://reverseproxy:9998/api/v1/gamecenter";
 
-// API call to be used in boxscoreLoader
+// API call to be used in boxscoreLoader (server-side)
 export async function getBoxscore(game_id: string | undefined): Promise<BoxscoreData> {
   const fetchOptions: GenericFetchOptions<BoxscoreData> = {
     method: "GET",
@@ -20,14 +20,11 @@ export async function getBoxscore(game_id: string | undefined): Promise<Boxscore
   }
 }
 
-// For further fetching after the intial page load (calls boxscoreLoader thru internal API)
-export async function fetchBoxscore(
-  gameDate: string,
-  game_id: string | number | undefined
-): Promise<BoxscoreData> {
+// For further fetching after the intial page load (calls boxscoreLoader thru internal route API)
+export async function fetchBoxscore(game_id: string | number | undefined): Promise<BoxscoreData> {
   const fetchOptions: GenericFetchOptions<BoxscoreData> = {
     method: "GET",
-    endpoint: `/games/${gameDate}/${game_id}`,
+    endpoint: `/resources/boxscore/${game_id}`,
     dataTransform: async (response) => response.json() as Promise<BoxscoreData>,
     defaultValue: {} as BoxscoreData,
   };
