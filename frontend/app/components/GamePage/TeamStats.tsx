@@ -1,6 +1,6 @@
-import type { GameLandingData } from "~/entities";
+import type { GameStory } from "~/entities";
 
-export function TeamStats({ gameLandingData }: { gameLandingData: GameLandingData }) {
+export function TeamStats({ gameLandingData }: { gameLandingData: GameStory }) {
   return (
     <div className="mb-6 border-t pt-6 border-gray-200 dark:border-gray-700">
       <h3 className="text-xl font-semibold mb-2 text-center">Team Stats</h3>

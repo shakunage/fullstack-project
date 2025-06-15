@@ -1,6 +1,5 @@
 import { useLoaderData, useParams } from "react-router";
-import type { GameLandingData } from "~/entities";
-import { gameLandingLoader } from "~/loaders/gameLandingLoader";
+import type { GameStory } from "~/entities";
 import { BackButton } from "~/components/GamePage/BackButton";
 import { ThreeStars } from "~/components/GamePage/ThreeStars";
 import { PenaltiesDropdown } from "~/components/GamePage/PenaltiesDropdown";
@@ -10,15 +9,16 @@ import { GameInformation } from "~/components/GamePage/GameInformation";
 import { Team } from "~/components/GamePage/Team";
 import { GameStatus } from "~/components/GamePage/GameStatus";
 import { TeamStats } from "~/components/GamePage/TeamStats";
+import { gameStoryLoader } from "~/loaders/gameStoryLoader";
 
-export const loader = gameLandingLoader;
+export const loader = gameStoryLoader;
 
 export default function Game() {
-  const gameLandingData = useLoaderData<typeof loader>() as GameLandingData;
+  const gameStoryData = useLoaderData<typeof loader>() as GameStory;
   const params = useParams();
   const gameId = Number(params.gameId); // Assuming gameId is part of the route params for fetching
 
-  if (!gameLandingData) {
+  if (!gameStoryData) {
     return (
       <div className="flex justify-center items-center h-full">
         <p className="text-xl">Game data not found...</p>
@@ -33,20 +33,20 @@ export default function Game() {
         <div className="flex flex-col md:flex-row md:space-x-6 mb-6">
           {/* Left Column: Game Header (Teams & Score) */}
           <div className="md:w-1/2 flex flex-col items-center mb-6 md:mb-0 pb-4 md:border-r md:pr-6 border-gray-200 dark:border-gray-700">
-            <Team landingData={gameLandingData} home={false} />
-            <Team landingData={gameLandingData} home={true} />
-            <GameStatus gameLandingData={gameLandingData} />
+            <Team storyData={gameStoryData} home={false} />
+            <Team storyData={gameStoryData} home={true} />
+            <GameStatus {...gameStoryData} />
           </div>
           {/* Right Column: Game Information */}
-          <GameInformation {...gameLandingData} />
+          <GameInformation {...gameStoryData} />
         </div>
         {/* Team Stats - Placed below the two-column layout */}
-        <TeamStats gameLandingData={gameLandingData} />
+        <TeamStats gameLandingData={gameStoryData} />
         {/* From here on, the components are stacked vertically */}
-        <ScoringSummary {...gameLandingData} />
-        <ThreeStars {...gameLandingData} />
-        <PenaltiesDropdown {...gameLandingData} />
-        <PlayerStatistics landingData={gameLandingData} gameId={gameId} />
+        <ScoringSummary {...gameStoryData} />
+        <ThreeStars {...gameStoryData} />
+        <PenaltiesDropdown game_id={gameStoryData.id} />
+        <PlayerStatistics storyData={gameStoryData} gameId={gameId} />
       </div>
     </main>
   );

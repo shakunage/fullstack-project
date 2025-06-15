@@ -1,6 +1,6 @@
-import { type GameLandingData } from "~/entities/GameLanding";
+import { type GameStory } from "~/entities";
 
-export function ThreeStars(landingData: GameLandingData) {
+export function ThreeStars(landingData: GameStory) {
   return (
     <>
       {landingData.summary?.threeStars && landingData.summary.threeStars.length > 0 && (
@@ -16,14 +16,14 @@ export function ThreeStars(landingData: GameLandingData) {
                 >
                   <img
                     src={star.headshot}
-                    alt={star.name.default}
+                    alt={star.name}
                     className="w-20 h-20 rounded-full mx-auto mb-2 object-cover"
                   />
                   <p className="text-lg font-semibold">
                     {star.star}
                     {star.star === 1 ? "st" : star.star === 2 ? "nd" : "rd"} Star
                   </p>
-                  <p className="font-bold">{star.name.default}</p>
+                  <p className="font-bold">{star.name}</p>
                   <p className="text-sm text-gray-600 dark:text-gray-400">
                     {star.teamAbbrev} - {star.position}
                   </p>

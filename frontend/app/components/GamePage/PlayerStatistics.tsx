@@ -2,16 +2,10 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchBoxscore } from "~/services/nhlApiServices/boxscoreService";
 import { skaterBoxscoreConstants, goalieBoxscoreConstants } from "~/constants/boxscoreConstants";
-import { type BoxscoreData, type GameLandingData, type PlayerStats } from "~/entities";
+import { type BoxscoreData, type GameStory, type PlayerStats } from "~/entities";
 import { toiToSeconds } from "~/utils/toiToSeconds";
 
-export function PlayerStatistics({
-  landingData,
-  gameId,
-}: {
-  landingData: GameLandingData;
-  gameId: number;
-}) {
+export function PlayerStatistics({ storyData, gameId }: { storyData: GameStory; gameId: number }) {
   const [showPlayerStats, setShowPlayerStats] = useState(false);
   const [sortConfig, setSortConfig] = useState<
     Record<string, { key: string; direction: "ascending" | "descending" }>
@@ -25,10 +19,10 @@ export function PlayerStatistics({
   } = useQuery<BoxscoreData, Error>({
     queryKey: ["boxscoreData", gameId],
     queryFn: async () => {
-      if (!landingData?.gameDate || !landingData?.id) {
+      if (!storyData?.gameDate || !storyData?.id) {
         throw new Error("Game date or ID is missing for fetching boxscore.");
       }
-      return fetchBoxscore(landingData.id);
+      return fetchBoxscore(storyData.id);
     },
     enabled: false,
     staleTime: 60 * 1000,
@@ -81,10 +75,10 @@ export function PlayerStatistics({
   };
   return (
     <>
-      {(landingData.gameState === "OFF" ||
-        landingData.gameState === "LIVE" ||
-        landingData.gameState === "CRIT") &&
-        landingData.id && (
+      {(storyData.gameState === "OFF" ||
+        storyData.gameState === "LIVE" ||
+        storyData.gameState === "CRIT") &&
+        storyData.id && (
           <div className="w-full mt-6">
             <button
               onClick={handleTogglePlayerStats}
@@ -115,16 +109,16 @@ export function PlayerStatistics({
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8">
             {/* Team Stats Rendering Logic */}
             {(["awayTeam", "homeTeam"] as const).map((teamType) => {
-              // Use fetchedBoxscoreData for player stats, and gameLandingData for team names/logos if needed
+              // Use fetchedBoxscoreData for player stats, and gamestoryData for team names/logos if needed
               const teamStatsData = fetchedBoxscoreData.playerByGameStats?.[teamType];
-              const teamDisplayDetails = landingData[teamType]; // For logo, name etc.
+              const teamDisplayDetails = storyData[teamType]; // For logo, name etc.
 
               if (!teamStatsData) return null;
 
               return (
                 <div key={teamType}>
                   <h3 className="text-xl font-semibold mb-3 text-center">
-                    {teamDisplayDetails.commonName.default}
+                    {teamDisplayDetails.name.default}
                   </h3>
                   {(["forwards", "defense", "goalies"] as const).map((positionKey) => {
                     const playersAtPosition: PlayerStats[] =

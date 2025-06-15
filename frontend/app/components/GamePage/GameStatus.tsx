@@ -1,29 +1,25 @@
-import type { GameLandingData } from "~/entities";
+import type { GameStory } from "~/entities";
 
-export function GameStatus({ gameLandingData }: { gameLandingData: GameLandingData }) {
+export function GameStatus(data: GameStory) {
   return (
     <div className="text-center mt-3">
       <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400">
-        {gameLandingData.gameState === "OFF" && gameLandingData.periodDescriptor.periodType === "REG"
+        {data.gameState === "OFF" && data.periodDescriptor.periodType === "REG"
           ? "Final"
-          : gameLandingData.gameState === "OFF" &&
-              gameLandingData.periodDescriptor.periodType === "OT" &&
-              !gameLandingData.periodDescriptor.otPeriods
+          : data.gameState === "OFF" &&
+              data.periodDescriptor.periodType === "OT" &&
+              !data.periodDescriptor.otPeriods
             ? "Final/OT"
-            : gameLandingData.gameState === "OFF" &&
-                gameLandingData.periodDescriptor.periodType === "OT" &&
-                gameLandingData.periodDescriptor.otPeriods
-              ? `Final/${gameLandingData.periodDescriptor.otPeriods}OT`
-              : gameLandingData.gameState === "OFF" &&
-                  gameLandingData.periodDescriptor.periodType === "SO"
+            : data.gameState === "OFF" &&
+                data.periodDescriptor.periodType === "OT" &&
+                data.periodDescriptor.otPeriods
+              ? `Final/${data.periodDescriptor.otPeriods}OT`
+              : data.gameState === "OFF" && data.periodDescriptor.periodType === "SO"
                 ? "Shootout"
-                : gameLandingData.gameState === "LIVE"
+                : data.gameState === "LIVE"
                   ? "Live"
-                  : gameLandingData.gameScheduleState || "Scheduled"}
-        {gameLandingData.clock &&
-          gameLandingData.clock.inIntermission &&
-          !gameLandingData.clock.running &&
-          " (Intermission)"}
+                  : data.gameScheduleState || "Scheduled"}
+        {data.clock && data.clock.inIntermission && !data.clock.running && " (Intermission)"}
       </p>
     </div>
   );

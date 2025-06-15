@@ -28,6 +28,7 @@ export interface TeamInfo {
 export interface PeriodDescriptor {
   number: number;
   periodType: string;
+  otPeriods?: number; // Optional as it's not present in all instances
   maxRegulationPeriods?: number; // Optional as it's not present in all instances
 }
 

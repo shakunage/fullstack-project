@@ -7,3 +7,4 @@ export * from "./TopSkaters";
 export * from "./TopGoalies";
 export * from "./BettingLines";
 export * from "./GameLanding";
+export * from "./GameStory";
