@@ -1,23 +1,29 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchBoxscore } from "~/services/nhlApiServices/boxscoreService";
+import { fetchLanding } from "~/services/nhlApiServices/gameLandingService";
 import type { GameItem } from "../../../entities/GameItem";
 import type { BoxscoreData } from "../../../entities/Boxscore";
+import type { GameLandingData } from "../../../entities/GameLanding";
 import { GoalScorers } from "./GoalScorers";
 import { Goalies } from "./Goalies";
 
-export function GameDetailsButton({ game }: { game: GameItem }) {
+export function GameDetailsButton({game_id}: { game_id: string | number }) {
   const [showDetails, setShowDetails] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const {
-    data: boxscoreData,
+    data,
     refetch,
     isFetching,
-  } = useQuery<BoxscoreData>({
-    queryKey: ["boxscoreData", game.id],
+  } = useQuery<{ boxscore: BoxscoreData; landing: GameLandingData }>({
+    queryKey: ["boxscoreLandingData", game_id],
     queryFn: async () => {
-      return await fetchBoxscore(game.id);
+      const [boxscoreData, landingData] = await Promise.all([
+        fetchBoxscore(game_id),
+        fetchLanding(game_id),
+      ]);
+      return { boxscore: boxscoreData, landing: landingData };
     },
     enabled: false, // Don't run on mount
     staleTime: 60 * 1000, // 1 minute
@@ -29,7 +35,7 @@ export function GameDetailsButton({ game }: { game: GameItem }) {
       setLoading(true);
 
       // Only fetch if we don't already have data
-      if (!boxscoreData) {
+      if (!data) {
         await refetch();
       }
 
@@ -60,10 +66,11 @@ export function GameDetailsButton({ game }: { game: GameItem }) {
         </div>
       )}
 
-      {showDetails && boxscoreData && (
+      {showDetails && data?.boxscore && data?.landing && (
         <div className="mt-4">
-          <GoalScorers game={game} />
-          <Goalies boxscoreData={boxscoreData} />
+          <GoalScorers game={data.landing} />
+          {/* You can now also use data.landing if needed by GoalScorers or other components */}
+          <Goalies boxscoreData={data.boxscore} />
         </div>
       )}
     </>

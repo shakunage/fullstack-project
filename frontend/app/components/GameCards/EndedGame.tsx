@@ -26,7 +26,7 @@ export function EndedGame({ game }: { game: GameItem }) {
           threeMinRecapLink={game.threeMinRecap}
           condensedGameLink={game.condensedGame}
         />
-        <GameDetailsButton game={game} />
+        <GameDetailsButton game_id={game.id} />
       </div>
     </div>
   );

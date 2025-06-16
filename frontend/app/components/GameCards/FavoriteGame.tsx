@@ -4,6 +4,7 @@ import { EndedGameHeader } from "./subcomponents/EndedGameHeader";
 import { StartTimeToggle } from "./subcomponents/StartTimeToggle";
 import { Venue } from "./subcomponents/Venue";
 import { FavoriteButton } from "./subcomponents/FavoriteButton";
+import { GameDetailsButton } from "./subcomponents/GameDetailsButton";
 import { useNavigate } from "react-router";
 
 export function FavoriteGame({ game }: { game: BoxscoreData }) {
@@ -34,6 +35,7 @@ export function FavoriteGame({ game }: { game: BoxscoreData }) {
           />
           <StartTimeToggle gameStartTime={game.startTimeUTC} />
           <Venue venue={game.venue.default} homeTeamAbbrev={game.homeTeam.abbrev} />
+          <GameDetailsButton game_id={game.id} />
         </React.Fragment>
       </div>
     </div>

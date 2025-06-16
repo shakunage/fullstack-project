@@ -1,10 +1,10 @@
-import type { GameItem } from "../../../entities/GameItem";
+import type { GameLandingData } from "~/entities";
 
-const TeamGoalScorers = ({ game, home }: { game: GameItem; home: boolean }) => {
-  const teamName: string = home ? game.homeTeam.name.default : game.awayTeam.name.default;
+const TeamGoalScorers = ({ game, home }: { game: GameLandingData; home: boolean }) => {
+  const teamName: string = home ? game.homeTeam.commonName.default : game.awayTeam.commonName.default;
   const teamAbbrev: string = home ? game.homeTeam.abbrev : game.awayTeam.abbrev;
 
-  const teamGoals = game.goals.filter((goal) => goal.teamAbbrev === teamAbbrev);
+  const teamGoals = game.summary.scoring.flatMap((goal) => goal.goals.filter((goal) => goal.teamAbbrev.default === teamAbbrev));
 
   if (teamGoals.length === 0) {
     return null;
@@ -15,7 +15,7 @@ const TeamGoalScorers = ({ game, home }: { game: GameItem; home: boolean }) => {
       <h4 className="font-semibold">{teamName}</h4>
       {teamGoals
         .map((goal) => (
-          <p key={`${goal.period}_${goal.timeInPeriod}`}>
+          <p key={`${goal.eventId}_${goal.timeInPeriod}`}>
             {goal.name.default} - {goal.goalsToDate} goals
           </p>
         ))}
@@ -23,7 +23,7 @@ const TeamGoalScorers = ({ game, home }: { game: GameItem; home: boolean }) => {
   );
 };
 
-export function GoalScorers({ game }: { game: GameItem }) {
+export function GoalScorers({ game }: { game: GameLandingData }) {
   return (
     <>
       <h3 className="text-lg font-bold">Goal Scorers</h3>
