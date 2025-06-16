@@ -57,3 +57,4 @@
 | 13 Jun 2025 | Add redis caching for user's favorite games list, change pagination (skip and limit) implementation to suit redis caching better, add redis healthcheck and cache invalidation | 3 |
 | 14 Jun 2025 | Enhance nginx logging options to better verify cache hits/misses, enhance handling of multiple OT periods in the UI, further refactoring of the individual game page | 3.5 |
 | 15 Jun 2025 | Slight fix to docker compose setup, expand data fetching capabilities, introduce the concept of resource routes to the app and utilize them | 4.5 |
+| 16 Jun 2025 | Overhaul data fetching logic behind gamedetailsbutton, make the button visible on favorite game cards. On the individual game page, add more info into the the teamstats component, and make three stars into a dropdown and move it down the order | 2 |

@@ -39,5 +39,6 @@
   - implement some general UI improvements
     - for example: better landing page experience when there are only few recent games
   - enrich the team stats bar in the individual game view (faceoffs etc. add moneypuck link)
+  - move the three stars view behind a dropdown
   - start impelementing testing & linting & formatting pipeline (gh actions)
   - sign up for hetzner to eventually deploy on a vps
