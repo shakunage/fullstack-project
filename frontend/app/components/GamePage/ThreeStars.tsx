@@ -1,11 +1,28 @@
+import { useState } from "react";
 import { type GameStory } from "~/entities";
 
 export function ThreeStars(landingData: GameStory) {
+  const [showThreeStars, setShowThreeStars] = useState(false);
+
+  const handleToggleThreeStars = () => {
+    setShowThreeStars(!showThreeStars);
+  };
+
+  if (!landingData.summary?.threeStars || landingData.summary.threeStars.length === 0) {
+    return null; // Don't render anything if there are no three stars
+  }
+
   return (
-    <>
-      {landingData.summary?.threeStars && landingData.summary.threeStars.length > 0 && (
-        <div className="mb-8">
-          <h3 className="text-2xl font-bold mb-4 text-center">Three Stars of the Game</h3>
+    <div className="w-full mt-6">
+      <button
+        onClick={handleToggleThreeStars}
+        className="w-full text-left px-4 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md text-xl font-semibold focus:outline-none"
+      >
+        Three Stars {showThreeStars ? "▲" : "▼"}
+      </button>
+      {showThreeStars && (
+        <div className="mt-4">
+          {/* Original content was here, now wrapped. The h3 title is part of the button now. */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {landingData.summary.threeStars
               .sort((a, b) => a.star - b.star)
@@ -35,6 +52,6 @@ export function ThreeStars(landingData: GameStory) {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
