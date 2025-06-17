@@ -7,11 +7,12 @@
 - move endpoint addresses and secrets to ENV files
 - fix entity imports
 - implement middleware in the backend
-- solve the problem where the boxscore fetch endpoint doesnt have a dedicated route
 - smoothen up the experience a little bit
   - e.g. when theres no recent or upcoming games, forward to games browser
 - refactoring tasklist:
   - usequery hooks into a separate folder and files
+  - make favoritegame card and games.tsx game card the same (add flexibility into data handling)
+  - make dropdown logic in the individual game page shared
   - most files in the routes/ folder are terrible slop, e.g.:
     - bettinglines.tsx
     - favoritegames.tsx
@@ -22,8 +23,6 @@
     - teams.tsx
   - refactor the above into components, utils, services, hooks
 - more data integrations, such as natural stat trick and moneypuck, polymarket sports
-- create a mongodb database to store api info as-is
-- testing/formatting pipeline ←　IMPORTANT
 - some feature ideas:
   - add statistics pages
     - centered around betting odds. which teams have outperformed, underperformed the odds?
@@ -34,11 +33,16 @@
   - add "statistics about the season" page
     - goal averages, PP averages, save-% averages, etc.
   - enrich the view for past games, add filters, implement a proper search, using generative AI
-  - change nginx reverse proxy settings to reflect the fact that proxying is not needed for SSR call -> API operations (maybe)
-
   - implement some general UI improvements
     - for example: better landing page experience when there are only few recent games
+    - ^this needs more complicated fetching logic
+    - make card sizes uniform across the app
+    - show number of games under the dates in the calendar view
   - enrich the team stats bar in the individual game view (faceoffs etc. add moneypuck link)
-  - move the three stars view behind a dropdown
   - start impelementing testing & linting & formatting pipeline (gh actions)
   - sign up for hetzner to eventually deploy on a vps
+  - setup favicon, page title, etc.
+  - add recap links into the favoritegames page
+  - move favorited game JSON into a mongodb community edition database
+    - this solves the issue where certain game data is only obtainable from the /score/yyyy-mm-dd endpoint
+  - solve favoritegames n+1 problem using graphql
