@@ -23,7 +23,7 @@ export function FavoriteGame({ game }: { game: BoxscoreData }) {
       <FavoriteButton game_id={game.id} />
       <div
         key={game.id}
-        className="hover:bg-gray-200 cursor-pointer shadow-md rounded-lg p-4"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4"
         onClick={() => handleGameClick(game.id)}
       >
         <React.Fragment key={game.id}>

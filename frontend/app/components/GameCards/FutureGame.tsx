@@ -3,8 +3,9 @@ import { calculateTimeUntilStart } from "../../utils/calculateTimeUntilStart";
 import type { GameItem } from "../../entities/GameItem";
 import { StartTimeToggle } from "./subcomponents/StartTimeToggle";
 import { Venue } from "./subcomponents/Venue";
+import type { BoxscoreData } from "../../entities/Boxscore";
 
-export function FutureGame({ game }: { game: GameItem }) {
+export function FutureGame({ game }: { game: GameItem  | BoxscoreData }) {
   const { data: timeUntilStart } = useQuery({
     queryKey: ["timeUntilStart", game.startTimeUTC],
     queryFn: () => calculateTimeUntilStart(game.startTimeUTC),

@@ -2,6 +2,7 @@ import { FavoriteButton } from "./subcomponents/FavoriteButton";
 import { GameDetailsButton } from "./subcomponents/GameDetailsButton";
 import { boxscoreLoader } from "../../loaders/boxscoreLoader";
 import type { GameItem } from "../../entities";
+import type { BoxscoreData } from "../../entities/Boxscore";
 import { EndedGameHeader } from "./subcomponents/EndedGameHeader";
 import { EndedGameDetails } from "./subcomponents/EndedGameDetails";
 import { StartTimeToggle } from "./subcomponents/StartTimeToggle";
@@ -9,7 +10,7 @@ import { Venue } from "./subcomponents/Venue";
 
 export const loader = boxscoreLoader;
 
-export function EndedGame({ game }: { game: GameItem }) {
+export function EndedGame({ game }: { game: GameItem | BoxscoreData }) {
   return (
     <div className="relative">
       <FavoriteButton game_id={game.id} />

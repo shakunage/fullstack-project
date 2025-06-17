@@ -1,11 +1,19 @@
 import { useLoaderData, useSearchParams, useNavigation } from "react-router";
 import { favoritegamesLoader } from "~/loaders/favoritegamesLoader";
 import { FavoriteGame } from "~/components/GameCards/FavoriteGame";
+import { useNavigate } from "react-router";
+import { FutureGame } from "~/components/GameCards/FutureGame";
+import { LiveGame } from "~/components/GameCards/LiveGame";
+import { EndedGame } from "~/components/GameCards/EndedGame";
 
 export const loader = favoritegamesLoader;
 
 export default function FavoriteGames() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const handleGameClick = (gameId: number) => {
+    void navigate(`/game/${gameId}`);
+  };
 
   const { games, currentPage, totalPages, totalGames } = useLoaderData<typeof loader>();
   const navigation = useNavigation();
@@ -109,7 +117,7 @@ export default function FavoriteGames() {
   };
 
   return (
-    <div className="container mx-auto px-4">
+    <div className="mx-auto">
       <h1 className="text-2xl font-bold my-6 text-center">My Favorite Games</h1>
       {renderPaginationControls()}
       {navigation.state === "loading" ? (
@@ -118,10 +126,22 @@ export default function FavoriteGames() {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
-          {games.map((game) => (
-            <FavoriteGame key={game.id} game={game} />
-          ))}
-        </div>
+              {games.map((game) => (
+                <div
+                  key={game.id}
+                  className="hover:bg-gray-200 cursor-pointer"
+                  onClick={() => handleGameClick(game.id)}
+                >
+                  {game.gameState === "FUT" || game.gameState === "PRE" ? (
+                    <FutureGame game={game} />
+                  ) : game.gameState === "LIVE" || game.gameState === "CRIT" ? (
+                    <LiveGame game={game} />
+                  ) : game.gameState === "OFF" || game.gameState === "FINAL" ? (
+                    <EndedGame game={game} />
+                  ) : null}
+                </div>
+              ))}
+            </div>
       )}
       {renderPaginationControls()}
       <p className="text-center my-4 text-sm text-gray-600">
