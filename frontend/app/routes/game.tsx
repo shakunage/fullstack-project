@@ -40,7 +40,9 @@ export default function Game() {
           {/* Right Column: Game Information */}
           <GameInformation {...gameStoryData} />
         </div>
-        {/* Team Stats - Placed below the two-column layout */}
+        {/* Divider */}
+        <hr className="my-6 border-gray-200 dark:border-gray-700" />
+        {/* Team Stats (SOG display and dropdown for detailed stats) - Placed below the two-column layout */}
         <TeamStats gameLandingData={gameStoryData} />
         {/* From here on, the components are stacked vertically */}
         <ScoringSummary {...gameStoryData} />

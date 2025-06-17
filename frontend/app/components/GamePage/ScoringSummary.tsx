@@ -1,11 +1,27 @@
+import { useState } from "react";
 import { type GameStory } from "~/entities";
 
 export function ScoringSummary(gameLandingData: GameStory) {
+  const [showScoringSummary, setShowScoringSummary] = useState(true); // Default open
+
+  const handleToggleScoringSummary = () => {
+    setShowScoringSummary(!showScoringSummary);
+  };
+
+  if (!gameLandingData.summary?.scoring || gameLandingData.summary.scoring.length === 0) {
+    return null; // Don't render anything if there is no scoring data
+  }
+
   return (
-    <>
-      {gameLandingData.summary?.scoring && gameLandingData.summary.scoring.length > 0 && (
-        <div className="mb-8">
-          <h3 className="text-2xl font-bold mb-4 text-center">Scoring Summary</h3>
+    <div className="w-full mt-6">
+      <button
+        onClick={handleToggleScoringSummary}
+        className="w-full text-left px-4 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md text-xl font-semibold focus:outline-none"
+      >
+        Scoring Summary {showScoringSummary ? "▲" : "▼"}
+      </button>
+      {showScoringSummary && (
+        <div className="mt-4 p-4 bg-white dark:bg-gray-800 rounded-b-md">
           {gameLandingData.summary.scoring.map((period) => (
             <div key={period.periodDescriptor.number} className="mb-4">
               <h4 className="text-xl font-semibold mb-2">
@@ -61,6 +77,6 @@ export function ScoringSummary(gameLandingData: GameStory) {
           ))}
         </div>
       )}
-    </>
+    </div>
   );
 }
