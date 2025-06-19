@@ -59,3 +59,4 @@
 | 15 Jun 2025 | Slight fix to docker compose setup, expand data fetching capabilities, introduce the concept of resource routes to the app and utilize them | 4.5 |
 | 16 Jun 2025 | Overhaul data fetching logic behind gamedetailsbutton, make the button visible on favorite game cards. On the individual game page, add more info into the the teamstats component, and make three stars into a dropdown and move it down the order | 2 |
 | 17 Jun 2025 | Further brushing up of the invidual game component, unify layout of /games and /favoritegames, add mongodb & mongodb express monitoring services to the docker compose setup, rudimentary implementation of mongodb to the backend | 2 |
+| 19 Jun 2025 | Update mongo config, improve docker compose setup wrt mongo and mongo-express, start overhauling game favoriting logic | 1.5 |
