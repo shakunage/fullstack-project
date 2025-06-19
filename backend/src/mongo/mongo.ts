@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 // const password = process.argv[2]
 
-const url = `mongodb://root:example@mongo:27017/`
+const url = `mongodb://root:example@mongo:27017/gameIdsDb?authSource=admin`
 
 mongoose.set('strictQuery',false)
 
