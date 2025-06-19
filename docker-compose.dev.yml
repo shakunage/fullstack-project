@@ -28,13 +28,23 @@ services:
       start_period: 10s
   mongo:
     image: mongo
+    container_name: mongo
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
     volumes:
       - mongo_data:/data/db
+    networks: # Explicitly add mongo to the network
+      - fs-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
   mongo-express:
     image: mongo-express
+    container_name: mongo-express
     ports:
       - 8081:8081
     environment:
@@ -42,6 +52,11 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
       ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
       ME_CONFIG_BASICAUTH: false
+    networks:
+      - fs-network
+    depends_on:
+      mongo:
+        condition: service_healthy
   redis:
     image: "redis:alpine"
     container_name: rediscache
@@ -74,6 +89,8 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+      mongo:
+        condition: service_healthy
   reverseproxy:
     image: nginx:1.20.1
     volumes:
@@ -94,4 +111,3 @@ networks:
 volumes:
   mongo_data:
     external: false
-
