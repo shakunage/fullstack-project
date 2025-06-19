@@ -2,28 +2,29 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSelector } from "react-redux";
 import type { RootState } from "~/store/store";
 import { checkFavorite, addFavorite, removeFavorite } from "~/services/backendServices/favoriteService";
+import type { BoxscoreData, GameItem } from "~/entities";
 
-export function FavoriteButton({ game_id }: { game_id: number }) {
+export function FavoriteButton({ game }: { game: GameItem | BoxscoreData }) {
   const queryClient = useQueryClient();
   const username = useSelector((state: RootState) => state.auth.username);
 
   const { data: favoriteStatus, isLoading } = useQuery({
-    queryKey: ["checkfavorite", game_id],
-    queryFn: () => checkFavorite(game_id),
+    queryKey: ["checkfavorite", game.id],
+    queryFn: () => checkFavorite(game.id),
     enabled: !!username,
   });
 
   const favoriteMutation = useMutation({
-    mutationFn: () => addFavorite(game_id),
+    mutationFn: () => addFavorite(game.id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["checkfavorite", game_id] });
+      queryClient.invalidateQueries({ queryKey: ["checkfavorite", game.id] });
     },
   });
 
   const unfavoriteMutation = useMutation({
-    mutationFn: () => removeFavorite(game_id),
+    mutationFn: () => removeFavorite(game.id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["checkfavorite", game_id] });
+      queryClient.invalidateQueries({ queryKey: ["checkfavorite", game.id] });
     },
   });
 

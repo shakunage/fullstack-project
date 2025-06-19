@@ -20,7 +20,7 @@ export function FavoriteGame({ game }: { game: BoxscoreData }) {
 
   return (
     <div className="relative">
-      <FavoriteButton game_id={game.id} />
+      <FavoriteButton game={game} />
       <div
         key={game.id}
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4"

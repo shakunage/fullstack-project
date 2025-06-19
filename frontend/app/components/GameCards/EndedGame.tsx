@@ -13,7 +13,7 @@ export const loader = boxscoreLoader;
 export function EndedGame({ game }: { game: GameItem | BoxscoreData }) {
   return (
     <div className="relative">
-      <FavoriteButton game_id={game.id} />
+      <FavoriteButton game={game} />
       <div className="shadow-md rounded-lg p-4">
         <EndedGameHeader
           lastPeriod={game.gameOutcome.lastPeriodType}
