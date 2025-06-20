@@ -55,5 +55,5 @@
   - implement updating the favorite item if it existis in the database
   - fix FavoriteGame.tsx component favorite button props
   - built an endpoint to serve data from mongodb
-  - store user favorites in mongo as well (use postgres for auth only)
+  - store user favorites in mongo as well (use postgres for auth onlyŒ)
 - on the favorites page, the matches are fetched from the mongo database, not the nhl api backend
