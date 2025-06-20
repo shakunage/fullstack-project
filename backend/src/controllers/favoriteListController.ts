@@ -25,13 +25,9 @@ router.get(
       return res.status(401).json({ message: "Not authenticated" });
     }
 
-    const page = parseInt(req.query.page as string) || 1; // Default to page 1
-    const limit = parseInt(req.query.limit as string) || 9; // As per requirement
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 9;
     const skip = (page - 1) * limit;
-    console.log("Page:", page);
-    console.log("Skip:", skip);
-    console.log("limit:", limit);
-    console.log("req.query object:", req.query);
     
     try {
       const tokenValidity = await validateTokenRepository(token);
