@@ -46,3 +46,14 @@
   - move favorited game JSON into a mongodb community edition database
     - this solves the issue where certain game data is only obtainable from the /score/yyyy-mm-dd endpoint
   - solve favoritegames n+1 problem using graphql
+  - make file names and function/type/component names consistent in general
+
+6/20 tasklist:
+- make it so that on the press of favorite button, the whole game item gets saved into the mongo db
+  - addFavorite service function needs to have the game item in the POST body
+  - favoriteRepository and controller need to be edited to handle the POST body
+  - implement updating the favorite item if it existis in the database
+  - fix FavoriteGame.tsx component favorite button props
+  - built an endpoint to serve data from mongodb
+  - store user favorites in mongo as well (use postgres for auth only)
+- on the favorites page, the matches are fetched from the mongo database, not the nhl api backend
