@@ -50,8 +50,7 @@
 
 6/20 tasklist:
 - make it so that on the press of favorite button, the whole game item gets saved into the mongo db
-  - addFavorite service function needs to have the game item in the POST body
-  - favoriteRepository and controller need to be edited to handle the POST body
+  - separete storing users and auth tokens to postgres, and games and favorites to mongo
   - implement updating the favorite item if it existis in the database
   - fix FavoriteGame.tsx component favorite button props
   - built an endpoint to serve data from mongodb

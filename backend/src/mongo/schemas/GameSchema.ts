@@ -59,17 +59,20 @@ export const gameSchema = new Schema({
     periodType: { type: String },
     maxRegulationPeriods: { type: Number },
   },
-  gameOutcome: {
-    lastPeriodType: { type: String },
-    otPeriods: { type: Number },
-  },
-  goals: [{
-    period: { type: Number, required: true },
-    periodDescriptor: {
-      number: { type: Number, required: true },
-      periodType: { type: String, required: true },
-      maxRegulationPeriods: { type: Number, required: true },
+    gameOutcome: {
+      lastPeriodType: { type: String },
+      otPeriods: { type: Number },
     },
+    favoritedBy: [{
+      type: String,
+    }],
+    goals: [{
+      period: { type: Number, required: true },
+      periodDescriptor: {
+        number: { type: Number, required: true },
+        periodType: { type: String, required: true },
+        maxRegulationPeriods: { type: Number, required: true },
+      },
     timeInPeriod: { type: String, required: true },
     playerId: { type: Number, required: true },
     name: {

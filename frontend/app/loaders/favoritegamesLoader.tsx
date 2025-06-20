@@ -36,7 +36,7 @@ export const favoritegamesLoader = async ({ request }: LoaderFunctionArgs) => {
       return { games: [], currentPage, totalPages, totalGames };
     }
     const gameDetailsPromises = gameIds.map((gameId) => {
-      return getBoxscore(gameId); // Pass a dummy date for gameDate
+      return getBoxscore(gameId);
     });
     const gameDetailsResults = await Promise.all(gameDetailsPromises);
     // Sort games by startTimeUTC, latest to earliest, return games

@@ -4,7 +4,6 @@ import express, { Request, Response, Router } from "express";
 import { findUserByToken } from "../repositories/findUserRepository.ts";
 import { validateTokenRepository } from "../repositories/validateTokenRepository.ts";
 import { addFavoriteRepository } from "../repositories/addFavoriteRepository.ts";
-import { saveFavoriteGame } from "../repositories/addFavoriteRepository.ts";
 import { removeFavoriteRepository } from "../repositories/removeFavoriteRepository.ts";
 import { checkFavoriteRepository } from "../repositories/checkFavoriteRepository.ts";
 
@@ -29,9 +28,8 @@ router.post(
       if (!game_id || typeof game_id !== 'string') {
         return res.status(400).json({ message: "Game ID is required and needs to be in a valid format" });
       }
-      
-      await addFavoriteRepository(game_id, user.id);
-      await saveFavoriteGame(req.body);
+      // TODO: validate req.body to ensure it contains the necessary game data
+      await addFavoriteRepository(req.body, user.id);
 
       res.status(200).json({ message: "Game favorited successfully" });
 
