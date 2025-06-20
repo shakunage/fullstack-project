@@ -4,6 +4,7 @@ import express, { Request, Response, Router } from "express";
 import { findUserByToken } from "../repositories/findUserRepository.ts";
 import { validateTokenRepository } from "../repositories/validateTokenRepository.ts";
 import { addFavoriteRepository } from "../repositories/addFavoriteRepository.ts";
+import { saveFavoriteGame } from "../repositories/addFavoriteRepository.ts";
 import { removeFavoriteRepository } from "../repositories/removeFavoriteRepository.ts";
 import { checkFavoriteRepository } from "../repositories/checkFavoriteRepository.ts";
 
@@ -30,6 +31,7 @@ router.post(
       }
       
       await addFavoriteRepository(game_id, user.id);
+      await saveFavoriteGame(req.body);
 
       res.status(200).json({ message: "Game favorited successfully" });
 

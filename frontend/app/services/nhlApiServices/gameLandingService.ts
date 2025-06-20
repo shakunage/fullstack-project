@@ -3,7 +3,7 @@ import type { GameLandingData } from "../../entities";
 
 const API_URL = "http://reverseproxy:9998/api/v1/gamecenter";
 
-export async function getLanding(game_id: number | undefined): Promise<GameLandingData> {
+export async function getLanding(game_id: number | string | undefined): Promise<GameLandingData> {
   const fetchOptions: GenericFetchOptions<GameLandingData> = {
     method: "GET",
     endpoint: `${API_URL}/${game_id}/landing`,

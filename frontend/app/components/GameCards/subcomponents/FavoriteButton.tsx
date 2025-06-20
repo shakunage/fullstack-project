@@ -4,7 +4,7 @@ import type { RootState } from "~/store/store";
 import { checkFavorite, addFavorite, removeFavorite } from "~/services/backendServices/favoriteService";
 import type { BoxscoreData, GameItem } from "~/entities";
 
-export function FavoriteButton({ game }: { game: GameItem | BoxscoreData }) {
+export function FavoriteButton({ game }: { game: GameItem }) {
   const queryClient = useQueryClient();
   const username = useSelector((state: RootState) => state.auth.username);
 
@@ -15,7 +15,7 @@ export function FavoriteButton({ game }: { game: GameItem | BoxscoreData }) {
   });
 
   const favoriteMutation = useMutation({
-    mutationFn: () => addFavorite(game.id),
+    mutationFn: () => addFavorite(game),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["checkfavorite", game.id] });
     },

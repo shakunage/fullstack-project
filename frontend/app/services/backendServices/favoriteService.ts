@@ -1,4 +1,6 @@
 import { type GenericFetchOptions, genericFetch } from "../genericApiService";
+import { type GameItem } from "~/entities";
+
 const API_URL = "http://localhost:9998/backend";
 
 export async function checkFavorite(gameId: number): Promise<boolean> {
@@ -27,14 +29,15 @@ export async function checkFavorite(gameId: number): Promise<boolean> {
   }
 }
 
-export async function addFavorite(gameId: number): Promise<boolean> {
+export async function addFavorite(game: GameItem): Promise<boolean> {
   const fetchOptions: GenericFetchOptions<number> = {
       method: "POST",
       endpoint: `${API_URL}/favorite`,
-      queryParameter: `id=${gameId}`,
+      queryParameter: `id=${game.id}`,
       dataTransform: async (response) => response.status,
       defaultValue: 0,
-      credentials: "include", // Ensure cookies are sent with the request
+      credentials: "include",
+      body: game
   };
   try {
     const status: number = await genericFetch(fetchOptions);
