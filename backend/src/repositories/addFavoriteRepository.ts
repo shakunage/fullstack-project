@@ -1,6 +1,4 @@
-import { prisma } from "../dbserver/dbserver.ts";
 import { type User } from "../models/User.ts";
-import { type Game } from "../models/Game.ts";
 import type { GameItem } from "../models/GameItem.ts";
 import { gameSchema, GameModel } from "../mongo/schemas/GameSchema.ts";
 import mongoose from "../mongo/mongo.ts";
@@ -14,7 +12,7 @@ export async function addFavoriteRepository(game: GameItem, user_id: User["id"])
   const Game = mongoose.models.Games || mongoose.model('Games', gameSchema);
 
   try {
-    // Check if a document with the given game id already exists.
+    // TODO: check if the .exec call is necessary here
     const existingGame = await Game.findOne({ id: game.id }).exec();
 
     // If the game does not exist, create and save it.
