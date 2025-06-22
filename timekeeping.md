@@ -61,4 +61,5 @@
 | 17 Jun 2025 | Further brushing up of the invidual game component, unify layout of /games and /favoritegames, add mongodb & mongodb express monitoring services to the docker compose setup, rudimentary implementation of mongodb to the backend | 2 |
 | 19 Jun 2025 | Update mongo config, improve docker compose setup wrt mongo and mongo-express, start overhauling game favoriting logic | 1.5 |
 | 20 Jun 2025 | Start reorganizing the backend and separating the functions of MongoDB and Postgres databases, implement backend logic to interact with the MongoDB database | 2.5 |
-| 21 Jun 2025 | Continue revamping the backend logic | 1.5 |
+| 21 Jun 2025 | Continuing to revamp the backend logic | 1.5 |
+| 22 Jun 2025 | Adapt frontend & backend code handle the use of MongoDB for favorite games data, reimplement Redis caching in wrt user's favorite list | 3.5 |

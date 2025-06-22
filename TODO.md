@@ -1,14 +1,14 @@
 # TODO
 
-- add shadcn ui library
-  - 2025/02/18: installed, need to learn how to use
-  - maybe watch a youtube video
-  - let AI create the custom components
-- move endpoint addresses and secrets to ENV files
-- fix entity imports
-- implement middleware in the backend
+## Must to have
+- sort out the models/interfaces mess in the backend code
+- fix FavoriteGame.tsx component favorite button props
+- setup favicon, page title, etc.
 - smoothen up the experience a little bit
   - e.g. when theres no recent or upcoming games, forward to games browser
+- move endpoint addresses and secrets to ENV files
+  - only with regards to the backend. handle frontend envs in gh actions
+- fix entity imports
 - refactoring tasklist:
   - usequery hooks into a separate folder and files
   - make favoritegame card and games.tsx game card the same (add flexibility into data handling)
@@ -22,37 +22,18 @@
     - signup.tsx
     - teams.tsx
   - refactor the above into components, utils, services, hooks
-- more data integrations, such as natural stat trick and moneypuck, polymarket sports
-- some feature ideas:
-  - add statistics pages
-    - centered around betting odds. which teams have outperformed, underperformed the odds?
-    - past winning odds
-  - add features to record parlays and returns
-  - simulate betting strategies
-    - "for the past 30 games, simulate the returns for betting for a Hellebuyck win"
-  - add "statistics about the season" page
-    - goal averages, PP averages, save-% averages, etc.
-  - enrich the view for past games, add filters, implement a proper search, using generative AI
-  - implement some general UI improvements
-    - for example: better landing page experience when there are only few recent games
-    - ^this needs more complicated fetching logic
-    - make card sizes uniform across the app
-    - show number of games under the dates in the calendar view
-  - enrich the team stats bar in the individual game view (faceoffs etc. add moneypuck link)
-  - start impelementing testing & linting & formatting pipeline (gh actions)
-  - sign up for hetzner to eventually deploy on a vps
-  - setup favicon, page title, etc.
-  - add recap links into the favoritegames page
-  - move favorited game JSON into a mongodb community edition database
-    - this solves the issue where certain game data is only obtainable from the /score/yyyy-mm-dd endpoint
-  - solve favoritegames n+1 problem using graphql
-  - make file names and function/type/component names consistent in general
+- implement some general UI improvements
+  - for example: better landing page experience when there are only few recent games
+  - ^this needs more complicated fetching logic
+  - show number of games under the dates in the calendar view
+- start impelementing testing & linting & formatting pipeline (gh actions)
+- make file names and function/type/component names consistent in general
 
-6/20 tasklist:
-- make it so that on the press of favorite button, the whole game item gets saved into the mongo db
-  - separete storing users and auth tokens to postgres, and games and favorites to mongo
-  - implement updating the favorite item if it existis in the database
-  - fix FavoriteGame.tsx component favorite button props
-  - built an endpoint to serve data from mongodb
-  - store user favorites in mongo as well (use postgres for auth onlyŒ)
-- on the favorites page, the matches are fetched from the mongo database, not the nhl api backend
+## Nice to have
+- solve favoritegames n+1 problem using graphql
+- add shadcn ui library
+- 2025/02/18: installed, need to learn how to use
+- maybe watch a youtube video
+- let AI create the custom components
+- implement middleware in the backend
+- enrich the team stats bar in the individual game view (faceoffs etc. add moneypuck link)
