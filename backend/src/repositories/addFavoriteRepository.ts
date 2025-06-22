@@ -4,11 +4,19 @@ import { gameSchema, GameModel } from "../mongo/schemas/GameSchema.ts";
 import mongoose from "../mongo/mongo.ts";
 import redisClient from "../redis/redisClient.ts";
 
-// TODO: implement caching with Redis
 const FAVORITES_CACHE_PREFIX = 'user_favorites:';
 
 export async function addFavoriteRepository(game: GameItem, user_id: User["id"]): Promise<void> {
   const Game = mongoose.models.Games || mongoose.model('Games', gameSchema);
+
+  // Invalidate redis cache for the user's favorites
+  const cacheKey = `${FAVORITES_CACHE_PREFIX}${user_id}`;
+  try {
+    await redisClient.del(cacheKey);
+    console.log(`Cache invalidated for ${cacheKey}`);
+  } catch (error) {
+    console.error('Redis DEL error:', error);
+  }
 
   try {
     // TODO: check if the .exec call is necessary here

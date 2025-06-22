@@ -2,18 +2,17 @@ import { prisma } from "../dbserver/dbserver.ts";
 import redisClient from "../redis/redisClient.ts";
 import { GameModel } from "../mongo/schemas/GameSchema.ts";
 
-// TODO: implement redis caching
 const FAVORITES_CACHE_PREFIX = 'user_favorites:';
 
 export async function removeFavoriteRepository(game_id: string, user_id: string): Promise<void> {
   // invalidate redis cache for the user's favorites
   const cacheKey = `${FAVORITES_CACHE_PREFIX}${user_id}`;
-  // try {
-  //   await redisClient.del(cacheKey);
-  //   console.log(`Cache invalidated for ${cacheKey}`);
-  // } catch (error) {
-  //   console.error('Redis DEL error:', error);
-  // }
+  try {
+    await redisClient.del(cacheKey);
+    console.log(`Cache invalidated for ${cacheKey}`);
+  } catch (error) {
+    console.error('Redis DEL error:', error);
+  }
   try {
     await GameModel.updateOne(
       { id: game_id },

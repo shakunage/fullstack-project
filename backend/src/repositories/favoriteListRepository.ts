@@ -1,9 +1,9 @@
 import { type User } from "../models/User.ts";
 import { GameModel } from "../mongo/schemas/GameSchema.ts";
+import { type GameItem } from "../models/GameItem.ts";
 import redisClient from "../redis/redisClient.ts";
 
 
-// TODO: implement redis caching
 const FAVORITES_CACHE_PREFIX = 'user_favorites:';
 const FAVORITES_CACHE_TTL = 3600; // 1 hour in seconds
 
@@ -42,11 +42,22 @@ export async function favoriteListRepository(
       // 5. Execute the query
       .exec();
 
-    // Sanitize the output by removing the 'favoritedBy' field
+    // Sanitize the output by removing the 'favoritedBy' field and save to redis
     const favoriteGamesWithoutFavoritedBy = favoriteGamesFromDb.map((game) => {
       const { favoritedBy, ...gameWithoutFavoritedBy } = game;
       return gameWithoutFavoritedBy;
     });
+
+    try {
+      // Store in Redis
+      await redisClient.setex(
+        cacheKey,
+        FAVORITES_CACHE_TTL,
+        JSON.stringify(favoriteGamesWithoutFavoritedBy)
+      );
+    } catch (error) {
+      console.error('Redis SETEX error:', error);
+    }
 
     return favoriteGamesWithoutFavoritedBy.slice(skip, (skip + take));
   } catch (error) {
