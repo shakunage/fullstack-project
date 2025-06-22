@@ -41,7 +41,7 @@ router.post(
         maxAge: 24 * 60 * 60 * 1000, // 24 hours
       });
 
-      res.status(200).json({ message: "Signup successful" });
+      res.status(200).json({ message: "Login successful" });
     } catch (error) {
       res.status(400).json({ message: `An unknown error occured. Details: ${error}` });
     }

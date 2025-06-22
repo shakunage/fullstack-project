@@ -7,11 +7,12 @@ import {
   favoriteListRepository,
   countFavoriteGamesRepository,
 } from "../repositories/favoriteListRepository.ts";
+import type { GameItem } from "../models/GameItem.ts";
 
 const router: Router = express.Router();
 
 interface PaginatedFavoritesResponse {
-  gameIds: string[];
+  favoriteGameList: GameItem[];
   totalGames: number;
   currentPage: number;
   totalPages: number;
@@ -37,12 +38,12 @@ router.get(
 
       const user = await findUserByToken({ token: token });
 
-      const [favoriteGameIds, totalGames] = await Promise.all([
+      const [favoriteGames, totalGames] = await Promise.all([
         favoriteListRepository(user.id, skip, limit),
         countFavoriteGamesRepository(user.id),
       ]);
 
-      if (favoriteGameIds === false) {
+      if (favoriteGames === false) {
         // Handle repository error case
         return res.status(500).json({ message: "Failed to retrieve favorite games list" });
       }
@@ -50,7 +51,7 @@ router.get(
       const totalPages = Math.ceil(totalGames / limit);
 
       res.status(200).json({
-        gameIds: favoriteGameIds,
+        favoriteGameList: favoriteGames,
         totalGames,
         currentPage: page,
         totalPages,

@@ -8,7 +8,6 @@ import redisClient from "../redis/redisClient.ts";
 const FAVORITES_CACHE_PREFIX = 'user_favorites:';
 
 export async function addFavoriteRepository(game: GameItem, user_id: User["id"]): Promise<void> {
-  // Use 'Games' to match the model name used in mongoose.model('Games', ...)
   const Game = mongoose.models.Games || mongoose.model('Games', gameSchema);
 
   try {
@@ -17,22 +16,18 @@ export async function addFavoriteRepository(game: GameItem, user_id: User["id"])
 
     // If the game does not exist, create and save it.
     if (!existingGame) {
+      game.favoritedBy = [user_id];
       const gameToSave = new Game(game);
       await gameToSave.save();
       console.log(`Game ID ${game.id} saved to MongoDB!`);
     } else {
-     // Also add the user's ID to the game's `favoritedBy` array in MongoDB
-      await existingGame.updateOne(
+      await Game.updateOne(
         { id: game.id },
         { $addToSet: { favoritedBy: user_id } }
       );
     }
   } catch (mongoError) {
-    // Catch any errors from the database operations (findOne, save).
     console.error(`Error saving Game ID ${game.id} to MongoDB:`, mongoError);
-    // Re-throw a more specific and informative error.
     throw new Error(`Failed to save favorite game ${game.id} to MongoDB.`);
   }
 }
-
-

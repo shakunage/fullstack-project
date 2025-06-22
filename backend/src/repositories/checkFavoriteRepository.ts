@@ -13,6 +13,8 @@ export async function checkFavoriteRepository(
       return false;
     }
 
+    console.log(`Checking mongodb response: ${game.favoritedBy.includes(user_id)}`)
+
     // Return true if the user's ID is in the game's favoritedBy array
     return game.favoritedBy.includes(user_id);
   } catch (error) {

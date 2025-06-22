@@ -1,17 +1,9 @@
 import { type LoaderFunctionArgs } from "react-router";
 import { FavoriteListService } from "~/services/backendServices/favoriteListService";
-import type { BoxscoreData } from "~/entities/Boxscore";
-import { getBoxscore } from "~/services/nhlApiServices/boxscoreService";
+import type { GameItem } from "~/entities";
 
 type FavoriteGamesServiceData = {
-  gameIds: string[];
-  currentPage: number;
-  totalPages: number;
-  totalGames: number;
-};
-
-type FavoriteGamesLoaderData = {
-  games: BoxscoreData[];
+  favoriteGameList: GameItem[];
   currentPage: number;
   totalPages: number;
   totalGames: number;
@@ -30,25 +22,12 @@ export const favoritegamesLoader = async ({ request }: LoaderFunctionArgs) => {
       limit
     );
 
-    const { gameIds, totalGames, currentPage, totalPages } = favoriteGamesResponse;
+    const { favoriteGameList, totalGames, currentPage, totalPages } = favoriteGamesResponse;
 
-    if (!gameIds || gameIds.length === 0) {
-      return { games: [], currentPage, totalPages, totalGames };
-    }
-    const gameDetailsPromises = gameIds.map((gameId) => {
-      return getBoxscore(gameId);
-    });
-    const gameDetailsResults = await Promise.all(gameDetailsPromises);
-    // Sort games by startTimeUTC, latest to earliest, return games
-    const filteredGameDetailsResults = gameDetailsResults
-      .sort((a, b) => new Date(b.startTimeUTC).getTime() - new Date(a.startTimeUTC).getTime())
-      .filter((detail) => detail != null) as BoxscoreData[];
-    return {
-      games: filteredGameDetailsResults,
-      currentPage,
-      totalPages,
-      totalGames,
-    } as FavoriteGamesLoaderData;
+    if (!favoriteGameList || favoriteGameList.length === 0) {
+      return { favoriteGameList: [], currentPage, totalPages, totalGames };
+    } else return favoriteGamesResponse;
+
   } catch (error) {
     console.error("Error fetching data:", error);
     throw new Error("Error fetching data");

@@ -1,9 +1,10 @@
 import { genericFetch, type GenericFetchOptions } from "../genericApiService";
+import type { GameItem } from "~/entities";
 
 const API_URL = "http://backend:8080/favoritegames";
 
 type FavoriteGamesServiceData = {
-  gameIds: string[];
+  favoriteGameList: GameItem[];
   currentPage: number;
   totalPages: number;
   totalGames: number;
@@ -16,7 +17,7 @@ export async function FavoriteListService(headers: string | null, page: number, 
     queryParameter: `page=${page}&limit=${limit}`,
     dataTransform: async (response) => await response.json() as FavoriteGamesServiceData,
     defaultValue: {
-      gameIds: [],
+      favoriteGameList: [],
       currentPage: 0,
       totalPages: 0,
       totalGames: 0,

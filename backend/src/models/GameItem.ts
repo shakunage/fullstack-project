@@ -102,4 +102,5 @@ export type GameItem = {
     discreteClip: number;
     discreteClipFr: number;
   }[];
+  favoritedBy?: string[];
 };

@@ -1,6 +1,5 @@
 import { useLoaderData, useSearchParams, useNavigation } from "react-router";
 import { favoritegamesLoader } from "~/loaders/favoritegamesLoader";
-import { FavoriteGame } from "~/components/GameCards/FavoriteGame";
 import { useNavigate } from "react-router";
 import { FutureGame } from "~/components/GameCards/FutureGame";
 import { LiveGame } from "~/components/GameCards/LiveGame";
@@ -15,7 +14,7 @@ export default function FavoriteGames() {
     void navigate(`/game/${gameId}`);
   };
 
-  const { games, currentPage, totalPages, totalGames } = useLoaderData<typeof loader>();
+  const { favoriteGameList, currentPage, totalPages, totalGames } = useLoaderData<typeof loader>();
   const navigation = useNavigation();
   const pageCountOptions = ["9", "18", "27"];
 
@@ -23,7 +22,9 @@ export default function FavoriteGames() {
     return <div className="pt-16 text-center">No favorite games found.</div>;
   }
 
-  if (!games || (games.length === 0 && totalGames > 0)) {
+  console.log("Favorite Games Data:", favoriteGameList, currentPage, totalPages, totalGames);
+
+  if (!favoriteGameList || (favoriteGameList.length === 0 && totalGames > 0)) {
     return <div className="pt-16 text-center">Game details could not be fetched for this page.</div>;
   }
 
@@ -126,7 +127,7 @@ export default function FavoriteGames() {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
-              {games.map((game) => (
+              {favoriteGameList.map((game) => (
                 <div
                   key={game.id}
                   className="hover:bg-gray-200 cursor-pointer"

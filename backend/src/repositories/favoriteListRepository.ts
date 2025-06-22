@@ -34,7 +34,7 @@ export async function favoriteListRepository(
       // 1. Find documents where 'favoritedBy' array contains the user_id
       .find({ favoritedBy: user_id })
       // 3. Sort by the 'id' field in descending order (-1)
-      .sort({ id: -1 })
+      .sort({ startTimeUTC: -1 })
 
       // 4. Ensure the result is plain JavaScript objects, not Mongoose documents
       .lean()
@@ -42,7 +42,13 @@ export async function favoriteListRepository(
       // 5. Execute the query
       .exec();
 
-    return favoriteGamesFromDb.map((game) => game.id).slice(skip, (skip + take));
+    // Sanitize the output by removing the 'favoritedBy' field
+    const favoriteGamesWithoutFavoritedBy = favoriteGamesFromDb.map((game) => {
+      const { favoritedBy, ...gameWithoutFavoritedBy } = game;
+      return gameWithoutFavoritedBy;
+    });
+
+    return favoriteGamesWithoutFavoritedBy.slice(skip, (skip + take));
   } catch (error) {
     console.error("Error checking favorite status:", error);
     throw new Error("Failed to check favorite status");
