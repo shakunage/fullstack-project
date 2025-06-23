@@ -1,3 +1,4 @@
+import { UNABLE_TO_FIND_POSTINSTALL_TRIGGER_JSON_PARSE_ERROR } from '@prisma/client/scripts/postinstall.js';
 import mongoose, { Schema, InferSchemaType } from 'mongoose';
 
 export const gameSchema = new Schema({
@@ -96,7 +97,7 @@ export const gameSchema = new Schema({
     }],
     mugshot: { type: String, required: true },
     teamAbbrev: { type: String, required: true },
-    goalsToDate: { type: Number, required: true },
+    goalsToDate: { type: Number },
     awayScore: { type: Number, required: true },
     homeScore: { type: Number, required: true },
     strength: { type: String, required: true },
