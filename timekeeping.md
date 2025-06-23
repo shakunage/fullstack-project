@@ -63,3 +63,4 @@
 | 20 Jun 2025 | Start reorganizing the backend and separating the functions of MongoDB and Postgres databases, implement backend logic to interact with the MongoDB database | 2.5 |
 | 21 Jun 2025 | Continuing to revamp the backend logic | 1.5 |
 | 22 Jun 2025 | Adapt frontend & backend code handle the use of MongoDB for favorite games data, reimplement Redis caching in wrt user's favorite list | 3.5 |
+| 23 Jun 2025 | Bugfixing, refactoring, big overhaul of entities in the front end | 2.5 |
