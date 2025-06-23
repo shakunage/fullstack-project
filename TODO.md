@@ -2,7 +2,6 @@
 
 ## Must to have
 - sort out the models/interfaces mess in the backend code
-- fix FavoriteGame.tsx component favorite button props
 - setup favicon, page title, etc.
 - smoothen up the experience a little bit
   - e.g. when theres no recent or upcoming games, forward to games browser
@@ -28,9 +27,11 @@
   - show number of games under the dates in the calendar view
 - start impelementing testing & linting & formatting pipeline (gh actions)
 - make file names and function/type/component names consistent in general
+- unify to double quotes
 
 ## Nice to have
 - solve favoritegames n+1 problem using graphql
+  - would need to create new features as currently there is no n+1 problem
 - add shadcn ui library
 - 2025/02/18: installed, need to learn how to use
 - maybe watch a youtube video
