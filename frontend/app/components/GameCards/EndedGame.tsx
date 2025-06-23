@@ -10,7 +10,7 @@ import { Venue } from "./subcomponents/Venue";
 
 export const loader = boxscoreLoader;
 
-export function EndedGame({ game }: { game: GameItem | BoxscoreData }) {
+export function EndedGame({ game }: { game: GameItem }) {
   return (
     <div className="relative">
       <FavoriteButton game={game} />
