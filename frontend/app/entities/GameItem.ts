@@ -1,73 +1,40 @@
+import type {
+  Venue,
+  Team,
+  TvBroadcast,
+  Clock,
+  PeriodDescriptor,
+  GameOutcome,
+} from '~/entities/sub-entities';
+
 export type GameItem = {
   id: number;
   season: number;
   gameType: number;
   gameDate: string;
-  venue: {
-    default: string;
-  };
+  venue: Venue;
   startTimeUTC: string;
   easternUTCOffset: string;
   venueUTCOffset: string;
-  tvBroadcasts: {
-    id: number;
-    market: string;
-    countryCode: string;
-    network: string;
-    sequenceNumber: number;
-  }[];
+  tvBroadcasts: TvBroadcast[];
   gameState: string;
   gameScheduleState: string;
-  awayTeam: {
-    id: number;
-    name: {
-      default: string;
-    };
-    abbrev: string;
-    score: number;
-    sog: number;
-    logo: string;
-  };
-  homeTeam: {
-    id: number;
-    name: {
-      default: string;
-    };
-    abbrev: string;
-    score: number;
-    sog: number;
-    logo: string;
-  };
+  awayTeam: Team;
+  homeTeam: Team;
   gameCenterLink: string;
   threeMinRecap: string;
   threeMinRecapFr: string;
   condensedGame: string;
   condensedGameFr: string;
-  clock: {
-    timeRemaining: string;
-    secondsRemaining: number;
-    running: boolean;
-    inIntermission: boolean;
-  };
+  clock: Clock;
   neutralSite: boolean;
   venueTimezone: string;
   period: number;
-  periodDescriptor: {
-    number: number;
-    periodType: string;
-    maxRegulationPeriods: number;
-  };
-  gameOutcome: {
-    lastPeriodType: string;
-    otPeriods?: number;
-  };
+  periodDescriptor: PeriodDescriptor;
+  gameOutcome: GameOutcome;
   goals: {
     period: number;
-    periodDescriptor: {
-      number: number;
-      periodType: string;
-      maxRegulationPeriods: number;
-    };
+    periodDescriptor: PeriodDescriptor;
     timeInPeriod: string;
     playerId: number;
     name: {

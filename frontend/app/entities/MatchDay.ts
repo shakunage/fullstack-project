@@ -1,4 +1,4 @@
-import type { GameItem } from "./GameItem";
+import type { GameItem } from '~/entities';
 
 export type MatchDayData = {
   prevDate: string;

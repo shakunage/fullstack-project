@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchBoxscore } from "~/services/nhlApiServices/boxscoreService";
 import { skaterBoxscoreConstants, goalieBoxscoreConstants } from "~/constants/boxscoreConstants";
-import { type BoxscoreData, type GameStory, type PlayerStats } from "~/entities";
+import { type BoxscoreData, type GameStory } from "~/entities";
+import { type PlayerStats } from "~/entities/sub-entities";
 import { toiToSeconds } from "~/utils/toiToSeconds";
 
 export function PlayerStatistics({ storyData, gameId }: { storyData: GameStory; gameId: number }) {
