@@ -1,6 +1,6 @@
 import { prisma } from "../dbserver/dbserver.ts";
 import bcrypt from "bcrypt";
-import { type UserSigninResponse, type UserSignupData } from "../interfaces";
+import { type UserSigninResponse, type UserSignupData } from "../dtos/index.ts";
 
 export async function createUserRepository(userData: UserSignupData): Promise<UserSigninResponse> {
   try {

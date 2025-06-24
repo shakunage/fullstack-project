@@ -1,10 +1,21 @@
-import { UNABLE_TO_FIND_POSTINSTALL_TRIGGER_JSON_PARSE_ERROR } from '@prisma/client/scripts/postinstall.js';
 import mongoose, { Schema, InferSchemaType } from 'mongoose';
+
 
 export const gameSchema = new Schema({
   id: { type: Number, required: true, unique: true },
-  season: { type: Number, required: true },
-  gameType: { type: Number, required: true },
+  season: { 
+    type: Number, 
+    required: true,
+    min: [20000101, 'Season must be in YYYYYYYY format and not before the year 2000'] 
+  },
+  gameType: { 
+    type: Number, 
+    required: true,
+    enum: {
+        values: [1, 2, 3, 4], // Example: 1=Pre-season, 2=Regular, 3=Playoffs, 4=All-Star
+        message: '{VALUE} is not a supported game type'
+    }
+  },
   gameDate: { type: String, required: true },
   venue: {
     default: { type: String, required: true },
@@ -15,20 +26,24 @@ export const gameSchema = new Schema({
   tvBroadcasts: [{
     id: { type: Number, required: true },
     market: { type: String, required: true },
-    countryCode: { type: String, required: true },
+    countryCode: { type: String, required: true, maxlength: 2 },
     network: { type: String, required: true },
     sequenceNumber: { type: Number, required: true },
   }],
-  gameState: { type: String, required: true },
+  gameState: { 
+    type: String, 
+    required: true,
+    enum: ['OFF', 'LIVE', 'CRIT', 'FINAL', 'FUT', 'PPD'],
+  },
   gameScheduleState: { type: String, required: true },
   awayTeam: {
     id: { type: Number, required: true },
     name: {
       default: { type: String, required: true },
     },
-    abbrev: { type: String, required: true },
-    score: { type: Number, required: true },
-    sog: { type: Number, required: true },
+    abbrev: { type: String, required: true, minlength: 2, maxlength: 4 },
+    score: { type: Number, required: true, min: 0 },
+    sog: { type: Number, required: true, min: 0 },
     logo: { type: String, required: true },
   },
   homeTeam: {
@@ -36,12 +51,15 @@ export const gameSchema = new Schema({
     name: {
       default: { type: String, required: true },
     },
-    abbrev: { type: String, required: true },
-    score: { type: Number, required: true },
-    sog: { type: Number, required: true },
+    abbrev: { type: String, required: true, minlength: 2, maxlength: 4 },
+    score: { type: Number, required: true, min: 0 },
+    sog: { type: Number, required: true, min: 0 },
     logo: { type: String, required: true },
   },
-  gameCenterLink: { type: String, required: true },
+  gameCenterLink: { 
+    type: String, 
+    required: true
+  },
   threeMinRecap: { type: String },
   threeMinRecapFr: { type: String },
   condensedGame: { type: String },

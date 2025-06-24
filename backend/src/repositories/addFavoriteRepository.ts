@@ -1,6 +1,5 @@
-import { type User } from "../models/User.ts";
-import type { GameItem } from "../models/GameItem.ts";
-import { gameSchema, GameModel } from "../mongo/schemas/GameSchema.ts";
+import type { GameItem, User } from "../models";
+import { gameSchema } from "../mongo/schemas/GameSchema.ts";
 import mongoose from "../mongo/mongo.ts";
 import redisClient from "../redis/redisClient.ts";
 
@@ -34,8 +33,15 @@ export async function addFavoriteRepository(game: GameItem, user_id: User["id"])
         { $addToSet: { favoritedBy: user_id } }
       );
     }
-  } catch (mongoError) {
-    console.error(`Error saving Game ID ${game.id} to MongoDB:`, mongoError);
-    throw new Error(`Failed to save favorite game ${game.id} to MongoDB.`);
+  } catch (mongoError: any) {
+    if (mongoError.name === 'ValidationError') {
+      for (let field in mongoError.errors) {
+        console.error(`Validation error for ${field}: ${mongoError.errors[field].message}`);
+      }
+    } else {
+      console.error(`Error saving Game ID ${game.id} to MongoDB:`, mongoError);
+      throw new Error(`Failed to save favorite game ${game.id} to MongoDB.`);
+    }
+    
   }
 }

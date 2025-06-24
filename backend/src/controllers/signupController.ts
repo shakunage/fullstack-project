@@ -4,7 +4,7 @@ import express, { Request, Response, Router } from "express";
 import jwt from "jsonwebtoken";
 import { createUserRepository } from "../repositories/createUserRepository.ts";
 import { addTokenRepository } from "../repositories/addTokenRepository.ts";
-import { type UserSignupData, type UserSigninResponse, type Token } from "../interfaces";
+import { type UserSignupData, type UserSigninResponse, type Token } from "../dtos/index.ts";
 
 const router: Router = express.Router();
 const SECRET_KEY = "your_secret_key";

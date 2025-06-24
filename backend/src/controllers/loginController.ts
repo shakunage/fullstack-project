@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { findUserByEmail } from "../repositories/findUserRepository.ts";
 import { addTokenRepository } from "../repositories/addTokenRepository.ts";
-import { UserLoginData } from "../interfaces";
+import { UserLoginData } from "../dtos/index.ts";
 
 const router: Router = express.Router();
 // TODO: replace with secure way of storing secret keys

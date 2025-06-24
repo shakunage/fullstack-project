@@ -1,6 +1,6 @@
 import express, { Request, Response, Router } from "express";
 import { revokeTokenRepository } from "../repositories/revokeTokenRepository.ts";
-import { type Token } from "../interfaces";
+import { type Token } from "../dtos/index.ts";
 
 const router: Router = express.Router();
 

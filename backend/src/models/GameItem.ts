@@ -1,4 +1,6 @@
 export type GameItem = {
+  createdAt?: NativeDate;
+  updatedAt?: NativeDate;
   id: number;
   season: number;
   gameType: number;

@@ -7,12 +7,12 @@ import {
   favoriteListRepository,
   countFavoriteGamesRepository,
 } from "../repositories/favoriteListRepository.ts";
-import type { GameItem } from "../models/GameItem.ts";
+import type { GameItem } from "../models";
 
 const router: Router = express.Router();
 
 interface PaginatedFavoritesResponse {
-  favoriteGameList: GameItem[];
+  favoriteGameList: Omit<GameItem, "favoritedBy">[];
   totalGames: number;
   currentPage: number;
   totalPages: number;
@@ -42,11 +42,6 @@ router.get(
         favoriteListRepository(user.id, skip, limit),
         countFavoriteGamesRepository(user.id),
       ]);
-
-      if (favoriteGames === false) {
-        // Handle repository error case
-        return res.status(500).json({ message: "Failed to retrieve favorite games list" });
-      }
 
       const totalPages = Math.ceil(totalGames / limit);
 
