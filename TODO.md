@@ -1,10 +1,9 @@
 # TODO
 
 ## Must to have
-- sort out the models/interfaces mess in the backend code
+- add mongodb schema validations
+- ask cline if it makes any sense to have interfaces and models separate in the backend
 - setup favicon, page title, etc.
-- smoothen up the experience a little bit
-  - e.g. when theres no recent or upcoming games, forward to games browser
 - move endpoint addresses and secrets to ENV files
   - only with regards to the backend. handle frontend envs in gh actions
 - fix entity imports
@@ -26,6 +25,7 @@
   - ^this needs more complicated fetching logic
   - show number of games under the dates in the calendar view
 - start impelementing testing & linting & formatting pipeline (gh actions)
+  - deployment in a single ec2 instance (t2.medium)
 - make file names and function/type/component names consistent in general
 - unify to double quotes
 
