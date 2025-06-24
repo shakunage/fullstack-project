@@ -1,8 +1,6 @@
 # TODO
 
 ## Must to have
-- add mongodb schema validations
-- ask cline if it makes any sense to have interfaces and models separate in the backend
 - setup favicon, page title, etc.
 - move endpoint addresses and secrets to ENV files
   - only with regards to the backend. handle frontend envs in gh actions
