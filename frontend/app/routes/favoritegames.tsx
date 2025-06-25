@@ -1,8 +1,5 @@
-import { useLoaderData, useSearchParams, useNavigation } from "react-router";
+import { useLoaderData, useSearchParams, useNavigation, useNavigate } from "react-router";
 import { favoritegamesLoader } from "~/loaders/favoritegamesLoader";
-import { useNavigate } from "react-router";
-import { FutureGame } from "~/components/GameCards/FutureGame";
-import { LiveGame } from "~/components/GameCards/LiveGame";
 import { EndedGame } from "~/components/GameCards/EndedGame";
 
 export const loader = favoritegamesLoader;
@@ -21,8 +18,6 @@ export default function FavoriteGames() {
   if (totalGames === 0) {
     return <div className="pt-16 text-center">No favorite games found.</div>;
   }
-
-  console.log("Favorite Games Data:", favoriteGameList, currentPage, totalPages, totalGames);
 
   if (!favoriteGameList || (favoriteGameList.length === 0 && totalGames > 0)) {
     return <div className="pt-16 text-center">Game details could not be fetched for this page.</div>;
@@ -133,13 +128,7 @@ export default function FavoriteGames() {
                   className="hover:bg-gray-200 cursor-pointer"
                   onClick={() => handleGameClick(game.id)}
                 >
-                  {game.gameState === "FUT" || game.gameState === "PRE" ? (
-                    <FutureGame game={game} />
-                  ) : game.gameState === "LIVE" || game.gameState === "CRIT" ? (
-                    <LiveGame game={game} />
-                  ) : game.gameState === "OFF" || game.gameState === "FINAL" ? (
-                    <EndedGame game={game} />
-                  ) : null}
+                  <EndedGame game={game} />
                 </div>
               ))}
             </div>
