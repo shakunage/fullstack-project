@@ -65,3 +65,4 @@
 | 22 Jun 2025 | Adapt frontend & backend code handle the use of MongoDB for favorite games data, reimplement Redis caching in wrt user's favorite list | 3.5 |
 | 23 Jun 2025 | Bugfixing, refactoring, big overhaul of entities in the front end | 2.5 |
 | 24 Jun 2025 | Refactor schemas and interfaces (now called data transfer objects), strenghten mongoose schema validations for GameSchema | 1.5 |
+| 25 Jun 2025 | Improve logic for fetching games for the top page, remove betting lines functionality, clean up the favoritegames route, add new feature: skip to previous match day if selected day has no games | 4 |
