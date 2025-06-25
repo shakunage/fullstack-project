@@ -53,10 +53,6 @@ const topBarElements: { [key: string]: TopBarElement } = {
       ],
     },
   },
-  bettinglines: {
-    title: "Betting Lines",
-    href: "/bettinglines",
-  },
 };
 
 export function TopBar() {

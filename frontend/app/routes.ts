@@ -21,15 +21,13 @@ export default [
       id: "routes/goalies",
     }),
   ]),
-  route("bettinglines", "routes/bettinglines.tsx"),
-  // individual game detailsß
-  route("game/:game_id", "routes/game.tsx"),
-  // login and signup
   route("login", "routes/login.tsx"),
   route("signup", "routes/signup.tsx"),
   // footer
   route("about", "routes/about.tsx"),
   route("contact", "routes/contact.tsx"),
+  // individual game details
+  route("game/:game_id", "routes/game.tsx"),
   // resource routes
   // these return JSON for originally served by the NHL API, but just routed through the frontend server
   route("resources/boxscore/:game_id", "resourceRoutes/boxscoreResource.ts"),
