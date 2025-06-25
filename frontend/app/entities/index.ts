@@ -8,3 +8,4 @@ export * from './TopGoalies';
 export * from './BettingLines';
 export * from './GameLanding';
 export * from './GameStory';
+export * from './ScheduleInfo'
