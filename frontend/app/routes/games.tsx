@@ -94,27 +94,13 @@ export default function GameByDate({ params }: LoaderFunctionArgs) {
             {'▶︎'}
           </button>
         </div>
-        <p />
-        <div className="relative w-full">
+        <div className="relative w-full mt-5">
           {changeDateQuery.isLoading || isLoading ? (
-            <div className="mb-500 mt-20">
+            <div className="mb-50 mt-15">
               <div className="spinner border-t-4 border-blue-500 rounded-full w-8 h-8 animate-spin absolute top-[-2rem] left-1/2 transform -translate-x-1/2"></div>
             </div>
           ) : (
             <>
-              {data.length === 0 && (
-                <div className="flex flex-col items-center gap-4">
-                  <button
-                    onClick={handleSkipToPreviousMatchDay}
-                    className="text-blue-500 hover:text-blue-700"
-                    disabled={isLoading}
-                  >
-                    {isLoading
-                      ? "Loading..."
-                      : "Skip to previous match day"}
-                  </button>
-                </div>
-              )}
               <div className="flex flex-col items-center gap-4 min-h-0 flex items-center">
                 {params.date ? (
                   <>{data.length} games scheduled for {params.date}</>
@@ -122,6 +108,20 @@ export default function GameByDate({ params }: LoaderFunctionArgs) {
                   <>{data.length} games scheduled for today</>
                 )}
                 <p></p>
+                {data.length === 0 && (
+                <div className="flex flex-col items-center gap-4">
+                  <button
+                    onClick={handleSkipToPreviousMatchDay}
+                    className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 pl-8"
+                    disabled={isLoading}
+                    style={{ clipPath: 'polygon(100% 0, 100% 100%, 10% 100%, 0% 50%, 10% 0)' }}
+                  >
+                    {isLoading
+                      ? "Loading..."
+                      : "Skip to previous match day"}
+                  </button>
+                </div>
+              )}
               </div>
               <MatchDayGames />
             </>
