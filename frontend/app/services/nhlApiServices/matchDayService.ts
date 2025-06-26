@@ -3,7 +3,11 @@ import type { GameItem, ScheduleInfo } from "~/entities";
 
 const API_URL = "http://reverseproxy:9998/api/v1/score";
 
-export async function getMatchDayGames(game_date: string): Promise<GameItem[]> {
+export async function getMatchDayGames(game_date: string): Promise<{
+  games: GameItem[];
+  prevDate: string;
+  nextDate: string;
+}> {
   const fetchOptions: GenericFetchOptions<ScheduleInfo> = {
     method: "GET",
     endpoint: `${API_URL}/${game_date}`,
@@ -25,10 +29,18 @@ export async function getMatchDayGames(game_date: string): Promise<GameItem[]> {
     if ((game_date === "now") && (matchDayGamesResponse.games.length === 0)) {
       fetchOptions.endpoint = `${API_URL}/${matchDayGamesResponse.prevDate}`;
       const refetchedMatches: ScheduleInfo = await genericFetch(fetchOptions)
-      return refetchedMatches.games;
+      return {
+        games: refetchedMatches.games,
+        prevDate: refetchedMatches.prevDate|| "unknown",
+        nextDate: refetchedMatches.nextDate || "unknown",
+      };
     }
 
-    return matchDayGamesResponse.games;
+    return {
+      games: matchDayGamesResponse.games,
+      prevDate: matchDayGamesResponse.prevDate|| "unknown",
+      nextDate: matchDayGamesResponse.nextDate || "unknown",
+    };
   } catch (error) {
     console.error("Error fetching match day games:", error);
     throw error;

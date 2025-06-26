@@ -32,5 +32,4 @@ export default [
   // these return JSON for originally served by the NHL API, but just routed through the frontend server
   route("resources/boxscore/:game_id", "resourceRoutes/boxscoreResource.ts"),
   route("resources/landing/:game_id", "resourceRoutes/landingResource.ts"),
-  route("resources/prevMatchDate/:date", "resourceRoutes/previousGameDateResource.ts"),
 ] satisfies RouteConfig;

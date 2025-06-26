@@ -1,7 +1,12 @@
 import { getMatchDayGames } from "../services/nhlApiServices/matchDayService";
+import type { GameItem } from "../entities";
 import type { LoaderFunctionArgs } from "react-router";
 
-export const matchDayLoader = async ({ params }: LoaderFunctionArgs) => {
+export const matchDayLoader = async ({ params }: LoaderFunctionArgs): Promise<{
+  games: GameItem[];
+  prevDate: string;
+  nextDate: string;
+}> => {
   const game_date = params.date ? params.date : "now";
   try {
     return await getMatchDayGames(game_date);

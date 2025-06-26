@@ -8,7 +8,6 @@ import moment from "moment-timezone";
 import { matchDayLoader } from "../loaders/matchDayLoader";
 import { MatchDayGames } from "../components/MatchDayGames";
 import isValidDate from "~/utils/isValidDate";
-import { fetchPreviousMatchDayDate } from "~/services/nhlApiServices/previousMatchDayDateService";
 
 export const loader = matchDayLoader;
 
@@ -39,14 +38,11 @@ export default function GameByDate({ params }: LoaderFunctionArgs) {
     }
   };
 
-  const handleSkipToPreviousMatchDay = async () => {
+  const handleSkipToMatchDay = async (dateToSkipTo: string) => {
     if (params.date) {
       setIsLoading(true);
       try {
-        console.log("params.date is:", params.date);
-        const previousMatchDay = await fetchPreviousMatchDayDate(params.date);
-        console.log("Previous Match Day inside the games.tsx file:", previousMatchDay);
-        setSelectedDate(new Date(previousMatchDay));
+        setSelectedDate(new Date(dateToSkipTo));
       } catch (error) {
         console.error("Error fetching previous match day:", error);
       } finally {
@@ -103,23 +99,35 @@ export default function GameByDate({ params }: LoaderFunctionArgs) {
             <>
               <div className="flex flex-col items-center gap-4 min-h-0 flex items-center">
                 {params.date ? (
-                  <>{data.length} games scheduled for {params.date}</>
+                  <>{data.games.length} games scheduled for {params.date}</>
                 ) : (
-                  <>{data.length} games scheduled for today</>
+                  <>{data.games.length} games scheduled for today</>
                 )}
                 <p></p>
-                {data.length === 0 && (
-                <div className="flex flex-col items-center gap-4">
+                {data.games.length === 0 && (
+                <div className="flex items-center gap-4">
                   <button
-                    onClick={handleSkipToPreviousMatchDay}
-                    className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 pl-8"
+                    onClick={() => handleSkipToMatchDay(data.prevDate)}
+                    className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 pl-8 w-64"
                     disabled={isLoading}
                     style={{ clipPath: 'polygon(100% 0, 100% 100%, 10% 100%, 0% 50%, 10% 0)' }}
                   >
                     {isLoading
                       ? "Loading..."
-                      : "Skip to previous match day"}
+                      : "Previous match day"}
                   </button>
+                  {data.nextDate !== "unknown" && (
+                    <button
+                      onClick={() => handleSkipToMatchDay(data.nextDate)}
+                      className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 pr-8 w-64"
+                      disabled={isLoading}
+                      style={{ clipPath: 'polygon(90% 0, 100% 50%, 90% 100%, 0 100%, 0 0)' }}
+                    >
+                      {isLoading
+                        ? "Loading..."
+                        : "Next match day"}
+                    </button>
+                  )}
                 </div>
               )}
               </div>

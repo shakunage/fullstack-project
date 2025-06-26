@@ -18,7 +18,8 @@ export type OddsPartner = {
 };
 
 export type ScheduleInfo = {
-  prevDate: string;
+  prevDate?: string;
+  nextDate: string;
   currentDate: string;
   gameWeek: GameWeekItem[];
   oddsPartners: OddsPartner[];

@@ -13,13 +13,13 @@ export function MatchDayGames() {
     void navigate(`/game/${gameId}`);
   };
 
-  if (!data) {
+  if (!data || !data.games) {
     return <div>Loading...</div>;
   }
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
-      {data.map((game) => (
+      {data.games.map((game) => (
         <div
           key={game.id}
           className="hover:bg-gray-200 cursor-pointer"
