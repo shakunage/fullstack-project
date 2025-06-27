@@ -5,6 +5,7 @@ import type { LoaderFunctionArgs } from "react-router";
 export const matchDayLoader = async ({ params }: LoaderFunctionArgs): Promise<{
   games: GameItem[];
   prevDate: string;
+  currentDate: string;
   nextDate: string;
 }> => {
   const game_date = params.date ? params.date : "now";

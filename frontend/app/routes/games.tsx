@@ -16,18 +16,15 @@ export default function GameByDate({ params }: LoaderFunctionArgs) {
   const navigation = useNavigation();
   const isLoading = navigation.state === "loading";
 
-  const currentDatePST = moment()
-    .tz("America/Los_Angeles")
-    .startOf("day")
-    .toDate();
-
   const [selectedDate, setSelectedDate] = useState<Date>(
     params.date && isValidDate(params.date)
       ? new Date(params.date)
-      : currentDatePST
+      : isValidDate(data.currentDate)
+        ? moment(data.currentDate).tz("America/Los_Angeles").toDate()
+      : moment().tz("America/Los_Angeles").startOf("day").toDate()
   );
 
-  const handleDateChange = (date: Date | null): void => {
+  const handleDateChange = (date: Date | string | null): void => {
     if (date) {
       const pacificDate: Date = moment(date)
         .tz("America/Los_Angeles")
@@ -36,15 +33,6 @@ export default function GameByDate({ params }: LoaderFunctionArgs) {
       const formattedDate: string = moment(pacificDate).format("YYYY-MM-DD");
       void navigate(`/games/${formattedDate}`);
     }
-  };
-
-  const handleSkipToMatchDay = (dateToSkipTo: string) => {
-    const pacificDate: Date = moment(dateToSkipTo)
-        .tz("America/Los_Angeles")
-        .toDate();
-    setSelectedDate(pacificDate);
-    const formattedDate: string = moment(dateToSkipTo).format("YYYY-MM-DD");
-    navigate(`/games/${formattedDate}`);
   };
 
   return (
@@ -94,7 +82,7 @@ export default function GameByDate({ params }: LoaderFunctionArgs) {
                 {data.games.length === 0 && (
                 <div className="flex items-center gap-4">
                   <button
-                    onClick={() => handleSkipToMatchDay(data.prevDate)}
+                    onClick={() => handleDateChange(data.prevDate)}
                     className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 pl-8 w-64"
                     disabled={isLoading}
                     style={{ clipPath: 'polygon(100% 0, 100% 100%, 10% 100%, 0% 50%, 10% 0)' }}
@@ -105,7 +93,7 @@ export default function GameByDate({ params }: LoaderFunctionArgs) {
                   </button>
                   {data.nextDate !== "unknown" && (
                     <button
-                      onClick={() => handleSkipToMatchDay(data.nextDate)}
+                      onClick={() => handleDateChange(data.nextDate)}
                       className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 pr-8 w-64"
                       disabled={isLoading}
                       style={{ clipPath: 'polygon(90% 0, 100% 50%, 90% 100%, 0 100%, 0 0)' }}

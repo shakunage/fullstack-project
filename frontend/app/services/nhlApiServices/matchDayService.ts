@@ -6,6 +6,7 @@ const API_URL = "http://reverseproxy:9998/api/v1/score";
 export async function getMatchDayGames(game_date: string): Promise<{
   games: GameItem[];
   prevDate: string;
+  currentDate: string;
   nextDate: string;
 }> {
   const fetchOptions: GenericFetchOptions<ScheduleInfo> = {
@@ -31,7 +32,8 @@ export async function getMatchDayGames(game_date: string): Promise<{
       const refetchedMatches: ScheduleInfo = await genericFetch(fetchOptions)
       return {
         games: refetchedMatches.games,
-        prevDate: refetchedMatches.prevDate|| "unknown",
+        prevDate: refetchedMatches.prevDate || "unknown",
+        currentDate: refetchedMatches.currentDate || "unknown",
         nextDate: refetchedMatches.nextDate || "unknown",
       };
     }
@@ -39,6 +41,7 @@ export async function getMatchDayGames(game_date: string): Promise<{
     return {
       games: matchDayGamesResponse.games,
       prevDate: matchDayGamesResponse.prevDate|| "unknown",
+      currentDate: matchDayGamesResponse.currentDate || "unknown",
       nextDate: matchDayGamesResponse.nextDate || "unknown",
     };
   } catch (error) {
