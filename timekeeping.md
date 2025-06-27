@@ -66,3 +66,5 @@
 | 23 Jun 2025 | Bugfixing, refactoring, big overhaul of entities in the front end | 2.5 |
 | 24 Jun 2025 | Refactor schemas and interfaces (now called data transfer objects), strenghten mongoose schema validations for GameSchema | 1.5 |
 | 25 Jun 2025 | Improve logic for fetching games for the top page, remove betting lines functionality, clean up the favoritegames route, add new feature: skip to previous match day if selected day has no games | 4 |
+| 26 Jun 2025 | Improve the look and feel of the Skip to previous match day button, remove unnecessary resource route & add "Skip to next match day" feature | 1.5 |
+| 27 Jun 2025 | Fix loader filename extensions, brush up data fetching for game days, various bug fixes wrt games page and individual game page | 1 |
