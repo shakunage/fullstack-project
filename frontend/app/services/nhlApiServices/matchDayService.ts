@@ -1,13 +1,14 @@
 import { type GenericFetchOptions, genericFetch } from "~/services/genericApiService";
 import type { GameItem, ScheduleInfo } from "~/entities";
+import type { S } from "node_modules/react-router/dist/development/route-data-Cq_b5feC.mjs";
 
 const API_URL = "http://reverseproxy:9998/api/v1/score";
 
 export async function getMatchDayGames(game_date: string): Promise<{
   games: GameItem[];
-  prevDate: string;
-  currentDate: string;
-  nextDate: string;
+  prevDate: ScheduleInfo["prevDate"];
+  currentDate: ScheduleInfo["currentDate"];
+  nextDate: ScheduleInfo["nextDate"];
 }> {
   const fetchOptions: GenericFetchOptions<ScheduleInfo> = {
     method: "GET",
