@@ -6,7 +6,7 @@ import { type BoxscoreData, type GameStory } from "~/entities";
 import { type PlayerStats } from "~/entities/sub-entities";
 import { toiToSeconds } from "~/utils/toiToSeconds";
 
-export function PlayerStatistics({ storyData, gameId }: { storyData: GameStory; gameId: number }) {
+export function PlayerStatistics({ storyData }: { storyData: GameStory }) {
   const [showPlayerStats, setShowPlayerStats] = useState(false);
   const [sortConfig, setSortConfig] = useState<
     Record<string, { key: string; direction: "ascending" | "descending" }>
@@ -18,7 +18,7 @@ export function PlayerStatistics({ storyData, gameId }: { storyData: GameStory; 
     isFetching: isFetchingBoxscore,
     error: boxscoreError,
   } = useQuery<BoxscoreData, Error>({
-    queryKey: ["boxscoreData", gameId],
+    queryKey: ["boxscoreData", storyData.id],
     queryFn: async () => {
       if (!storyData?.gameDate || !storyData?.id) {
         throw new Error("Game date or ID is missing for fetching boxscore.");

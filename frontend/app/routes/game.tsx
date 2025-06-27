@@ -47,7 +47,7 @@ export default function Game() {
         {/* From here on, the components are stacked vertically */}
         <ScoringSummary {...gameStoryData} />
         <PenaltiesDropdown game_id={gameStoryData.id} />
-        <PlayerStatistics storyData={gameStoryData} gameId={gameId} />
+        <PlayerStatistics storyData={gameStoryData} />
         <ThreeStars {...gameStoryData} />
       </div>
     </main>
