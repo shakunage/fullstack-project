@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { useLoaderData, useNavigate } from "react-router";
-import { useQuery } from "@tanstack/react-query";
+import { useLoaderData, useNavigate, useNavigation } from "react-router";
 import DatePicker from "react-datepicker";
 import type { LoaderFunctionArgs } from "react-router";
 import "react-datepicker/dist/react-datepicker.css";
@@ -14,7 +13,8 @@ export const loader = matchDayLoader;
 export default function GameByDate({ params }: LoaderFunctionArgs) {
   const data = useLoaderData<typeof loader>();
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
+  const navigation = useNavigation();
+  const isLoading = navigation.state === "loading";
 
   const currentDatePST = moment()
     .tz("America/Los_Angeles")
@@ -38,27 +38,10 @@ export default function GameByDate({ params }: LoaderFunctionArgs) {
     }
   };
 
-  const handleSkipToMatchDay = async (dateToSkipTo: string) => {
-    if (params.date) {
-      setIsLoading(true);
-      try {
-        setSelectedDate(new Date(dateToSkipTo));
-      } catch (error) {
-        console.error("Error fetching previous match day:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    }
+  const handleSkipToMatchDay = (dateToSkipTo: string) => {
+    const formattedDate: string = moment(dateToSkipTo).format("YYYY-MM-DD");
+    navigate(`/games/${formattedDate}`);
   };
-
-  const changeDateQuery = useQuery({
-    queryKey: ["changeDate", selectedDate],
-    queryFn: async () => {
-      const formattedDate: string = moment(selectedDate).format("YYYY-MM-DD");
-      await navigate(`/games/${formattedDate}`);
-      return "Date changed";
-    },
-  });
 
   return (
     <main className="flex pt-16 pb-4">
@@ -91,7 +74,7 @@ export default function GameByDate({ params }: LoaderFunctionArgs) {
           </button>
         </div>
         <div className="relative w-full mt-5">
-          {changeDateQuery.isLoading || isLoading ? (
+          {isLoading ? (
             <div className="mb-50 mt-15">
               <div className="spinner border-t-4 border-blue-500 rounded-full w-8 h-8 animate-spin absolute top-[-2rem] left-1/2 transform -translate-x-1/2"></div>
             </div>
