@@ -39,6 +39,10 @@ export default function GameByDate({ params }: LoaderFunctionArgs) {
   };
 
   const handleSkipToMatchDay = (dateToSkipTo: string) => {
+    const pacificDate: Date = moment(dateToSkipTo)
+        .tz("America/Los_Angeles")
+        .toDate();
+    setSelectedDate(pacificDate);
     const formattedDate: string = moment(dateToSkipTo).format("YYYY-MM-DD");
     navigate(`/games/${formattedDate}`);
   };
