@@ -29,7 +29,7 @@ export default [
   // individual game details
   route("game/:game_id", "routes/game.tsx"),
   // resource routes
-  // these return JSON for originally served by the NHL API, but just routed through the frontend server
+  // these return JSON originally served by the NHL API, but just routed through the frontend server
   route("resources/boxscore/:game_id", "resourceRoutes/boxscoreResource.ts"),
   route("resources/landing/:game_id", "resourceRoutes/landingResource.ts"),
 ] satisfies RouteConfig;
