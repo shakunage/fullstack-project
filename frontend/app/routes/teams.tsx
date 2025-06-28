@@ -1,14 +1,23 @@
-import { useLoaderData } from "react-router";
+import { useState } from "react";
+import { useLoaderData, useNavigate, useNavigation } from "react-router";
 import type { LoaderFunctionArgs } from "react-router";
 import { standingsLoader } from "../loaders/standingsLoader";
 import { type StandingsItem } from "../entities/StandingsItem";
-
-export const loader = standingsLoader;
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import moment from "moment-timezone";
+import isValidDate from "~/utils/isValidDate";
 
 import { useMemo } from "react";
 
+export const loader = standingsLoader;
+
+
 export default function Teams({ params }: LoaderFunctionArgs) {
   const data: StandingsItem[] = useLoaderData<typeof loader>();
+  const navigate = useNavigate();
+  const navigation = useNavigation();
+  const isLoading = navigation.state === "loading";
 
   // Group standings by conference and then by division
   const groupedStandings = useMemo(() => {
@@ -35,6 +44,23 @@ export default function Teams({ params }: LoaderFunctionArgs) {
     return <div className="pt-16 text-center">Error loading teams</div>;
   }
 
+  const [selectedDate, setSelectedDate] = useState<Date>(
+      params.date && isValidDate(params.date)
+        ? new Date(params.date)
+        : moment().tz("America/Los_Angeles").startOf("day").toDate()
+    );
+  
+    const handleDateChange = (date: Date | string | null): void => {
+      if (date) {
+        const pacificDate: Date = moment(date)
+          .tz("America/Los_Angeles")
+          .toDate();
+        setSelectedDate(pacificDate);
+        const formattedDate: string = moment(pacificDate).format("YYYY-MM-DD");
+        void navigate(`/teams/${formattedDate}`);
+      }
+    };
+
   // Sort conferences: Eastern first, then Western (adjust if names differ)
   const conferenceOrder = ["Eastern", "Western"];
   const sortedConferences = Object.keys(groupedStandings).sort((a, b) => {
@@ -44,7 +70,40 @@ export default function Teams({ params }: LoaderFunctionArgs) {
   return (
     <main className="container mx-auto px-4 py-8 pt-20">
       <h1 className="text-3xl font-bold text-center mb-8">NHL Standings</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="flex items-center justify-center gap-2">
+        <button
+          onClick={() => {
+            const previousDay = moment(selectedDate).subtract(1, "day").toDate();
+            handleDateChange(previousDay);
+          }}
+          className="text-blue-500 hover:text-blue-700"
+        >
+          {'◀︎'}
+        </button>
+        <DatePicker
+          selected={selectedDate}
+          onChange={handleDateChange}
+          dateFormat="yyyy-MM-dd"
+          placeholderText="Select a date"
+          className="border p-2 rounded"
+        />
+        <button
+          onClick={() => {
+            const nextDay = moment(selectedDate).add(1, "day").toDate();
+            handleDateChange(nextDay);
+          }}
+          className="text-blue-500 hover:text-blue-700"
+        >
+          {'▶︎'}
+        </button>
+        </div>
+      <div className="relative w-full">
+                {isLoading ? (
+                  <div className="mb-50 mt-5">
+                    <div className="spinner border-t-4 border-blue-500 rounded-full w-8 h-8 animate-spin absolute top-[-2rem] left-1/2 transform -translate-x-1/2"></div>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {sortedConferences.map((conferenceName) => (
           <div key={conferenceName}>
             <h2 className="text-2xl font-semibold mb-4 text-center">{conferenceName} Conference</h2>
@@ -160,6 +219,8 @@ export default function Teams({ params }: LoaderFunctionArgs) {
           </div>
         ))}
       </div>
+                )}
+              </div>
     </main>
   );
 }

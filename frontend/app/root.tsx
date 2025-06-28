@@ -46,7 +46,9 @@ export default function App() {
       <Provider store={store}>
         <QueryClientProvider client={queryClient}>
           <TopBar />
-          <Outlet />
+          <div className="max-w-screen-lg mx-auto">
+            <Outlet />
+          </div>
           <Footer />
         </QueryClientProvider>
       </Provider>
