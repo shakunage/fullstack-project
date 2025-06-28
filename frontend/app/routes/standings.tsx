@@ -3,7 +3,12 @@ import { useLoaderData, useNavigate, useNavigation } from "react-router";
 import type { LoaderFunctionArgs } from "react-router";
 import { standingsLoader } from "~/loaders/standingsLoader";
 import { type StandingsItem } from "~/entities/StandingsItem";
-import moment from "moment-timezone";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 import DatePickerComponent from "~/components/DatePicker";
 import isValidDate from "~/utils/isValidDate";
 import { useMemo } from "react";
@@ -41,16 +46,16 @@ export default function Standings({ params }: LoaderFunctionArgs) {
   const [selectedDate, setSelectedDate] = useState<Date>(
       params.date && isValidDate(params.date)
         ? new Date(params.date)
-        : moment().tz("America/Los_Angeles").startOf("day").toDate()
+        : dayjs().tz("America/Los_Angeles").startOf("day").toDate()
     );
   
   const handleDateChange = (date: Date | string | null): void => {
     if (date) {
-      const pacificDate: Date = moment(date)
+      const pacificDate: Date = dayjs(date)
         .tz("America/Los_Angeles")
         .toDate();
       setSelectedDate(pacificDate);
-      const formattedDate: string = moment(pacificDate).format("YYYY-MM-DD");
+      const formattedDate: string = dayjs(pacificDate).format("YYYY-MM-DD");
       void navigate(`/standings/${formattedDate}`);
     }
   };
@@ -66,7 +71,7 @@ export default function Standings({ params }: LoaderFunctionArgs) {
           <button
             onClick={() => {
               navigate("/standings");
-              setSelectedDate(moment().tz("America/Los_Angeles").startOf("day").toDate())
+              setSelectedDate(dayjs().tz("America/Los_Angeles").startOf("day").toDate())
             }}
             className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded"
           >

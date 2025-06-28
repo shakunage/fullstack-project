@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { useLoaderData, useNavigate, useNavigation } from "react-router";
 import type { LoaderFunctionArgs } from "react-router";
-import moment from "moment-timezone";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 import { matchDayLoader } from "~/loaders/matchDayLoader";
 import { MatchDayGames } from "~/components/MatchDayGames";
 import isValidDate from "~/utils/isValidDate";
@@ -19,17 +24,17 @@ export default function GameByDate({ params }: LoaderFunctionArgs) {
     params.date && isValidDate(params.date)
       ? new Date(params.date)
       : isValidDate(data.currentDate)
-        ? moment(data.currentDate).tz("America/Los_Angeles").toDate()
-        : moment().tz("America/Los_Angeles").startOf("day").toDate()
+        ? dayjs(data.currentDate).tz("America/Los_Angeles").toDate()
+        : dayjs().tz("America/Los_Angeles").startOf("day").toDate()
   );
 
   const handleDateChange = (date: Date | string | null): void => {
     if (date) {
-      const pacificDate: Date = moment(date)
+      const pacificDate: Date = dayjs(date)
         .tz("America/Los_Angeles")
         .toDate();
       setSelectedDate(pacificDate);
-      const formattedDate: string = moment(pacificDate).format("YYYY-MM-DD");
+      const formattedDate: string = dayjs(pacificDate).format("YYYY-MM-DD");
       void navigate(`/games/${formattedDate}`);
     }
   };
