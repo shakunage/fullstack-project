@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { useLoaderData, useNavigate, useNavigation } from "react-router";
-import DatePicker from "react-datepicker";
 import type { LoaderFunctionArgs } from "react-router";
-import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment-timezone";
 import { matchDayLoader } from "../loaders/matchDayLoader";
 import { MatchDayGames } from "../components/MatchDayGames";
 import isValidDate from "~/utils/isValidDate";
+import DatePickerComponent from "~/components/DatePicker";
 
 export const loader = matchDayLoader;
 
@@ -38,33 +37,7 @@ export default function GameByDate({ params }: LoaderFunctionArgs) {
   return (
     <main className="flex flex-col items-center pt-16 pb-4 gap-4">
       <div className="flex items-center gap-2">
-        <button
-          onClick={() => {
-            const previousDay = moment(selectedDate)
-              .subtract(1, "day")
-              .toDate();
-            handleDateChange(previousDay);
-          }}
-          className="text-blue-500 hover:text-blue-700"
-        >
-          {"◀︎"}
-        </button>
-        <DatePicker
-          selected={selectedDate}
-          onChange={handleDateChange}
-          dateFormat="yyyy-MM-dd"
-          placeholderText="Select a date"
-          className="border p-2 rounded"
-        />
-        <button
-          onClick={() => {
-            const nextDay = moment(selectedDate).add(1, "day").toDate();
-            handleDateChange(nextDay);
-          }}
-          className="text-blue-500 hover:text-blue-700"
-        >
-          {"▶︎"}
-        </button>
+        <DatePickerComponent selectedDate={selectedDate} handleDateChange={handleDateChange} />
       </div>
       <div className="relative w-full mt-5">
         {isLoading ? (
