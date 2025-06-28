@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useLoaderData, useNavigate, useNavigation } from "react-router";
 import type { LoaderFunctionArgs } from "react-router";
 import moment from "moment-timezone";
-import { matchDayLoader } from "../loaders/matchDayLoader";
-import { MatchDayGames } from "../components/MatchDayGames";
+import { matchDayLoader } from "~/loaders/matchDayLoader";
+import { MatchDayGames } from "~/components/MatchDayGames";
 import isValidDate from "~/utils/isValidDate";
 import DatePickerComponent from "~/components/DatePicker";
 
@@ -47,11 +47,7 @@ export default function GameByDate({ params }: LoaderFunctionArgs) {
         ) : (
           <>
             <div className="flex flex-col items-center gap-4 min-h-0">
-              {params.date ? (
-                <>{data.games.length} games scheduled for {params.date}</>
-              ) : (
-                <>{data.games.length} games scheduled for today</>
-              )}
+              {data.games.length} games scheduled for {data.currentDate}
               <p></p>
               {data.games.length === 0 && (
                 <div className="flex items-center gap-4">
@@ -85,7 +81,7 @@ export default function GameByDate({ params }: LoaderFunctionArgs) {
                 </div>
               )}
             </div>
-            <MatchDayGames />
+            <MatchDayGames games={data.games} />
           </>
         )}
       </div>
