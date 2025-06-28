@@ -11,7 +11,7 @@ import { useMemo } from "react";
 export const loader = standingsLoader;
 
 
-export default function Teams({ params }: LoaderFunctionArgs) {
+export default function Standings({ params }: LoaderFunctionArgs) {
   const data: StandingsItem[] = useLoaderData<typeof loader>();
   const navigate = useNavigate();
   const navigation = useNavigation();
@@ -51,7 +51,7 @@ export default function Teams({ params }: LoaderFunctionArgs) {
         .toDate();
       setSelectedDate(pacificDate);
       const formattedDate: string = moment(pacificDate).format("YYYY-MM-DD");
-      void navigate(`/teams/${formattedDate}`);
+      void navigate(`/standings/${formattedDate}`);
     }
   };
 

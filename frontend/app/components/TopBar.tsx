@@ -32,9 +32,9 @@ const topBarElements: { [key: string]: TopBarElement } = {
       ],
     },
   },
-  teams: {
-    title: "Teams",
-    href: "/teams",
+  standings: {
+    title: "Standings",
+    href: "/standings",
   },
   players: {
     title: "Players",

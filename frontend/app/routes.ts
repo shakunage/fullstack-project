@@ -10,9 +10,9 @@ export default [
     route(":date", "routes/games.tsx", { id: "routes/games-bydate" }),
     route("/favoritegames", "routes/favoritegames.tsx"),
   ]),
-  ...prefix("teams", [
-    index("routes/teams.tsx", { id: "routes/teams-index" }),
-    route(":date", "routes/teams.tsx", { id: "routes/teams-bydate" }),
+  ...prefix("standings", [
+    index("routes/standings.tsx", { id: "routes/standings-index" }),
+    route(":date", "routes/standings.tsx", { id: "routes/standings-bydate" }),
   ]),
   ...prefix("players", [
     index("routes/players.tsx", { id: "routes/players-index" }),
