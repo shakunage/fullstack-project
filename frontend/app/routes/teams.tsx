@@ -1,13 +1,11 @@
 import { useState } from "react";
 import { useLoaderData, useNavigate, useNavigation } from "react-router";
 import type { LoaderFunctionArgs } from "react-router";
-import { standingsLoader } from "../loaders/standingsLoader";
-import { type StandingsItem } from "../entities/StandingsItem";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import { standingsLoader } from "~/loaders/standingsLoader";
+import { type StandingsItem } from "~/entities/StandingsItem";
 import moment from "moment-timezone";
+import DatePickerComponent from "~/components/DatePicker";
 import isValidDate from "~/utils/isValidDate";
-
 import { useMemo } from "react";
 
 export const loader = standingsLoader;
@@ -40,27 +38,42 @@ export default function Teams({ params }: LoaderFunctionArgs) {
     );
   }, [data]);
 
-  if (!data) {
-    return <div className="pt-16 text-center">Error loading teams</div>;
-  }
-
   const [selectedDate, setSelectedDate] = useState<Date>(
       params.date && isValidDate(params.date)
         ? new Date(params.date)
         : moment().tz("America/Los_Angeles").startOf("day").toDate()
     );
   
-    const handleDateChange = (date: Date | string | null): void => {
-      if (date) {
-        const pacificDate: Date = moment(date)
-          .tz("America/Los_Angeles")
-          .toDate();
-        setSelectedDate(pacificDate);
-        const formattedDate: string = moment(pacificDate).format("YYYY-MM-DD");
-        void navigate(`/teams/${formattedDate}`);
-      }
-    };
+  const handleDateChange = (date: Date | string | null): void => {
+    if (date) {
+      const pacificDate: Date = moment(date)
+        .tz("America/Los_Angeles")
+        .toDate();
+      setSelectedDate(pacificDate);
+      const formattedDate: string = moment(pacificDate).format("YYYY-MM-DD");
+      void navigate(`/teams/${formattedDate}`);
+    }
+  };
 
+  if (!data || data.length === 0) {
+    const date = params.date || "unknown date";
+    return (
+      <main className="container mx-auto px-4 py-8 pt-20">
+      <h1 className="text-3xl font-bold text-center mb-4">NHL Standings</h1>
+        <DatePickerComponent selectedDate={selectedDate} handleDateChange={handleDateChange} />
+        <div className="pt-16 text-center mb-15">
+          <p className="text-lg mb-4">Standings data not found for {date}.</p>
+          <button
+            onClick={() => navigate("/teams")}
+            className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded"
+          >
+            Click here to return to latest standings
+          </button>
+        </div>
+      </main>
+    );
+  }
+  
   // Sort conferences: Eastern first, then Western (adjust if names differ)
   const conferenceOrder = ["Eastern", "Western"];
   const sortedConferences = Object.keys(groupedStandings).sort((a, b) => {
@@ -69,34 +82,8 @@ export default function Teams({ params }: LoaderFunctionArgs) {
 
   return (
     <main className="container mx-auto px-4 py-8 pt-20">
-      <h1 className="text-3xl font-bold text-center mb-8">NHL Standings</h1>
-      <div className="flex items-center justify-center gap-2">
-        <button
-          onClick={() => {
-            const previousDay = moment(selectedDate).subtract(1, "day").toDate();
-            handleDateChange(previousDay);
-          }}
-          className="text-blue-500 hover:text-blue-700"
-        >
-          {'◀︎'}
-        </button>
-        <DatePicker
-          selected={selectedDate}
-          onChange={handleDateChange}
-          dateFormat="yyyy-MM-dd"
-          placeholderText="Select a date"
-          className="border p-2 rounded"
-        />
-        <button
-          onClick={() => {
-            const nextDay = moment(selectedDate).add(1, "day").toDate();
-            handleDateChange(nextDay);
-          }}
-          className="text-blue-500 hover:text-blue-700"
-        >
-          {'▶︎'}
-        </button>
-        </div>
+      <h1 className="text-3xl font-bold text-center mb-4">NHL Standings</h1>
+      <DatePickerComponent selectedDate={selectedDate} handleDateChange={handleDateChange} />
       <div className="relative w-full">
                 {isLoading ? (
                   <div className="mb-50 mt-5">
