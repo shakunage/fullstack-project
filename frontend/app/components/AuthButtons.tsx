@@ -1,28 +1,16 @@
 import { Link } from "react-router";
-import { useQuery } from "@tanstack/react-query";
-import { useDispatch, useSelector } from "react-redux";
-import type { AppDispatch, RootState } from "~/store/store";
-import { fetchStatus, logout } from "../store/authSlice";
+import { useAuth } from "~/hooks/useAuth";
 import { navigateToHome } from "~/utils/navigateToHome";
 
 export function AuthButtons() {
-  const username = useSelector((state: RootState) => state.auth.username)
-  const dispatch: AppDispatch = useDispatch();
+  const { username, logout, isLoading } = useAuth();
 
-  const handleLogout = async () => {
-    await dispatch(logout());
-    void navigateToHome();
+  const handleLogout = () => {
+    logout();
+    navigateToHome();
   };
 
-  const initialAuthQuery = useQuery({
-    queryKey: ["authStatus"],
-    queryFn: async () => {
-      await dispatch(fetchStatus());
-      return "Fetched auth status";
-    },
-  });
-
-  if (initialAuthQuery.isLoading) {
+  if (isLoading) {
     return <div>Loading...</div>;
   }
 

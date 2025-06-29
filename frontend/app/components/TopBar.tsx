@@ -1,7 +1,6 @@
 import { Link } from "react-router";
 import { AuthButtons } from "./AuthButtons";
-import { useSelector } from "react-redux";
-import type { RootState } from "~/store/store";
+import { useAuth } from "~/hooks/useAuth";
 
 type Dropdown = {
   loginRequired: boolean;
@@ -56,7 +55,7 @@ const topBarElements: { [key: string]: TopBarElement } = {
 };
 
 export function TopBar() {
-  const username = useSelector((state: RootState) => state.auth.username);
+  const { username } = useAuth();
 
   return (
     <div className="flex flex-row justify-between bg-gray-100 p-3">

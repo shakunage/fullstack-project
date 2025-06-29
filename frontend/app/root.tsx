@@ -1,7 +1,5 @@
 import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Provider } from "react-redux";
-import store from "./store/store";
 import type { Route } from "./+types/root";
 import "./app.css";
 import { TopBar } from "./components/TopBar";
@@ -42,17 +40,13 @@ const queryClient = new QueryClient();
 
 export default function App() {
   return (
-    <>
-      <Provider store={store}>
-        <QueryClientProvider client={queryClient}>
-          <TopBar />
-          <div className="max-w-screen-lg mx-auto">
-            <Outlet />
-          </div>
-          <Footer />
-        </QueryClientProvider>
-      </Provider>
-    </>
+    <QueryClientProvider client={queryClient}>
+      <TopBar />
+      <div className="max-w-screen-lg mx-auto">
+        <Outlet />
+      </div>
+      <Footer />
+    </QueryClientProvider>
   );
 }
 
