@@ -1,27 +1,15 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { fetchLanding } from "~/services/nhlApiServices/gameLandingService";
-import { type GameLandingData } from "~/entities";
+import { useGameLanding } from "~/hooks/useGameLanding";
 
 export function PenaltiesDropdown({ game_id }: { game_id: number }) {
   const [showPenalties, setShowPenalties] = useState(false);
 
   const {
-    data: fetchedLandingData,
-    refetch: refetchLanding,
-    isFetching: isFetchingLanding,
-    error: landingError,
-  } = useQuery<GameLandingData, Error>({
-    queryKey: ["landingData", game_id],
-    queryFn: async () => {
-      if (!game_id) {
-        throw new Error("Game date or ID is missing for fetching boxscore.");
-      }
-      return fetchLanding(game_id);
-    },
-    enabled: false,
-    staleTime: 60 * 1000,
-  });
+    fetchedLandingData,
+    refetchLanding,
+    isFetchingLanding,
+    landingError,
+  } = useGameLanding(game_id)
 
   const handleTogglePenalties = async () => {
     if (!showPenalties && !fetchedLandingData && !isFetchingLanding) {

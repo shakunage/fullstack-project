@@ -10,6 +10,7 @@ export interface PenaltyDetail {
   type: string;
   duration: number;
   committedByPlayer: { default: string };
+  servedBy?: { default: string };
   teamAbbrev: { default: string };
   drawnBy: { default: string };
   descKey: string;

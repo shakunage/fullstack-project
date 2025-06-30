@@ -1,31 +1,17 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "~/hooks/useAuth";
-import { checkFavorite, addFavorite, removeFavorite } from "~/services/backendServices/favoriteService";
-import type { BoxscoreData, GameItem } from "~/entities";
+import { useFavorite } from "~/hooks/useFavorite";
+import type { GameItem } from "~/entities";
 
 export function FavoriteButton({ game }: { game: GameItem }) {
   const queryClient = useQueryClient();
   const { username, isLoading: isAuthLoading } = useAuth();
-
-  const { data: favoriteStatus, isLoading: isFavoriteLoading } = useQuery({
-    queryKey: ["checkfavorite", game.id],
-    queryFn: () => checkFavorite(game.id),
-    enabled: !!username,
-  });
-
-  const favoriteMutation = useMutation({
-    mutationFn: () => addFavorite(game),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["checkfavorite", game.id] });
-    },
-  });
-
-  const unfavoriteMutation = useMutation({
-    mutationFn: () => removeFavorite(game.id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["checkfavorite", game.id] });
-    },
-  });
+  const { 
+    favoriteStatus, 
+    isFavoriteLoading, 
+    favoriteMutation, 
+    unfavoriteMutation 
+  } = useFavorite(game, username);
 
   const handleFavoriteToggle = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();

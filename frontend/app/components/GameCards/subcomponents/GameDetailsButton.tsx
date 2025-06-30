@@ -1,10 +1,6 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { fetchBoxscore } from "~/services/nhlApiServices/boxscoreService";
-import { fetchLanding } from "~/services/nhlApiServices/gameLandingService";
-import type { GameItem } from "../../../entities/GameItem";
-import type { BoxscoreData } from "../../../entities/Boxscore";
-import type { GameLandingData } from "../../../entities/GameLanding";
+import type { GameItem } from "~/entities/GameItem";
+import { useGameDetails } from "~/hooks/useGameDetails";
 import { GoalScorers } from "./GoalScorers";
 import { Goalies } from "./Goalies";
 
@@ -16,18 +12,7 @@ export function GameDetailsButton({game_id}: { game_id: string | number }) {
     data,
     refetch,
     isFetching,
-  } = useQuery<{ boxscore: BoxscoreData; landing: GameLandingData }>({
-    queryKey: ["boxscoreLandingData", game_id],
-    queryFn: async () => {
-      const [boxscoreData, landingData] = await Promise.all([
-        fetchBoxscore(game_id),
-        fetchLanding(game_id),
-      ]);
-      return { boxscore: boxscoreData, landing: landingData };
-    },
-    enabled: false, // Don't run on mount
-    staleTime: 60 * 1000, // 1 minute
-  });
+  } = useGameDetails(game_id as GameItem["id"]);
 
   const handleToggleDetails = async (event: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
     event.stopPropagation();

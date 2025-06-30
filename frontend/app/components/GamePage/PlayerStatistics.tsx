@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { fetchBoxscore } from "~/services/nhlApiServices/boxscoreService";
+import { useBoxscore } from "~/hooks/useBoxscore";
 import { skaterBoxscoreConstants, goalieBoxscoreConstants } from "~/constants/boxscoreConstants";
-import { type BoxscoreData, type GameStory } from "~/entities";
+import { type GameStory } from "~/entities";
 import { type PlayerStats } from "~/entities/sub-entities";
 import { toiToSeconds } from "~/utils/toiToSeconds";
 
@@ -13,21 +12,12 @@ export function PlayerStatistics({ storyData }: { storyData: GameStory }) {
   >({});
 
   const {
-    data: fetchedBoxscoreData,
-    refetch: refetchBoxscore,
-    isFetching: isFetchingBoxscore,
-    error: boxscoreError,
-  } = useQuery<BoxscoreData, Error>({
-    queryKey: ["boxscoreData", storyData.id],
-    queryFn: async () => {
-      if (!storyData?.gameDate || !storyData?.id) {
-        throw new Error("Game date or ID is missing for fetching boxscore.");
-      }
-      return fetchBoxscore(storyData.id);
-    },
-    enabled: false,
-    staleTime: 60 * 1000,
-  });
+    fetchedBoxscoreData,
+    refetchBoxscore,
+    isFetchingBoxscore,
+    boxscoreError,
+  } = useBoxscore(storyData.id);
+
 
   const handleTogglePlayerStats = async () => {
     if (!showPlayerStats && !fetchedBoxscoreData && !isFetchingBoxscore) {
