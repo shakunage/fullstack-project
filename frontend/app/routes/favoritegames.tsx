@@ -5,15 +5,14 @@ import { EndedGame } from "~/components/GameCards/EndedGame";
 export const loader = favoritegamesLoader;
 
 export default function FavoriteGames() {
+  const { favoriteGameList, currentPage, totalPages, totalGames } = useLoaderData<typeof loader>();
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
+  const navigation = useNavigation();
+  
   const handleGameClick = (gameId: number) => {
     void navigate(`/game/${gameId}`);
   };
-
-  const { favoriteGameList, currentPage, totalPages, totalGames } = useLoaderData<typeof loader>();
-  const navigation = useNavigation();
-  const pageCountOptions = ["9", "18", "27"];
 
   if (totalGames === 0) {
     return <div className="pt-16 text-center">No favorite games found.</div>;
@@ -100,7 +99,7 @@ export default function FavoriteGames() {
               }}
               className="px-3 py-2 border border-gray-300 rounded-md text-sm text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             >
-              {pageCountOptions.map((option) => (
+              {["9", "18", "27"].map((option) => (
                 <option key={option} value={option}>
                   {option}
                 </option>

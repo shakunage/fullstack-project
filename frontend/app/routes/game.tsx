@@ -1,4 +1,4 @@
-import { useLoaderData, useParams } from "react-router";
+import { useLoaderData } from "react-router";
 import type { GameStory } from "~/entities";
 import { BackButton } from "~/components/GamePage/BackButton";
 import { ThreeStars } from "~/components/GamePage/ThreeStars";
@@ -15,8 +15,6 @@ export const loader = gameStoryLoader;
 
 export default function Game() {
   const gameStoryData = useLoaderData<typeof loader>() as GameStory;
-  const params = useParams();
-  const gameId = Number(params.gameId); // Assuming gameId is part of the route params for fetching
 
   if (!gameStoryData) {
     return (
