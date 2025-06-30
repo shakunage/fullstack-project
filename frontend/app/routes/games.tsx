@@ -4,13 +4,14 @@ import type { LoaderFunctionArgs } from "react-router";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
-
-dayjs.extend(utc);
-dayjs.extend(timezone);
 import { matchDayLoader } from "~/loaders/matchDayLoader";
 import { MatchDayGames } from "~/components/MatchDayGames";
 import isValidDate from "~/utils/isValidDate";
 import DatePickerComponent from "~/components/DatePicker";
+import { GameDaySkipButtons } from "~/components/GameCards/GameDaySkipButtons";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export const loader = matchDayLoader;
 
@@ -55,35 +56,12 @@ export default function GameByDate({ params }: LoaderFunctionArgs) {
               {data.games.length} games scheduled for {data.currentDate}
               <p></p>
               {data.games.length === 0 && (
-                <div className="flex items-center gap-4">
-                  {data.prevDate !== undefined &&
-                    data.prevDate !== "unknown" && (
-                      <button
-                        onClick={() => handleDateChange(data.prevDate)}
-                        className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 pl-8 w-64"
-                        disabled={isLoading}
-                        style={{
-                          clipPath:
-                            "polygon(100% 0, 100% 100%, 10% 100%, 0% 50%, 10% 0)",
-                        }}
-                      >
-                        {isLoading ? "Loading..." : "Previous match day"}
-                      </button>
-                    )}
-                  {data.nextDate && data.nextDate !== "unknown" && (
-                    <button
-                      onClick={() => handleDateChange(data.nextDate)}
-                      className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 pr-8 w-64"
-                      disabled={isLoading}
-                      style={{
-                        clipPath:
-                          "polygon(90% 0, 100% 50%, 90% 100%, 0 100%, 0 0)",
-                      }}
-                    >
-                      {isLoading ? "Loading..." : "Next match day"}
-                    </button>
-                  )}
-                </div>
+                <GameDaySkipButtons
+                  prevDate={data.prevDate}
+                  nextDate={data.nextDate}
+                  isLoading={isLoading}
+                  handleDateChange={handleDateChange} 
+                />
               )}
             </div>
             <MatchDayGames games={data.games} />
