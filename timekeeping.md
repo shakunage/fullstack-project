@@ -70,3 +70,4 @@
 | 27 Jun 2025 | Fix loader filename extensions, brush up data fetching for game days, various bug fixes wrt games page and individual game page | 1 |
 | 28 Jun 2025 | Rename Teams page to Standings, add datepicker into the /standings page, refactor the datepicker component and utilize it in /games too, simply loader usage for /home and /games routes, improve DatePicker state handling when skipping to latest standings info, migrate from moment.js to Day.js | 3.5 |
 | 29 Jun 2025 | Replace redux toolkit with TanStack Query for managing auth state across components, refactor useQuery hooks into separate files in the hooks folder | 2 |
+| 30 Jul 2025 | Refactor route components into subcomponents | 1 |
