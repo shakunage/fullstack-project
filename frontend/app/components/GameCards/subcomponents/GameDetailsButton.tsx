@@ -42,7 +42,7 @@ export function GameDetailsButton({ game_id }: { game_id: string | number }) {
         {showDetails ? "Hide Details" : "Show Goal Scorers and Goalies"}
       </button>
 
-      {isLoadingData && (<Spinner />)}
+      {isLoadingData && <Spinner />}
       {showDetails && data?.boxscore && data?.landing && (
         <div className="mt-4">
           <GoalScorers game={data.landing} />

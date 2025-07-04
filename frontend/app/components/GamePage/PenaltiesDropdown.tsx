@@ -33,8 +33,7 @@ export function PenaltiesDropdown({ game_id }: { game_id: number }) {
         </button>
       </div>
       {/* Loading Indicator for Landing */}
-      {isFetchingLanding && (<Spinner />)}
-
+      {isFetchingLanding && <Spinner />}
       {/* Error Message for Landing Fetch */}
       {landingError && !isFetchingLanding && (
         <div className="mt-4 text-red-500 text-center">

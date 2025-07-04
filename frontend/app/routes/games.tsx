@@ -20,7 +20,7 @@ export default function GameByDate({ params }: LoaderFunctionArgs) {
   const data = useLoaderData<typeof loader>();
   const navigate = useNavigate();
   const navigation = useNavigation();
-  const isLoading = navigation.state === "loading";
+  const isLoadingData = navigation.state === "loading";
 
   const [selectedDate, setSelectedDate] = useState<Date>(
     params.date && isValidDate(params.date)
@@ -45,25 +45,22 @@ export default function GameByDate({ params }: LoaderFunctionArgs) {
         <DatePickerComponent selectedDate={selectedDate} handleDateChange={handleDateChange} />
       </div>
       <div className="relative w-full mt-5">
-        {isLoading ? (
-          <Spinner />
-        ) : (
-          <>
-            <div className="flex flex-col items-center gap-4 min-h-0">
-              {data.games.length} games scheduled for {data.currentDate}
-              <p></p>
-              {data.games.length === 0 && (
-                <GameDaySkipButtons
-                  prevDate={data.prevDate}
-                  nextDate={data.nextDate}
-                  isLoading={isLoading}
-                  handleDateChange={handleDateChange}
-                />
-              )}
-            </div>
-            <MatchDayGames games={data.games} />
-          </>
-        )}
+        {isLoadingData && <Spinner />}
+        <>
+          <div className="flex flex-col items-center gap-4 min-h-0">
+            {data.games.length} games scheduled for {data.currentDate}
+            <p></p>
+            {data.games.length === 0 && (
+              <GameDaySkipButtons
+                prevDate={data.prevDate}
+                nextDate={data.nextDate}
+                isLoading={isLoadingData}
+                handleDateChange={handleDateChange}
+              />
+            )}
+          </div>
+          <MatchDayGames games={data.games} />
+        </>
       </div>
     </main>
   );
