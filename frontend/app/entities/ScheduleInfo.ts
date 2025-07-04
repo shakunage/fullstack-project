@@ -1,4 +1,4 @@
-import type { GameItem } from '~/entities/GameItem';
+import type { GameItem } from "~/entities/GameItem";
 
 export type GameWeekItem = {
   date: string;

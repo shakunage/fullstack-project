@@ -9,6 +9,7 @@ import { MatchDayGames } from "~/components/MatchDayGames";
 import isValidDate from "~/utils/isValidDate";
 import DatePickerComponent from "~/components/DatePicker";
 import { GameDaySkipButtons } from "~/components/GameCards/GameDaySkipButtons";
+import Spinner from "~/components/icons/Spinner";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -31,9 +32,7 @@ export default function GameByDate({ params }: LoaderFunctionArgs) {
 
   const handleDateChange = (date: Date | string | null): void => {
     if (date) {
-      const pacificDate: Date = dayjs(date)
-        .tz("America/Los_Angeles")
-        .toDate();
+      const pacificDate: Date = dayjs(date).tz("America/Los_Angeles").toDate();
       setSelectedDate(pacificDate);
       const formattedDate: string = dayjs(pacificDate).format("YYYY-MM-DD");
       void navigate(`/games/${formattedDate}`);
@@ -47,9 +46,7 @@ export default function GameByDate({ params }: LoaderFunctionArgs) {
       </div>
       <div className="relative w-full mt-5">
         {isLoading ? (
-          <div className="mb-50 mt-15">
-            <div className="spinner border-t-4 border-blue-500 rounded-full w-8 h-8 animate-spin absolute top-[-2rem] left-1/2 transform -translate-x-1/2"></div>
-          </div>
+          <Spinner />
         ) : (
           <>
             <div className="flex flex-col items-center gap-4 min-h-0">
@@ -60,7 +57,7 @@ export default function GameByDate({ params }: LoaderFunctionArgs) {
                   prevDate={data.prevDate}
                   nextDate={data.nextDate}
                   isLoading={isLoading}
-                  handleDateChange={handleDateChange} 
+                  handleDateChange={handleDateChange}
                 />
               )}
             </div>

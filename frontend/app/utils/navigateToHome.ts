@@ -1,3 +1,3 @@
 export function navigateToHome(): void {
-    window.location.replace("/");
-  }
+  window.location.replace("/");
+}

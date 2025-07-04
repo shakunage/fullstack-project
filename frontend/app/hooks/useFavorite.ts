@@ -6,30 +6,29 @@ export function useFavorite(game: GameItem, username: string | boolean | undefin
   const queryClient = useQueryClient();
 
   const { data: favoriteStatus, isLoading: isFavoriteLoading } = useQuery({
-      queryKey: ["checkfavorite", game.id],
-      queryFn: () => checkFavorite(game.id),
-      enabled: !!username,
-    });
-  
-    const favoriteMutation = useMutation({
-      mutationFn: () => addFavorite(game),
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ["checkfavorite", game.id] });
-      },
-    });
-  
-    const unfavoriteMutation = useMutation({
-      mutationFn: () => removeFavorite(game.id),
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ["checkfavorite", game.id] });
-      },
-    });
+    queryKey: ["checkfavorite", game.id],
+    queryFn: () => checkFavorite(game.id),
+    enabled: !!username,
+  });
 
+  const favoriteMutation = useMutation({
+    mutationFn: () => addFavorite(game),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["checkfavorite", game.id] });
+    },
+  });
 
-  return { 
-    favoriteStatus, 
-    isFavoriteLoading, 
-    favoriteMutation, 
-    unfavoriteMutation, 
+  const unfavoriteMutation = useMutation({
+    mutationFn: () => removeFavorite(game.id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["checkfavorite", game.id] });
+    },
+  });
+
+  return {
+    favoriteStatus,
+    isFavoriteLoading,
+    favoriteMutation,
+    unfavoriteMutation,
   };
 }

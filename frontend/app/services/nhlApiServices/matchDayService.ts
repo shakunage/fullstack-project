@@ -18,7 +18,10 @@ export async function getMatchDayGames(game_date: string): Promise<{
       if (fullResponseData) {
         return fullResponseData as ScheduleInfo;
       } else {
-        console.error("Match day games data is not in the expected format (expected object with a 'games' array property):", fullResponseData);
+        console.error(
+          "Match day games data is not in the expected format (expected object with a 'games' array property):",
+          fullResponseData
+        );
         return {} as ScheduleInfo;
       }
     },
@@ -28,9 +31,9 @@ export async function getMatchDayGames(game_date: string): Promise<{
     const matchDayGamesResponse: ScheduleInfo = await genericFetch(fetchOptions);
 
     // If the game_date is "now" and no games are found, we fetch game info from the most recent match day
-    if ((game_date === "now") && (matchDayGamesResponse.games.length === 0)) {
+    if (game_date === "now" && matchDayGamesResponse.games.length === 0) {
       fetchOptions.endpoint = `${API_URL}/${matchDayGamesResponse.prevDate}`;
-      const refetchedMatches: ScheduleInfo = await genericFetch(fetchOptions)
+      const refetchedMatches: ScheduleInfo = await genericFetch(fetchOptions);
       return {
         games: refetchedMatches.games,
         prevDate: refetchedMatches.prevDate || "unknown",
@@ -41,12 +44,12 @@ export async function getMatchDayGames(game_date: string): Promise<{
 
     return {
       games: matchDayGamesResponse.games,
-      prevDate: matchDayGamesResponse.prevDate|| "unknown",
+      prevDate: matchDayGamesResponse.prevDate || "unknown",
       currentDate: matchDayGamesResponse.currentDate || "unknown",
       nextDate: matchDayGamesResponse.nextDate || "unknown",
     };
   } catch (error) {
     console.error("Error fetching match day games:", error);
     throw error;
-  };
-};
+  }
+}

@@ -7,7 +7,7 @@ import type {
   GameOutcome,
   Team,
   VenueLocation,
-} from '~/entities/sub-entities';
+} from "~/entities/sub-entities";
 
 type PlayerByGameStats = {
   awayTeam: {

@@ -6,12 +6,10 @@ import type { GameItem } from "~/entities";
 export function FavoriteButton({ game }: { game: GameItem }) {
   const queryClient = useQueryClient();
   const { username, isLoading: isAuthLoading } = useAuth();
-  const { 
-    favoriteStatus, 
-    isFavoriteLoading, 
-    favoriteMutation, 
-    unfavoriteMutation 
-  } = useFavorite(game, username);
+  const { favoriteStatus, isFavoriteLoading, favoriteMutation, unfavoriteMutation } = useFavorite(
+    game,
+    username
+  );
 
   const handleFavoriteToggle = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
@@ -28,10 +26,18 @@ export function FavoriteButton({ game }: { game: GameItem }) {
         className={`absolute top-2 right-2 ${favoriteStatus ? "text-yellow-500" : "text-gray-400"}`}
         onClick={(event) => handleFavoriteToggle(event)}
         aria-label={favoriteStatus ? "Unfavorite" : "Favorite"}
-        disabled={isAuthLoading || isFavoriteLoading || favoriteMutation.isPending || unfavoriteMutation.isPending}
+        disabled={
+          isAuthLoading ||
+          isFavoriteLoading ||
+          favoriteMutation.isPending ||
+          unfavoriteMutation.isPending
+        }
       >
         {username ? (
-          isAuthLoading || isFavoriteLoading || favoriteMutation.isPending || unfavoriteMutation.isPending ? (
+          isAuthLoading ||
+          isFavoriteLoading ||
+          favoriteMutation.isPending ||
+          unfavoriteMutation.isPending ? (
             "..."
           ) : favoriteStatus ? (
             "★"

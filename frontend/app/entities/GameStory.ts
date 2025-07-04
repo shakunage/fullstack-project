@@ -6,7 +6,7 @@ import type {
   TvBroadcast,
   Venue,
   VenueLocation,
-} from '~/entities/sub-entities';
+} from "~/entities/sub-entities";
 
 export type GameStory = {
   id: number;

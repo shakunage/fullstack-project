@@ -4,6 +4,7 @@ import { skaterBoxscoreConstants, goalieBoxscoreConstants } from "~/constants/bo
 import { type GameStory } from "~/entities";
 import { type PlayerStats } from "~/entities/sub-entities";
 import { toiToSeconds } from "~/utils/toiToSeconds";
+import Spinner from "~/components/icons/Spinner";
 
 export function PlayerStatistics({ storyData }: { storyData: GameStory }) {
   const [showPlayerStats, setShowPlayerStats] = useState(false);
@@ -11,13 +12,9 @@ export function PlayerStatistics({ storyData }: { storyData: GameStory }) {
     Record<string, { key: string; direction: "ascending" | "descending" }>
   >({});
 
-  const {
-    fetchedBoxscoreData,
-    refetchBoxscore,
-    isFetchingBoxscore,
-    boxscoreError,
-  } = useBoxscore(storyData.id);
-
+  const { fetchedBoxscoreData, refetchBoxscore, isFetchingBoxscore, boxscoreError } = useBoxscore(
+    storyData.id
+  );
 
   const handleTogglePlayerStats = async () => {
     if (!showPlayerStats && !fetchedBoxscoreData && !isFetchingBoxscore) {
@@ -81,12 +78,7 @@ export function PlayerStatistics({ storyData }: { storyData: GameStory }) {
           </div>
         )}
       {/* Loading Indicator for Boxscore */}
-      {isFetchingBoxscore && (
-        <div className="flex justify-center items-center h-20">
-          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
-        </div>
-      )}
-
+      {isFetchingBoxscore && <Spinner />}
       {/* Error Message for Boxscore Fetch */}
       {boxscoreError && !isFetchingBoxscore && (
         <div className="mt-4 text-red-500 text-center">

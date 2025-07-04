@@ -11,7 +11,7 @@ export default function Home() {
       <div className="flex-1 flex flex-col items-center gap-4 min-h-0">
         Recent matches:
         <p></p>
-        <MatchDayGames games={data.games}/>
+        <MatchDayGames games={data.games} />
       </div>
     </main>
   );

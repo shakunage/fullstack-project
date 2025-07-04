@@ -1,15 +1,12 @@
 import { useState } from "react";
 import { useGameLanding } from "~/hooks/useGameLanding";
+import Spinner from "~/components/icons/Spinner";
 
 export function PenaltiesDropdown({ game_id }: { game_id: number }) {
   const [showPenalties, setShowPenalties] = useState(false);
 
-  const {
-    fetchedLandingData,
-    refetchLanding,
-    isFetchingLanding,
-    landingError,
-  } = useGameLanding(game_id)
+  const { fetchedLandingData, refetchLanding, isFetchingLanding, landingError } =
+    useGameLanding(game_id);
 
   const handleTogglePenalties = async () => {
     if (!showPenalties && !fetchedLandingData && !isFetchingLanding) {
@@ -36,11 +33,7 @@ export function PenaltiesDropdown({ game_id }: { game_id: number }) {
         </button>
       </div>
       {/* Loading Indicator for Landing */}
-      {isFetchingLanding && (
-        <div className="flex justify-center items-center h-20">
-          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
-        </div>
-      )}
+      {isFetchingLanding && (<Spinner />)}
 
       {/* Error Message for Landing Fetch */}
       {landingError && !isFetchingLanding && (

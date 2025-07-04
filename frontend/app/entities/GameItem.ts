@@ -5,7 +5,7 @@ import type {
   Clock,
   PeriodDescriptor,
   GameOutcome,
-} from '~/entities/sub-entities';
+} from "~/entities/sub-entities";
 
 export type GameItem = {
   id: number;

@@ -25,7 +25,7 @@ export default function Signup() {
     onSubmit: async ({ value }) => {
       // Do something with form data
       const token = await signupService(value.name, value.email, value.password);
-      if (!token) { 
+      if (!token) {
         return;
       }
       Cookies.set("token", token, { httpOnly: true, secure: true, sameSite: "Strict" });

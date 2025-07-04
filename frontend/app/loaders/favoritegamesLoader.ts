@@ -27,7 +27,6 @@ export const favoritegamesLoader = async ({ request }: LoaderFunctionArgs) => {
     if (!favoriteGameList || favoriteGameList.length === 0) {
       return { favoriteGameList: [], currentPage, totalPages, totalGames };
     } else return favoriteGamesResponse;
-
   } catch (error) {
     console.error("Error fetching data:", error);
     throw new Error("Error fetching data");

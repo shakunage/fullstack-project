@@ -1,4 +1,4 @@
-import type { PeriodDescriptor } from '~/entities/sub-entities/PeriodDescriptor';
+import type { PeriodDescriptor } from "~/entities/sub-entities/PeriodDescriptor";
 
 export interface Penalty {
   periodDescriptor: PeriodDescriptor;

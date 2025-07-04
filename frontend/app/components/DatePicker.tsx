@@ -1,9 +1,15 @@
-import React from 'react';
+import React from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import dayjs from "dayjs";
 
-const DatePickerComponent = ({ selectedDate, handleDateChange }: { selectedDate: Date; handleDateChange: (date: Date | string | null) => void; }) => {
+const DatePickerComponent = ({
+  selectedDate,
+  handleDateChange,
+}: {
+  selectedDate: Date;
+  handleDateChange: (date: Date | string | null) => void;
+}) => {
   return (
     <div className="flex items-center justify-center gap-2 mb-6">
       <button
@@ -13,7 +19,7 @@ const DatePickerComponent = ({ selectedDate, handleDateChange }: { selectedDate:
         }}
         className="text-blue-500 hover:text-blue-700"
       >
-        {'◀︎'}
+        {"◀︎"}
       </button>
       <DatePicker
         selected={selectedDate}
@@ -29,7 +35,7 @@ const DatePickerComponent = ({ selectedDate, handleDateChange }: { selectedDate:
         }}
         className="text-blue-500 hover:text-blue-700"
       >
-        {'▶︎'}
+        {"▶︎"}
       </button>
     </div>
   );

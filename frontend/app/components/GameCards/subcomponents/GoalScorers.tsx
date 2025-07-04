@@ -4,7 +4,9 @@ const TeamGoalScorers = ({ game, home }: { game: GameLandingData; home: boolean 
   const teamName: string = home ? game.homeTeam.commonName.default : game.awayTeam.commonName.default;
   const teamAbbrev: string = home ? game.homeTeam.abbrev : game.awayTeam.abbrev;
 
-  const teamGoals = game.summary.scoring.flatMap((goal) => goal.goals.filter((goal) => goal.teamAbbrev.default === teamAbbrev));
+  const teamGoals = game.summary.scoring.flatMap((goal) =>
+    goal.goals.filter((goal) => goal.teamAbbrev.default === teamAbbrev)
+  );
 
   if (teamGoals.length === 0) {
     return null;
@@ -13,12 +15,11 @@ const TeamGoalScorers = ({ game, home }: { game: GameLandingData; home: boolean 
   return (
     <div>
       <h4 className="font-semibold">{teamName}</h4>
-      {teamGoals
-        .map((goal) => (
-          <p key={`${goal.eventId}_${goal.timeInPeriod}`}>
-            {goal.name.default} - {goal.goalsToDate} goals
-          </p>
-        ))}
+      {teamGoals.map((goal) => (
+        <p key={`${goal.eventId}_${goal.timeInPeriod}`}>
+          {goal.name.default} - {goal.goalsToDate} goals
+        </p>
+      ))}
     </div>
   );
 };

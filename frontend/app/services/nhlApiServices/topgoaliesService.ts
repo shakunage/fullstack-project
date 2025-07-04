@@ -7,7 +7,7 @@ export async function getTopGoalies(): Promise<TopGoalies> {
   const fetchOptions: GenericFetchOptions<TopGoalies> = {
     method: "GET",
     endpoint: API_URL,
-    dataTransform: async (response) => await response.json() as TopGoalies,
+    dataTransform: async (response) => (await response.json()) as TopGoalies,
     defaultValue: {} as TopGoalies,
   };
   try {
@@ -16,5 +16,5 @@ export async function getTopGoalies(): Promise<TopGoalies> {
   } catch (error) {
     console.error("Error fetching top goalies:", error);
     throw error;
-  };
-};
+  }
+}

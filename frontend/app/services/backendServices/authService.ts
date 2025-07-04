@@ -10,7 +10,7 @@ export async function checkAuthStatus(): Promise<boolean> {
       if (response.status !== 200) {
         return false;
       }
-      return await response.json() as boolean;
+      return (await response.json()) as boolean;
     },
     defaultValue: false,
     credentials: "include", // Ensure cookies are sent with the request
@@ -28,7 +28,7 @@ export async function logoutUser(): Promise<string | boolean> {
   const fetchOptions: GenericFetchOptions<boolean> = {
     method: "GET",
     endpoint: `${API_URL}/logout`,
-    dataTransform: async (response) => await response.json() as boolean,
+    dataTransform: async (response) => (await response.json()) as boolean,
     defaultValue: false,
     credentials: "include", // Ensure cookies are sent with the request
   };

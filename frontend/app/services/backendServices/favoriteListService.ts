@@ -15,24 +15,21 @@ export async function FavoriteListService(headers: string | null, page: number, 
     method: "GET",
     endpoint: API_URL,
     queryParameter: `page=${page}&limit=${limit}`,
-    dataTransform: async (response) => await response.json() as FavoriteGamesServiceData,
+    dataTransform: async (response) => (await response.json()) as FavoriteGamesServiceData,
     defaultValue: {
       favoriteGameList: [],
       currentPage: 0,
       totalPages: 0,
       totalGames: 0,
     },
-    headers: headers ? { "Cookie": headers } : {},
+    headers: headers ? { Cookie: headers } : {},
   };
 
-    try {
-      const favoriteGamesResponse: FavoriteGamesServiceData = await genericFetch(fetchOptions);
-      return favoriteGamesResponse;
-    } catch (error) {
-      console.error("Error fetching favorite games:", error);
-      throw error;
-    }
+  try {
+    const favoriteGamesResponse: FavoriteGamesServiceData = await genericFetch(fetchOptions);
+    return favoriteGamesResponse;
+  } catch (error) {
+    console.error("Error fetching favorite games:", error);
+    throw error;
+  }
 }
-
-
-

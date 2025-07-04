@@ -45,7 +45,7 @@ export function TeamStats({ gameLandingData }: { gameLandingData: GameStory }) {
     setShowDetailedStats(!showDetailedStats);
   };
 
-  const shotsOnGoalStat = teamStats.find(stat => stat.category === "sog");
+  const shotsOnGoalStat = teamStats.find((stat) => stat.category === "sog");
 
   return (
     <div className="w-full mt-6">
@@ -53,7 +53,9 @@ export function TeamStats({ gameLandingData }: { gameLandingData: GameStory }) {
         <div className="mb-4 p-4 bg-gray-100 dark:bg-gray-750 rounded-md shadow flex justify-between items-center">
           {/* Away Team Stats Column */}
           <div className="text-center">
-            <span className="block font-semibold text-gray-700 dark:text-gray-300">{awayTeam.abbrev}</span>
+            <span className="block font-semibold text-gray-700 dark:text-gray-300">
+              {awayTeam.abbrev}
+            </span>
             <span className="block text-2xl font-bold text-gray-900 dark:text-white">
               {formatStatValue(shotsOnGoalStat.category, shotsOnGoalStat.awayValue)}
             </span>
@@ -66,7 +68,9 @@ export function TeamStats({ gameLandingData }: { gameLandingData: GameStory }) {
 
           {/* Home Team Stats Column */}
           <div className="text-center">
-            <span className="block font-semibold text-gray-700 dark:text-gray-300">{homeTeam.abbrev}</span>
+            <span className="block font-semibold text-gray-700 dark:text-gray-300">
+              {homeTeam.abbrev}
+            </span>
             <span className="block text-2xl font-bold text-gray-900 dark:text-white">
               {formatStatValue(shotsOnGoalStat.category, shotsOnGoalStat.homeValue)}
             </span>
@@ -97,22 +101,32 @@ export function TeamStats({ gameLandingData }: { gameLandingData: GameStory }) {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-              {teamStats.filter(stat => stat.category !== "sog").map((stat: TeamGameStat, index: number) => (
-                <tr key={index} className={index % 2 === 0 ? "bg-white dark:bg-gray-800" : "bg-gray-50 dark:bg-gray-750"}>
-                  <td className="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white text-left">
-                    {formatStatValue(stat.category, stat.awayValue)}
-                  </td>
-                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300 text-center">
-                    {formatStatCategory(stat.category)}
-                  </td>
-                  <td className="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white text-right">
-                    {formatStatValue(stat.category, stat.homeValue)}
-                  </td>
-                </tr>
-              ))}
-              {teamStats.filter(stat => stat.category !== "sog").length === 0 && (
+              {teamStats
+                .filter((stat) => stat.category !== "sog")
+                .map((stat: TeamGameStat, index: number) => (
+                  <tr
+                    key={index}
+                    className={
+                      index % 2 === 0 ? "bg-white dark:bg-gray-800" : "bg-gray-50 dark:bg-gray-750"
+                    }
+                  >
+                    <td className="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white text-left">
+                      {formatStatValue(stat.category, stat.awayValue)}
+                    </td>
+                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300 text-center">
+                      {formatStatCategory(stat.category)}
+                    </td>
+                    <td className="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white text-right">
+                      {formatStatValue(stat.category, stat.homeValue)}
+                    </td>
+                  </tr>
+                ))}
+              {teamStats.filter((stat) => stat.category !== "sog").length === 0 && (
                 <tr>
-                  <td colSpan={3} className="px-4 py-3 text-center text-sm text-gray-500 dark:text-gray-400">
+                  <td
+                    colSpan={3}
+                    className="px-4 py-3 text-center text-sm text-gray-500 dark:text-gray-400"
+                  >
                     No detailed team statistics available.
                   </td>
                 </tr>
