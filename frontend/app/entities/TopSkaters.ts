@@ -1,4 +1,4 @@
-type SkaterStat = {
+export type SkaterStat = {
   id: number;
   firstName: {
     default: string;
