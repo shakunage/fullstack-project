@@ -1,16 +1,5 @@
-import type { AnyFieldApi } from "@tanstack/react-form";
+import { FieldInfo } from "~/utils/signupFieldInfo";
 import { useSignup } from "../hooks/useSignup";
-
-function FieldInfo({ field }: { field: AnyFieldApi }) {
-  return (
-    <>
-      {field.state.meta.isTouched && field.state.meta.errors.length ? (
-        <em>{field.state.meta.errors.join(",")}</em>
-      ) : null}
-      {field.state.meta.isValidating ? "Validating..." : null}
-    </>
-  );
-}
 
 export default function Signup() {
   const form = useSignup();
@@ -67,12 +56,15 @@ export default function Signup() {
             <form.Field
               name="email"
               validators={{
-                onChange: ({ value }) =>
-                  !value
-                    ? "An e-mail address is required"
-                    : value.length < 3
-                      ? "e-mail must be at least 3 characters"
-                      : undefined,
+                onChange: ({ value }) => {
+                  if (!value) {
+                    return "An e-mail address is required";
+                  }
+                  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+                    return "Invalid email address";
+                  }
+                  return undefined;
+                },
                 onChangeAsyncDebounceMs: 500,
                 onChangeAsync: async ({ value }) => {
                   await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -106,8 +98,8 @@ export default function Signup() {
                 onChange: ({ value }) =>
                   !value
                     ? "A password is required"
-                    : value.length < 3
-                      ? "password must be at least 3 characters"
+                    : value.length < 8
+                      ? "password must be at least 8 characters"
                       : undefined,
                 onChangeAsyncDebounceMs: 500,
                 onChangeAsync: async ({ value }) => {

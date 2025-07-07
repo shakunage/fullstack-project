@@ -1,16 +1,5 @@
-import type { AnyFieldApi } from "@tanstack/react-form";
+import { FieldInfo } from "~/utils/loginFieldInfo";
 import { useLogin } from "../hooks/useLogin";
-
-function FieldInfo({ field }: { field: AnyFieldApi }) {
-  return (
-    <>
-      {field.state.meta.isTouched && field.state.meta.errors.length ? (
-        <em>{field.state.meta.errors.join(",")}</em>
-      ) : null}
-      {field.state.meta.isValidating ? "Validating..." : null}
-    </>
-  );
-}
 
 export default function Login() {
   const form = useLogin();
