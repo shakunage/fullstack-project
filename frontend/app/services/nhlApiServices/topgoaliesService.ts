@@ -1,5 +1,5 @@
-import { type GenericFetchOptions, genericFetch } from "../genericApiService";
-import type { TopGoalies } from "../../entities";
+import { type GenericFetchOptions, genericFetch } from "~/services/genericApiService";
+import type { TopGoalies } from "~/entities";
 
 const API_URL = "http://reverseproxy:9998/api/v1/goalie-stats-leaders/current";
 

@@ -1,8 +1,8 @@
 import { getStory } from "../services/nhlApiServices/gameStoryService";
 import type { LoaderFunctionArgs } from "react-router";
-import type { GameStory } from "../entities";
+import type { GameStory, MatchDay } from "../entities";
 
-export const gameStoryLoader = async ({ params }: LoaderFunctionArgs) => {
+export const gameStoryLoader = async ({ params }: LoaderFunctionArgs): Promise<GameStory> => {
   const game_id = params.game_id;
   try {
     const gameStory: GameStory = await getStory(game_id);

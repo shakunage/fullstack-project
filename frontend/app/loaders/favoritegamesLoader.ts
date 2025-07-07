@@ -9,7 +9,7 @@ type FavoriteGamesServiceData = {
   totalGames: number;
 };
 
-export const favoritegamesLoader = async ({ request }: LoaderFunctionArgs) => {
+export const favoritegamesLoader = async ({ request }: LoaderFunctionArgs): Promise<FavoriteGamesServiceData> => {
   const url = new URL(request.url);
   const headers = request.headers.get("Cookie");
   const page = parseInt(url.searchParams.get("page") ?? "1"); // Default to page 1

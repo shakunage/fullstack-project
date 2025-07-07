@@ -1,6 +1,7 @@
 import { getTopSkaters } from "../services/nhlApiServices/topskatersService";
+import type { TopSkaters } from "~/entities";
 
-export const topskatersLoader = async () => {
+export const topskatersLoader = async (): Promise<TopSkaters> => {
   try {
     return await getTopSkaters();
   } catch (error) {
