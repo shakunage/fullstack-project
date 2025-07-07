@@ -1,8 +1,5 @@
-import { useForm } from "@tanstack/react-form";
-import Cookies from "js-cookie";
-import { navigateToHome } from "~/utils/navigateToHome";
-import { loginUser } from "../services/backendServices/loginService";
 import type { AnyFieldApi } from "@tanstack/react-form";
+import { useLogin } from "../hooks/useLogin";
 
 function FieldInfo({ field }: { field: AnyFieldApi }) {
   return (
@@ -16,23 +13,7 @@ function FieldInfo({ field }: { field: AnyFieldApi }) {
 }
 
 export default function Login() {
-  const form = useForm({
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-    onSubmit: async ({ value }) => {
-      // Do something with form data
-      const token = await loginUser(value.email, value.password);
-      if (!token) {
-        console.error("Login failed. token value is:", token);
-        return;
-      }
-      Cookies.set("token", token, { httpOnly: true, secure: true, sameSite: "Strict" });
-      alert("Login successful!");
-      navigateToHome();
-    },
-  });
+  const form = useLogin();
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
@@ -120,11 +101,11 @@ export default function Login() {
             />
           </div>
           <form.Subscribe
-            selector={(state: { canSubmit: boolean; isSubmitting: boolean }) => [
+            selector={(state) => [
               state.canSubmit,
               state.isSubmitting,
             ]}
-            children={([canSubmit, isSubmitting]: [boolean, boolean]) => (
+            children={([canSubmit, isSubmitting]) => (
               <div className="flex justify-between items-center">
                 <button
                   type="submit"

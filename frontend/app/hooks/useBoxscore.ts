@@ -1,9 +1,8 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { fetchBoxscore } from "~/services/nhlApiServices/boxscoreService";
 import type { BoxscoreData, GameStory } from "~/entities";
 
 export function useBoxscore(id: GameStory["id"]) {
-  const queryClient = useQueryClient();
 
   const {
     data: fetchedBoxscoreData,

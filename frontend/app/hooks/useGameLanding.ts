@@ -1,9 +1,8 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { fetchLanding } from "~/services/nhlApiServices/gameLandingService";
 import type { GameLandingData, GameItem } from "~/entities";
 
 export function useGameLanding(game_id: GameItem["id"]) {
-  const queryClient = useQueryClient();
 
   const {
     data: fetchedLandingData,

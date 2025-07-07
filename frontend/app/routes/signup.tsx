@@ -1,8 +1,5 @@
-import Cookies from "js-cookie";
-import { useForm } from "@tanstack/react-form";
 import type { AnyFieldApi } from "@tanstack/react-form";
-import { signupService } from "~/services/backendServices/signupService";
-import { navigateToHome } from "~/utils/navigateToHome";
+import { useSignup } from "../hooks/useSignup";
 
 function FieldInfo({ field }: { field: AnyFieldApi }) {
   return (
@@ -16,23 +13,7 @@ function FieldInfo({ field }: { field: AnyFieldApi }) {
 }
 
 export default function Signup() {
-  const form = useForm({
-    defaultValues: {
-      name: "",
-      email: "",
-      password: "",
-    },
-    onSubmit: async ({ value }) => {
-      // Do something with form data
-      const token = await signupService(value.name, value.email, value.password);
-      if (!token) {
-        return;
-      }
-      Cookies.set("token", token, { httpOnly: true, secure: true, sameSite: "Strict" });
-      alert("Signup successful!");
-      void navigateToHome();
-    },
-  });
+  const form = useSignup();
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
@@ -156,11 +137,11 @@ export default function Signup() {
             />
           </div>
           <form.Subscribe
-            selector={(state: { canSubmit: boolean; isSubmitting: boolean }) => [
+            selector={(state) => [
               state.canSubmit,
               state.isSubmitting,
             ]}
-            children={([canSubmit, isSubmitting]: [boolean, boolean]) => (
+            children={([canSubmit, isSubmitting]) => (
               <div className="flex justify-between items-center">
                 <button
                   type="submit"
