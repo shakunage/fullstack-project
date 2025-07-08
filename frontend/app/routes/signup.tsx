@@ -24,8 +24,10 @@ export default function Signup() {
                   !value
                     ? "A name is required"
                     : value.length < 3
-                      ? "name must be at least 3 characters"
-                      : undefined,
+                      ? "Name must be at least 3 characters"
+                      : value.length > 32
+                        ? "Name cannot be longer than 32 characters"
+                        : undefined,
                 onChangeAsyncDebounceMs: 500,
                 onChangeAsync: async ({ value }) => {
                   await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -59,6 +61,9 @@ export default function Signup() {
                 onChange: ({ value }) => {
                   if (!value) {
                     return "An e-mail address is required";
+                  }
+                  if (value.length > 320) {
+                    return "E-mail cannot be longer than 320 characters";
                   }
                   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
                     return "Invalid email address";
@@ -99,8 +104,10 @@ export default function Signup() {
                   !value
                     ? "A password is required"
                     : value.length < 8
-                      ? "password must be at least 8 characters"
-                      : undefined,
+                      ? "Password must be at least 8 characters"
+                      : value.length > 128
+                        ? "Password cannot be longer than 128 characters"
+                        : undefined,
                 onChangeAsyncDebounceMs: 500,
                 onChangeAsync: async ({ value }) => {
                   await new Promise((resolve) => setTimeout(resolve, 1000));
