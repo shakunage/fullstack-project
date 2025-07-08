@@ -1,15 +1,12 @@
 # TODO
 
 ## Must to have
-- refactoring tasklist:
-  - make dropdown logic in the individual game page shared
-  - most files in the routes/ folder are terrible slop, e.g.:
-    - login.tsx
-    - signup.tsx
-- add proper validations into signup and login
-- make use of react router v7 route types
-- add typing to loaders
-- make file names and function/type/component names consistent in general
+- route types
+- consistent function and type names
+- pretteir settings
+- tests (e2e, backend unit tests)
+- backend envs
+- deployment + testing pipeline
 - unify to single quotes (prettier)
 - fix imports to make use of tilde (default directory)
 - move backend endpoint addresses and secrets to ENV files
@@ -25,3 +22,4 @@
 - maybe watch a youtube video
 - let AI create the custom components
 - implement middleware in the backend
+- make dropdown logic in the individual game page shared
