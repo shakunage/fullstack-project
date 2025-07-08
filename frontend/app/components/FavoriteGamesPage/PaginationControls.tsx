@@ -8,15 +8,36 @@ export function PaginationControls({
   totalPages: number;
 }) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const pages = [];
-  for (let i = 1; i <= totalPages; i++) {
-    pages.push(i);
-  }
-
   const itemsPerPage = ["9", "18", "27"];
 
+  const getPageNumbers = () => {
+    const pageNumbers: (number | string)[] = [];
+    if (totalPages <= 5) {
+      for (let i = 1; i <= totalPages; i++) {
+        pageNumbers.push(i);
+      }
+    } else {
+      if (currentPage <= 2) {
+        pageNumbers.push(1, 2, 3, "…", totalPages);
+      } else if (currentPage > totalPages - 2) {
+        pageNumbers.push(
+          1,
+          "…",
+          totalPages - 2,
+          totalPages - 1,
+          totalPages
+        );
+      } else {
+        pageNumbers.push(1, "…", currentPage - 1, currentPage, currentPage + 1, "…", totalPages);
+      }
+    }
+    return pageNumbers;
+  };
+
+  const pages = getPageNumbers();
+
   return (
-    <div className="relative my-8 px-4 sm:px-6 lg:px-8">
+    <div className="relative my-8 px-3 sm:px-6 lg:px-8">
       {" "}
       {/* Relative parent, with horizontal padding */}
       <nav aria-label="Pagination" className="flex justify-center items-center space-x-2">
@@ -32,27 +53,33 @@ export function PaginationControls({
                 { preventScrollReset: true }
               );
             }}
-            className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100"
+            className="px-2 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100"
           >
-            Previous
+            {"<"}
           </button>
         )}
-        {pages.map((page) => (
-          <button
-            key={page}
-            onClick={() => {
-              setSearchParams(
-                { page: page.toString(), limit: searchParams.get("limit") ?? "9" },
-                { preventScrollReset: true }
-              );
-            }}
-            className={`px-4 py-2 border border-gray-300 rounded-md ${
-              page === currentPage ? "bg-blue-500 text-white" : "text-gray-700 hover:bg-gray-100"
-            }`}
-          >
-            {page}
-          </button>
-        ))}
+        {pages.map((page, index) =>
+          typeof page === "number" ? (
+            <button
+              key={page}
+              onClick={() => {
+                setSearchParams(
+                  { page: page.toString(), limit: searchParams.get("limit") ?? "9" },
+                  { preventScrollReset: true }
+                );
+              }}
+              className={`px-3 py-2 border border-gray-300 rounded-md ${
+                page === currentPage ? "bg-blue-500 text-white" : "text-gray-700 hover:bg-gray-100"
+              }`}
+            >
+              {page}
+            </button>
+          ) : (
+            <span key={`dots-${index}`} className="py-2 text-gray-500">
+              {" "}
+            </span>
+          )
+        )}
         {currentPage < totalPages && (
           <button
             onClick={() => {
@@ -64,19 +91,18 @@ export function PaginationControls({
                 { preventScrollReset: true }
               );
             }}
-            className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100"
+            className="px-2 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100"
           >
-            Next
+            {">"}
           </button>
         )}
       </nav>
       <div className="absolute right-4 sm:right-6 lg:right-8 top-1/2 transform -translate-y-1/2">
         {/* Positioned to the far right and vertically centered */}
-        <div className="ml-4 flex items-center">
-          {" "}
+        <div className="ml-4 flex flex-col items-center">
           {/* Tailwind for margin and alignment */}
-          <label htmlFor="itemsPerPage" className="mr-2 text-sm text-gray-700">
-            Show:
+          <label htmlFor="itemsPerPage" className="text-sm text-gray-700 mb-1">
+            Show
           </label>
           <select
             id="itemsPerPage"
@@ -84,7 +110,7 @@ export function PaginationControls({
             onChange={(e) => {
               setSearchParams({ limit: e.target.value, page: "1" }, { preventScrollReset: true });
             }}
-            className="px-3 py-2 border border-gray-300 rounded-md text-sm text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+            className="px-1 py-2 border border-gray-300 rounded-md text-sm text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
           >
             {itemsPerPage.map((option) => (
               <option key={option} value={option}>
