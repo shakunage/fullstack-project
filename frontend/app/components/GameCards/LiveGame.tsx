@@ -1,9 +1,8 @@
 import type { GameItem } from "../../entities/GameItem";
-import type { BoxscoreData } from "../../entities/Boxscore";
 import { Venue } from "./subcomponents/Venue";
 import { GameDetailsButton } from "./subcomponents/GameDetailsButton";
 
-export function LiveGame({ game }: { game: GameItem | BoxscoreData }) {
+export function LiveGame({ game }: { game: GameItem }) {
   return (
     <div className="shadow-md rounded-lg p-4">
       <h2 className="text-xl font-bold mb-2">
@@ -13,7 +12,7 @@ export function LiveGame({ game }: { game: GameItem | BoxscoreData }) {
         Live score: {game.homeTeam.score} - {game.awayTeam.score} (Period {game.period})
       </p>
       <Venue venue={game.venue.default} homeTeamAbbrev={game.homeTeam.abbrev} />
-      <GameDetailsButton game={game} />
+      <GameDetailsButton game_id={game.id} />
     </div>
   );
 }

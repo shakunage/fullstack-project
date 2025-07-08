@@ -5,7 +5,7 @@ import { GoalScorers } from "./GoalScorers";
 import { Goalies } from "./Goalies";
 import Spinner from "~/components/icons/Spinner";
 
-export function GameDetailsButton({ game_id }: { game_id: string | number }) {
+export function GameDetailsButton({ game_id }: { game_id: GameItem["id"] }) {
   const [showDetails, setShowDetails] = useState(false);
   const [loading, setLoading] = useState(false);
 
