@@ -1,9 +1,8 @@
 # TODO
 
 ## Must to have
-- route types
 - consistent function and type names
-- pretteir settings
+- prettier settings
 - tests (e2e, backend unit tests)
 - backend envs
 - deployment + testing pipeline
