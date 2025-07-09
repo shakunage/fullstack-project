@@ -1,13 +1,13 @@
 import express from "express";
 import cookieParser from "cookie-parser";
 import { prisma } from "./dbserver/dbserver.ts";
-import SignupRouter from "./controllers/signupController.ts";
-import LogoutRouter from "./controllers/logoutController.ts";
-import LoginRouter from "./controllers/loginController.ts";
-import AuthcheckRouter from "./controllers/authcheckController.ts";
-import FavoriteRouter from "./controllers/favoriteController.ts";
-import FavoriteListRouter from "./controllers/favoriteListController.ts";
-import HealthcheckRouter from "./controllers/healthcheckRouter.ts";
+import SignupController from "./controllers/signupController.ts";
+import LogoutController from "./controllers/logoutController.ts";
+import LoginController from "./controllers/loginController.ts";
+import AuthcheckController from "./controllers/authcheckController.ts";
+import FavoriteController from "./controllers/favoriteController.ts";
+import FavoriteListController from "./controllers/favoriteListController.ts";
+import HealthcheckController from "./controllers/healthcheckController.ts";
 
 const app = express();
 const PORT = 8080;
@@ -15,13 +15,13 @@ const PORT = 8080;
 app.use(express.json());
 app.use(cookieParser());
 
-app.use("/signup", SignupRouter);
-app.use("/logout", LogoutRouter);
-app.use("/login", LoginRouter);
-app.use("/authcheck", AuthcheckRouter);
-app.use("/favorite", FavoriteRouter);
-app.use("/favoritegames", FavoriteListRouter);
-app.use("/health", HealthcheckRouter);
+app.use("/signup", SignupController);
+app.use("/logout", LogoutController);
+app.use("/login", LoginController);
+app.use("/authcheck", AuthcheckController);
+app.use("/favorite", FavoriteController);
+app.use("/favoritegames", FavoriteListController);
+app.use("/health", HealthcheckController);
 
 const start = async () => {
   try {
