@@ -1,6 +1,5 @@
 import { prisma } from "../dbserver/dbserver.ts";
 import { checkAuthTokenValidity } from "../utils/checkAuthTokenValidity.ts";
-import { type Token } from "../dtos/index.ts";
 
 export async function validateTokenRepository(token: string): Promise<boolean> {
   try {
