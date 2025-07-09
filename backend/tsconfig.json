@@ -13,6 +13,9 @@
     "forceConsistentCasingInFileNames": true,
     "allowImportingTsExtensions": true,
     "emitDeclarationOnly": true,
+    "paths": {
+      "~/*": ["./src/*"]
+    },
   },
   "include": ["src/**/*", "redis"],
   "exclude": ["node_modules", "**/*.test.ts", "dist"]

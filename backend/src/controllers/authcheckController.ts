@@ -1,13 +1,9 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable @typescript-eslint/no-misused-promises */
 import express, { Request, Response, Router } from "express";
 import { findUserByToken } from "../repositories/findUserRepository.ts";
 import { validateTokenRepository } from "../repositories/validateTokenRepository.ts";
-import { Token } from "../dtos/index.ts";
 
 const router: Router = express.Router();
-// TODO: replace with secure way of storing secret keys
-const SECRET_KEY = "your_secret_key";
+
 
 router.get(
   "/",

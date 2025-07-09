@@ -1,9 +1,10 @@
 # TODO
 
-## Must to have
+## Must have
 - consistent function and type names (backend controllers, types, loaders, services etc.)
 - prettier settings (unify to double quotes)
 - tests (e2e, backend unit tests)
+- frontend API url unification
 - backend envs
 - deployment + testing pipeline
 - fix imports to make use of tilde (default directory)
