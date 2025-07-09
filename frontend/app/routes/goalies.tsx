@@ -1,7 +1,7 @@
 import { useLoaderData } from "react-router";
-import { topgoaliesLoader } from "../loaders/topgoaliesLoader";
-import { type TopGoalies, type GoalieStat } from "../entities/TopGoalies"; // Import GoalieStat
-import { GoalieTable } from "../components/Goalies/GoalieTable"; // Import the GoalieTable component
+import { topgoaliesLoader } from "~/loaders/topgoaliesLoader";
+import { type TopGoalies } from "~/entities/TopGoalies"; // Import GoalieStat
+import { GoalieTable } from "~/components/Goalies/GoalieTable"; // Import the GoalieTable component
 
 export const loader = topgoaliesLoader;
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { formatTime } from "../../../utils/formatTime";
+import { formatTime } from "~/utils/formatTime";
 
 export function StartTimeToggle({ gameStartTime }: { gameStartTime: string }) {
   const [showLocalTime, setShowLocalTime] = useState(false);

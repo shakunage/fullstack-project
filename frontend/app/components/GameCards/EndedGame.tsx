@@ -1,8 +1,7 @@
 import { FavoriteButton } from "./subcomponents/FavoriteButton";
 import { GameDetailsButton } from "./subcomponents/GameDetailsButton";
-import { boxscoreLoader } from "../../loaders/boxscoreLoader";
-import type { GameItem } from "../../entities";
-import type { BoxscoreData } from "../../entities/Boxscore";
+import { boxscoreLoader } from "~/loaders/boxscoreLoader";
+import type { GameItem } from "~/entities";
 import { EndedGameHeader } from "./subcomponents/EndedGameHeader";
 import { EndedGameDetails } from "./subcomponents/EndedGameDetails";
 import { StartTimeToggle } from "./subcomponents/StartTimeToggle";

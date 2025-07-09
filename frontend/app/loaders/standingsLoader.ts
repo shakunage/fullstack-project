@@ -1,6 +1,6 @@
-import { getStandings } from "../services/nhlApiServices/standingsService";
+import { getStandings } from "~/services/nhlApiServices/standingsService";
 import type { LoaderFunctionArgs } from "react-router";
-import type { StandingsItem } from "../entities";
+import type { StandingsItem } from "~/entities";
 
 export const standingsLoader = async ({ params }: LoaderFunctionArgs): Promise<StandingsItem[]>  => {
   const game_date = params.date ? params.date : "now";

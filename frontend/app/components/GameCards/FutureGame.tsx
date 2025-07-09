@@ -1,9 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
 import { useTimeUntilStart } from "~/hooks/useTimeUntilStart";
-import type { GameItem } from "../../entities/GameItem";
+import type { GameItem } from "~/entities/GameItem";
 import { StartTimeToggle } from "./subcomponents/StartTimeToggle";
 import { Venue } from "./subcomponents/Venue";
-import type { BoxscoreData } from "../../entities/Boxscore";
+import type { BoxscoreData } from "~/entities/Boxscore";
 
 export function FutureGame({ game }: { game: GameItem | BoxscoreData }) {
   const { timeUntilStart } = useTimeUntilStart(game.startTimeUTC);

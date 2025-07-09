@@ -1,6 +1,6 @@
 import { useLoaderData } from "react-router";
-import { topskatersLoader } from "../loaders/topskatersLoader";
-import { type TopSkaters } from "../entities/TopSkaters";
+import { topskatersLoader } from "~/loaders/topskatersLoader";
+import { type TopSkaters } from "~/entities/TopSkaters";
 import SkaterStats from "~/components/Skaters/SkaterStats";
 
 export const loader = topskatersLoader;

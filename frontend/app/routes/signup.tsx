@@ -1,5 +1,5 @@
 import { FieldInfo } from "~/utils/signupFieldInfo";
-import { useSignup } from "../hooks/useSignup";
+import { useSignup } from "~/hooks/useSignup";
 
 export default function Signup() {
   const form = useSignup();

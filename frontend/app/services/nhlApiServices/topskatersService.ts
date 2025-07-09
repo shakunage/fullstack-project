@@ -1,5 +1,5 @@
-import { type GenericFetchOptions, genericFetch } from "../genericApiService";
-import type { TopSkaters } from "../../entities";
+import { type GenericFetchOptions, genericFetch } from "~/services/genericApiService";
+import type { TopSkaters } from "~/entities";
 
 const API_URL = "http://reverseproxy:9998/api/v1/skater-stats-leaders/current";
 

@@ -1,4 +1,4 @@
-import { type GenericFetchOptions, genericFetch } from "../genericApiService";
+import { type GenericFetchOptions, genericFetch } from "~/services/genericApiService";
 const API_URL = "http://localhost:9998/backend/signup";
 
 export async function signupService(

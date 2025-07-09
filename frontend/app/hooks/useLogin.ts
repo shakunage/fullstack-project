@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 import { useForm } from "@tanstack/react-form";
-import { loginUser } from "../services/backendServices/loginService";
+import { loginUser } from "~/services/backendServices/loginService";
 import { navigateToHome } from "~/utils/navigateToHome";
 
 

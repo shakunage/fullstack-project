@@ -1,4 +1,4 @@
-import { genericFetch, type GenericFetchOptions } from "../genericApiService";
+import { genericFetch, type GenericFetchOptions } from "~/services/genericApiService";
 import type { GameItem } from "~/entities";
 
 const API_URL = "http://backend:8080/favoritegames";

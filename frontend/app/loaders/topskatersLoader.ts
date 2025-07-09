@@ -1,4 +1,4 @@
-import { getTopSkaters } from "../services/nhlApiServices/topskatersService";
+import { getTopSkaters } from "~/services/nhlApiServices/topskatersService";
 import type { TopSkaters } from "~/entities";
 
 export const topskatersLoader = async (): Promise<TopSkaters> => {

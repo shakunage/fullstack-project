@@ -1,6 +1,6 @@
-import { getLanding } from "../services/nhlApiServices/gameLandingService";
+import { getLanding } from "~/services/nhlApiServices/gameLandingService";
 import type { LoaderFunctionArgs } from "react-router";
-import type { GameLandingData } from "../entities";
+import type { GameLandingData } from "~/entities";
 
 export const gameLandingLoader = async ({ params }: LoaderFunctionArgs): Promise<GameLandingData> => {
   const game_id = params.game_id;

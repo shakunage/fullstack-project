@@ -1,5 +1,5 @@
-import { getMatchDayGames } from "../services/nhlApiServices/matchDayService";
-import type { GameItem, MatchDay } from "../entities";
+import { getMatchDayGames } from "~/services/nhlApiServices/matchDayService";
+import type { GameItem, MatchDay } from "~/entities";
 import type { LoaderFunctionArgs } from "react-router";
 
 export const matchDayLoader = async ({

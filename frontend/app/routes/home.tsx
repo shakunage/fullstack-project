@@ -1,6 +1,6 @@
 import { useLoaderData } from "react-router";
-import { MatchDayGames } from "../components/MatchDayGames";
-import { matchDayLoader } from "../loaders/matchDayLoader";
+import { MatchDayGames } from "~/components/MatchDayGames";
+import { matchDayLoader } from "~/loaders/matchDayLoader";
 
 export const loader = matchDayLoader;
 

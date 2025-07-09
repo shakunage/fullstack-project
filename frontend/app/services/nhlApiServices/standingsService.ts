@@ -1,5 +1,5 @@
-import { type GenericFetchOptions, genericFetch } from "../genericApiService";
-import type { StandingsItem } from "../../entities";
+import { type GenericFetchOptions, genericFetch } from "~/services/genericApiService";
+import type { StandingsItem } from "~/entities";
 
 const API_BASE_URL = "http://reverseproxy:9998/api/v1";
 
