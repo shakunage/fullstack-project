@@ -12,6 +12,14 @@ export function ThreeStars(landingData: GameStory) {
     return null; // Don't render anything if there are no three stars
   }
 
+  // Helper function to handle the two different name formats
+  const getPlayerName = (player: any) => {
+    if (typeof player.name === "string") {
+      return player.name;
+    }
+    return player.name.default;
+  };
+
   return (
     <div className="w-full mt-6">
       <button
@@ -33,14 +41,14 @@ export function ThreeStars(landingData: GameStory) {
                 >
                   <img
                     src={star.headshot}
-                    alt={star.name}
+                    alt={getPlayerName(star)}
                     className="w-20 h-20 rounded-full mx-auto mb-2 object-cover"
                   />
                   <p className="text-lg font-semibold">
                     {star.star}
                     {star.star === 1 ? "st" : star.star === 2 ? "nd" : "rd"} Star
                   </p>
-                  <p className="font-bold">{star.name}</p>
+                  <p className="font-bold">{getPlayerName(star)}</p>
                   <p className="text-sm text-gray-600 dark:text-gray-400">
                     {star.teamAbbrev} - {star.position}
                   </p>

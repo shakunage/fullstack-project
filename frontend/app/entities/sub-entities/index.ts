@@ -9,7 +9,7 @@ export * from "./PlayerStats";
 export * from "./Scoring";
 export * from "./Team";
 export * from "./TeamGameStats";
-export * from "./ThreeStar";
+export * from "./ThreeStars";
 export * from "./TvBroadcast";
 export * from "./Venue";
 export * from "./VenueLocation";

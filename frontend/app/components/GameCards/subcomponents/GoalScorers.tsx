@@ -1,7 +1,8 @@
 import type { GameLandingData } from "~/entities";
+import { resolveNameType } from "~/utils/resolveNameType";
 
 const TeamGoalScorers = ({ game, home }: { game: GameLandingData; home: boolean }) => {
-  const teamName: string = home ? game.homeTeam.commonName.default : game.awayTeam.commonName.default;
+  const teamName: string = home ? resolveNameType(game.homeTeam) : resolveNameType(game.awayTeam);
   const teamAbbrev: string = home ? game.homeTeam.abbrev : game.awayTeam.abbrev;
 
   const teamGoals = game.summary.scoring.flatMap((goal) =>

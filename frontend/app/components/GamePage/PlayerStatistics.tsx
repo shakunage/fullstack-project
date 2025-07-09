@@ -4,6 +4,7 @@ import { skaterBoxscoreConstants, goalieBoxscoreConstants } from "~/constants/bo
 import { type GameStory } from "~/entities";
 import { type PlayerStats } from "~/entities/sub-entities";
 import { toiToSeconds } from "~/utils/toiToSeconds";
+import { resolveNameType } from "~/utils/resolveNameType";
 import Spinner from "~/components/icons/Spinner";
 
 export function PlayerStatistics({ storyData }: { storyData: GameStory }) {
@@ -101,7 +102,7 @@ export function PlayerStatistics({ storyData }: { storyData: GameStory }) {
               return (
                 <div key={teamType}>
                   <h3 className="text-xl font-semibold mb-3 text-center">
-                    {teamDisplayDetails.name.default}
+                    {resolveNameType(teamDisplayDetails)}
                   </h3>
                   {(["forwards", "defense", "goalies"] as const).map((positionKey) => {
                     const playersAtPosition: PlayerStats[] =

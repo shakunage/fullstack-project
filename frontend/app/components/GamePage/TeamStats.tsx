@@ -1,5 +1,6 @@
 import { useState } from "react";
-import type { GameStory, TeamGameStat } from "~/entities";
+import type { GameStory } from "~/entities";
+import type { TeamGameStats } from "~/entities/sub-entities/TeamGameStats";
 
 const formatStatCategory = (category: string): string => {
   switch (category) {
@@ -103,7 +104,7 @@ export function TeamStats({ gameLandingData }: { gameLandingData: GameStory }) {
             <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
               {teamStats
                 .filter((stat) => stat.category !== "sog")
-                .map((stat: TeamGameStat, index: number) => (
+                .map((stat: TeamGameStats, index: number) => (
                   <tr
                     key={index}
                     className={

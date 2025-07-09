@@ -1,4 +1,4 @@
-export interface ThreeStar {
+export interface ThreeStars {
   star: number;
   playerId: number;
   teamAbbrev: string;
