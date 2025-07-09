@@ -1,12 +1,11 @@
 # TODO
 
 ## Must to have
-- consistent function and type names
-- prettier settings
+- consistent function and type names (backend controllers, types, loaders, services etc.)
+- prettier settings (unify to double quotes)
 - tests (e2e, backend unit tests)
 - backend envs
 - deployment + testing pipeline
-- unify to single quotes (prettier)
 - fix imports to make use of tilde (default directory)
 - move backend endpoint addresses and secrets to ENV files
 - setup favicon, page title, etc.
