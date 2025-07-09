@@ -7,6 +7,7 @@ import LoginRouter from "./controllers/loginController.ts";
 import AuthcheckRouter from "./controllers/authcheckController.ts";
 import FavoriteRouter from "./controllers/favoriteController.ts";
 import FavoriteListRouter from "./controllers/favoriteListController.ts";
+import HealthcheckRouter from "./controllers/healthcheckRouter.ts";
 
 const app = express();
 const PORT = 8080;
@@ -20,6 +21,7 @@ app.use("/login", LoginRouter);
 app.use("/authcheck", AuthcheckRouter);
 app.use("/favorite", FavoriteRouter);
 app.use("/favoritegames", FavoriteListRouter);
+app.use("/health", HealthcheckRouter);
 
 const start = async () => {
   try {
