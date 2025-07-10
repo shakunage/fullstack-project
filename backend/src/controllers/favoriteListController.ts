@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import express, { Request, Response, Router } from "express";
-import { findUserByToken } from "../repositories/findUserRepository.ts";
+import { findUserByTokenRepository } from "../repositories/findUserRepository.ts";
 import { validateTokenRepository } from "../repositories/validateTokenRepository.ts";
 import {
   favoriteListRepository,
@@ -36,7 +36,7 @@ router.get(
         return res.status(401).json({ message: "Invalid token" });
       }
 
-      const user = await findUserByToken({ token: token });
+      const user = await findUserByTokenRepository({ token: token });
 
       const [favoriteGames, totalGames] = await Promise.all([
         favoriteListRepository(user.id, skip, limit),

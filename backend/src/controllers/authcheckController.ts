@@ -1,5 +1,5 @@
 import express, { Request, Response, Router } from "express";
-import { findUserByToken } from "../repositories/findUserRepository.ts";
+import { findUserByTokenRepository } from "../repositories/findUserRepository.ts";
 import { validateTokenRepository } from "../repositories/validateTokenRepository.ts";
 
 const router: Router = express.Router();
@@ -22,7 +22,7 @@ router.get(
         });
         return res.status(401).json({ message: "Invalid token" });
       }
-      const user = await findUserByToken({ token: token });
+      const user = await findUserByTokenRepository({ token: token });
       res.status(200).json(user.name);
     } catch (error) {
       res.status(400).json({ message: `An unknown error occured. Details: ${error}` });

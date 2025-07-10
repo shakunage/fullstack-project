@@ -1,7 +1,7 @@
 import { prisma } from "../dbserver/dbserver.ts";
 import { type UserToValidate, type Token, type UserSigninResponse } from "../dtos/index.ts";
 
-export async function findUserByEmail(email: string): Promise<UserToValidate> {
+export async function findUserByEmailRepository(email: string): Promise<UserToValidate> {
   const user = await prisma.user.findUnique({
     where: { email },
   });
@@ -11,7 +11,7 @@ export async function findUserByEmail(email: string): Promise<UserToValidate> {
   return user as UserToValidate;
 }
 
-export async function findUserByToken(token: Token): Promise<UserSigninResponse> {
+export async function findUserByTokenRepository(token: Token): Promise<UserSigninResponse> {
   const tokenInDb = await prisma.authToken.findFirst({
     where: { token: token.token },
   });

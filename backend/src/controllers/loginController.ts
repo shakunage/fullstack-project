@@ -3,7 +3,7 @@
 import express, { Request, Response, Router } from "express";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import { findUserByEmail } from "../repositories/findUserRepository.ts";
+import { findUserByEmailRepository } from "../repositories/findUserRepository.ts";
 import { addTokenRepository } from "../repositories/addTokenRepository.ts";
 import { UserLoginData } from "../dtos/index.ts";
 
@@ -16,7 +16,7 @@ router.post(
   async (req: Request<unknown, unknown, UserLoginData>, res: Response<string | { message: string }>) => {
     const { email, password } = req.body;
     try {
-      const user = await findUserByEmail(email);
+      const user = await findUserByEmailRepository(email);
       if (!user) {
         return res.status(401).json({ message: "Invalid email or password" });
       }

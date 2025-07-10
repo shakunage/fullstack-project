@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import express, { Request, Response, Router } from "express";
-import { findUserByToken } from "../repositories/findUserRepository.ts";
+import { findUserByTokenRepository } from "../repositories/findUserRepository.ts";
 import { validateTokenRepository } from "../repositories/validateTokenRepository.ts";
 import { addFavoriteRepository } from "../repositories/addFavoriteRepository.ts";
 import { removeFavoriteRepository } from "../repositories/removeFavoriteRepository.ts";
@@ -21,7 +21,7 @@ router.post(
       if (!tokenValidity) {
         return res.status(401).json({ message: "Invalid token" });
       }
-      const user = await findUserByToken({ token: token });
+      const user = await findUserByTokenRepository({ token: token });
       
       const game_id = req.query.id;
 
@@ -53,7 +53,7 @@ router.delete(
         return res.status(401).json({ message: "Invalid token" });
       }
       
-      const user = await findUserByToken({ token: token });
+      const user = await findUserByTokenRepository({ token: token });
       const game_id = req.query.id;
 
       if (!game_id || typeof game_id !== 'string') {
@@ -84,7 +84,7 @@ router.get(
         return res.status(401).json({ message: "Invalid token" });
       }
       
-      const user = await findUserByToken({ token: token });
+      const user = await findUserByTokenRepository({ token: token });
       const game_id = req.query.id;
 
       if (!game_id || typeof game_id !== 'string') {
