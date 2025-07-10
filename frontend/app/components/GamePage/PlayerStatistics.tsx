@@ -13,12 +13,12 @@ export function PlayerStatistics({ storyData }: { storyData: GameStory }) {
     Record<string, { key: string; direction: "ascending" | "descending" }>
   >({});
 
-  const { fetchedBoxscoreData, refetchBoxscore, isFetchingBoxscore, boxscoreError } = useBoxscore(
+  const { fetchedBoxscore, refetchBoxscore, isFetchingBoxscore, boxscoreError } = useBoxscore(
     storyData.id
   );
 
   const handleTogglePlayerStats = async () => {
-    if (!showPlayerStats && !fetchedBoxscoreData && !isFetchingBoxscore) {
+    if (!showPlayerStats && !fetchedBoxscore && !isFetchingBoxscore) {
       // If opening, no data yet, and not already fetching
       try {
         await refetchBoxscore();
@@ -88,13 +88,13 @@ export function PlayerStatistics({ storyData }: { storyData: GameStory }) {
       )}
 
       {/* Player Stats Content (Conditional Rendering) */}
-      {showPlayerStats && fetchedBoxscoreData && !isFetchingBoxscore && (
+      {showPlayerStats && fetchedBoxscore && !isFetchingBoxscore && (
         <div className="mt-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8">
             {/* Team Stats Rendering Logic */}
             {(["awayTeam", "homeTeam"] as const).map((teamType) => {
-              // Use fetchedBoxscoreData for player stats, and gamestoryData for team names/logos if needed
-              const teamStatsData = fetchedBoxscoreData.playerByGameStats?.[teamType];
+              // Use fetchedBoxscore for player stats, and gamestoryData for team names/logos if needed
+              const teamStatsData = fetchedBoxscore.playerByGameStats?.[teamType];
               const teamDisplayDetails = storyData[teamType]; // For logo, name etc.
 
               if (!teamStatsData) return null;

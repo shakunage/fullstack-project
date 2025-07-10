@@ -1,5 +1,5 @@
 import React from "react";
-import type { BoxscoreData } from "~/entities/Boxscore";
+import type { Boxscore } from "~/entities/Boxscore";
 import type { PlayerStats } from "~/entities/sub-entities/PlayerStats";
 import { resolveNameType } from "~/utils/resolveNameType";
 
@@ -8,7 +8,7 @@ interface TeamInfo {
   teamGoalies: PlayerStats[];
 }
 
-const TeamGoalies = ({ boxscoreData, home }: { boxscoreData: BoxscoreData; home: boolean }) => {
+const TeamGoalies = ({ boxscoreData, home }: { boxscoreData: Boxscore; home: boolean }) => {
   const { teamName, teamGoalies }: TeamInfo = home
     ? {
         teamName: resolveNameType(boxscoreData.homeTeam),
@@ -36,7 +36,7 @@ const TeamGoalies = ({ boxscoreData, home }: { boxscoreData: BoxscoreData; home:
   );
 };
 
-export function Goalies({ boxscoreData }: { boxscoreData: BoxscoreData }) {
+export function Goalies({ boxscoreData }: { boxscoreData: Boxscore }) {
   return (
     <>
       <h3 className="text-lg font-bold mt-4">Goalies</h3>

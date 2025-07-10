@@ -2,9 +2,9 @@ import { useTimeUntilStart } from "~/hooks/useTimeUntilStart";
 import type { GameItem } from "~/entities/GameItem";
 import { StartTimeToggle } from "./subcomponents/StartTimeToggle";
 import { Venue } from "./subcomponents/Venue";
-import type { BoxscoreData } from "~/entities/Boxscore";
+import type { Boxscore } from "~/entities/Boxscore";
 
-export function FutureGame({ game }: { game: GameItem | BoxscoreData }) {
+export function FutureGame({ game }: { game: GameItem | Boxscore }) {
   const { timeUntilStart } = useTimeUntilStart(game.startTimeUTC);
 
   if (timeUntilStart == undefined) {

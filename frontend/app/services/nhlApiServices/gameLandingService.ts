@@ -1,32 +1,32 @@
 import { type GenericFetchOptions, genericFetch } from "~/services/genericApiService";
-import type { GameLandingData } from "~/entities";
+import type { GameLanding } from "~/entities";
 
 const API_URL = "http://reverseproxy:9998/api/v1/gamecenter";
 
-export async function getLanding(game_id: number | string | undefined): Promise<GameLandingData> {
-  const fetchOptions: GenericFetchOptions<GameLandingData> = {
+export async function getLanding(game_id: number | string | undefined): Promise<GameLanding> {
+  const fetchOptions: GenericFetchOptions<GameLanding> = {
     method: "GET",
     endpoint: `${API_URL}/${game_id}/landing`,
-    dataTransform: async (response) => response.json() as Promise<GameLandingData>,
-    defaultValue: {} as GameLandingData,
+    dataTransform: async (response) => response.json() as Promise<GameLanding>,
+    defaultValue: {} as GameLanding,
   };
   try {
-    const landingResponse: GameLandingData = await genericFetch(fetchOptions);
+    const landingResponse: GameLanding = await genericFetch(fetchOptions);
     return landingResponse;
   } catch (error) {
     console.error("Error fetching boxscore:", error);
     throw error;
   }
 }
-export async function fetchLanding(game_id: string | number | undefined): Promise<GameLandingData> {
-  const fetchOptions: GenericFetchOptions<GameLandingData> = {
+export async function fetchLanding(game_id: string | number | undefined): Promise<GameLanding> {
+  const fetchOptions: GenericFetchOptions<GameLanding> = {
     method: "GET",
     endpoint: `/resources/landing/${game_id}`,
-    dataTransform: async (response) => response.json() as Promise<GameLandingData>,
-    defaultValue: {} as GameLandingData,
+    dataTransform: async (response) => response.json() as Promise<GameLanding>,
+    defaultValue: {} as GameLanding,
   };
   try {
-    const landingResponse: GameLandingData = await genericFetch(fetchOptions);
+    const landingResponse: GameLanding = await genericFetch(fetchOptions);
     return landingResponse;
   } catch (error) {
     console.error("Error fetching boxscore:", error);

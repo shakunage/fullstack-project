@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchLanding } from "~/services/nhlApiServices/gameLandingService";
-import type { GameLandingData, GameItem } from "~/entities";
+import type { GameLanding, GameItem } from "~/entities";
 
 export function useGameLanding(game_id: GameItem["id"]) {
 
@@ -9,7 +9,7 @@ export function useGameLanding(game_id: GameItem["id"]) {
     refetch: refetchLanding,
     isFetching: isFetchingLanding,
     error: landingError,
-  } = useQuery<GameLandingData, Error>({
+  } = useQuery<GameLanding, Error>({
     queryKey: ["landingData", game_id],
     queryFn: async () => {
       if (!game_id) {

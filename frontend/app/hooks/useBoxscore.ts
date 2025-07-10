@@ -1,15 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchBoxscore } from "~/services/nhlApiServices/boxscoreService";
-import type { BoxscoreData, GameStory } from "~/entities";
+import type { Boxscore, GameStory } from "~/entities";
 
 export function useBoxscore(id: GameStory["id"]) {
 
   const {
-    data: fetchedBoxscoreData,
+    data: fetchedBoxscore,
     refetch: refetchBoxscore,
     isFetching: isFetchingBoxscore,
     error: boxscoreError,
-  } = useQuery<BoxscoreData, Error>({
+  } = useQuery<Boxscore, Error>({
     queryKey: ["boxscoreData", id],
     queryFn: async () => {
       if (!id) {
@@ -21,5 +21,5 @@ export function useBoxscore(id: GameStory["id"]) {
     staleTime: 60 * 1000,
   });
 
-  return { fetchedBoxscoreData, isFetchingBoxscore, refetchBoxscore, boxscoreError };
+  return { fetchedBoxscore, isFetchingBoxscore, refetchBoxscore, boxscoreError };
 }

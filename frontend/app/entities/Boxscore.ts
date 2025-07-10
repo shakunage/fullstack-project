@@ -22,7 +22,7 @@ type PlayerByGameStats = {
   };
 };
 
-export type BoxscoreData = {
+export type Boxscore = {
   id: number;
   season: number;
   gameType: number;

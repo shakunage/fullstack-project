@@ -8,7 +8,7 @@ import type {
   VenueLocation,
 } from "~/entities/sub-entities";
 
-export type GameLandingData = {
+export type GameLanding = {
   id: number;
   season: number;
   gameType: number;

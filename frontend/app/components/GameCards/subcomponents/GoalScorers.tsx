@@ -1,7 +1,7 @@
-import type { GameLandingData } from "~/entities";
+import type { GameLanding } from "~/entities";
 import { resolveNameType } from "~/utils/resolveNameType";
 
-const TeamGoalScorers = ({ game, home }: { game: GameLandingData; home: boolean }) => {
+const TeamGoalScorers = ({ game, home }: { game: GameLanding; home: boolean }) => {
   const teamName: string = home ? resolveNameType(game.homeTeam) : resolveNameType(game.awayTeam);
   const teamAbbrev: string = home ? game.homeTeam.abbrev : game.awayTeam.abbrev;
 
@@ -25,7 +25,7 @@ const TeamGoalScorers = ({ game, home }: { game: GameLandingData; home: boolean 
   );
 };
 
-export function GoalScorers({ game }: { game: GameLandingData }) {
+export function GoalScorers({ game }: { game: GameLanding }) {
   return (
     <>
       <h3 className="text-lg font-bold">Goal Scorers</h3>
