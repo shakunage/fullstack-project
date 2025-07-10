@@ -3,7 +3,7 @@ import type { GameLanding } from "~/entities";
 
 const API_URL = "http://reverseproxy:9998/api/v1/gamecenter";
 
-export async function getLanding(game_id: number | string | undefined): Promise<GameLanding> {
+export async function getLandingService(game_id: number | string | undefined): Promise<GameLanding> {
   const fetchOptions: GenericFetchOptions<GameLanding> = {
     method: "GET",
     endpoint: `${API_URL}/${game_id}/landing`,
@@ -18,7 +18,7 @@ export async function getLanding(game_id: number | string | undefined): Promise<
     throw error;
   }
 }
-export async function fetchLanding(game_id: string | number | undefined): Promise<GameLanding> {
+export async function fetchLandingService(game_id: string | number | undefined): Promise<GameLanding> {
   const fetchOptions: GenericFetchOptions<GameLanding> = {
     method: "GET",
     endpoint: `/resources/landing/${game_id}`,

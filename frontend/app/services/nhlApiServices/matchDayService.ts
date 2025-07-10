@@ -4,7 +4,7 @@ import type { MatchDay } from "~/entities/MatchDay";
 
 const API_URL = "http://reverseproxy:9998/api/v1/score";
 
-export async function getMatchDayGames(game_date: string): Promise<MatchDay> {
+export async function getMatchDayGamesService(game_date: string): Promise<MatchDay> {
   const fetchOptions: GenericFetchOptions<ScheduleInfo> = {
     method: "GET",
     endpoint: `${API_URL}/${game_date}`,

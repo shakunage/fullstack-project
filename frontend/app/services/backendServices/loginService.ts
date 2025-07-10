@@ -2,7 +2,7 @@ import { type GenericFetchOptions, genericFetch } from "~/services/genericApiSer
 
 const API_URL = "http://localhost:9998/backend/login";
 
-export async function loginUser(email: string, password: string): Promise<string | false> {
+export async function loginService(email: string, password: string): Promise<string | false> {
   const fetchOptions: GenericFetchOptions<Promise<string | false>> = {
     method: "POST",
     endpoint: API_URL,

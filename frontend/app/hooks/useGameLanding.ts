@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchLanding } from "~/services/nhlApiServices/gameLandingService";
+import { fetchLandingService } from "~/services/nhlApiServices/gameLandingService";
 import type { GameLanding, GameItem } from "~/entities";
 
 export function useGameLanding(game_id: GameItem["id"]) {
@@ -15,7 +15,7 @@ export function useGameLanding(game_id: GameItem["id"]) {
       if (!game_id) {
         throw new Error("Game date or ID is missing for fetching boxscore.");
       }
-      return fetchLanding(game_id);
+      return fetchLandingService(game_id);
     },
     enabled: false,
     staleTime: 60 * 1000,

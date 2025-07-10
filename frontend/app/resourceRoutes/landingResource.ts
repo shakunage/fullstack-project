@@ -1,11 +1,11 @@
-import { getLanding } from "~/services/nhlApiServices/gameLandingService";
+import { getLandingService } from "~/services/nhlApiServices/gameLandingService";
 import type { LoaderFunctionArgs } from "react-router";
 import type { GameLanding } from "~/entities";
 
 export async function loader({ params }: LoaderFunctionArgs): Promise<Response> {
   const game_id = params.game_id;
   try {
-    const matchDayData: GameLanding = await getLanding(game_id);
+    const matchDayData: GameLanding = await getLandingService(game_id);
     return new Response(JSON.stringify(matchDayData), {
       status: 200,
       headers: {

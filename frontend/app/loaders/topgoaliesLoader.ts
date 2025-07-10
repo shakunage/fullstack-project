@@ -1,9 +1,9 @@
-import { getTopGoalies } from "~/services/nhlApiServices/topgoaliesService";
+import { getTopGoaliesService } from "~/services/nhlApiServices/topGoaliesService";
 import type { TopGoalies } from "~/entities";
 
 export const topgoaliesLoader = async (): Promise<TopGoalies> => {
   try {
-    return await getTopGoalies();
+    return await getTopGoaliesService();
   } catch (error) {
     console.error("Error fetching data:", error);
     throw new Error("Error fetching data");

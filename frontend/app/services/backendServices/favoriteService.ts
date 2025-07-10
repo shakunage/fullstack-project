@@ -3,7 +3,7 @@ import { type GameItem } from "~/entities";
 
 const API_URL = "http://localhost:9998/backend";
 
-export async function checkFavorite(gameId: number): Promise<boolean> {
+export async function checkFavoriteService(gameId: number): Promise<boolean> {
   const fetchOptions: GenericFetchOptions<boolean> = {
     method: "GET",
     endpoint: `${API_URL}/favorite`,
@@ -37,7 +37,7 @@ export async function checkFavorite(gameId: number): Promise<boolean> {
   }
 }
 
-export async function addFavorite(game: GameItem): Promise<boolean> {
+export async function addFavoriteService(game: GameItem): Promise<boolean> {
   const fetchOptions: GenericFetchOptions<number> = {
     method: "POST",
     endpoint: `${API_URL}/favorite`,
@@ -55,7 +55,7 @@ export async function addFavorite(game: GameItem): Promise<boolean> {
     return false;
   }
 }
-export async function removeFavorite(gameId: number): Promise<boolean> {
+export async function removeFavoriteService(gameId: number): Promise<boolean> {
   const fetchOptions: GenericFetchOptions<number> = {
     method: "DELETE",
     endpoint: `${API_URL}/favorite`,

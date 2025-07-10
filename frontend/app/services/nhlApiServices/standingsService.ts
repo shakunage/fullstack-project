@@ -3,7 +3,7 @@ import type { StandingsItem } from "~/entities";
 
 const API_BASE_URL = "http://reverseproxy:9998/api/v1";
 
-export async function getStandings(date: string): Promise<StandingsItem[]> {
+export async function getStandingsService(date: string): Promise<StandingsItem[]> {
   const fetchOptions: GenericFetchOptions<StandingsItem[]> = {
     method: "GET",
     endpoint: `${API_BASE_URL}/standings/${date}`, // Adjusted endpoint to be relative

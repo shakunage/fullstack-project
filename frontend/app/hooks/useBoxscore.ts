@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchBoxscore } from "~/services/nhlApiServices/boxscoreService";
+import { fetchBoxscoreService } from "~/services/nhlApiServices/boxscoreService";
 import type { Boxscore, GameStory } from "~/entities";
 
 export function useBoxscore(id: GameStory["id"]) {
@@ -15,7 +15,7 @@ export function useBoxscore(id: GameStory["id"]) {
       if (!id) {
         throw new Error("Game date or ID is missing for fetching boxscore.");
       }
-      return fetchBoxscore(id);
+      return fetchBoxscoreService(id);
     },
     enabled: false,
     staleTime: 60 * 1000,
