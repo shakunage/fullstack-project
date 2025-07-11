@@ -1,18 +1,18 @@
 # TODO
 
 ## Must have
-- consistent function and type names (backend controllers, types, loaders, services etc.)
-- prettier settings (unify to double quotes)
-- tests (e2e, backend unit tests)
+- solve login/signup/authcheck broken functionality
 - frontend API url unification
+- tilde imports for backend
 - backend envs
+- tests (e2e, backend unit tests)
 - deployment + testing pipeline
-- fix imports to make use of tilde (default directory)
 - move backend endpoint addresses and secrets to ENV files
-- setup favicon, page title, etc.
-- write up a readme on how to run the app
 - start impelementing testing & linting & formatting pipeline (gh actions)
   - deployment in a single ec2 instance (t2.medium)
+- setup favicon, page title, etc.
+- write up a readme on how to run the app
+- deployment on ec2
 
 ## Nice to have
 - show number of games under the dates in the calendar view
