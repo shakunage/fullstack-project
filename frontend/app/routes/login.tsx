@@ -90,10 +90,7 @@ export default function Login() {
             />
           </div>
           <form.Subscribe
-            selector={(state) => [
-              state.canSubmit,
-              state.isSubmitting,
-            ]}
+            selector={(state) => [state.canSubmit, state.isSubmitting]}
             children={([canSubmit, isSubmitting]) => (
               <div className="flex justify-between items-center">
                 <button

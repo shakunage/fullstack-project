@@ -20,13 +20,7 @@ export function PaginationControls({
       if (currentPage <= 2) {
         pageNumbers.push(1, 2, 3, "…", totalPages);
       } else if (currentPage > totalPages - 2) {
-        pageNumbers.push(
-          1,
-          "…",
-          totalPages - 2,
-          totalPages - 1,
-          totalPages
-        );
+        pageNumbers.push(1, "…", totalPages - 2, totalPages - 1, totalPages);
       } else {
         pageNumbers.push(1, "…", currentPage - 1, currentPage, currentPage + 1, "…", totalPages);
       }

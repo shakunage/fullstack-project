@@ -3,7 +3,6 @@ import { fetchLandingService } from "~/services/nhlApiServices/gameLandingServic
 import type { GameLanding, GameItem } from "~/entities";
 
 export function useGameLanding(game_id: GameItem["id"]) {
-
   const {
     data: fetchedLandingData,
     refetch: refetchLanding,

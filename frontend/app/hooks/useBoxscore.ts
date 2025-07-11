@@ -3,7 +3,6 @@ import { fetchBoxscoreService } from "~/services/nhlApiServices/boxscoreService"
 import type { Boxscore, GameStory } from "~/entities";
 
 export function useBoxscore(id: GameStory["id"]) {
-
   const {
     data: fetchedBoxscore,
     refetch: refetchBoxscore,

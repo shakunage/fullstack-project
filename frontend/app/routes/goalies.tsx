@@ -22,8 +22,7 @@ export default function Goalies() {
         title="Top Goalies by Goals Against Average"
         goalies={data.goalsAgainstAverage}
         statKey="goalsAgainstAverage"
-      />
-      {" "}
+      />{" "}
     </div>
   );
 }

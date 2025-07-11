@@ -4,7 +4,6 @@ import { fetchLandingService } from "~/services/nhlApiServices/gameLandingServic
 import type { Boxscore, GameItem, GameLanding } from "~/entities";
 
 export function useGameDetails(game_id: GameItem["id"]) {
-
   const { data, refetch, isFetching } = useQuery<{ boxscore: Boxscore; landing: GameLanding }>({
     queryKey: ["boxscoreLandingData", game_id],
     queryFn: async () => {
