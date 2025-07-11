@@ -1,5 +1,5 @@
-import { FieldInfo } from "~/utils/loginFieldInfo";
-import { useLogin } from "~/hooks/useLogin";
+import { FieldInfo } from '~/utils/loginFieldInfo';
+import { useLogin } from '~/hooks/useLogin';
 
 export default function Login() {
   const form = useLogin();
@@ -22,14 +22,14 @@ export default function Login() {
               validators={{
                 onChange: ({ value }) =>
                   !value
-                    ? "An e-mail address is required"
+                    ? 'An e-mail address is required'
                     : value.length < 3
-                      ? "e-mail must be at least 3 characters"
+                      ? 'e-mail must be at least 3 characters'
                       : undefined,
                 onChangeAsyncDebounceMs: 500,
                 onChangeAsync: async ({ value }) => {
                   await new Promise((resolve) => setTimeout(resolve, 1000));
-                  return value.includes("error") && 'No "error" allowed in e-mail';
+                  return value.includes('error') && 'No "error" allowed in e-mail';
                 },
               }}
               children={(field) => {
@@ -58,14 +58,14 @@ export default function Login() {
               validators={{
                 onChange: ({ value }) =>
                   !value
-                    ? "A password is required"
+                    ? 'A password is required'
                     : value.length < 3
-                      ? "password must be at least 3 characters"
+                      ? 'password must be at least 3 characters'
                       : undefined,
                 onChangeAsyncDebounceMs: 500,
                 onChangeAsync: async ({ value }) => {
                   await new Promise((resolve) => setTimeout(resolve, 1000));
-                  return value.includes("error") && 'No "error" allowed in password';
+                  return value.includes('error') && 'No "error" allowed in password';
                 },
               }}
               children={(field) => {
@@ -97,10 +97,10 @@ export default function Login() {
                   type="submit"
                   disabled={!canSubmit}
                   className={`w-full py-2 px-4 text-white font-semibold rounded-md ${
-                    canSubmit ? "bg-indigo-600 hover:bg-indigo-700" : "bg-gray-400"
+                    canSubmit ? 'bg-indigo-600 hover:bg-indigo-700' : 'bg-gray-400'
                   }`}
                 >
-                  {isSubmitting ? "..." : "Submit"}
+                  {isSubmitting ? '...' : 'Submit'}
                 </button>
                 <button
                   type="reset"

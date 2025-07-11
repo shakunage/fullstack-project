@@ -1,6 +1,6 @@
-import { Link } from "react-router";
-import { useAuth } from "~/hooks/useAuth";
-import { navigateToHome } from "~/utils/navigateToHome";
+import { Link } from 'react-router';
+import { useAuth } from '~/hooks/useAuth';
+import { navigateToHome } from '~/utils/navigateToHome';
 
 export function AuthButtons() {
   const { username, logout, isLoading } = useAuth();

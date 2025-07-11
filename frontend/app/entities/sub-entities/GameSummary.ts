@@ -1,4 +1,4 @@
-import type { Scoring, ThreeStars, TeamGameStats, Penalty } from "~/entities/sub-entities";
+import type { Scoring, ThreeStars, TeamGameStats, Penalty } from '~/entities/sub-entities';
 
 export interface GameSummary {
   scoring: Scoring[];

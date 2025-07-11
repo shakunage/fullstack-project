@@ -1,15 +1,15 @@
-import { useState } from "react";
-import { useLoaderData, useNavigate, useNavigation } from "react-router";
-import type { LoaderFunctionArgs } from "react-router";
-import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
-import timezone from "dayjs/plugin/timezone";
-import { matchDayLoader } from "~/loaders/matchDayLoader";
-import { MatchDayGames } from "~/components/MatchDayGames";
-import isValidDate from "~/utils/isValidDate";
-import DatePickerComponent from "~/components/DatePicker";
-import { GameDaySkipButtons } from "~/components/GameCards/GameDaySkipButtons";
-import Spinner from "~/components/icons/Spinner";
+import { useState } from 'react';
+import { useLoaderData, useNavigate, useNavigation } from 'react-router';
+import type { LoaderFunctionArgs } from 'react-router';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+import { matchDayLoader } from '~/loaders/matchDayLoader';
+import { MatchDayGames } from '~/components/MatchDayGames';
+import isValidDate from '~/utils/isValidDate';
+import DatePickerComponent from '~/components/DatePicker';
+import { GameDaySkipButtons } from '~/components/GameCards/GameDaySkipButtons';
+import Spinner from '~/components/icons/Spinner';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -20,21 +20,21 @@ export default function GameByDate({ params }: LoaderFunctionArgs) {
   const data = useLoaderData<typeof loader>();
   const navigate = useNavigate();
   const navigation = useNavigation();
-  const isLoadingData = navigation.state === "loading";
+  const isLoadingData = navigation.state === 'loading';
 
   const [selectedDate, setSelectedDate] = useState<Date>(
     params.date && isValidDate(params.date)
       ? new Date(params.date)
       : isValidDate(data.currentDate)
-        ? dayjs(data.currentDate).tz("America/Los_Angeles").toDate()
-        : dayjs().tz("America/Los_Angeles").startOf("day").toDate()
+        ? dayjs(data.currentDate).tz('America/Los_Angeles').toDate()
+        : dayjs().tz('America/Los_Angeles').startOf('day').toDate()
   );
 
   const handleDateChange = (date: Date | string | null): void => {
     if (date) {
-      const pacificDate: Date = dayjs(date).tz("America/Los_Angeles").toDate();
+      const pacificDate: Date = dayjs(date).tz('America/Los_Angeles').toDate();
       setSelectedDate(pacificDate);
-      const formattedDate: string = dayjs(pacificDate).format("YYYY-MM-DD");
+      const formattedDate: string = dayjs(pacificDate).format('YYYY-MM-DD');
       void navigate(`/games/${formattedDate}`);
     }
   };

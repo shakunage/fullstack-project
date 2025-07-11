@@ -1,16 +1,16 @@
-import { useState } from "react";
-import { useBoxscore } from "~/hooks/useBoxscore";
-import { skaterBoxscoreConstants, goalieBoxscoreConstants } from "~/constants/boxscoreConstants";
-import { type GameStory } from "~/entities";
-import { type PlayerStats } from "~/entities/sub-entities";
-import { toiToSeconds } from "~/utils/toiToSeconds";
-import { resolveNameType } from "~/utils/resolveNameType";
-import Spinner from "~/components/icons/Spinner";
+import { useState } from 'react';
+import { useBoxscore } from '~/hooks/useBoxscore';
+import { skaterBoxscoreConstants, goalieBoxscoreConstants } from '~/constants/boxscoreConstants';
+import { type GameStory } from '~/entities';
+import { type PlayerStats } from '~/entities/sub-entities';
+import { toiToSeconds } from '~/utils/toiToSeconds';
+import { resolveNameType } from '~/utils/resolveNameType';
+import Spinner from '~/components/icons/Spinner';
 
 export function PlayerStatistics({ storyData }: { storyData: GameStory }) {
   const [showPlayerStats, setShowPlayerStats] = useState(false);
   const [sortConfig, setSortConfig] = useState<
-    Record<string, { key: string; direction: "ascending" | "descending" }>
+    Record<string, { key: string; direction: 'ascending' | 'descending' }>
   >({});
 
   const { fetchedBoxscore, refetchBoxscore, isFetchingBoxscore, boxscoreError } = useBoxscore(
@@ -23,7 +23,7 @@ export function PlayerStatistics({ storyData }: { storyData: GameStory }) {
       try {
         await refetchBoxscore();
       } catch (error) {
-        console.error("Failed to fetch boxscore:", error);
+        console.error('Failed to fetch boxscore:', error);
         // Optionally set an error state here to display to the user
       }
     }
@@ -31,30 +31,30 @@ export function PlayerStatistics({ storyData }: { storyData: GameStory }) {
   };
 
   const getSortableValue = (player: PlayerStats, key: string): string | number | undefined => {
-    if (key === "name") return player.name.default.toLowerCase();
-    if (key === "toi") return toiToSeconds(player.toi);
+    if (key === 'name') return player.name.default.toLowerCase();
+    if (key === 'toi') return toiToSeconds(player.toi);
 
     // Access nested properties if key contains a dot (e.g. 'name.default')
     // This is a simple implementation; for deeper nesting, a more robust solution might be needed.
-    const keys = key.split(".");
+    const keys = key.split('.');
     let value: any = player;
     for (const k of keys) {
-      if (value && typeof value === "object" && k in value) {
+      if (value && typeof value === 'object' && k in value) {
         value = value[k];
       } else {
         return undefined; // Property not found
       }
     }
 
-    if (typeof value === "string") return value.toLowerCase();
-    if (typeof value === "number") return value;
+    if (typeof value === 'string') return value.toLowerCase();
+    if (typeof value === 'number') return value;
     return value;
   };
 
   const requestSort = (tableId: string, key: string) => {
-    let direction: "ascending" | "descending" = "ascending";
-    if (sortConfig[tableId]?.key === key && sortConfig[tableId]?.direction === "ascending") {
-      direction = "descending";
+    let direction: 'ascending' | 'descending' = 'ascending';
+    if (sortConfig[tableId]?.key === key && sortConfig[tableId]?.direction === 'ascending') {
+      direction = 'descending';
     }
     // If sorting a new column, or re-sorting the same column, reset or toggle direction
     setSortConfig((prevConfig) => ({
@@ -64,9 +64,9 @@ export function PlayerStatistics({ storyData }: { storyData: GameStory }) {
   };
   return (
     <>
-      {(storyData.gameState === "OFF" ||
-        storyData.gameState === "LIVE" ||
-        storyData.gameState === "CRIT") &&
+      {(storyData.gameState === 'OFF' ||
+        storyData.gameState === 'LIVE' ||
+        storyData.gameState === 'CRIT') &&
         storyData.id && (
           <div className="w-full mt-6">
             <button
@@ -74,7 +74,7 @@ export function PlayerStatistics({ storyData }: { storyData: GameStory }) {
               className="w-full text-left px-4 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md text-xl font-semibold focus:outline-none disabled:opacity-50"
               disabled={isFetchingBoxscore}
             >
-              Player Statistics {showPlayerStats ? "▲" : "▼"}
+              Player Statistics {showPlayerStats ? '▲' : '▼'}
             </button>
           </div>
         )}
@@ -92,7 +92,7 @@ export function PlayerStatistics({ storyData }: { storyData: GameStory }) {
         <div className="mt-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8">
             {/* Team Stats Rendering Logic */}
-            {(["awayTeam", "homeTeam"] as const).map((teamType) => {
+            {(['awayTeam', 'homeTeam'] as const).map((teamType) => {
               // Use fetchedBoxscore for player stats, and gamestoryData for team names/logos if needed
               const teamStatsData = fetchedBoxscore.playerByGameStats?.[teamType];
               const teamDisplayDetails = storyData[teamType]; // For logo, name etc.
@@ -104,7 +104,7 @@ export function PlayerStatistics({ storyData }: { storyData: GameStory }) {
                   <h3 className="text-xl font-semibold mb-3 text-center">
                     {resolveNameType(teamDisplayDetails)}
                   </h3>
-                  {(["forwards", "defense", "goalies"] as const).map((positionKey) => {
+                  {(['forwards', 'defense', 'goalies'] as const).map((positionKey) => {
                     const playersAtPosition: PlayerStats[] =
                       teamStatsData[positionKey as keyof typeof teamStatsData] || [];
                     if (playersAtPosition.length === 0) {
@@ -117,7 +117,7 @@ export function PlayerStatistics({ storyData }: { storyData: GameStory }) {
 
                     const tableId = `${teamType}-${positionKey}`;
                     const currentColumns =
-                      positionKey === "goalies" ? goalieBoxscoreConstants : skaterBoxscoreConstants;
+                      positionKey === 'goalies' ? goalieBoxscoreConstants : skaterBoxscoreConstants;
 
                     let processedPlayers = [...playersAtPosition];
                     const currentSort = sortConfig[tableId];
@@ -128,15 +128,15 @@ export function PlayerStatistics({ storyData }: { storyData: GameStory }) {
                         const valB = getSortableValue(b, currentSort.key);
 
                         if (valA === undefined || valA === null)
-                          return currentSort.direction === "ascending" ? 1 : -1; // Push undefined/null to one end
+                          return currentSort.direction === 'ascending' ? 1 : -1; // Push undefined/null to one end
                         if (valB === undefined || valB === null)
-                          return currentSort.direction === "ascending" ? -1 : 1;
+                          return currentSort.direction === 'ascending' ? -1 : 1;
 
-                        if (typeof valA === "number" && typeof valB === "number") {
-                          return currentSort.direction === "ascending" ? valA - valB : valB - valA;
+                        if (typeof valA === 'number' && typeof valB === 'number') {
+                          return currentSort.direction === 'ascending' ? valA - valB : valB - valA;
                         }
-                        if (typeof valA === "string" && typeof valB === "string") {
-                          return currentSort.direction === "ascending"
+                        if (typeof valA === 'string' && typeof valB === 'string') {
+                          return currentSort.direction === 'ascending'
                             ? valA.localeCompare(valB)
                             : valB.localeCompare(valA);
                         }
@@ -160,7 +160,7 @@ export function PlayerStatistics({ storyData }: { storyData: GameStory }) {
                                   >
                                     {col.label}
                                     {currentSort?.key === col.key && (
-                                      <span>{currentSort.direction === "ascending" ? " ▲" : " ▼"}</span>
+                                      <span>{currentSort.direction === 'ascending' ? ' ▲' : ' ▼'}</span>
                                     )}
                                   </th>
                                 ))}
@@ -171,24 +171,24 @@ export function PlayerStatistics({ storyData }: { storyData: GameStory }) {
                                 <tr key={player.playerId}>
                                   {currentColumns.map((col) => {
                                     let cellValue: any;
-                                    if (col.key === "name") {
+                                    if (col.key === 'name') {
                                       const name = player.name.default;
                                       cellValue =
                                         name.length > 12 ? `${name.substring(0, 12)}...` : name;
-                                    } else if (col.key === "savePctg") {
+                                    } else if (col.key === 'savePctg') {
                                       cellValue =
                                         player.savePctg !== undefined
                                           ? player.savePctg.toFixed(3).substring(1)
-                                          : "N/A";
-                                    } else if (col.key === "plusMinus") {
+                                          : 'N/A';
+                                    } else if (col.key === 'plusMinus') {
                                       const value = player[col.key as keyof PlayerStats];
-                                      if (typeof value === "number" && value > 0) {
+                                      if (typeof value === 'number' && value > 0) {
                                         cellValue = `+${value}`;
                                       } else {
-                                        cellValue = value ?? "N/A";
+                                        cellValue = value ?? 'N/A';
                                       }
                                     } else {
-                                      cellValue = player[col.key as keyof PlayerStats] ?? "N/A";
+                                      cellValue = player[col.key as keyof PlayerStats] ?? 'N/A';
                                     }
                                     return (
                                       <td key={col.key} className="px-2 py-2 whitespace-nowrap">

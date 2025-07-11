@@ -1,5 +1,5 @@
-import { type GenericFetchOptions, genericFetch } from "~/services/genericApiService";
-const API_URL = "http://localhost:9998/backend/signup";
+import { type GenericFetchOptions, genericFetch } from '~/services/genericApiService';
+const API_URL = 'http://localhost:9998/backend/signup';
 
 export async function signupServiceService(
   name: string,
@@ -7,10 +7,10 @@ export async function signupServiceService(
   password: string
 ): Promise<string | false> {
   const GenericFetchOptions: GenericFetchOptions<string> = {
-    method: "POST",
+    method: 'POST',
     endpoint: API_URL,
     dataTransform: async (response) => response.json() as Promise<string>,
-    defaultValue: "",
+    defaultValue: '',
     body: {
       name,
       email,
@@ -21,7 +21,7 @@ export async function signupServiceService(
     const token: string = (await genericFetch(GenericFetchOptions)) as string;
     return token;
   } catch (error) {
-    console.error("Error during signup:", error);
+    console.error('Error during signup:', error);
     return false; // Return false on error
   }
 }

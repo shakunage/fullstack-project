@@ -1,5 +1,5 @@
-import type { GameStory } from "~/entities";
-import { resolveNameType } from "~/utils/resolveNameType";
+import type { GameStory } from '~/entities';
+import { resolveNameType } from '~/utils/resolveNameType';
 
 export function Team({ storyData, home }: { storyData: GameStory; home: boolean }) {
   const teamData = home ? storyData.homeTeam : storyData.awayTeam;

@@ -1,7 +1,7 @@
-import { useLoaderData } from "react-router";
-import { topGoaliesLoader } from "~/loaders/topGoaliesLoader";
-import { type TopGoalies } from "~/entities/TopGoalies"; // Import GoalieStat
-import { GoalieTable } from "~/components/Goalies/GoalieTable"; // Import the GoalieTable component
+import { useLoaderData } from 'react-router';
+import { topGoaliesLoader } from '~/loaders/topGoaliesLoader';
+import { type TopGoalies } from '~/entities/TopGoalies'; // Import GoalieStat
+import { GoalieTable } from '~/components/Goalies/GoalieTable'; // Import the GoalieTable component
 
 export const loader = topGoaliesLoader;
 
@@ -22,7 +22,7 @@ export default function Goalies() {
         title="Top Goalies by Goals Against Average"
         goalies={data.goalsAgainstAverage}
         statKey="goalsAgainstAverage"
-      />{" "}
+      />{' '}
     </div>
   );
 }

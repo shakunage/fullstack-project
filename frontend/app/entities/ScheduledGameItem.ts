@@ -1,4 +1,4 @@
-import type { Venue, Team, TvBroadcast, PeriodDescriptor, GameOutcome } from "~/entities/sub-entities";
+import type { Venue, Team, TvBroadcast, PeriodDescriptor, GameOutcome } from '~/entities/sub-entities';
 
 export type ScheduledGameItem = {
   id: number;

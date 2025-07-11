@@ -1,8 +1,8 @@
-import { useLoaderData, useNavigation, useNavigate } from "react-router";
-import { favoritegamesLoader } from "~/loaders/favoritegamesLoader";
-import { PaginationControls } from "~/components/FavoriteGamesPage/PaginationControls";
-import { EndedGame } from "~/components/GameCards/EndedGame";
-import Spinner from "~/components/icons/Spinner";
+import { useLoaderData, useNavigation, useNavigate } from 'react-router';
+import { favoritegamesLoader } from '~/loaders/favoritegamesLoader';
+import { PaginationControls } from '~/components/FavoriteGamesPage/PaginationControls';
+import { EndedGame } from '~/components/GameCards/EndedGame';
+import Spinner from '~/components/icons/Spinner';
 
 export const loader = favoritegamesLoader;
 
@@ -10,7 +10,7 @@ export default function FavoriteGames() {
   const { favoriteGameList, currentPage, totalPages, totalGames } = useLoaderData<typeof loader>();
   const navigate = useNavigate();
   const navigation = useNavigation();
-  const isLoadingData = navigation.state === "loading";
+  const isLoadingData = navigation.state === 'loading';
 
   const handleGameClick = (gameId: number) => {
     void navigate(`/game/${gameId}`);

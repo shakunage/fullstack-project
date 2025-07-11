@@ -1,11 +1,11 @@
-import { FavoriteButton } from "./subcomponents/FavoriteButton";
-import { GameDetailsButton } from "./subcomponents/GameDetailsButton";
-import { boxscoreLoader } from "~/loaders/boxscoreLoader";
-import type { GameItem } from "~/entities";
-import { EndedGameHeader } from "./subcomponents/EndedGameHeader";
-import { EndedGameDetails } from "./subcomponents/EndedGameDetails";
-import { StartTimeToggle } from "./subcomponents/StartTimeToggle";
-import { Venue } from "./subcomponents/Venue";
+import { FavoriteButton } from './subcomponents/FavoriteButton';
+import { GameDetailsButton } from './subcomponents/GameDetailsButton';
+import { boxscoreLoader } from '~/loaders/boxscoreLoader';
+import type { GameItem } from '~/entities';
+import { EndedGameHeader } from './subcomponents/EndedGameHeader';
+import { EndedGameDetails } from './subcomponents/EndedGameDetails';
+import { StartTimeToggle } from './subcomponents/StartTimeToggle';
+import { Venue } from './subcomponents/Venue';
 
 export const loader = boxscoreLoader;
 

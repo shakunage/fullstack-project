@@ -1,9 +1,6 @@
-import { GameModel } from "../mongo/schemas/GameSchema.ts";
+import { GameModel } from '../mongo/schemas/GameSchema.ts';
 
-export async function checkFavoriteRepository(
-  game_id: string,
-  user_id: string
-): Promise<boolean> {
+export async function checkFavoriteRepository(game_id: string, user_id: string): Promise<boolean> {
   try {
     // Find the game with the given ID
     const game = await GameModel.findOne({ id: game_id });
@@ -16,7 +13,7 @@ export async function checkFavoriteRepository(
     // Return true if the user's ID is in the game's favoritedBy array
     return game.favoritedBy.includes(user_id);
   } catch (error) {
-    console.error("Error checking favorite status:", error);
-    throw new Error("Failed to check favorite status");
+    console.error('Error checking favorite status:', error);
+    throw new Error('Failed to check favorite status');
   }
 }

@@ -1,7 +1,7 @@
-import React from "react";
-import type { Boxscore } from "~/entities/Boxscore";
-import type { PlayerStats } from "~/entities/sub-entities/PlayerStats";
-import { resolveNameType } from "~/utils/resolveNameType";
+import React from 'react';
+import type { Boxscore } from '~/entities/Boxscore';
+import type { PlayerStats } from '~/entities/sub-entities/PlayerStats';
+import { resolveNameType } from '~/utils/resolveNameType';
 
 interface TeamInfo {
   teamName: string;
@@ -23,7 +23,7 @@ const TeamGoalies = ({ boxscoreData, home }: { boxscoreData: Boxscore; home: boo
       <h4 className="font-semibold">{teamName}</h4>
       {teamGoalies.map((goalie) => (
         <React.Fragment key={goalie.playerId}>
-          {goalie.toi === "00:00" ? (
+          {goalie.toi === '00:00' ? (
             <p />
           ) : (
             <p>

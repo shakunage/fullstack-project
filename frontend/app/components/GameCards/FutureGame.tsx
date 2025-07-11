@@ -1,8 +1,8 @@
-import { useTimeUntilStart } from "~/hooks/useTimeUntilStart";
-import type { GameItem } from "~/entities/GameItem";
-import { StartTimeToggle } from "./subcomponents/StartTimeToggle";
-import { Venue } from "./subcomponents/Venue";
-import type { Boxscore } from "~/entities/Boxscore";
+import { useTimeUntilStart } from '~/hooks/useTimeUntilStart';
+import type { GameItem } from '~/entities/GameItem';
+import { StartTimeToggle } from './subcomponents/StartTimeToggle';
+import { Venue } from './subcomponents/Venue';
+import type { Boxscore } from '~/entities/Boxscore';
 
 export function FutureGame({ game }: { game: GameItem | Boxscore }) {
   const { timeUntilStart } = useTimeUntilStart(game.startTimeUTC);

@@ -30,15 +30,15 @@ export function EndedGameHeader({
       </h2>
       <p className="text-gray-700">
         Score: {homeTeam.score} - {awayTeam.score}
-        {lastPeriod === "REG"
-          ? " (Final)"
-          : lastPeriod === "OT" && otPeriods < 2
-            ? " (Final/OT)"
-            : lastPeriod === "OT" && otPeriods > 1
+        {lastPeriod === 'REG'
+          ? ' (Final)'
+          : lastPeriod === 'OT' && otPeriods < 2
+            ? ' (Final/OT)'
+            : lastPeriod === 'OT' && otPeriods > 1
               ? ` (Final/${otPeriods}OT)`
-              : lastPeriod === "SO"
-                ? " (Final/SO)"
-                : " (Unknown)"}
+              : lastPeriod === 'SO'
+                ? ' (Final/SO)'
+                : ' (Unknown)'}
       </p>
     </>
   );

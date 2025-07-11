@@ -1,5 +1,5 @@
-import type { GameLanding } from "~/entities";
-import { resolveNameType } from "~/utils/resolveNameType";
+import type { GameLanding } from '~/entities';
+import { resolveNameType } from '~/utils/resolveNameType';
 
 const TeamGoalScorers = ({ game, home }: { game: GameLanding; home: boolean }) => {
   const teamName: string = home ? resolveNameType(game.homeTeam) : resolveNameType(game.awayTeam);

@@ -1,5 +1,5 @@
-import { prisma } from "../dbserver/dbserver.ts";
-import { checkAuthTokenValidity } from "../utils/checkAuthTokenValidity.ts";
+import { prisma } from '../dbserver/dbserver.ts';
+import { checkAuthTokenValidity } from '../utils/checkAuthTokenValidity.ts';
 
 export async function validateTokenRepository(token: string): Promise<boolean> {
   try {
@@ -13,7 +13,7 @@ export async function validateTokenRepository(token: string): Promise<boolean> {
     if (error instanceof Error) {
       throw error;
     }
-    throw new Error("Failed to validate token");
+    throw new Error('Failed to validate token');
   }
   return false;
 }

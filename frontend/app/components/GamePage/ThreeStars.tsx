@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { type GameStory } from "~/entities";
+import { useState } from 'react';
+import { type GameStory } from '~/entities';
 
 export function ThreeStars(landingData: GameStory) {
   const [showThreeStars, setShowThreeStars] = useState(false);
@@ -14,7 +14,7 @@ export function ThreeStars(landingData: GameStory) {
 
   // Helper function to handle the two different name formats
   const getPlayerName = (player: any) => {
-    if (typeof player.name === "string") {
+    if (typeof player.name === 'string') {
       return player.name;
     }
     return player.name.default;
@@ -26,7 +26,7 @@ export function ThreeStars(landingData: GameStory) {
         onClick={handleToggleThreeStars}
         className="w-full text-left px-4 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md text-xl font-semibold focus:outline-none"
       >
-        Three Stars {showThreeStars ? "▲" : "▼"}
+        Three Stars {showThreeStars ? '▲' : '▼'}
       </button>
       {showThreeStars && (
         <div className="mt-4">
@@ -46,7 +46,7 @@ export function ThreeStars(landingData: GameStory) {
                   />
                   <p className="text-lg font-semibold">
                     {star.star}
-                    {star.star === 1 ? "st" : star.star === 2 ? "nd" : "rd"} Star
+                    {star.star === 1 ? 'st' : star.star === 2 ? 'nd' : 'rd'} Star
                   </p>
                   <p className="font-bold">{getPlayerName(star)}</p>
                   <p className="text-sm text-gray-600 dark:text-gray-400">

@@ -1,14 +1,14 @@
-import Cookies from "js-cookie";
-import { useForm } from "@tanstack/react-form";
-import { signupServiceService } from "~/services/backendServices/signupService";
-import { navigateToHome } from "~/utils/navigateToHome";
+import Cookies from 'js-cookie';
+import { useForm } from '@tanstack/react-form';
+import { signupServiceService } from '~/services/backendServices/signupService';
+import { navigateToHome } from '~/utils/navigateToHome';
 
 export function useSignup() {
   return useForm({
     defaultValues: {
-      name: "",
-      email: "",
-      password: "",
+      name: '',
+      email: '',
+      password: '',
     },
     onSubmit: async ({ value }) => {
       // Do something with form data
@@ -16,8 +16,8 @@ export function useSignup() {
       if (!token) {
         return;
       }
-      Cookies.set("token", token, { secure: true, sameSite: "Strict" });
-      alert("Signup successful!");
+      Cookies.set('token', token, { secure: true, sameSite: 'Strict' });
+      alert('Signup successful!');
       void navigateToHome();
     },
   });

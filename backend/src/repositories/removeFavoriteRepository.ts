@@ -1,6 +1,6 @@
-import { prisma } from "../dbserver/dbserver.ts";
-import redisClient from "../redis/redisClient.ts";
-import { GameModel } from "../mongo/schemas/GameSchema.ts";
+import { prisma } from '../dbserver/dbserver.ts';
+import redisClient from '../redis/redisClient.ts';
+import { GameModel } from '../mongo/schemas/GameSchema.ts';
 
 const FAVORITES_CACHE_PREFIX = 'user_favorites:';
 
@@ -14,15 +14,12 @@ export async function removeFavoriteRepository(game_id: string, user_id: string)
     console.error('Redis DEL error:', error);
   }
   try {
-    await GameModel.updateOne(
-      { id: game_id },
-      { $pull: { favoritedBy: user_id } }
-    );
+    await GameModel.updateOne({ id: game_id }, { $pull: { favoritedBy: user_id } });
   } catch (error) {
     // Re-throw Prisma errors with better messages
     if (error instanceof Error) {
       throw error;
     }
-    throw new Error("Failed to remove favorite user");
+    throw new Error('Failed to remove favorite user');
   }
 }

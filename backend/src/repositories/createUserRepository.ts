@@ -1,6 +1,6 @@
-import { prisma } from "../dbserver/dbserver.ts";
-import bcrypt from "bcrypt";
-import { type UserSigninResponse, type UserSignupData } from "../dtos/index.ts";
+import { prisma } from '../dbserver/dbserver.ts';
+import bcrypt from 'bcrypt';
+import { type UserSigninResponse, type UserSignupData } from '../dtos/index.ts';
 
 export async function createUserRepository(userData: UserSignupData): Promise<UserSigninResponse> {
   try {
@@ -10,7 +10,7 @@ export async function createUserRepository(userData: UserSignupData): Promise<Us
     });
 
     if (existingUserByEmail) {
-      throw new Error("Email already in use");
+      throw new Error('Email already in use');
     }
 
     // Hash the password
@@ -35,6 +35,6 @@ export async function createUserRepository(userData: UserSignupData): Promise<Us
     if (error instanceof Error) {
       throw error;
     }
-    throw new Error("Failed to create user");
+    throw new Error('Failed to create user');
   }
 }

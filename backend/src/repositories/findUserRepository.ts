@@ -1,5 +1,5 @@
-import { prisma } from "../dbserver/dbserver.ts";
-import { type UserToValidate, type Token, type UserSigninResponse } from "../dtos/index.ts";
+import { prisma } from '../dbserver/dbserver.ts';
+import { type UserToValidate, type Token, type UserSigninResponse } from '../dtos/index.ts';
 
 export async function findUserByEmailRepository(email: string): Promise<UserToValidate> {
   const user = await prisma.user.findUnique({

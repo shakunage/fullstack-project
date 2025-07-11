@@ -1,18 +1,18 @@
-import { useQuery } from "@tanstack/react-query";
-import { fetchLandingService } from "~/services/nhlApiServices/gameLandingService";
-import type { GameLanding, GameItem } from "~/entities";
+import { useQuery } from '@tanstack/react-query';
+import { fetchLandingService } from '~/services/nhlApiServices/gameLandingService';
+import type { GameLanding, GameItem } from '~/entities';
 
-export function useGameLanding(game_id: GameItem["id"]) {
+export function useGameLanding(game_id: GameItem['id']) {
   const {
     data: fetchedLandingData,
     refetch: refetchLanding,
     isFetching: isFetchingLanding,
     error: landingError,
   } = useQuery<GameLanding, Error>({
-    queryKey: ["landingData", game_id],
+    queryKey: ['landingData', game_id],
     queryFn: async () => {
       if (!game_id) {
-        throw new Error("Game date or ID is missing for fetching boxscore.");
+        throw new Error('Game date or ID is missing for fetching boxscore.');
       }
       return fetchLandingService(game_id);
     },

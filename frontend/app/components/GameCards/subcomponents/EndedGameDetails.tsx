@@ -1,4 +1,4 @@
-import { PlayVideoButton } from "~/components/icons/PlayVideoButton";
+import { PlayVideoButton } from '~/components/icons/PlayVideoButton';
 
 export function EndedGameDetails({
   threeMinRecapLink,

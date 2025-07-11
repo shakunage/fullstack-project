@@ -1,5 +1,5 @@
-import { FieldInfo } from "~/utils/signupFieldInfo";
-import { useSignup } from "~/hooks/useSignup";
+import { FieldInfo } from '~/utils/signupFieldInfo';
+import { useSignup } from '~/hooks/useSignup';
 
 export default function Signup() {
   const form = useSignup();
@@ -22,16 +22,16 @@ export default function Signup() {
               validators={{
                 onChange: ({ value }) =>
                   !value
-                    ? "A name is required"
+                    ? 'A name is required'
                     : value.length < 3
-                      ? "Name must be at least 3 characters"
+                      ? 'Name must be at least 3 characters'
                       : value.length > 32
-                        ? "Name cannot be longer than 32 characters"
+                        ? 'Name cannot be longer than 32 characters'
                         : undefined,
                 onChangeAsyncDebounceMs: 500,
                 onChangeAsync: async ({ value }) => {
                   await new Promise((resolve) => setTimeout(resolve, 1000));
-                  return value.includes("error") && 'No "error" allowed in password';
+                  return value.includes('error') && 'No "error" allowed in password';
                 },
               }}
               children={(field) => {
@@ -60,20 +60,20 @@ export default function Signup() {
               validators={{
                 onChange: ({ value }) => {
                   if (!value) {
-                    return "An e-mail address is required";
+                    return 'An e-mail address is required';
                   }
                   if (value.length > 320) {
-                    return "E-mail cannot be longer than 320 characters";
+                    return 'E-mail cannot be longer than 320 characters';
                   }
                   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-                    return "Invalid email address";
+                    return 'Invalid email address';
                   }
                   return undefined;
                 },
                 onChangeAsyncDebounceMs: 500,
                 onChangeAsync: async ({ value }) => {
                   await new Promise((resolve) => setTimeout(resolve, 1000));
-                  return value.includes("error") && 'No "error" allowed in e-mail';
+                  return value.includes('error') && 'No "error" allowed in e-mail';
                 },
               }}
               children={(field) => {
@@ -102,16 +102,16 @@ export default function Signup() {
               validators={{
                 onChange: ({ value }) =>
                   !value
-                    ? "A password is required"
+                    ? 'A password is required'
                     : value.length < 8
-                      ? "Password must be at least 8 characters"
+                      ? 'Password must be at least 8 characters'
                       : value.length > 128
-                        ? "Password cannot be longer than 128 characters"
+                        ? 'Password cannot be longer than 128 characters'
                         : undefined,
                 onChangeAsyncDebounceMs: 500,
                 onChangeAsync: async ({ value }) => {
                   await new Promise((resolve) => setTimeout(resolve, 1000));
-                  return value.includes("error") && 'No "error" allowed in password';
+                  return value.includes('error') && 'No "error" allowed in password';
                 },
               }}
               children={(field) => {
@@ -143,10 +143,10 @@ export default function Signup() {
                   type="submit"
                   disabled={!canSubmit}
                   className={`w-full py-2 px-4 text-white font-semibold rounded-md ${
-                    canSubmit ? "bg-indigo-600 hover:bg-indigo-700" : "bg-gray-400"
+                    canSubmit ? 'bg-indigo-600 hover:bg-indigo-700' : 'bg-gray-400'
                   }`}
                 >
-                  {isSubmitting ? "..." : "Submit"}
+                  {isSubmitting ? '...' : 'Submit'}
                 </button>
                 <button
                   type="reset"

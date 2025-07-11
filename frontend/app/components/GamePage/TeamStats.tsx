@@ -1,35 +1,35 @@
-import { useState } from "react";
-import type { GameStory } from "~/entities";
-import type { TeamGameStats } from "~/entities/sub-entities/TeamGameStats";
+import { useState } from 'react';
+import type { GameStory } from '~/entities';
+import type { TeamGameStats } from '~/entities/sub-entities/TeamGameStats';
 
 const formatStatCategory = (category: string): string => {
   switch (category) {
-    case "sog":
-      return "Shots on Goal";
-    case "faceoffWinningPctg":
-      return "Faceoff %";
-    case "powerPlay":
-      return "Power Play";
-    case "powerPlayPctg":
-      return "Power Play %";
-    case "pim":
-      return "PIM";
-    case "hits":
-      return "Hits";
-    case "blockedShots":
-      return "Blocked Shots";
-    case "giveaways":
-      return "Giveaways";
-    case "takeaways":
-      return "Takeaways";
+    case 'sog':
+      return 'Shots on Goal';
+    case 'faceoffWinningPctg':
+      return 'Faceoff %';
+    case 'powerPlay':
+      return 'Power Play';
+    case 'powerPlayPctg':
+      return 'Power Play %';
+    case 'pim':
+      return 'PIM';
+    case 'hits':
+      return 'Hits';
+    case 'blockedShots':
+      return 'Blocked Shots';
+    case 'giveaways':
+      return 'Giveaways';
+    case 'takeaways':
+      return 'Takeaways';
     default:
       return category;
   }
 };
 
 const formatStatValue = (category: string, value: number | string): string => {
-  if (typeof value === "number") {
-    if (category === "faceoffWinningPctg" || category === "powerPlayPctg") {
+  if (typeof value === 'number') {
+    if (category === 'faceoffWinningPctg' || category === 'powerPlayPctg') {
       return `${(value * 100).toFixed(1)}%`;
     }
     return value.toString();
@@ -46,7 +46,7 @@ export function TeamStats({ gameLandingData }: { gameLandingData: GameStory }) {
     setShowDetailedStats(!showDetailedStats);
   };
 
-  const shotsOnGoalStat = teamStats.find((stat) => stat.category === "sog");
+  const shotsOnGoalStat = teamStats.find((stat) => stat.category === 'sog');
 
   return (
     <div className="w-full mt-6">
@@ -83,7 +83,7 @@ export function TeamStats({ gameLandingData }: { gameLandingData: GameStory }) {
         onClick={handleToggleDetailedStats}
         className="w-full text-left px-4 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md text-xl font-semibold focus:outline-none"
       >
-        Detailed Team Stats {showDetailedStats ? "▲" : "▼"}
+        Detailed Team Stats {showDetailedStats ? '▲' : '▼'}
       </button>
       {showDetailedStats && (
         <div className="mt-4 overflow-x-auto rounded-lg shadow">
@@ -103,12 +103,12 @@ export function TeamStats({ gameLandingData }: { gameLandingData: GameStory }) {
             </thead>
             <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
               {teamStats
-                .filter((stat) => stat.category !== "sog")
+                .filter((stat) => stat.category !== 'sog')
                 .map((stat: TeamGameStats, index: number) => (
                   <tr
                     key={index}
                     className={
-                      index % 2 === 0 ? "bg-white dark:bg-gray-800" : "bg-gray-50 dark:bg-gray-750"
+                      index % 2 === 0 ? 'bg-white dark:bg-gray-800' : 'bg-gray-50 dark:bg-gray-750'
                     }
                   >
                     <td className="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white text-left">
@@ -122,7 +122,7 @@ export function TeamStats({ gameLandingData }: { gameLandingData: GameStory }) {
                     </td>
                   </tr>
                 ))}
-              {teamStats.filter((stat) => stat.category !== "sog").length === 0 && (
+              {teamStats.filter((stat) => stat.category !== 'sog').length === 0 && (
                 <tr>
                   <td
                     colSpan={3}

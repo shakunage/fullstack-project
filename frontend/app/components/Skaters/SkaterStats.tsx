@@ -1,6 +1,6 @@
-import { formatStatCategory } from "~/utils/formatStatCategory";
-import { formatStatValue } from "~/utils/formatStatValue";
-import { type TopSkaters, type SkaterStat } from "~/entities/TopSkaters";
+import { formatStatCategory } from '~/utils/formatStatCategory';
+import { formatStatValue } from '~/utils/formatStatValue';
+import { type TopSkaters, type SkaterStat } from '~/entities/TopSkaters';
 
 export default function SkaterStats({
   category,
@@ -22,7 +22,7 @@ export default function SkaterStats({
               src={skater.headshot}
               alt={`${skater.firstName.default} ${skater.lastName.default}`}
               className="w-10 h-10 rounded-full object-cover border border-gray-300"
-              onError={(e) => (e.currentTarget.src = "/placeholder-player.png")} // Placeholder image path
+              onError={(e) => (e.currentTarget.src = '/placeholder-player.png')} // Placeholder image path
             />
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium text-gray-900 truncate">
@@ -33,7 +33,7 @@ export default function SkaterStats({
                   src={skater.teamLogo}
                   alt={skater.teamName.default}
                   className="w-4 h-4 mr-1"
-                  onError={(e) => (e.currentTarget.style.display = "none")} // Hide if logo fails
+                  onError={(e) => (e.currentTarget.style.display = 'none')} // Hide if logo fails
                 />
                 <span>{skater.teamAbbrev}</span>
               </div>

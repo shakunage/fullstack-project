@@ -1,4 +1,4 @@
-import { type TopGoalies, type GoalieStat } from "~/entities/TopGoalies"; // Import GoalieStat
+import { type TopGoalies, type GoalieStat } from '~/entities/TopGoalies'; // Import GoalieStat
 
 export function GoalieTable({
   title,
@@ -38,10 +38,10 @@ export function GoalieTable({
                 scope="col"
                 className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
-                {statKey === "savePctg"
-                  ? "Save %"
-                  : statKey === "goalsAgainstAverage"
-                    ? "GAA"
+                {statKey === 'savePctg'
+                  ? 'Save %'
+                  : statKey === 'goalsAgainstAverage'
+                    ? 'GAA'
                     : statKey.charAt(0).toUpperCase() + statKey.slice(1)}
               </th>
             </tr>
@@ -78,9 +78,9 @@ export function GoalieTable({
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm text-gray-700 font-semibold">
-                  {statKey === "savePctg"
+                  {statKey === 'savePctg'
                     ? goalie.value.toFixed(3)
-                    : statKey === "goalsAgainstAverage"
+                    : statKey === 'goalsAgainstAverage'
                       ? goalie.value.toFixed(2)
                       : goalie.value}
                 </td>

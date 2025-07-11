@@ -1,15 +1,15 @@
-import { useLoaderData } from "react-router";
-import type { GameStory } from "~/entities";
-import { BackButton } from "~/components/GamePage/BackButton";
-import { ThreeStars } from "~/components/GamePage/ThreeStars";
-import { PenaltiesDropdown } from "~/components/GamePage/PenaltiesDropdown";
-import { ScoringSummary } from "~/components/GamePage/ScoringSummary";
-import { PlayerStatistics } from "~/components/GamePage/PlayerStatistics";
-import { GameInformation } from "~/components/GamePage/GameInformation";
-import { Team } from "~/components/GamePage/Team";
-import { GameStatus } from "~/components/GamePage/GameStatus";
-import { TeamStats } from "~/components/GamePage/TeamStats";
-import { gameStoryLoader } from "~/loaders/gameStoryLoader";
+import { useLoaderData } from 'react-router';
+import type { GameStory } from '~/entities';
+import { BackButton } from '~/components/GamePage/BackButton';
+import { ThreeStars } from '~/components/GamePage/ThreeStars';
+import { PenaltiesDropdown } from '~/components/GamePage/PenaltiesDropdown';
+import { ScoringSummary } from '~/components/GamePage/ScoringSummary';
+import { PlayerStatistics } from '~/components/GamePage/PlayerStatistics';
+import { GameInformation } from '~/components/GamePage/GameInformation';
+import { Team } from '~/components/GamePage/Team';
+import { GameStatus } from '~/components/GamePage/GameStatus';
+import { TeamStats } from '~/components/GamePage/TeamStats';
+import { gameStoryLoader } from '~/loaders/gameStoryLoader';
 
 export const loader = gameStoryLoader;
 

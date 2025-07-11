@@ -1,7 +1,7 @@
-import { Venue } from "./subcomponents/Venue";
-import { GameDetailsButton } from "./subcomponents/GameDetailsButton";
-import { resolveNameType } from "~/utils/resolveNameType";
-import type { GameItem } from "~/entities/GameItem";
+import { Venue } from './subcomponents/Venue';
+import { GameDetailsButton } from './subcomponents/GameDetailsButton';
+import { resolveNameType } from '~/utils/resolveNameType';
+import type { GameItem } from '~/entities/GameItem';
 
 export function LiveGame({ game }: { game: GameItem }) {
   return (

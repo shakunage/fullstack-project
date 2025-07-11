@@ -1,4 +1,4 @@
-import type { Assist } from "~/entities/sub-entities";
+import type { Assist } from '~/entities/sub-entities';
 
 export interface Goal {
   situationCode: string;

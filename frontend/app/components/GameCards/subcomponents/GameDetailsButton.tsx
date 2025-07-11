@@ -1,15 +1,15 @@
-import { useState } from "react";
-import type { GameItem } from "~/entities/GameItem";
-import { useGameDetails } from "~/hooks/useGameDetails";
-import { GoalScorers } from "./GoalScorers";
-import { Goalies } from "./Goalies";
-import Spinner from "~/components/icons/Spinner";
+import { useState } from 'react';
+import type { GameItem } from '~/entities/GameItem';
+import { useGameDetails } from '~/hooks/useGameDetails';
+import { GoalScorers } from './GoalScorers';
+import { Goalies } from './Goalies';
+import Spinner from '~/components/icons/Spinner';
 
-export function GameDetailsButton({ game_id }: { game_id: GameItem["id"] }) {
+export function GameDetailsButton({ game_id }: { game_id: GameItem['id'] }) {
   const [showDetails, setShowDetails] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const { data, refetch, isFetching } = useGameDetails(game_id as GameItem["id"]);
+  const { data, refetch, isFetching } = useGameDetails(game_id as GameItem['id']);
 
   const handleToggleDetails = async (event: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
     event.stopPropagation();
@@ -39,7 +39,7 @@ export function GameDetailsButton({ game_id }: { game_id: GameItem["id"] }) {
         className="w-full mt-4 p-2 bg-blue-500 text-white rounded text-center"
         disabled={isLoadingData}
       >
-        {showDetails ? "Hide Details" : "Show Goal Scorers and Goalies"}
+        {showDetails ? 'Hide Details' : 'Show Goal Scorers and Goalies'}
       </button>
 
       {isLoadingData && <Spinner />}

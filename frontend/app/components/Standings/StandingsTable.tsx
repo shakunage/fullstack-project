@@ -1,4 +1,4 @@
-import { type StandingsItem } from "~/entities/StandingsItem";
+import { type StandingsItem } from '~/entities/StandingsItem';
 
 export function StandingsTable({
   conferenceStandings,
@@ -13,7 +13,7 @@ export function StandingsTable({
       {Object.entries(groupedStandings[conferenceStandings])
         // Sort divisions within conference (e.g., Atlantic, Metropolitan, Central, Pacific) - adjust as needed
         .sort(([divA], [divB]) => {
-          const divisionOrder = ["Atlantic", "Metropolitan", "Central", "Pacific"];
+          const divisionOrder = ['Atlantic', 'Metropolitan', 'Central', 'Pacific'];
           return divisionOrder.indexOf(divA) - divisionOrder.indexOf(divB);
         })
         .map(([divisionName, teams]) => (
@@ -76,7 +76,7 @@ export function StandingsTable({
                   <tr
                     key={team.teamAbbrev.default}
                     className={
-                      index % 2 === 0 ? "bg-white dark:bg-gray-800" : "bg-gray-50 dark:bg-gray-750"
+                      index % 2 === 0 ? 'bg-white dark:bg-gray-800' : 'bg-gray-50 dark:bg-gray-750'
                     }
                   >
                     <td className="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">

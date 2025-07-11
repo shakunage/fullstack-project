@@ -1,6 +1,6 @@
-import React from "react";
-import { Link } from "react-router";
-import { AuthButtons } from "./AuthButtons";
+import React from 'react';
+import { Link } from 'react-router';
+import { AuthButtons } from './AuthButtons';
 
 type FooterElement = {
   title: string;
@@ -9,12 +9,12 @@ type FooterElement = {
 
 const footerElements: { [key: string]: FooterElement } = {
   about: {
-    title: "About",
-    href: "/about",
+    title: 'About',
+    href: '/about',
   },
   contact: {
-    title: "Contact",
-    href: "/contact",
+    title: 'Contact',
+    href: '/contact',
   },
 };
 

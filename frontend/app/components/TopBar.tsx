@@ -1,6 +1,6 @@
-import { Link } from "react-router";
-import { AuthButtons } from "./AuthButtons";
-import { useAuth } from "~/hooks/useAuth";
+import { Link } from 'react-router';
+import { AuthButtons } from './AuthButtons';
+import { useAuth } from '~/hooks/useAuth';
 
 type Dropdown = {
   loginRequired: boolean;
@@ -15,39 +15,39 @@ type TopBarElement = {
 
 const topBarElements: { [key: string]: TopBarElement } = {
   home: {
-    title: "Home",
-    href: "/",
+    title: 'Home',
+    href: '/',
   },
   games: {
-    title: "Games",
-    href: "/games",
+    title: 'Games',
+    href: '/games',
     dropdown: {
       loginRequired: true,
       tabs: [
         {
-          title: "Favorited Games",
-          href: "/games/favoritegames/",
+          title: 'Favorited Games',
+          href: '/games/favoritegames/',
         },
       ],
     },
   },
   standings: {
-    title: "Standings",
-    href: "/standings",
+    title: 'Standings',
+    href: '/standings',
   },
   players: {
-    title: "Players",
-    href: "/players",
+    title: 'Players',
+    href: '/players',
     dropdown: {
       loginRequired: false,
       tabs: [
         {
-          title: "Skaters",
-          href: "/players/skaters/",
+          title: 'Skaters',
+          href: '/players/skaters/',
         },
         {
-          title: "Goalies",
-          href: "/players/goalies/",
+          title: 'Goalies',
+          href: '/players/goalies/',
         },
       ],
     },
@@ -79,14 +79,14 @@ export function TopBar() {
               {hasDropdown && (!needsLogin || username) && (
                 <div className="absolute top-full left-0 hidden w-48 bg-white shadow-md group-hover:block">
                   <ul className="list-none p-0 m-0">
-                    {" "}
+                    {' '}
                     {/* Ensure ul has no default padding/margin */}
                     {element.dropdown?.tabs.map((item: TopBarElement, index: number) => (
                       <li key={index}>
-                        {" "}
+                        {' '}
                         {/* Remove classes from li */}
                         <Link to={item.href} className="block p-2 hover:bg-gray-100">
-                          {" "}
+                          {' '}
                           {/* Add classes to Link */}
                           {item.title}
                         </Link>

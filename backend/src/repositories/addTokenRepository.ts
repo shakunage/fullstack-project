@@ -1,4 +1,4 @@
-import { prisma } from "../dbserver/dbserver.ts";
+import { prisma } from '../dbserver/dbserver.ts';
 
 export async function addTokenRepository(token: string, userId: string): Promise<void> {
   try {
@@ -8,7 +8,7 @@ export async function addTokenRepository(token: string, userId: string): Promise
     });
 
     if (!user) {
-      throw new Error("Error: User not found");
+      throw new Error('Error: User not found');
     }
 
     // TODO: revoke any existing tokens for this user
@@ -30,6 +30,6 @@ export async function addTokenRepository(token: string, userId: string): Promise
     if (error instanceof Error) {
       throw error;
     }
-    throw new Error("Failed to store token into the database");
+    throw new Error('Failed to store token into the database');
   }
 }

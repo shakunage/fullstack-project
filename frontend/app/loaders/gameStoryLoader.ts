@@ -1,6 +1,6 @@
-import { getStoryService } from "~/services/nhlApiServices/gameStoryService";
-import type { LoaderFunctionArgs } from "react-router";
-import type { GameStory } from "~/entities";
+import { getStoryService } from '~/services/nhlApiServices/gameStoryService';
+import type { LoaderFunctionArgs } from 'react-router';
+import type { GameStory } from '~/entities';
 
 export const gameStoryLoader = async ({ params }: LoaderFunctionArgs): Promise<GameStory> => {
   const game_id = params.game_id;
@@ -8,7 +8,7 @@ export const gameStoryLoader = async ({ params }: LoaderFunctionArgs): Promise<G
     const gameStory: GameStory = await getStoryService(game_id);
     return gameStory;
   } catch (error) {
-    console.error("Error fetching data:", error);
-    throw new Error("Error fetching data");
+    console.error('Error fetching data:', error);
+    throw new Error('Error fetching data');
   }
 };

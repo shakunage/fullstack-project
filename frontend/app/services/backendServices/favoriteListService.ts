@@ -1,7 +1,7 @@
-import { genericFetch, type GenericFetchOptions } from "~/services/genericApiService";
-import type { GameItem } from "~/entities";
+import { genericFetch, type GenericFetchOptions } from '~/services/genericApiService';
+import type { GameItem } from '~/entities';
 
-const API_URL = "http://backend:8080/favoritegames";
+const API_URL = 'http://backend:8080/favoritegames';
 
 type FavoriteGamesServiceData = {
   favoriteGameList: GameItem[];
@@ -12,7 +12,7 @@ type FavoriteGamesServiceData = {
 
 export async function FavoriteListService(headers: string | null, page: number, limit: number) {
   const fetchOptions: GenericFetchOptions<FavoriteGamesServiceData> = {
-    method: "GET",
+    method: 'GET',
     endpoint: API_URL,
     queryParameter: `page=${page}&limit=${limit}`,
     dataTransform: async (response) => (await response.json()) as FavoriteGamesServiceData,
@@ -29,7 +29,7 @@ export async function FavoriteListService(headers: string | null, page: number, 
     const favoriteGamesResponse: FavoriteGamesServiceData = await genericFetch(fetchOptions);
     return favoriteGamesResponse;
   } catch (error) {
-    console.error("Error fetching favorite games:", error);
+    console.error('Error fetching favorite games:', error);
     throw error;
   }
 }
