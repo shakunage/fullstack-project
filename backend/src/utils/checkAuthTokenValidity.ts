@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 
+// TODO: replace with secure way of storing secret keys
 const SECRET_KEY = 'your_secret_key';
 
 export function checkAuthTokenValidity(token: string): boolean {

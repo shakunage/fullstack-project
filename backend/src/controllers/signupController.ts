@@ -5,6 +5,7 @@ import { addTokenRepository } from '../repositories/addTokenRepository.ts';
 import { type UserSignupData, type UserSigninResponse } from '../dtos/index.ts';
 
 const router: Router = express.Router();
+// TODO: replace with secure way of storing secret keys
 const SECRET_KEY = 'your_secret_key';
 
 router.post(
