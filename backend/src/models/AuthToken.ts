@@ -4,7 +4,7 @@ export type AuthToken = {
   id: number;
   token: string;
   userId: string;
-  revoked: Boolean;
+  revoked: boolean;
   createdAt: Date;
   updatedAt: Date;
   user: User;

@@ -1,4 +1,3 @@
-import { prisma } from '../dbserver/dbserver.ts';
 import redisClient from '../redis/redisClient.ts';
 import { GameModel } from '../mongo/schemas/GameSchema.ts';
 

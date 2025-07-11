@@ -17,7 +17,7 @@ export async function favoriteListRepository(
     const cachedFavoriteGames = await redisClient.get(cacheKey);
     if (cachedFavoriteGames) {
       console.log(`Cache HIT for ${cacheKey}`);
-      const favoriteGames: Omit<GameItem, 'favoritedBy'>[] = JSON.parse(cachedFavoriteGames);
+      const favoriteGames = JSON.parse(cachedFavoriteGames) as Omit<GameItem, 'favoritedBy'>[];
       return favoriteGames.slice(skip, skip + take);
     }
   } catch (error) {
@@ -42,6 +42,7 @@ export async function favoriteListRepository(
 
     // Sanitize the output by removing the 'favoritedBy' field and save to redis
     const favoriteGamesWithoutFavoritedBy = favoriteGamesFromDb.map((game) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { favoritedBy, ...gameWithoutFavoritedBy } = game;
       return gameWithoutFavoritedBy;
     });

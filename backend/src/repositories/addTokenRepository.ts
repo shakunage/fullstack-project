@@ -11,7 +11,6 @@ export async function addTokenRepository(token: string, userId: string): Promise
       throw new Error('Error: User not found');
     }
 
-    // TODO: revoke any existing tokens for this user
     await prisma.authToken.updateMany({
       where: { userId: userId },
       data: { revoked: true },
