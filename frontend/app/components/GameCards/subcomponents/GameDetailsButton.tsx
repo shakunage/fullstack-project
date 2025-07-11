@@ -9,7 +9,7 @@ export function GameDetailsButton({ game_id }: { game_id: GameItem['id'] }) {
   const [showDetails, setShowDetails] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const { data, refetch, isFetching } = useGameDetails(game_id as GameItem['id']);
+  const { data, refetch, isFetching } = useGameDetails(game_id);
 
   const handleToggleDetails = async (event: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
     event.stopPropagation();

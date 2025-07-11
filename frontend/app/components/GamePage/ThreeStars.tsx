@@ -1,6 +1,18 @@
 import { useState } from 'react';
 import { type GameStory } from '~/entities';
 
+type ThreeStar = {
+  star: number;
+  playerId: number;
+  headshot: string;
+  name: string | { default: string };
+  teamAbbrev: string;
+  position: string;
+  goals?: number;
+  assists?: number;
+  points?: number;
+};
+
 export function ThreeStars(landingData: GameStory) {
   const [showThreeStars, setShowThreeStars] = useState(false);
 
@@ -13,7 +25,7 @@ export function ThreeStars(landingData: GameStory) {
   }
 
   // Helper function to handle the two different name formats
-  const getPlayerName = (player: any) => {
+  const getPlayerName = (player: ThreeStar) => {
     if (typeof player.name === 'string') {
       return player.name;
     }
@@ -34,7 +46,7 @@ export function ThreeStars(landingData: GameStory) {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {landingData.summary.threeStars
               .sort((a, b) => a.star - b.star)
-              .map((star) => (
+              .map((star: ThreeStar) => (
                 <div
                   key={star.playerId}
                   className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg shadow text-center"
@@ -53,7 +65,7 @@ export function ThreeStars(landingData: GameStory) {
                     {star.teamAbbrev} - {star.position}
                   </p>
                   <p className="text-sm">
-                    {star.goals}G, {star.assists}A, {star.points}P
+                    {star.goals ?? 0}G, {star.assists ?? 0}A, {star.points ?? 0}P
                   </p>
                 </div>
               ))}

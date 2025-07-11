@@ -12,7 +12,7 @@ export function useAuth() {
   const { mutate: logout } = useMutation({
     mutationFn: logoutUser,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['authStatus'] });
+      void queryClient.invalidateQueries({ queryKey: ['authStatus'] });
     },
   });
 

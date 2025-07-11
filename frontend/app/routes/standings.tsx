@@ -69,7 +69,7 @@ export default function Standings({ params }: LoaderFunctionArgs) {
           <p className="text-lg mb-4">Standings data not found for {date}.</p>
           <button
             onClick={() => {
-              navigate('/standings');
+              void navigate('/standings');
               setSelectedDate(dayjs().tz('America/Los_Angeles').startOf('day').toDate());
             }}
             className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded"

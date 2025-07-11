@@ -1,10 +1,8 @@
-import { useQueryClient } from '@tanstack/react-query';
 import { useAuth } from '~/hooks/useAuth';
 import { useFavorite } from '~/hooks/useFavorite';
 import type { GameItem } from '~/entities';
 
 export function FavoriteButton({ game }: { game: GameItem }) {
-  const queryClient = useQueryClient();
   const { username, isLoading: isAuthLoading } = useAuth();
   const { favoriteStatus, isFavoriteLoading, favoriteMutation, unfavoriteMutation } = useFavorite(
     game,

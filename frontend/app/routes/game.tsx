@@ -1,5 +1,4 @@
 import { useLoaderData } from 'react-router';
-import type { GameStory } from '~/entities';
 import { BackButton } from '~/components/GamePage/BackButton';
 import { ThreeStars } from '~/components/GamePage/ThreeStars';
 import { PenaltiesDropdown } from '~/components/GamePage/PenaltiesDropdown';
@@ -14,7 +13,7 @@ import { gameStoryLoader } from '~/loaders/gameStoryLoader';
 export const loader = gameStoryLoader;
 
 export default function Game() {
-  const gameStoryData = useLoaderData<typeof loader>() as GameStory;
+  const gameStoryData = useLoaderData<typeof loader>();
 
   if (!gameStoryData) {
     return (

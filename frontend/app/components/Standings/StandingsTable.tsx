@@ -4,7 +4,7 @@ export function StandingsTable({
   conferenceStandings,
   groupedStandings,
 }: {
-  conferenceStandings: any;
+  conferenceStandings: string;
   groupedStandings: Record<string, Record<string, StandingsItem[]>>;
 }) {
   return (

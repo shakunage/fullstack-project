@@ -37,10 +37,10 @@ export function PlayerStatistics({ storyData }: { storyData: GameStory }) {
     // Access nested properties if key contains a dot (e.g. 'name.default')
     // This is a simple implementation; for deeper nesting, a more robust solution might be needed.
     const keys = key.split('.');
-    let value: any = player;
+    let value: PlayerStats | string | number | undefined = player;
     for (const k of keys) {
       if (value && typeof value === 'object' && k in value) {
-        value = value[k];
+        value = (value as Record<string, unknown>)[k] as PlayerStats | string | number | undefined;
       } else {
         return undefined; // Property not found
       }
@@ -48,7 +48,7 @@ export function PlayerStatistics({ storyData }: { storyData: GameStory }) {
 
     if (typeof value === 'string') return value.toLowerCase();
     if (typeof value === 'number') return value;
-    return value;
+    return value as string | number | undefined;
   };
 
   const requestSort = (tableId: string, key: string) => {
@@ -70,7 +70,7 @@ export function PlayerStatistics({ storyData }: { storyData: GameStory }) {
         storyData.id && (
           <div className="w-full mt-6">
             <button
-              onClick={handleTogglePlayerStats}
+              onClick={() => void handleTogglePlayerStats()}
               className="w-full text-left px-4 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md text-xl font-semibold focus:outline-none disabled:opacity-50"
               disabled={isFetchingBoxscore}
             >
@@ -105,8 +105,7 @@ export function PlayerStatistics({ storyData }: { storyData: GameStory }) {
                     {resolveNameType(teamDisplayDetails)}
                   </h3>
                   {(['forwards', 'defense', 'goalies'] as const).map((positionKey) => {
-                    const playersAtPosition: PlayerStats[] =
-                      teamStatsData[positionKey as keyof typeof teamStatsData] || [];
+                    const playersAtPosition: PlayerStats[] = teamStatsData[positionKey] || [];
                     if (playersAtPosition.length === 0) {
                       return (
                         <p key={positionKey} className="my-2 text-sm text-gray-500 dark:text-gray-400">
@@ -119,7 +118,7 @@ export function PlayerStatistics({ storyData }: { storyData: GameStory }) {
                     const currentColumns =
                       positionKey === 'goalies' ? goalieBoxscoreConstants : skaterBoxscoreConstants;
 
-                    let processedPlayers = [...playersAtPosition];
+                    const processedPlayers = [...playersAtPosition];
                     const currentSort = sortConfig[tableId];
 
                     if (currentSort?.key) {
@@ -170,7 +169,7 @@ export function PlayerStatistics({ storyData }: { storyData: GameStory }) {
                               {processedPlayers.map((player) => (
                                 <tr key={player.playerId}>
                                   {currentColumns.map((col) => {
-                                    let cellValue: any;
+                                    let cellValue: React.ReactNode;
                                     if (col.key === 'name') {
                                       const name = player.name.default;
                                       cellValue =
@@ -184,11 +183,18 @@ export function PlayerStatistics({ storyData }: { storyData: GameStory }) {
                                       const value = player[col.key as keyof PlayerStats];
                                       if (typeof value === 'number' && value > 0) {
                                         cellValue = `+${value}`;
+                                      } else if (typeof value === 'object' && value !== null) {
+                                        cellValue = JSON.stringify(value);
                                       } else {
-                                        cellValue = value ?? 'N/A';
+                                        cellValue = value?.toString() ?? 'N/A';
                                       }
                                     } else {
-                                      cellValue = player[col.key as keyof PlayerStats] ?? 'N/A';
+                                      const value = player[col.key as keyof PlayerStats];
+                                      if (typeof value === 'object' && value !== null) {
+                                        cellValue = JSON.stringify(value);
+                                      } else {
+                                        cellValue = value?.toString() ?? 'N/A';
+                                      }
                                     }
                                     return (
                                       <td key={col.key} className="px-2 py-2 whitespace-nowrap">

@@ -25,7 +25,7 @@ export function PenaltiesDropdown({ game_id }: { game_id: number }) {
     <>
       <div className="w-full mt-6">
         <button
-          onClick={handleTogglePenalties}
+          onClick={() => void handleTogglePenalties()}
           className="w-full text-left px-4 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md text-xl font-semibold focus:outline-none disabled:opacity-50"
           disabled={isFetchingLanding}
         >

@@ -18,14 +18,14 @@ export function useFavorite(game: GameItem, username: string | boolean | undefin
   const favoriteMutation = useMutation({
     mutationFn: () => addFavoriteService(game),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['checkfavorite', game.id] });
+      void queryClient.invalidateQueries({ queryKey: ['checkfavorite', game.id] });
     },
   });
 
   const unfavoriteMutation = useMutation({
     mutationFn: () => removeFavoriteService(game.id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['checkfavorite', game.id] });
+      void queryClient.invalidateQueries({ queryKey: ['checkfavorite', game.id] });
     },
   });
 

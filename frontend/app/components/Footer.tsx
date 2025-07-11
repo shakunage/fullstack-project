@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { AuthButtons } from './AuthButtons';
 
 type FooterElement = {
   title: string;

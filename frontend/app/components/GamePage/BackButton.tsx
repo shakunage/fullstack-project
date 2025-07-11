@@ -6,7 +6,7 @@ export function BackButton() {
   return (
     <div className="w-full max-w-4xl mb-4">
       <button
-        onClick={() => navigate(-1)}
+        onClick={() => void navigate(-1)}
         className="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-600 flex items-center"
         aria-label="Go back"
       >

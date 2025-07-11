@@ -2,7 +2,7 @@ import type { Scoring, ThreeStars, TeamGameStats, Penalty } from '~/entities/sub
 
 export interface GameSummary {
   scoring: Scoring[];
-  shootout: any[];
+  shootout: unknown[];
   threeStars: ThreeStars[];
   teamGameStats: TeamGameStats[];
   penalties?: Penalty[];

@@ -2,17 +2,23 @@ import { type GenericFetchOptions, genericFetch } from '~/services/genericApiSer
 
 const API_URL = 'http://localhost:9998/backend/login';
 
+type LoginResponse = {
+  token: string;
+};
+
 export async function loginService(email: string, password: string): Promise<string | false> {
-  const fetchOptions: GenericFetchOptions<Promise<string | false>> = {
+  const fetchOptions: GenericFetchOptions<string | false> = {
     method: 'POST',
     endpoint: API_URL,
-    dataTransform: async (response) => await response.json(),
-    defaultValue: Promise.resolve(false),
+    dataTransform: async (response) => {
+      const data = (await response.json()) as LoginResponse;
+      return data.token;
+    },
+    defaultValue: false,
     body: { email, password },
   };
   try {
-    const loginResponse: string | false = await genericFetch(fetchOptions);
-    return loginResponse;
+    return await genericFetch(fetchOptions);
   } catch (error) {
     console.error('Error logging in:', error);
     return false;

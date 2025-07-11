@@ -29,6 +29,7 @@ export async function genericFetch<T>({
     headers: {
       ...headers, // User-provided headers will override defaults if keys match
     },
+    credentials,
   };
 
   // Set Content-Type for relevant methods if a body is provided and not already set
@@ -44,7 +45,7 @@ export async function genericFetch<T>({
     const response = await fetch(url, fetchConfig);
 
     if (!response.ok) {
-      let errorPayload: any = `Status: ${response.status}`; // Default error payload
+      let errorPayload: unknown = `Status: ${response.status}`; // Default error payload
       try {
         // Attempt to parse error response body for more details
         const contentType = response.headers.get('content-type');

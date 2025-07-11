@@ -1,5 +1,5 @@
 import { type GenericFetchOptions, genericFetch } from '~/services/genericApiService';
-import type { GameItem, ScheduleInfo } from '~/entities';
+import type { ScheduleInfo } from '~/entities';
 import type { MatchDay } from '~/entities/MatchDay';
 
 const API_URL = 'http://reverseproxy:9998/api/v1/score';
@@ -9,9 +9,9 @@ export async function getMatchDayGamesService(game_date: string): Promise<MatchD
     method: 'GET',
     endpoint: `${API_URL}/${game_date}`,
     dataTransform: async (response) => {
-      const fullResponseData = await response.json();
+      const fullResponseData = (await response.json()) as ScheduleInfo;
       if (fullResponseData) {
-        return fullResponseData as ScheduleInfo;
+        return fullResponseData;
       } else {
         console.error(
           "Match day games data is not in the expected format (expected object with a 'games' array property):",

@@ -18,7 +18,7 @@ export async function signupServiceService(
     },
   };
   try {
-    const token: string = (await genericFetch(GenericFetchOptions)) as string;
+    const token: string = await genericFetch(GenericFetchOptions);
     return token;
   } catch (error) {
     console.error('Error during signup:', error);
