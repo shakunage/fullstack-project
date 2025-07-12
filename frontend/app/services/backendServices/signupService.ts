@@ -16,6 +16,7 @@ export async function signupServiceService(
       email,
       password,
     },
+    credentials: 'include',
   };
   try {
     const token: string = await genericFetch(GenericFetchOptions);

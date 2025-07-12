@@ -1,4 +1,3 @@
-import Cookies from 'js-cookie';
 import { useForm } from '@tanstack/react-form';
 import { loginService } from '~/services/backendServices/loginService';
 import { navigateToHome } from '~/utils/navigateToHome';
@@ -11,12 +10,11 @@ export function useLogin() {
     },
     onSubmit: async ({ value }) => {
       // Do something with form data
-      const token = await loginService(value.email, value.password);
-      if (!token) {
-        console.error('Login failed. token value is:', token);
+      const loginSuccess = await loginService(value.email, value.password);
+      if (!loginSuccess) {
+        console.error('Login failed.');
         return;
       }
-      Cookies.set('token', token, { secure: true, sameSite: 'Strict' });
       alert('Login successful!');
       navigateToHome();
     },

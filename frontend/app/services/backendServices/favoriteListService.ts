@@ -10,7 +10,7 @@ type FavoriteGamesServiceData = {
   totalGames: number;
 };
 
-export async function FavoriteListService(headers: string | null, page: number, limit: number) {
+export async function FavoriteListService( headers: string | null, page: number, limit: number) {
   const fetchOptions: GenericFetchOptions<FavoriteGamesServiceData> = {
     method: 'GET',
     endpoint: API_URL,
@@ -26,6 +26,7 @@ export async function FavoriteListService(headers: string | null, page: number, 
   };
 
   try {
+    console.log('Fetching favorite games with options:', fetchOptions);
     const favoriteGamesResponse: FavoriteGamesServiceData = await genericFetch(fetchOptions);
     return favoriteGamesResponse;
   } catch (error) {
