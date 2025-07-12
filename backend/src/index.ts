@@ -8,6 +8,7 @@ import AuthcheckController from './controllers/authcheckController.ts';
 import FavoriteController from './controllers/favoriteController.ts';
 import FavoriteListController from './controllers/favoriteListController.ts';
 import HealthcheckController from './controllers/healthcheckController.ts';
+import { connectToDB } from './mongo/mongo.ts';
 
 const app = express();
 const PORT = 8080;
@@ -27,6 +28,7 @@ const start = async () => {
   try {
     await prisma.$connect();
     console.log('Connected to the database');
+    await connectToDB();
 
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);

@@ -1,10 +1,11 @@
 import mongoose from 'mongoose';
 
+// TODO: move to an env
 const url = `mongodb://root:example@mongo:27017/gameDb?authSource=admin`;
 
 mongoose.set('strictQuery', false);
 
-const connectToDB = async () => {
+export const connectToDB = async () => {
   try {
     await mongoose.connect(url);
     console.log('Connected to MongoDB');
@@ -13,7 +14,5 @@ const connectToDB = async () => {
     process.exit(1);
   }
 };
-
-void connectToDB();
 
 export default mongoose;
