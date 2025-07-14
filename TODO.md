@@ -1,7 +1,6 @@
 # TODO
 
 ## Must have
-- solve login/signup/authcheck broken functionality
 - frontend API url unification
 - tilde imports for backend
 - backend envs
