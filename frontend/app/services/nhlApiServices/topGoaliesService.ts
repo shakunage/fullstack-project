@@ -1,12 +1,10 @@
 import { type GenericFetchOptions, genericFetch } from '~/services/genericApiService';
 import type { TopGoalies } from '~/entities';
 
-const API_URL = 'http://reverseproxy:9998/api/v1/goalie-stats-leaders/current';
-
 export async function getTopGoaliesService(): Promise<TopGoalies> {
   const fetchOptions: GenericFetchOptions<TopGoalies> = {
     method: 'GET',
-    endpoint: API_URL,
+    endpoint: `${process.env.NHL_API_URL}/goalie-stats-leaders/current`, // Adjusted endpoint to be relative
     dataTransform: async (response) => (await response.json()) as TopGoalies,
     defaultValue: {} as TopGoalies,
   };

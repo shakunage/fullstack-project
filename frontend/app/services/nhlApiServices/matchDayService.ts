@@ -2,12 +2,10 @@ import { type GenericFetchOptions, genericFetch } from '~/services/genericApiSer
 import type { ScheduleInfo } from '~/entities';
 import type { MatchDay } from '~/entities/MatchDay';
 
-const API_URL = 'http://reverseproxy:9998/api/v1/score';
-
 export async function getMatchDayGamesService(game_date: string): Promise<MatchDay> {
   const fetchOptions: GenericFetchOptions<ScheduleInfo> = {
     method: 'GET',
-    endpoint: `${API_URL}/${game_date}`,
+    endpoint: `${process.env.NHL_API_URL}/games/${game_date}`,
     dataTransform: async (response) => {
       const fullResponseData = (await response.json()) as ScheduleInfo;
       if (fullResponseData) {
@@ -27,7 +25,7 @@ export async function getMatchDayGamesService(game_date: string): Promise<MatchD
 
     // If the game_date is "now" and no games are found, we fetch game info from the most recent match day
     if (game_date === 'now' && matchDayGamesResponse.games.length === 0) {
-      fetchOptions.endpoint = `${API_URL}/${matchDayGamesResponse.prevDate}`;
+      fetchOptions.endpoint = `${process.env.NHL_API_URL}/${matchDayGamesResponse.prevDate}`;
       const refetchedMatches: ScheduleInfo = await genericFetch(fetchOptions);
       return {
         games: refetchedMatches.games,

@@ -6,7 +6,7 @@ const API_URL = 'http://reverseproxy:9998/api/v1/gamecenter';
 export async function getLandingService(game_id: number | string | undefined): Promise<GameLanding> {
   const fetchOptions: GenericFetchOptions<GameLanding> = {
     method: 'GET',
-    endpoint: `${API_URL}/${game_id}/landing`,
+    endpoint: `gamecenter/${process.env.NHL_API_URL}/landing/${game_id}`,
     dataTransform: async (response) => response.json() as Promise<GameLanding>,
     defaultValue: {} as GameLanding,
   };

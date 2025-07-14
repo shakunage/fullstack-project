@@ -1,12 +1,10 @@
 import { type GenericFetchOptions, genericFetch } from '~/services/genericApiService';
 import type { GameStory } from '~/entities';
 
-const API_URL = 'http://reverseproxy:9998/api/v1/wsc/game-story';
-
 export async function getStoryService(game_id: string | undefined): Promise<GameStory> {
   const fetchOptions: GenericFetchOptions<GameStory> = {
     method: 'GET',
-    endpoint: `${API_URL}/${game_id}`,
+    endpoint: `${process.env.NHL_API_URL}/game-story/${game_id}`, // Adjusted endpoint to be relative
     dataTransform: async (response) => response.json() as Promise<GameStory>,
     defaultValue: {} as GameStory,
   };

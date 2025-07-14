@@ -1,18 +1,12 @@
 import { type GenericFetchOptions, genericFetch } from '~/services/genericApiService';
 import type { StandingsItem } from '~/entities';
 
-const API_BASE_URL = 'http://reverseproxy:9998/api/v1';
-
-type StandingsResponse = {
-  standings: StandingsItem[];
-};
-
 export async function getStandingsService(date: string): Promise<StandingsItem[]> {
   const fetchOptions: GenericFetchOptions<StandingsItem[]> = {
     method: 'GET',
-    endpoint: `${API_BASE_URL}/standings/${date}`, // Adjusted endpoint to be relative
+    endpoint: `${process.env.NHL_API_URL}/standings/${date}`, // Adjusted endpoint to be relative
     dataTransform: async (response) => {
-      const fullResponseData = (await response.json()) as StandingsResponse;
+      const fullResponseData = (await response.json()) as StandingsItem[];
       if (
         fullResponseData &&
         typeof fullResponseData === 'object' &&
