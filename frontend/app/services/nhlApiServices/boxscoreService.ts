@@ -7,7 +7,7 @@ const API_URL = 'http://reverseproxy:9998/api/v1/gamecenter';
 export async function getBoxscoreService(game_id: string | undefined): Promise<Boxscore> {
   const fetchOptions: GenericFetchOptions<Boxscore> = {
     method: 'GET',
-    endpoint: `${process.env.NHL_API_URL}/gamecenter/boxscore`,
+    endpoint: `${API_URL}/gamecenter/boxscore`,
     dataTransform: async (response) => response.json() as Promise<Boxscore>,
     defaultValue: {} as Boxscore,
   };

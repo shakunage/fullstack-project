@@ -2,6 +2,7 @@
 
 ## Must have
 - frontend API url unification
+  - fix game landing and boxscore services
 - tilde imports for backend
 - backend envs
 - tests (e2e, backend unit tests)
