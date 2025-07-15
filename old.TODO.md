@@ -51,6 +51,6 @@
 - implement updating the favorite item if it existis in the database
   - fix FavoriteGame.tsx component favorite button props
   - modify favoritelist endpoint and frontend data handling so that it uses data served from mongodb
-  - store user favorites in mongo as well (use postgres for auth onlyŒ)
+  - store user favorites in mongo as well (use postgres for auth only)
 - smoothen up the experience a little bit
   - e.g. when theres no recent or upcoming games, forward to games browser
