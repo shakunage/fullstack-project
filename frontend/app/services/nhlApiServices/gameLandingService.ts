@@ -1,12 +1,10 @@
 import { type GenericFetchOptions, genericFetch } from '~/services/genericApiService';
 import type { GameLanding } from '~/entities';
 
-const API_URL = 'http://reverseproxy:9998/api/v1/gamecenter';
-
 export async function getLandingService(game_id: number | string | undefined): Promise<GameLanding> {
   const fetchOptions: GenericFetchOptions<GameLanding> = {
     method: 'GET',
-    endpoint: `gamecenter/${API_URL}/landing/${game_id}`,
+    endpoint: `${process.env.NHL_API_URL}/gamecenter/${game_id}/landing`,
     dataTransform: async (response) => response.json() as Promise<GameLanding>,
     defaultValue: {} as GameLanding,
   };

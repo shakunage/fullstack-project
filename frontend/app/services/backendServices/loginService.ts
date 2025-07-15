@@ -1,6 +1,6 @@
 import { type GenericFetchOptions, genericFetch } from '~/services/genericApiService';
 
-const API_URL = 'http://localhost:9998/backend/login';
+const API_URL = 'http://localhost:9998/backend';
 
 type LoginResponse = {
   message: string;
@@ -9,7 +9,7 @@ type LoginResponse = {
 export async function loginService(email: string, password: string): Promise<boolean> {
   const fetchOptions: GenericFetchOptions<boolean> = {
     method: 'POST',
-    endpoint: API_URL,
+    endpoint: `${API_URL}/login`,
     dataTransform: async (response) => {
       if (response.ok) {
         const data = (await response.json()) as LoginResponse;

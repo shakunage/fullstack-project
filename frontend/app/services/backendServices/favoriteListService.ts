@@ -1,8 +1,6 @@
 import { genericFetch, type GenericFetchOptions } from '~/services/genericApiService';
 import type { GameItem } from '~/entities';
 
-const API_URL = 'http://backend:8080/favoritegames';
-
 type FavoriteGamesServiceData = {
   favoriteGameList: GameItem[];
   currentPage: number;
@@ -13,7 +11,7 @@ type FavoriteGamesServiceData = {
 export async function FavoriteListService( headers: string | null, page: number, limit: number) {
   const fetchOptions: GenericFetchOptions<FavoriteGamesServiceData> = {
     method: 'GET',
-    endpoint: API_URL,
+    endpoint: `${process.env.SSR_BACKEND_URL}/favoritegames`,
     queryParameter: `page=${page}&limit=${limit}`,
     dataTransform: async (response) => (await response.json()) as FavoriteGamesServiceData,
     defaultValue: {

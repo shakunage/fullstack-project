@@ -1,5 +1,5 @@
 import { type GenericFetchOptions, genericFetch } from '~/services/genericApiService';
-const API_URL = 'http://localhost:9998/backend/signup';
+const API_URL = 'http://localhost:9998/backend';
 
 export async function signupServiceService(
   name: string,
@@ -8,7 +8,7 @@ export async function signupServiceService(
 ): Promise<string | false> {
   const GenericFetchOptions: GenericFetchOptions<string> = {
     method: 'POST',
-    endpoint: API_URL,
+    endpoint: `${API_URL}/signup`,
     dataTransform: async (response) => response.json() as Promise<string>,
     defaultValue: '',
     body: {
