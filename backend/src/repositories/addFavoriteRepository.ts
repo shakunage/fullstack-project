@@ -13,16 +13,12 @@ const Game: Model<GameDocument> =
   mongoose.model<GameDocument>('Games', gameSchema);
 
 export async function addFavoriteRepository(game: GameItem, user_id: User['id']): Promise<void> {
-  // Invalidate redis cache for the user's favorites
   const cacheKey = `${FAVORITES_CACHE_PREFIX}${user_id}`;
   try {
+    // Invalidate redis cache for the user's favorites
     await redisClient.del(cacheKey);
     console.log(`Cache invalidated for ${cacheKey}`);
-  } catch (error) {
-    console.error('Redis DEL error:', error);
-  }
 
-  try {
     const existingGame = await Game.findOne({ id: game.id }).exec();
 
     // If the game does not exist, create and save it.
@@ -32,6 +28,7 @@ export async function addFavoriteRepository(game: GameItem, user_id: User['id'])
       await gameToSave.save();
       console.log(`Game ID ${game.id} saved to MongoDB!`);
     } else {
+      // If the game exists, add the user to the 'favoritedBy' array.
       await Game.updateOne({ id: game.id }, { $addToSet: { favoritedBy: user_id } });
     }
   } catch (error: unknown) {
@@ -39,9 +36,8 @@ export async function addFavoriteRepository(game: GameItem, user_id: User['id'])
       for (const field in error.errors) {
         console.error(`Validation error for ${field}: ${error.errors[field].message}`);
       }
-    } else {
-      console.error(`Error saving Game ID ${game.id} to MongoDB:`, error);
-      throw new Error(`Failed to save favorite game ${game.id} to MongoDB.`);
     }
+    console.error('MongoDB error:', error);
+    throw new Error(`Failed to save favorite game ${game.id} to MongoDB.`);
   }
 }

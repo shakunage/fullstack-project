@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
-// eslint-disable-next-line
 dotenv.config()
 
 mongoose.set('strictQuery', false);
