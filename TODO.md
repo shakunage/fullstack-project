@@ -1,15 +1,9 @@
 # TODO
 
 ## Must have
-- frontend API url unification
-  - fix game landing and boxscore services
-- tilde imports for backend
-- backend envs
 - tests (e2e, backend unit tests)
 - deployment + testing pipeline
-- move backend endpoint addresses and secrets to ENV files
-- start impelementing testing & linting & formatting pipeline (gh actions)
-  - deployment in a single ec2 instance (t2.medium)
+- backend secrets in gh actions
 - setup favicon, page title, etc.
 - write up a readme on how to run the app
 - deployment on ec2
