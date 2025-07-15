@@ -13,7 +13,7 @@ export async function getStandingsService(date: string): Promise<StandingsItem[]
         'standings' in fullResponseData &&
         Array.isArray(fullResponseData.standings)
       ) {
-        return fullResponseData.standings;
+        return fullResponseData.standings as StandingsItem[];
       } else {
         console.error(
           "Standings data is not in the expected format (expected object with a 'standings' array property):",
