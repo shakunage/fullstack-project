@@ -76,6 +76,7 @@ services:
       - ./backend/src:/usr/src/fullstack-project/backend/src
       - ./backend/prisma:/usr/src/fullstack-project/backend/prisma
       - ./backend/package.json:/usr/src/fullstack-project/backend/package.json
+      - ./backend/eslint.config.mjs:/usr/src/fullstack-project/backend/eslint.config.mjs
     ports:
       # API Endpoints
       - 8080:8080
