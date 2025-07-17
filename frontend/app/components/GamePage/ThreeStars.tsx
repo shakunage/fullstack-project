@@ -13,14 +13,14 @@ type ThreeStar = {
   points?: number;
 };
 
-export function ThreeStars(landingData: GameStory) {
+export function ThreeStars({ storyData }: { storyData: GameStory }) {
   const [showThreeStars, setShowThreeStars] = useState(false);
 
   const handleToggleThreeStars = () => {
     setShowThreeStars(!showThreeStars);
   };
 
-  if (!landingData.summary?.threeStars || landingData.summary.threeStars.length === 0) {
+  if (!storyData.summary?.threeStars || storyData.summary.threeStars.length === 0) {
     return null; // Don't render anything if there are no three stars
   }
 
@@ -44,7 +44,7 @@ export function ThreeStars(landingData: GameStory) {
         <div className="mt-4">
           {/* Original content was here, now wrapped. The h3 title is part of the button now. */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {landingData.summary.threeStars
+            {storyData.summary.threeStars
               .sort((a, b) => a.star - b.star)
               .map((star: ThreeStar) => (
                 <div

@@ -32,20 +32,22 @@ export default function Game() {
           <div className="md:w-1/2 flex flex-col items-center mb-6 md:mb-0 pb-4 md:border-r md:pr-6 border-gray-200 dark:border-gray-700">
             <Team storyData={gameStoryData} home={false} />
             <Team storyData={gameStoryData} home={true} />
-            <GameStatus {...gameStoryData} />
+            <GameStatus storyData={gameStoryData} />
           </div>
           {/* Right Column: Game Information */}
-          <GameInformation {...gameStoryData} />
+          <GameInformation storyData={gameStoryData} />
         </div>
         {/* Divider */}
         <hr className="my-6 border-gray-200 dark:border-gray-700" />
         {/* Team Stats (SOG display and dropdown for detailed stats) - Placed below the two-column layout */}
         <TeamStats gameLandingData={gameStoryData} />
         {/* From here on, the components are stacked vertically */}
-        <ScoringSummary {...gameStoryData} />
-        <PenaltiesDropdown game_id={gameStoryData.id} />
+        <ScoringSummary storyData={gameStoryData} />
+        {gameStoryData.gameState !== 'FUT' && (
+          <PenaltiesDropdown game_id={gameStoryData.id} />
+        )}
         <PlayerStatistics storyData={gameStoryData} />
-        <ThreeStars {...gameStoryData} />
+        <ThreeStars storyData={gameStoryData} />
       </div>
     </main>
   );

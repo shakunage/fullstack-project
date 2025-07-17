@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { type GameStory } from '~/entities';
 
-export function ScoringSummary(gameLandingData: GameStory) {
+export function ScoringSummary({ storyData }: {storyData: GameStory}) {
   const [showScoringSummary, setShowScoringSummary] = useState(true); // Default open
 
   const handleToggleScoringSummary = () => {
     setShowScoringSummary(!showScoringSummary);
   };
 
-  if (!gameLandingData.summary?.scoring || gameLandingData.summary.scoring.length === 0) {
+  if (!storyData.summary?.scoring || storyData.summary.scoring.length === 0) {
     return null; // Don't render anything if there is no scoring data
   }
 
@@ -22,7 +22,7 @@ export function ScoringSummary(gameLandingData: GameStory) {
       </button>
       {showScoringSummary && (
         <div className="mt-4 p-4 bg-white dark:bg-gray-800 rounded-b-md">
-          {gameLandingData.summary.scoring.map((period) => (
+          {storyData.summary.scoring.map((period) => (
             <div key={period.periodDescriptor.number} className="mb-4">
               <h4 className="text-xl font-semibold mb-2">
                 Period {period.periodDescriptor.number}
@@ -37,9 +37,9 @@ export function ScoringSummary(gameLandingData: GameStory) {
                         <div className="flex items-center">
                           <img
                             src={
-                              goal.teamAbbrev.default === gameLandingData.homeTeam.abbrev
-                                ? gameLandingData.homeTeam.logo
-                                : gameLandingData.awayTeam.logo
+                              goal.teamAbbrev.default === storyData.homeTeam.abbrev
+                                ? storyData.homeTeam.logo
+                                : storyData.awayTeam.logo
                             }
                             alt={`${goal.teamAbbrev.default} logo`}
                             className="h-8 w-8 mr-3"

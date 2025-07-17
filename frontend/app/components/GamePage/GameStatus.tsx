@@ -1,25 +1,30 @@
 import type { GameStory } from '~/entities';
+import { useTimeUntilStart } from '~/hooks/useTimeUntilStart';
 
-export function GameStatus(data: GameStory) {
+export function GameStatus({ storyData }: { storyData: GameStory }) {
+  const { timeUntilStart } = useTimeUntilStart(storyData.startTimeUTC);
+
   return (
     <div className="text-center mt-3">
       <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400">
-        {data.gameState === 'OFF' && data.periodDescriptor.periodType === 'REG'
+        {storyData.gameState === 'FUT'
+          ? `Game starting in ${timeUntilStart}`
+          : storyData.gameState === 'OFF' && storyData.periodDescriptor.periodType === 'REG'
           ? 'Final'
-          : data.gameState === 'OFF' &&
-              data.periodDescriptor.periodType === 'OT' &&
-              !data.periodDescriptor.otPeriods
+          : storyData.gameState === 'OFF' &&
+              storyData.periodDescriptor.periodType === 'OT' &&
+              !storyData.periodDescriptor.otPeriods
             ? 'Final/OT'
-            : data.gameState === 'OFF' &&
-                data.periodDescriptor.periodType === 'OT' &&
-                data.periodDescriptor.otPeriods
-              ? `Final/${data.periodDescriptor.otPeriods}OT`
-              : data.gameState === 'OFF' && data.periodDescriptor.periodType === 'SO'
+            : storyData.gameState === 'OFF' &&
+                storyData.periodDescriptor.periodType === 'OT' &&
+                storyData.periodDescriptor.otPeriods
+              ? `Final/${storyData.periodDescriptor.otPeriods}OT`
+              : storyData.gameState === 'OFF' && storyData.periodDescriptor.periodType === 'SO'
                 ? 'Shootout'
-                : data.gameState === 'LIVE'
+                : storyData.gameState === 'LIVE'
                   ? 'Live'
-                  : data.gameScheduleState || 'Scheduled'}
-        {data.clock && data.clock.inIntermission && !data.clock.running && ' (Intermission)'}
+                  : storyData.gameScheduleState || 'Scheduled'}
+        {storyData.clock && storyData.clock.inIntermission && !storyData.clock.running && ' (Intermission)'}
       </p>
     </div>
   );
