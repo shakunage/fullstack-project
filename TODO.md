@@ -1,9 +1,12 @@
 # TODO
 
 ## Must have
+- improve handling of of future games in the /game/game_id route
 - tests (e2e, integration tests)
+- exclude test files from linting (or make them pass the linter)
 - deployment + testing pipeline
 - fix docker compose file node_modules exclusion
+- consider injecting env variables thru the docker compose or dockerfile
 - make prod versions of docker compose and docker files
 - backend secrets in gh actions
 - setup favicon, page title, etc.
