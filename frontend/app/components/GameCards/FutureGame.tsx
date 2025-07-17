@@ -7,10 +7,6 @@ import type { Boxscore } from '~/entities/Boxscore';
 export function FutureGame({ game }: { game: GameItem | Boxscore }) {
   const { timeUntilStart } = useTimeUntilStart(game.startTimeUTC);
 
-  if (timeUntilStart == undefined) {
-    return <div className="text-red-500">Game data is not available.</div>;
-  }
-
   return (
     <div className="shadow-md rounded-lg p-4">
       <h2 className="text-xl font-bold mb-2">

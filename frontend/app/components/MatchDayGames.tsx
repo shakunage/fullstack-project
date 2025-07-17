@@ -3,6 +3,7 @@ import type { GameItem } from '~/entities';
 import { EndedGame } from './GameCards/EndedGame';
 import { FutureGame } from './GameCards/FutureGame';
 import { LiveGame } from './GameCards/LiveGame';
+import Spinner  from '~/components/icons/Spinner';
 
 export function MatchDayGames({ games }: { games: GameItem[] }) {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ export function MatchDayGames({ games }: { games: GameItem[] }) {
   };
 
   if (!games) {
-    return <div>Loading...</div>;
+    return <><Spinner/></>;
   }
 
   return (
