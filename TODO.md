@@ -1,7 +1,7 @@
 # TODO
 
 ## Must have
-- tests (e2e, backend unit tests)
+- tests (e2e, integration tests)
 - deployment + testing pipeline
 - fix docker compose file node_modules exclusion
 - make prod versions of docker compose and docker files
