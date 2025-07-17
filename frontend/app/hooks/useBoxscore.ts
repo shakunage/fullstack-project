@@ -10,7 +10,7 @@ export function useBoxscore(id: GameStory['id']) {
     error: boxscoreError,
   } = useQuery<Boxscore, Error>({
     queryKey: ['boxscoreData', id],
-    queryFn: () => fetchBoxscoreService(id!),
+    queryFn: () => fetchBoxscoreService(id),
     enabled: false,
     staleTime: 60 * 1000,
   });

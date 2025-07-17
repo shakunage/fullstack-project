@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { resolveNameType } from './resolveNameType';
+import { resolveNameType, type NameTypeToResolve } from './resolveNameType';
 
 describe('resolveNameType', () => {
   it('should return item.name if it is a string', () => {
@@ -45,7 +45,7 @@ describe('resolveNameType', () => {
   });
 
   it('should return an empty string for complex but invalid objects', () => {
-    const item = { name: { notDefault: 'Invalid' } } as any;
-    expect(resolveNameType(item)).toBe('');
+    const item = { name: { notDefault: 'Invalid' } };
+    expect(resolveNameType(item as unknown as NameTypeToResolve)).toBe('');
   });
 });

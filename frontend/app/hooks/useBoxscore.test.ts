@@ -44,14 +44,14 @@ describe('useBoxscore', () => {
     vi.mocked(boxscoreService.fetchBoxscoreService).mockResolvedValue(mockBoxscore);
     const { result } = renderHook(() => useBoxscore(1), { wrapper });
 
-    result.current.refetchBoxscore();
+    await result.current.refetchBoxscore();
 
     await waitFor(() => expect(result.current.isFetchingBoxscore).toBe(false));
     expect(result.current.fetchedBoxscore).toEqual(mockBoxscore);
   });
 
   it('should throw an error if id is not provided', async () => {
-    const { result } = renderHook(() => useBoxscore(null as any), { wrapper });
+    const { result } = renderHook(() => useBoxscore(null as unknown as number), { wrapper });
 
     await expect(result.current.refetchBoxscore()).rejects.toThrow(
       'Game date or ID is missing for fetching boxscore.',

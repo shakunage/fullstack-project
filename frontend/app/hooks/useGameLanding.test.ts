@@ -48,14 +48,14 @@ describe('useGameLanding', () => {
     vi.mocked(landingService.fetchLandingService).mockResolvedValue(mockLanding);
     const { result } = renderHook(() => useGameLanding(1), { wrapper });
 
-    result.current.refetchLanding();
+    await result.current.refetchLanding();
 
     await waitFor(() => expect(result.current.isFetchingLanding).toBe(false));
     expect(result.current.fetchedLandingData).toEqual(mockLanding);
   });
 
   it('should throw an error if id is not provided', async () => {
-    const { result } = renderHook(() => useGameLanding(null as any), { wrapper });
+    const { result } = renderHook(() => useGameLanding(null as unknown as number), { wrapper });
 
     await expect(result.current.refetchLanding()).rejects.toThrow(
       'Game date or ID is missing for fetching boxscore.',

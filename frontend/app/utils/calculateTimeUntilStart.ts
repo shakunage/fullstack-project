@@ -1,5 +1,4 @@
-export const calculateTimeUntilStart = (gameStartTime: string) => {
-  const now = new Date();
+export const calculateTimeUntilStart = (gameStartTime: string, now: Date = new Date()) => {
   const startTime = new Date(gameStartTime);
   const diff = startTime.getTime() - now.getTime();
 

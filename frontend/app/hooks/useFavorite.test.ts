@@ -51,7 +51,7 @@ describe('useFavorite', () => {
 
   it('should add a favorite', async () => {
     const invalidateQueriesSpy = vi.spyOn(queryClient, 'invalidateQueries');
-    vi.mocked(favoriteService.addFavoriteService).mockResolvedValue({} as any);
+    vi.mocked(favoriteService.addFavoriteService).mockResolvedValue(true);
     const { result } = renderHook(() => useFavorite(mockGame, 'testuser'), { wrapper });
 
     result.current.favoriteMutation.mutate();
@@ -64,7 +64,7 @@ describe('useFavorite', () => {
 
   it('should remove a favorite', async () => {
     const invalidateQueriesSpy = vi.spyOn(queryClient, 'invalidateQueries');
-    vi.mocked(favoriteService.removeFavoriteService).mockResolvedValue({} as any);
+    vi.mocked(favoriteService.removeFavoriteService).mockResolvedValue(true);
     const { result } = renderHook(() => useFavorite(mockGame, 'testuser'), { wrapper });
 
     result.current.unfavoriteMutation.mutate();

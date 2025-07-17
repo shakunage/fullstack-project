@@ -79,7 +79,7 @@ describe('useGameDetails', () => {
 
     const { result } = renderHook(() => useGameDetails(1), { wrapper });
 
-    result.current.refetch();
+    await result.current.refetch();
 
     await waitFor(() => expect(result.current.isFetching).toBe(false));
     expect(result.current.data).toEqual({ boxscore: mockBoxscore, landing: mockLanding });

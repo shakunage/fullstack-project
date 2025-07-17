@@ -9,11 +9,12 @@ import { Team } from '~/components/GamePage/Team';
 import { GameStatus } from '~/components/GamePage/GameStatus';
 import { TeamStats } from '~/components/GamePage/TeamStats';
 import { gameStoryLoader } from '~/loaders/gameStoryLoader';
+import type { GameStory } from '~/entities';
 
 export const loader = gameStoryLoader;
 
 export default function Game() {
-  const gameStoryData = useLoaderData<typeof loader>();
+  const gameStoryData: GameStory = useLoaderData<typeof loader>();
 
   if (!gameStoryData) {
     return (

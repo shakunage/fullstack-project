@@ -10,7 +10,7 @@ export function useGameLanding(game_id: GameItem['id']) {
     error: landingError,
   } = useQuery<GameLanding, Error>({
     queryKey: ['landingData', game_id],
-    queryFn: () => fetchLandingService(game_id!),
+    queryFn: () => fetchLandingService(game_id),
     enabled: false,
     staleTime: 60 * 1000,
   });

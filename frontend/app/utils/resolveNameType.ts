@@ -1,5 +1,5 @@
 // This type represents the possible structures for Team or Player name property
-type NameTypeToResolve = {
+export type NameTypeToResolve = {
   name?: string | { default: string };
   commonName?: string | { default: string };
 }

@@ -10,6 +10,7 @@ import isValidDate from '~/utils/isValidDate';
 import DatePickerComponent from '~/components/DatePicker';
 import { GameDaySkipButtons } from '~/components/GameCards/GameDaySkipButtons';
 import Spinner from '~/components/icons/Spinner';
+import type { MatchDay } from '~/entities';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -17,7 +18,7 @@ dayjs.extend(timezone);
 export const loader = matchDayLoader;
 
 export default function GameByDate({ params }: LoaderFunctionArgs) {
-  const data = useLoaderData<typeof loader>();
+  const data: MatchDay = useLoaderData();
   const navigate = useNavigate();
   const navigation = useNavigation();
   const isLoadingData = navigation.state === 'loading';
