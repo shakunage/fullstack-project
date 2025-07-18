@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <main className="flex pt-16 pb-4">
       <div className="flex-1 flex flex-col items-center gap-4 min-h-0">
-        Recent matches:
+        <h1>Recent matches:</h1>
         <p></p>
         <MatchDayGames games={data.games} />
       </div>

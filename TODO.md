@@ -4,6 +4,7 @@
 - tests (e2e, integration tests)
 - deployment + testing pipeline
 - fix vulns front and backend
+- make a memo somewhere: docker exec playwright npx playwright test
 - fix docker compose file node_modules exclusion
 - consider injecting env variables thru the docker compose or dockerfile
 - make prod versions of docker compose and docker files

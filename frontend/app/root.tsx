@@ -1,9 +1,13 @@
-import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration } from 'react-router';
+import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration, type MetaFunction } from 'react-router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { Route } from './+types/root';
 import './app.css';
 import { TopBar } from './components/TopBar';
 import { Footer } from './components/Footer';
+
+export const meta: MetaFunction = () => {
+  return [{ title: 'NHL Games' }];
+};
 
 export const links: Route.LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },

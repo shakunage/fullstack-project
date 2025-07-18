@@ -98,6 +98,18 @@ services:
       timeout: 5s
       retries: 5
       start_period: 10s
+  playwright:
+    image: mcr.microsoft.com/playwright:v1.54.1-noble
+    container_name: playwright
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    command: ["sh", "-c", "rm -rf node_modules package-lock.json && npm i && tail -f /dev/null"]
+    networks:
+      - fs-network
+    depends_on:
+      - rrv7front
+      - backend
   reverseproxy:
     image: nginx:1.20.1
     volumes:
