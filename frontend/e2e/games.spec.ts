@@ -35,15 +35,20 @@ test.describe('Games Page', () => {
   });
 
   test('should display favorite games page', async ({ page }) => {
-    await page.goto('/games/favoritegames');
+    await page.goto('/favoritegames');
     
     await expect(page).toHaveTitle(/NHL Games/);
     
-    // Check for favorite games content
+    // Wait for network to be idle
+    await page.waitForLoadState('networkidle');
+    
+    // Check for favorite games content or "no games" message
     const favoritesContainer = page.locator('[data-testid="favorites-container"]').or(
       page.locator('main')
     );
-    await expect(favoritesContainer).toBeVisible();
+    const noGamesMessage = page.locator('text=No favorite games found.');
+
+    await expect(favoritesContainer.or(noGamesMessage)).toBeVisible();
   });
 
   test('should handle individual game page navigation', async ({ page }) => {

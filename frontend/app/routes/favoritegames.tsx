@@ -25,7 +25,7 @@ export default function FavoriteGames() {
   }
 
   return (
-    <div className="mx-auto">
+    <main className="mx-auto">
       <h1 className="text-2xl font-bold my-6 text-center">My Favorite Games</h1>
       <PaginationControls totalPages={totalPages} currentPage={currentPage} />
       {isLoadingData && <Spinner />}
@@ -44,6 +44,6 @@ export default function FavoriteGames() {
       <p className="text-center my-4 text-sm text-gray-600">
         Showing page {currentPage} of {totalPages} ({totalGames} total games)
       </p>
-    </div>
+    </main>
   );
 }

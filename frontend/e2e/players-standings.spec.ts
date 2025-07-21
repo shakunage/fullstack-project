@@ -10,15 +10,16 @@ test.describe('Players and Standings', () => {
     // Check main content is visible
     await expect(page.locator('main')).toBeVisible();
     
-    // Test navigation to skaters if link exists
-    const skatersLink = page.locator('a[href="/players/skaters"]').or(
-      page.locator('text=Skaters')
-    );
+    // Hover over the "Players" link to reveal the dropdown
+    await page.locator('a:has-text("Players")').click();
     
-    if (await skatersLink.isVisible()) {
-      await skatersLink.click();
-      await expect(page).toHaveURL('/players/skaters');
-    }
+    // Wait for the "Skaters" link to be visible and then click it
+    const skatersLink = page.locator('a:has-text("Skaters")');
+    await skatersLink.waitFor({ state: 'visible' });
+    await skatersLink.click();
+    
+    // Verify the URL
+    await expect(page).toHaveURL('/players/skaters/');
   });
 
   test('should navigate to goalies page', async ({ page }) => {
