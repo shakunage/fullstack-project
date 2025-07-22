@@ -1,14 +1,23 @@
-export const calculateTimeUntilStart = (gameStartTime: string, now: Date = new Date()) => {
-  const startTime = new Date(gameStartTime);
-  const diff = startTime.getTime() - now.getTime();
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.tz.setDefault('America/New_York');
+
+export const calculateTimeUntilStart = (gameStartTime: string) => {
+  const now = dayjs().tz();
+  const start = dayjs(gameStartTime).tz();
+  const diff = start.diff(now);
 
   if (diff <= 0) {
-    return `Game will begin momentarily – scheduled to start at ${gameStartTime}`;
+    return 'Game will begin momentarily';
   }
 
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  const days = start.diff(now, 'day');
+  const hours = start.diff(now, 'hour') % 24;
+  const minutes = start.diff(now, 'minute') % 60;
 
   if (days > 1) {
     return `${days} days ${hours} hours`;
@@ -18,7 +27,9 @@ export const calculateTimeUntilStart = (gameStartTime: string, now: Date = new D
     return `1 day ${hours} hours`;
   }
 
-  if (days < 1) {
+  if (hours > 0) {
     return `${hours} hours ${minutes} minutes`;
   }
+
+  return `${minutes} minutes`;
 };
