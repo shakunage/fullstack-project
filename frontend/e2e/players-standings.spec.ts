@@ -19,7 +19,7 @@ test.describe('Players and Standings', () => {
     await skatersLink.click();
     
     // Verify the URL
-    await expect(page).toHaveURL('/players/skaters/');
+    await expect(page).toHaveURL('/players/skaters');
   });
 
   test('should navigate to goalies page', async ({ page }) => {

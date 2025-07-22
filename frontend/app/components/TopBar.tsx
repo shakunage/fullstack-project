@@ -44,11 +44,11 @@ const topBarElements: { [key: string]: TopBarElement } = {
       tabs: [
         {
           title: 'Skaters',
-          href: '/players/skaters/',
+          href: '/players/skaters',
         },
         {
           title: 'Goalies',
-          href: '/players/goalies/',
+          href: '/players/goalies',
         },
       ],
     },
@@ -58,27 +58,27 @@ const topBarElements: { [key: string]: TopBarElement } = {
 export function TopBar() {
   const { username } = useAuth();
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [clickedDropdown, setClickedDropdown] = useState<string | null>(null);
   const topBarRef = useRef<HTMLDivElement>(null);
 
   const handleDropdownToggle = (key: string) => {
-    setOpenDropdown((prev) => (prev === key ? null : key));
+    setClickedDropdown((prev) => (prev === key ? null : key));
+    setOpenDropdown(key);
   };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (topBarRef.current && !topBarRef.current.contains(event.target as Node)) {
         setOpenDropdown(null);
+        setClickedDropdown(null);
       }
     };
 
-    if (openDropdown) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [openDropdown]);
+  }, []);
 
   return (
     <div className="flex flex-row justify-between bg-gray-100 p-3" ref={topBarRef}>
@@ -96,10 +96,24 @@ export function TopBar() {
             }
           };
 
+          const handleMouseEnter = () => {
+            if (hasDropdown && (!needsLogin || username)) {
+              setOpenDropdown(key);
+            }
+          };
+
+          const handleMouseLeave = () => {
+            if (clickedDropdown !== key) {
+              setOpenDropdown(null);
+            }
+          };
+
           return (
             <li
               key={key}
               className="group relative flex items-center gap-3 self-stretch p-3 leading-normal text-gray-700 hover:underline dark:text-blue-500"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
             >
               <Link to={element.href} onClick={handleItemClick}>
                 {element.title}

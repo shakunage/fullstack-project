@@ -80,7 +80,7 @@ export default function Signup() {
                 return (
                   <>
                     <label htmlFor={field.name} className="block text-sm font-medium text-gray-700">
-                      E-mail:
+                      E-mail
                     </label>
                     <input
                       id={field.name}
@@ -118,7 +118,7 @@ export default function Signup() {
                 return (
                   <>
                     <label htmlFor={field.name} className="block text-sm font-medium text-gray-700">
-                      Password:
+                      Password
                     </label>
                     <input
                       id={field.name}

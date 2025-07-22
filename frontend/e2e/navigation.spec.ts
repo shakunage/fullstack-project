@@ -14,10 +14,23 @@ test.describe('Navigation', () => {
     await expect(page).toHaveURL('/standings');
     await page.goBack();
     
-    // Test navigation to Players
+    // Test navigation to Skaters
     await page.click('text=Players');
-    await expect(page).toHaveURL('/players');
+    await page.click('text=Skaters');
+    await expect(page).toHaveURL('/players/skaters');
     await page.goBack();
+
+    // Test navigation to Goalies
+    await page.click('text=Players');
+    await page.click('text=Goalies');
+    await expect(page).toHaveURL('/players/goalies');
+    await page.goBack();
+    
+    // Test navigation to Standings
+    await page.click('text=Standings');
+    await expect(page).toHaveURL('/standings');
+    await page.goBack();
+    
   });
 
   test('should have working footer navigation', async ({ page }) => {
@@ -47,7 +60,8 @@ test.describe('Navigation', () => {
     await expect(page).toHaveURL('/games');
     
     await page.click('text=Players');
-    await expect(page).toHaveURL('/players');
+    await page.click('text=Skaters');
+    await expect(page).toHaveURL('/players/skaters');
     
     // Test browser back button
     await page.goBack();

@@ -1,39 +1,41 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeAll, afterAll, vi } from 'vitest';
 import { calculateTimeUntilStart } from './calculateTimeUntilStart';
+import dayjs from 'dayjs';
 
 describe('calculateTimeUntilStart', () => {
-  const now = new Date('2025-07-17T10:00:00.000Z');
+  beforeAll(() => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date('2025-07-17T10:00:00.000Z'));
+  });
 
-  it('should return the remaining time when the game is in the future', () => {
-    const futureDate = new Date(now);
-    futureDate.setDate(futureDate.getDate() + 2);
-    futureDate.setHours(futureDate.getHours() + 3);
-    const gameStartTime = futureDate.toISOString();
-    expect(calculateTimeUntilStart(gameStartTime, now)).toBe('2 days 3 hours');
+  afterAll(() => {
+    vi.useRealTimers();
+  });
+
+  it('should return days and hours when the game is more than a day away', () => {
+    const gameStartTime = dayjs().add(2, 'day').add(3, 'hour').toISOString();
+    expect(calculateTimeUntilStart(gameStartTime)).toBe('2 days 3 hours');
   });
 
   it('should return "1 day" and hours when the game is one day away', () => {
-    const futureDate = new Date(now);
-    futureDate.setDate(futureDate.getDate() + 1);
-    futureDate.setHours(futureDate.getHours() + 5);
-    const gameStartTime = futureDate.toISOString();
-    expect(calculateTimeUntilStart(gameStartTime, now)).toBe('1 day 5 hours');
+    const gameStartTime = dayjs().add(1, 'day').add(5, 'hour').toISOString();
+    expect(calculateTimeUntilStart(gameStartTime)).toBe('1 day 5 hours');
   });
 
   it('should return hours and minutes when the game is less than a day away', () => {
-    const futureDate = new Date(now);
-    futureDate.setHours(futureDate.getHours() + 4);
-    futureDate.setMinutes(futureDate.getMinutes() + 30);
-    const gameStartTime = futureDate.toISOString();
-    expect(calculateTimeUntilStart(gameStartTime, now)).toBe('4 hours 30 minutes');
+    const gameStartTime = dayjs().add(18, 'hour').add(30, 'minute').toISOString();
+    expect(calculateTimeUntilStart(gameStartTime)).toBe('18 hours 30 minutes');
+  });
+
+  it('should return only minutes when the game is less than an hour away', () => {
+    const gameStartTime = dayjs().add(45, 'minute').toISOString();
+    expect(calculateTimeUntilStart(gameStartTime)).toBe('45 minutes');
   });
 
   it('should return a message when the game has already started', () => {
-    const pastDate = new Date(now);
-    pastDate.setHours(pastDate.getHours() - 1);
-    const gameStartTime = pastDate.toISOString();
-    expect(calculateTimeUntilStart(gameStartTime, now)).toBe(
-      `Game will begin momentarily – scheduled to start at ${gameStartTime}`,
+    const gameStartTime = dayjs().subtract(1, 'hour').toISOString();
+    expect(calculateTimeUntilStart(gameStartTime)).toBe(
+      'Game will begin momentarily',
     );
   });
 });

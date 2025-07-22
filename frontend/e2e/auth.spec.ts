@@ -14,7 +14,7 @@ test.describe('Authentication', () => {
     await expect(page.locator('button[type="submit"]')).toBeVisible();
     
     // Check for proper labels/placeholders
-    await expect(page.locator('label')).toContainText(['Email', 'Password']);
+    await expect(page.locator('label')).toContainText(['E-mail', 'Password']);
   });
 
   test('should display signup form with proper fields', async ({ page }) => {
@@ -37,8 +37,11 @@ test.describe('Authentication', () => {
     // Try to submit empty form
     await page.click('button[type="submit"]');
     
-    // Check for validation messages (adjust selectors based on your implementation)
-    await expect(page.locator('text=required')).toBeVisible();
+    // Wait for the validation message to appear
+    await page.waitForSelector('div:has-text("required")');
+    
+    // Check for validation messages
+    await expect(page.locator('div:has-text("required")').first()).toBeVisible();
   });
 
   test('should show validation errors for empty signup form', async ({ page }) => {
@@ -47,8 +50,11 @@ test.describe('Authentication', () => {
     // Try to submit empty form
     await page.click('button[type="submit"]');
     
+    // Wait for the validation message to appear
+    await page.waitForSelector('div:has-text("required")');
+    
     // Check for validation messages
-    await expect(page.locator('text=required')).toBeVisible();
+    await expect(page.locator('div:has-text("required")').first()).toBeVisible();
   });
 
   test('should navigate between login and signup pages', async ({ page }) => {
