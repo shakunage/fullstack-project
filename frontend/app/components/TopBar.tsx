@@ -1,4 +1,5 @@
 import { Link } from 'react-router';
+import { useState, useEffect, useRef } from 'react';
 import { AuthButtons } from './AuthButtons';
 import { useAuth } from '~/hooks/useAuth';
 
@@ -56,28 +57,62 @@ const topBarElements: { [key: string]: TopBarElement } = {
 
 export function TopBar() {
   const { username } = useAuth();
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const topBarRef = useRef<HTMLDivElement>(null);
+
+  const handleDropdownToggle = (key: string) => {
+    setOpenDropdown((prev) => (prev === key ? null : key));
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (topBarRef.current && !topBarRef.current.contains(event.target as Node)) {
+        setOpenDropdown(null);
+      }
+    };
+
+    if (openDropdown) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [openDropdown]);
 
   return (
-    <div className="flex flex-row justify-between bg-gray-100 p-3">
+    <div className="flex flex-row justify-between bg-gray-100 p-3" ref={topBarRef}>
       <ul className="flex flex-row bg-gray-100 p-3">
         {Object.keys(topBarElements).map((key) => {
           const element = topBarElements[key];
           const hasDropdown = element.dropdown;
           const needsLogin = element.dropdown?.loginRequired;
+          const isDropdownOpen = openDropdown === key;
+
+          const handleItemClick = (e: React.MouseEvent) => {
+            if (hasDropdown && (!needsLogin || username)) {
+              e.preventDefault();
+              handleDropdownToggle(key);
+            }
+          };
 
           return (
             <li
               key={key}
               className="group relative flex items-center gap-3 self-stretch p-3 leading-normal text-gray-700 hover:underline dark:text-blue-500"
             >
-              <Link to={element.href}>
+              <Link to={element.href} onClick={handleItemClick}>
                 {element.title}
                 {/* Only show arrow if there's a dropdown and user is logged in */}
                 {hasDropdown && (!needsLogin || username) && <span className="ml-1">∨</span>}
               </Link>
 
               {hasDropdown && (!needsLogin || username) && (
-                <div className="absolute top-full left-0 hidden w-48 bg-white shadow-md group-hover:block">
+                <div
+                  className={`absolute top-full left-0 w-48 bg-white shadow-md ${
+                    isDropdownOpen ? 'block' : 'hidden'
+                  }`}
+                >
                   <ul className="list-none p-0 m-0">
                     {' '}
                     {/* Ensure ul has no default padding/margin */}
@@ -85,7 +120,11 @@ export function TopBar() {
                       <li key={index}>
                         {' '}
                         {/* Remove classes from li */}
-                        <Link to={item.href} className="block p-2 hover:bg-gray-100">
+                        <Link
+                          to={item.href}
+                          className="block p-2 hover:bg-gray-100"
+                          onClick={() => setOpenDropdown(null)}
+                        >
                           {' '}
                           {/* Add classes to Link */}
                           {item.title}
