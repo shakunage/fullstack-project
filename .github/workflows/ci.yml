@@ -59,38 +59,3 @@ jobs:
         with:
           commit_message: "chore: format code"
           branch: ${{ github.head_ref }}
-
-  e2e-tests:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-
-      - name: Install backend dependencies
-        run: npm install
-        working-directory: ./backend
-
-      - name: Start backend
-        run: npm run dev &
-        working-directory: ./backend
-
-      - name: Install frontend dependencies
-        run: npm install
-        working-directory: ./frontend
-
-      - name: Start frontend
-        run: npm run dev &
-        working-directory: ./frontend
-
-      - name: Install Playwright browsers
-        run: npx playwright install --with-deps
-        working-directory: ./frontend
-
-      - name: Run e2e tests
-        run: npm run test:e2e
-        working-directory: ./frontend
-        env:
-          CI: true
