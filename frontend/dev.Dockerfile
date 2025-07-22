@@ -4,9 +4,9 @@ WORKDIR /usr/src/fullstack-project/frontend
 
 COPY . .
 
-RUN rm -rf node_modules && rm -f package-lock.json
+RUN rm -rf node_modules
 
-RUN npm install
+RUN npm ci
 
 EXPOSE 5173
 
