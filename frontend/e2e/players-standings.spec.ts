@@ -11,7 +11,7 @@ test.describe('Players and Standings', () => {
     await expect(page.locator('main')).toBeVisible();
     
     // Hover over the "Players" link to reveal the dropdown
-    await page.locator('a:has-text("Players")').click();
+    await page.locator('a:has-text("Players")').hover();
     
     // Wait for the "Skaters" link to be visible and then click it
     const skatersLink = page.locator('a:has-text("Skaters")');
