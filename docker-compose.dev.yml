@@ -3,7 +3,7 @@ services:
     image: fullstack-project-dev
     volumes:
       - ./frontend:/usr/src/fullstack-project/frontend
-      - node_modules_frontend:/usr/src/fullstack-project/frontend/node_modules
+      - /usr/src/fullstack-project/frontend/node_modules
     build:
       context: ./frontend
       dockerfile: dev.Dockerfile
@@ -73,7 +73,7 @@ services:
       dockerfile: dev.Dockerfile
     volumes:
       - ./backend:/usr/src/fullstack-project/backend
-      - node_modules_backend:/usr/src/fullstack-project/backend/node_modules
+      - /usr/src/fullstack-project/backend/node_modules
     ports:
       # API Endpoints
       - 8080:8080
@@ -127,5 +127,3 @@ networks:
 volumes:
   mongo_data:
     external: false
-  node_modules_frontend: {}
-  node_modules_backend: {}
