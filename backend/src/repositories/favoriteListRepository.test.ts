@@ -24,7 +24,7 @@ const mockGames: (GameItem & { favoritedBy: string[] })[] = [
   { id: 2, favoritedBy: ['user-123'] } as any,
   { id: 3, favoritedBy: ['user-123'] } as any,
 ];
-const mockGamesWithoutFavoritedBy = mockGames.map(g => {
+const mockGamesWithoutFavoritedBy = mockGames.map((g) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { favoritedBy, ...rest } = g;
   return rest;
@@ -59,7 +59,11 @@ describe('favoriteListRepository', () => {
 
     expect(redisClient.get).toHaveBeenCalledWith(cacheKey);
     expect(GameModel.find).toHaveBeenCalledWith({ favoritedBy: userId });
-    expect(redisClient.setex).toHaveBeenCalledWith(cacheKey, 3600, JSON.stringify(mockGamesWithoutFavoritedBy));
+    expect(redisClient.setex).toHaveBeenCalledWith(
+      cacheKey,
+      3600,
+      JSON.stringify(mockGamesWithoutFavoritedBy)
+    );
     expect(result).toEqual(mockGamesWithoutFavoritedBy);
   });
 
@@ -95,7 +99,9 @@ describe('favoriteListRepository', () => {
     const sort = vi.fn().mockReturnValue({ lean });
     vi.mocked(GameModel.find).mockReturnValue({ sort } as any);
 
-    await expect(favoriteListRepository(userId, 0, 10)).rejects.toThrow('Failed to check favorite status');
+    await expect(favoriteListRepository(userId, 0, 10)).rejects.toThrow(
+      'Failed to check favorite status'
+    );
   });
 
   it('should correctly paginate the results', async () => {

@@ -99,10 +99,7 @@ describe('Favorite Controller', () => {
     });
 
     it('should return 400 if game ID is missing', async () => {
-      const response = await request(app)
-        .post('/')
-        .set('Cookie', 'token=validtoken')
-        .send(mockGame);
+      const response = await request(app).post('/').set('Cookie', 'token=validtoken').send(mockGame);
       expect(response.status).toBe(400);
     });
   });
@@ -110,17 +107,13 @@ describe('Favorite Controller', () => {
   describe('DELETE /', () => {
     it('should remove a game from favorites', async () => {
       vi.mocked(removeFavoriteRepository).mockResolvedValue();
-      const response = await request(app)
-        .delete('/?id=123')
-        .set('Cookie', 'token=validtoken');
+      const response = await request(app).delete('/?id=123').set('Cookie', 'token=validtoken');
       expect(response.status).toBe(200);
       expect(response.body.message).toBe('Game removed from favorites');
     });
 
     it('should return 400 if game ID is missing', async () => {
-      const response = await request(app)
-        .delete('/')
-        .set('Cookie', 'token=validtoken');
+      const response = await request(app).delete('/').set('Cookie', 'token=validtoken');
       expect(response.status).toBe(400);
     });
   });
@@ -128,17 +121,13 @@ describe('Favorite Controller', () => {
   describe('GET /', () => {
     it('should check if a game is favorited', async () => {
       vi.mocked(checkFavoriteRepository).mockResolvedValue(true);
-      const response = await request(app)
-        .get('/?id=123')
-        .set('Cookie', 'token=validtoken');
+      const response = await request(app).get('/?id=123').set('Cookie', 'token=validtoken');
       expect(response.status).toBe(200);
       expect(response.body.favorited).toBe(true);
     });
 
     it('should return 400 if game ID is missing', async () => {
-      const response = await request(app)
-        .get('/')
-        .set('Cookie', 'token=validtoken');
+      const response = await request(app).get('/').set('Cookie', 'token=validtoken');
       expect(response.status).toBe(400);
     });
   });

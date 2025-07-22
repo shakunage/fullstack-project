@@ -115,7 +115,7 @@ describe('addFavoriteRepository', () => {
     expect(Game.findOne).toHaveBeenCalledWith({ id: mockGame.id });
     expect(Game.updateOne).toHaveBeenCalledWith(
       { id: mockGame.id },
-      { $addToSet: { favoritedBy: userId } },
+      { $addToSet: { favoritedBy: userId } }
     );
   });
 
@@ -125,7 +125,7 @@ describe('addFavoriteRepository', () => {
     vi.mocked(redisClient.del).mockRejectedValue(new Error('Redis error'));
 
     await expect(addFavoriteRepository(mockGame, userId)).rejects.toThrow(
-      `Failed to save favorite game ${mockGame.id} to MongoDB.`,
+      `Failed to save favorite game ${mockGame.id} to MongoDB.`
     );
 
     expect(Game.findOne).not.toHaveBeenCalled();
@@ -140,7 +140,7 @@ describe('addFavoriteRepository', () => {
     saveMock.mockRejectedValue(mongoError);
 
     await expect(addFavoriteRepository(mockGame, userId)).rejects.toThrow(
-      `Failed to save favorite game ${mockGame.id} to MongoDB.`,
+      `Failed to save favorite game ${mockGame.id} to MongoDB.`
     );
   });
 });

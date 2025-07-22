@@ -92,9 +92,7 @@ describe('Favorite List Controller', () => {
     vi.mocked(favoriteListRepository).mockResolvedValue(mockGames);
     vi.mocked(countFavoriteGamesRepository).mockResolvedValue(totalGames);
 
-    const response = await request(app)
-      .get('/?page=1&limit=10')
-      .set('Cookie', 'token=validtoken');
+    const response = await request(app).get('/?page=1&limit=10').set('Cookie', 'token=validtoken');
 
     expect(response.status).toBe(200);
     expect(response.body.favoriteGameList).toEqual(mockGames);

@@ -28,7 +28,7 @@ export async function createUserRepository(userData: UserSignupData): Promise<Us
     });
 
     // Return user without the password - we are intentionally not returning the password for security reasons,
-    // so disabling the linter rule is fine here 
+    // so disabling the linter rule is fine here
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, ...userWithoutPassword } = newUser;
     return userWithoutPassword as UserSigninResponse;

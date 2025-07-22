@@ -32,10 +32,7 @@ describe('removeFavoriteRepository', () => {
     await removeFavoriteRepository(gameId, userId);
 
     expect(redisClient.del).toHaveBeenCalledWith(cacheKey);
-    expect(GameModel.updateOne).toHaveBeenCalledWith(
-      { id: gameId },
-      { $pull: { favoritedBy: userId } },
-    );
+    expect(GameModel.updateOne).toHaveBeenCalledWith({ id: gameId }, { $pull: { favoritedBy: userId } });
   });
 
   it('should handle Redis DEL error and still attempt to update DB', async () => {
@@ -44,10 +41,7 @@ describe('removeFavoriteRepository', () => {
 
     await removeFavoriteRepository(gameId, userId);
 
-    expect(GameModel.updateOne).toHaveBeenCalledWith(
-      { id: gameId },
-      { $pull: { favoritedBy: userId } },
-    );
+    expect(GameModel.updateOne).toHaveBeenCalledWith({ id: gameId }, { $pull: { favoritedBy: userId } });
   });
 
   it('should throw an error if DB update fails', async () => {

@@ -1,32 +1,31 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import express, { Request, Response, Router } from "express";
-import { findUserByTokenRepository } from "../repositories/findUserRepository.ts";
-import { validateTokenRepository } from "../repositories/validateTokenRepository.ts";
+import express, { Request, Response, Router } from 'express';
+import { findUserByTokenRepository } from '../repositories/findUserRepository.ts';
+import { validateTokenRepository } from '../repositories/validateTokenRepository.ts';
 import {
   favoriteListRepository,
   countFavoriteGamesRepository,
-} from "../repositories/favoriteListRepository.ts";
-import type { GameItem } from "../models";
-import { UserSigninResponse } from "../dtos/index.ts";
+} from '../repositories/favoriteListRepository.ts';
+import type { GameItem } from '../models';
+import { UserSigninResponse } from '../dtos/index.ts';
 
 const router: Router = express.Router();
 
 interface PaginatedFavoritesResponse {
-  favoriteGameList: Omit<GameItem, "favoritedBy">[];
+  favoriteGameList: Omit<GameItem, 'favoritedBy'>[];
   totalGames: number;
   currentPage: number;
   totalPages: number;
 }
 
 router.get(
-  "/",
+  '/',
   async (req: Request, res: Response<PaginatedFavoritesResponse | false | { message: string }>) => {
-
     const token = req.cookies.token as string;
     if (!token) {
-      console.log("GET /favoritegames called - auth not ok");
-      return res.status(401).json({ message: "Not authenticated" });
+      console.log('GET /favoritegames called - auth not ok');
+      return res.status(401).json({ message: 'Not authenticated' });
     }
 
     // console.log("GET /favoritegames called - auth ok");
@@ -34,11 +33,11 @@ router.get(
     const page = parseInt(req.query.page as string) || 1;
     const limit = parseInt(req.query.limit as string) || 9;
     const skip = (page - 1) * limit;
-    
+
     try {
       const tokenValidity = await validateTokenRepository(token);
       if (!tokenValidity) {
-        return res.status(401).json({ message: "Invalid token" });
+        return res.status(401).json({ message: 'Invalid token' });
       }
 
       const user: UserSigninResponse = await findUserByTokenRepository({ token });

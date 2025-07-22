@@ -9,8 +9,7 @@ const FAVORITES_CACHE_PREFIX = 'user_favorites:';
 interface GameDocument extends Omit<GameItem, 'id'>, Document {}
 
 const Game: Model<GameDocument> =
-  (mongoose.models.Games as Model<GameDocument>) ||
-  mongoose.model<GameDocument>('Games', gameSchema);
+  (mongoose.models.Games as Model<GameDocument>) || mongoose.model<GameDocument>('Games', gameSchema);
 
 export async function addFavoriteRepository(game: GameItem, user_id: User['id']): Promise<void> {
   const cacheKey = `${FAVORITES_CACHE_PREFIX}${user_id}`;

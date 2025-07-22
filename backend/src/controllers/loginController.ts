@@ -13,7 +13,7 @@ router.post(
   '/',
   (
     req: Request<unknown, { message: string }, UserLoginData>,
-    res: Response<{ message: string }>,
+    res: Response<{ message: string }>
   ): void => {
     void (async () => {
       try {
@@ -51,7 +51,7 @@ router.post(
         res.status(400).json({ message: `An unknown error occured. Details: ${message}` });
       }
     })();
-  },
+  }
 );
 
 export default router;

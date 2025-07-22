@@ -57,7 +57,7 @@ describe('checkFavoriteRepository', () => {
     vi.mocked(GameModel.findOne).mockRejectedValue(dbError);
 
     await expect(checkFavoriteRepository(gameId, userId)).rejects.toThrow(
-      'Failed to check favorite status',
+      'Failed to check favorite status'
     );
 
     expect(GameModel.findOne).toHaveBeenCalledWith({ id: gameId });

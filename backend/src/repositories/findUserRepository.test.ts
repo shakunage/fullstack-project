@@ -43,7 +43,7 @@ describe('findUserByEmailRepository', () => {
     vi.mocked(prisma.user.findUnique).mockResolvedValue(null);
 
     await expect(findUserByEmailRepository(email)).rejects.toThrow(
-      `Email ${email} does not match to any user`,
+      `Email ${email} does not match to any user`
     );
   });
 });
@@ -89,7 +89,7 @@ describe('findUserByTokenRepository', () => {
     vi.mocked(prisma.authToken.findFirst).mockResolvedValue(null);
 
     await expect(findUserByTokenRepository(token)).rejects.toThrow(
-      'Invalid token - please log in and try again',
+      'Invalid token - please log in and try again'
     );
   });
 
@@ -98,7 +98,7 @@ describe('findUserByTokenRepository', () => {
     vi.mocked(prisma.user.findUnique).mockResolvedValue(null);
 
     await expect(findUserByTokenRepository(token)).rejects.toThrow(
-      'Invalid token - please log in and try again',
+      'Invalid token - please log in and try again'
     );
   });
 });

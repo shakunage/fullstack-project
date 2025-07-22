@@ -1,13 +1,13 @@
-import { type User } from "../models/User.ts";
-import { GameModel } from "../mongo/schemas/GameSchema.ts";
-import { type GameItem } from "../models/GameItem.ts";
-import redisClient from "../redis/redisClient.ts";
+import { type User } from '../models/User.ts';
+import { GameModel } from '../mongo/schemas/GameSchema.ts';
+import { type GameItem } from '../models/GameItem.ts';
+import redisClient from '../redis/redisClient.ts';
 
 const FAVORITES_CACHE_PREFIX = 'user_favorites:';
 const FAVORITES_CACHE_TTL = 3600; // 1 hour in seconds
 
 export async function favoriteListRepository(
-  user_id: User["id"],
+  user_id: User['id'],
   skip: number,
   take: number
 ): Promise<GameItem[]> {
@@ -18,8 +18,8 @@ export async function favoriteListRepository(
     const cachedFavoriteGames = await redisClient.get(cacheKey);
     if (cachedFavoriteGames) {
       console.log(`Cache HIT for ${cacheKey}`);
-      const favoriteGames = JSON.parse(cachedFavoriteGames) as Omit<GameItem, "favoritedBy">[];
-      return favoriteGames.slice(skip, (skip + take));
+      const favoriteGames = JSON.parse(cachedFavoriteGames) as Omit<GameItem, 'favoritedBy'>[];
+      return favoriteGames.slice(skip, skip + take);
     }
   } catch (error) {
     console.error('Redis GET error:', error);
@@ -59,19 +59,19 @@ export async function favoriteListRepository(
       console.error('Redis SETEX error:', error);
     }
 
-    return favoriteGamesWithoutFavoritedBy.slice(skip, (skip + take)) as GameItem[];
+    return favoriteGamesWithoutFavoritedBy.slice(skip, skip + take) as GameItem[];
   } catch (error) {
-    console.error("Error checking favorite status:", error);
-    throw new Error("Failed to check favorite status");
+    console.error('Error checking favorite status:', error);
+    throw new Error('Failed to check favorite status');
   }
 }
 
-export async function countFavoriteGamesRepository(user_id: User["id"]): Promise<number> {
+export async function countFavoriteGamesRepository(user_id: User['id']): Promise<number> {
   try {
     const count = await GameModel.countDocuments({ favoritedBy: user_id });
     return count;
   } catch (error) {
-    console.error("Error counting favorite games:", error);
-    throw new Error("Failed to count favorite games");
+    console.error('Error counting favorite games:', error);
+    throw new Error('Failed to count favorite games');
   }
 }

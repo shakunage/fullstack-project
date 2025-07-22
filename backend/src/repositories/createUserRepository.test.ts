@@ -67,7 +67,7 @@ describe('createUserRepository', () => {
         id: '1',
         name: 'Test User',
         email: 'test@example.com',
-      }),
+      })
     );
   });
 

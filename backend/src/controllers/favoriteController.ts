@@ -13,7 +13,7 @@ router.post(
   '/',
   (
     req: Request<object, { message: string } | string, GameItem, { id?: string }>,
-    res: Response<{ message: string } | string>,
+    res: Response<{ message: string } | string>
   ): void => {
     void (async () => {
       try {
@@ -32,9 +32,7 @@ router.post(
         const game_id = req.query.id;
 
         if (!game_id || typeof game_id !== 'string') {
-          res
-            .status(400)
-            .json({ message: 'Game ID is required and needs to be in a valid format' });
+          res.status(400).json({ message: 'Game ID is required and needs to be in a valid format' });
           return;
         }
 
@@ -46,14 +44,14 @@ router.post(
         res.status(400).json({ message: `An unknown error occured. Details: ${message}` });
       }
     })();
-  },
+  }
 );
 
 router.delete(
   '/',
   (
     req: Request<object, { message: string }, unknown, { id?: string }>,
-    res: Response<{ message: string }>,
+    res: Response<{ message: string }>
   ): void => {
     void (async () => {
       try {
@@ -86,14 +84,14 @@ router.delete(
         res.status(500).json({ message: `An error occurred: ${message}` });
       }
     })();
-  },
+  }
 );
 
 router.get(
   '/',
   (
     req: Request<object, { message: string } | { favorited: boolean }, unknown, { id?: string }>,
-    res: Response<{ message: string } | { favorited: boolean }>,
+    res: Response<{ message: string } | { favorited: boolean }>
   ): void => {
     void (async () => {
       try {
@@ -125,7 +123,7 @@ router.get(
         res.status(500).json({ message: `An error occurred: ${message}` });
       }
     })();
-  },
+  }
 );
 
 export default router;
