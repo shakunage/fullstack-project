@@ -4,9 +4,7 @@ WORKDIR /usr/src/fullstack-project/backend
 
 COPY . .
 
-RUN rm -rf node_modules && rm -f package-lock.json
-
-RUN npm install
+RUN npm ci
 
 EXPOSE 8080
 EXPOSE 5555

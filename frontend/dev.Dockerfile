@@ -4,8 +4,6 @@ WORKDIR /usr/src/fullstack-project/frontend
 
 COPY . .
 
-RUN rm -rf node_modules
-
 RUN npm ci
 
 EXPOSE 5173
