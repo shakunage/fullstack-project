@@ -1,0 +1,74 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test-and-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+      - name: Install backend dependencies
+        run: npm install
+        working-directory: ./backend
+      - name: Run backend tests
+        run: npm test
+        working-directory: ./backend
+      - name: Run backend linter
+        run: npm run lint
+        working-directory: ./backend
+      - name: Install frontend dependencies
+        run: npm install
+        working-directory: ./frontend
+      - name: Run frontend tests
+        run: npm test
+        working-directory: ./frontend
+      - name: Run frontend linter
+        run: npm run lint
+        working-directory: ./frontend
+
+  format-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+      - name: Install backend dependencies
+        run: npm install
+        working-directory: ./backend
+      - name: Format backend
+        run: npm run format
+        working-directory: ./backend
+      - name: Install frontend dependencies
+        run: npm install
+        working-directory: ./frontend
+      - name: Format frontend
+        run: npm run format
+        working-directory: ./frontend
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "chore: format code"
+          branch: ${{ github.head_ref }}
+
+  e2e-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build and run docker compose
+        run: docker-compose -f docker-compose.dev.yml up -d
+      - name: Wait for services to be healthy
+        run: |
+          echo "Waiting for services to be healthy..."
+          sleep 60
+      - name: Run e2e tests
+        run: docker-compose -f docker-compose.dev.yml exec -T playwright npm run test:e2e
