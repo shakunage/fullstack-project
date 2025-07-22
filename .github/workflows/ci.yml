@@ -62,13 +62,72 @@ jobs:
 
   e2e-tests:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17.4
+        env:
+          POSTGRES_USER: myuser
+          POSTGRES_PASSWORD: mypassword
+          POSTGRES_DB: mydatabase
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+      mongo:
+        image: mongo
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd "mongosh --eval 'db.adminCommand(\"ping\")'"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+      redis:
+        image: redis:alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - uses: actions/checkout@v3
-      - name: Build and run docker compose
-        run: docker-compose -f docker-compose.dev.yml up -d
-      - name: Wait for services to be healthy
-        run: |
-          echo "Waiting for services to be healthy..."
-          sleep 60
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install backend dependencies
+        run: npm install
+        working-directory: ./backend
+
+      - name: Start backend
+        run: npm run dev &
+        working-directory: ./backend
+        env:
+          DATABASE_URL: "postgresql://myuser:mypassword@localhost:5432/mydatabase?schema=public"
+          MONGO_URL: "mongodb://localhost:27017"
+          REDIS_URL: "redis://localhost:6379"
+
+      - name: Install frontend dependencies
+        run: npm install
+        working-directory: ./frontend
+
+      - name: Start frontend
+        run: npm run dev &
+        working-directory: ./frontend
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+        working-directory: ./frontend
+
       - name: Run e2e tests
-        run: docker-compose -f docker-compose.dev.yml exec -T playwright npm run test:e2e
+        run: npm run test:e2e
+        working-directory: ./frontend
+        env:
+          CI: true
