@@ -2,7 +2,7 @@
 export type NameTypeToResolve = {
   name?: string | { default: string };
   commonName?: string | { default: string };
-}
+};
 
 export const resolveNameType = (item: NameTypeToResolve): string => {
   // Priority 1: item.name if it's a string

@@ -28,7 +28,10 @@ export function GameInformation({ storyData }: { storyData: GameStory }) {
             <p>
               <span className="font-semibold">Venue:</span> {storyData.venue.default}
               {storyData.venueLocation?.default && (
-                <span className="text-gray-600 dark:text-gray-400"> ({storyData.venueLocation.default})</span>
+                <span className="text-gray-600 dark:text-gray-400">
+                  {' '}
+                  ({storyData.venueLocation.default})
+                </span>
               )}
             </p>
           )}

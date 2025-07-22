@@ -34,8 +34,6 @@ describe('calculateTimeUntilStart', () => {
 
   it('should return a message when the game has already started', () => {
     const gameStartTime = dayjs().subtract(1, 'hour').toISOString();
-    expect(calculateTimeUntilStart(gameStartTime)).toBe(
-      'Game will begin momentarily',
-    );
+    expect(calculateTimeUntilStart(gameStartTime)).toBe('Game will begin momentarily');
   });
 });

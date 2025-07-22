@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { type GameStory } from '~/entities';
 
-export function ScoringSummary({ storyData }: {storyData: GameStory}) {
+export function ScoringSummary({ storyData }: { storyData: GameStory }) {
   const [showScoringSummary, setShowScoringSummary] = useState(true); // Default open
 
   const handleToggleScoringSummary = () => {

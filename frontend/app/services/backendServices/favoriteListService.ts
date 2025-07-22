@@ -8,7 +8,7 @@ type FavoriteGamesServiceData = {
   totalGames: number;
 };
 
-export async function FavoriteListService( headers: string | null, page: number, limit: number) {
+export async function FavoriteListService(headers: string | null, page: number, limit: number) {
   const fetchOptions: GenericFetchOptions<FavoriteGamesServiceData> = {
     method: 'GET',
     endpoint: `${process.env.SSR_BACKEND_URL}/favoritegames`,

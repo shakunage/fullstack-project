@@ -58,7 +58,7 @@ describe('useGameLanding', () => {
     const { result } = renderHook(() => useGameLanding(null as unknown as number), { wrapper });
 
     await expect(result.current.refetchLanding()).rejects.toThrow(
-      'Game date or ID is missing for fetching boxscore.',
+      'Game date or ID is missing for fetching boxscore.'
     );
   });
 });

@@ -10,21 +10,24 @@ export function GameStatus({ storyData }: { storyData: GameStory }) {
         {storyData.gameState === 'FUT'
           ? `Game starting in ${timeUntilStart}`
           : storyData.gameState === 'OFF' && storyData.periodDescriptor.periodType === 'REG'
-          ? 'Final'
-          : storyData.gameState === 'OFF' &&
-              storyData.periodDescriptor.periodType === 'OT' &&
-              !storyData.periodDescriptor.otPeriods
-            ? 'Final/OT'
+            ? 'Final'
             : storyData.gameState === 'OFF' &&
                 storyData.periodDescriptor.periodType === 'OT' &&
-                storyData.periodDescriptor.otPeriods
-              ? `Final/${storyData.periodDescriptor.otPeriods}OT`
-              : storyData.gameState === 'OFF' && storyData.periodDescriptor.periodType === 'SO'
-                ? 'Shootout'
-                : storyData.gameState === 'LIVE'
-                  ? 'Live'
-                  : storyData.gameScheduleState || 'Scheduled'}
-        {storyData.clock && storyData.clock.inIntermission && !storyData.clock.running && ' (Intermission)'}
+                !storyData.periodDescriptor.otPeriods
+              ? 'Final/OT'
+              : storyData.gameState === 'OFF' &&
+                  storyData.periodDescriptor.periodType === 'OT' &&
+                  storyData.periodDescriptor.otPeriods
+                ? `Final/${storyData.periodDescriptor.otPeriods}OT`
+                : storyData.gameState === 'OFF' && storyData.periodDescriptor.periodType === 'SO'
+                  ? 'Shootout'
+                  : storyData.gameState === 'LIVE'
+                    ? 'Live'
+                    : storyData.gameScheduleState || 'Scheduled'}
+        {storyData.clock &&
+          storyData.clock.inIntermission &&
+          !storyData.clock.running &&
+          ' (Intermission)'}
       </p>
     </div>
   );

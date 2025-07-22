@@ -54,7 +54,7 @@ describe('useBoxscore', () => {
     const { result } = renderHook(() => useBoxscore(null as unknown as number), { wrapper });
 
     await expect(result.current.refetchBoxscore()).rejects.toThrow(
-      'Game date or ID is missing for fetching boxscore.',
+      'Game date or ID is missing for fetching boxscore.'
     );
   });
 });

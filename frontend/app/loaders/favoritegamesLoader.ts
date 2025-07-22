@@ -13,7 +13,7 @@ export const favoritegamesLoader = async ({
   request,
 }: LoaderFunctionArgs): Promise<FavoriteGamesServiceData> => {
   const url = new URL(request.url);
-  const headers = request.headers.get("Cookie");
+  const headers = request.headers.get('Cookie');
   const page = parseInt(url.searchParams.get('page') ?? '1'); // Default to page 1
   const limit = parseInt(url.searchParams.get('limit') ?? '9'); // Default to limit 9
 

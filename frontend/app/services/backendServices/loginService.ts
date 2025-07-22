@@ -20,7 +20,7 @@ export async function loginService(email: string, password: string): Promise<boo
     },
     defaultValue: false,
     body: { email, password },
-    credentials: 'include', 
+    credentials: 'include',
   };
   try {
     return await genericFetch(fetchOptions);

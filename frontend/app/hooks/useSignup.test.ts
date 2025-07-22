@@ -36,9 +36,7 @@ describe('useSignup', () => {
   });
 
   it('should not set cookie or navigate on failed signup', async () => {
-    const signupServiceSpy = vi
-      .spyOn(signupService, 'signupServiceService')
-      .mockResolvedValue(false);
+    const signupServiceSpy = vi.spyOn(signupService, 'signupServiceService').mockResolvedValue(false);
     const navigateToHomeSpy = vi.spyOn(navigation, 'navigateToHome');
     const cookieSpy = vi.spyOn(Cookies, 'set');
 
