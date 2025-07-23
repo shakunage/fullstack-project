@@ -7,6 +7,7 @@
 # React Router
 /.react-router/
 frontend/build/
+backend/build/
 .env
 
 postgres/postgres_data/
