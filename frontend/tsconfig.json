@@ -23,5 +23,6 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true
-  }
+  },
+  "exclude": ["node_modules", "dist", "src/**/*.test.ts", "src/**/__mocks__"]
 }

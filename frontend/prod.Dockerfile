@@ -1,5 +1,5 @@
 # Stage 1: Build the React application
-FROM node:20-alpine AS build
+FROM node:22.13.1 AS build
 
 WORKDIR /usr/src/fullstack-project/frontend
 
@@ -15,10 +15,15 @@ COPY . .
 # Build the application
 RUN npm run build
 
-# Stage 2: Serve the application with Nginx
-FROM nginx:1.20.1-alpine
+# Stage 2: Serve the application
+FROM node:22.13.1
 
-# Expose port 80
-EXPOSE 80
+WORKDIR /usr/src/fullstack-project/frontend
 
-CMD ["npm", "run", "serve",  "./build"]
+COPY --from=build /usr/src/fullstack-project/frontend/build ./build
+COPY package*.json ./
+RUN npm ci --omit=dev
+
+EXPOSE 3000
+
+CMD ["npm", "run", "start"]
