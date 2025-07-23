@@ -1,0 +1,102 @@
+services:
+  rrv7front:
+    image: fullstack-project-dev
+    volumes:
+      - ./frontend:/usr/src/fullstack-project/frontend
+      - /usr/src/fullstack-project/frontend/node_modules
+    build:
+      context: ./frontend
+      dockerfile: prod.Dockerfile
+    networks:
+      - fs-network
+    container_name: rrv7front
+  postgres:
+    image: postgres:17.4
+    env_file:
+      - ./postgres/.env
+    volumes:
+      - ./postgres/postgres_data:/var/lib/postgresql/data
+    networks:
+      - fs-network
+    container_name: postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U myuser -d mydatabase"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+  mongo:
+    image: mongo
+    container_name: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - mongo_data:/data/db
+    networks: # Explicitly add mongo to the network
+      - fs-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+  redis:
+    image: "redis:alpine"
+    container_name: rediscache
+    networks:
+      - fs-network
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli PING | grep PONG"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s # Optional: gives Redis some time to start before healthchecks begin
+  backend:
+    build:
+      context: ./backend
+      dockerfile: dev.Dockerfile
+    volumes:
+      - ./backend:/usr/src/fullstack-project/backend
+      - /usr/src/fullstack-project/backend/node_modules
+    ports:
+      # API Endpoints
+      - 8080:8080
+      # Prisma Studio
+      - 5555:5555
+    networks:
+      - fs-network
+    container_name: backend
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      mongo:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/health || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+  reverseproxy:
+    image: nginx:1.20.1
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      # react router app
+      - 9998:9998
+    networks:
+      - fs-network
+    depends_on:
+      backend:
+        condition: service_healthy
+    container_name: reverseproxy
+networks:
+  fs-network:
+    driver: bridge
+    name: fs-network
+volumes:
+  mongo_data:
+    external: false
