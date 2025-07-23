@@ -1,12 +1,16 @@
 # TODO
+how the app works now:
+- start dev containers
+- run build commands in front & back
+- shut container down
+- start prod containers
 
 ## Must have
 - consider injecting env variables thru the docker compose or dockerfile
 - make prod versions of docker compose and docker files
 - backend secrets in gh actions
-- setup favicon, page title, etc.
 - write up a readme on how to run the app
-- deployment on ec2
+- deployment on hetzner
 
 ## Nice to have
 - show number of games under the dates in the calendar view
