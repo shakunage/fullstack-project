@@ -1,9 +1,6 @@
 services:
   rrv7front:
     image: fullstack-project-prod
-    volumes:
-      - ./frontend:/usr/src/fullstack-project/frontend
-      - /usr/src/fullstack-project/frontend/node_modules
     build:
       context: ./frontend
       dockerfile: prod.Dockerfile
@@ -60,9 +57,6 @@ services:
     build:
       context: ./backend
       dockerfile: prod.Dockerfile
-    volumes:
-      - ./backend:/usr/src/fullstack-project/backend
-      - /usr/src/fullstack-project/backend/node_modules
     networks:
       - fs-network
     container_name: backend-prod
