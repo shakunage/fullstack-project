@@ -10,8 +10,9 @@ export default defineConfig({
   },
   plugins: [tailwindcss(), reactRouter(), tsconfigPaths()],
   define: {
-    // By default, Vite doesn't include shims for NodeJS/
-    // necessary for segment analytics lib to work
+    "process.env.SSR_BACKEND_URL": JSON.stringify(process.env.SSR_BACKEND_URL),
+    "process.env.NHL_API_URL": JSON.stringify(process.env.NHL_API_URL),
+    "process.env.CSR_BACKEND_URL": JSON.stringify(process.env.CSR_BACKEND_URL),
     global: {},
   },
 });

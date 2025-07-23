@@ -7,6 +7,10 @@ services:
     build:
       context: ./frontend
       dockerfile: dev.Dockerfile
+    environment:
+      SSR_BACKEND_URL: http://reverseproxy:9998/backend
+      NHL_API_URL: http://reverseproxy:9998/api/v1
+      CSR_BACKEND_URL: http://localhost:9998/backend
     networks:
       - fs-network
     container_name: rrv7front

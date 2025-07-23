@@ -1,7 +1,7 @@
 import { type GenericFetchOptions, genericFetch } from '~/services/genericApiService';
 import { type GameItem } from '~/entities';
 
-const API_URL = 'http://localhost:9998/backend';
+const API_URL = process.env.CSR_BACKEND_URL || 'http://localhost/backend';
 
 type FavoriteResponse = {
   favorited: boolean;

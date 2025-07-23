@@ -22,8 +22,7 @@ WORKDIR /usr/src/fullstack-project/frontend
 
 COPY --from=build /usr/src/fullstack-project/frontend/build ./build
 COPY package*.json ./
-RUN npm ci --omit=dev
 
 EXPOSE 3000
 
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "start", "./build"]
