@@ -1,15 +1,20 @@
 # TODO
-how the app works now:
-- start dev containers
-- run build commands in front & back
-- shut container down
-- start prod containers
+- write up a todo on how to run 
+- deployment on hetzner
+  - put ssh key on mac
+  - update timekeeping
+  - fix the formatting pipeline with regards to the autocommit
+  - make a non-privileged user on the vm
+  - install docker and git
+  - make a deployment version of docker compose and nginx conf files
+  - clone the repository on the VM
+  - start the docker compose setup
+- check that the project fulfills all requirements and submit
+- make the application for credits on sisu
 
 ## Must have
-- consider injecting env variables thru the docker compose or dockerfile
-- make prod versions of docker compose and docker files
 - backend secrets in gh actions
-- write up a readme on how to run the app
+- write up a readme on how to run the app and run e2e tests
 - deployment on hetzner
 
 ## Nice to have
