@@ -7,11 +7,11 @@ services:
       args:
         SSR_BACKEND_URL: http://reverseproxy/backend
         NHL_API_URL: http://reverseproxy/api/v1
-        CSR_BACKEND_URL: http://0.0.0.0/backend
+        CSR_BACKEND_URL: http://91.99.195.146/backend
     environment:
       SSR_BACKEND_URL: http://reverseproxy/backend
       NHL_API_URL: http://reverseproxy/api/v1
-      CSR_BACKEND_URL: http://0.0.0.0/backend
+      CSR_BACKEND_URL: http://91.99.195.146/backend
     networks:
       - fs-network-depl
     container_name: rrv7front-depl
