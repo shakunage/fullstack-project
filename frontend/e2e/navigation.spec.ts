@@ -6,6 +6,7 @@ test.describe('Navigation', () => {
     
     // Test navigation to Games
     await page.click('text=Games');
+    await page.click('text=Browse Games');
     await expect(page).toHaveURL('/games');
     await page.goBack();
     
@@ -57,6 +58,7 @@ test.describe('Navigation', () => {
     
     // Navigate through several pages
     await page.click('text=Games');
+    await page.click('text=Browse Games');
     await expect(page).toHaveURL('/games');
     
     await page.click('text=Players');

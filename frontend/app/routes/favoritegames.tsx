@@ -2,6 +2,7 @@ import { useLoaderData, useNavigation, useNavigate } from 'react-router';
 import { favoritegamesLoader } from '~/loaders/favoritegamesLoader';
 import { PaginationControls } from '~/components/FavoriteGamesPage/PaginationControls';
 import { EndedGame } from '~/components/GameCards/EndedGame';
+import { useAuth } from '~/hooks/useAuth';
 import Spinner from '~/components/icons/Spinner';
 
 export const loader = favoritegamesLoader;
@@ -11,10 +12,15 @@ export default function FavoriteGames() {
   const navigate = useNavigate();
   const navigation = useNavigation();
   const isLoadingData = navigation.state === 'loading';
+  const { username } = useAuth();
 
   const handleGameClick = (gameId: number) => {
     void navigate(`/game/${gameId}`);
   };
+
+  if (!username) {
+    return <div className="pt-16 text-center">You need to be logged in to save and browse your favorited games.</div>;
+  }
 
   if (totalGames === 0) {
     return <div className="pt-16 text-center">No favorite games found.</div>;

@@ -1,16 +1,14 @@
 import { Link } from 'react-router';
 import { useState, useEffect, useRef } from 'react';
 import { AuthButtons } from './AuthButtons';
-import { useAuth } from '~/hooks/useAuth';
 
 type Dropdown = {
-  loginRequired: boolean;
   tabs: TopBarElement[];
 };
 
 type TopBarElement = {
   title: string;
-  href: string;
+  href?: string;
   dropdown?: Dropdown;
 };
 
@@ -21,13 +19,15 @@ const topBarElements: { [key: string]: TopBarElement } = {
   },
   games: {
     title: 'Games',
-    href: '/games',
     dropdown: {
-      loginRequired: true,
       tabs: [
         {
+          title: 'Browse Games',
+          href: '/games',
+        },
+        {
           title: 'Favorited Games',
-          href: '/games/favoritegames/',
+          href: '/games/favoritegames',
         },
       ],
     },
@@ -38,9 +38,7 @@ const topBarElements: { [key: string]: TopBarElement } = {
   },
   players: {
     title: 'Players',
-    href: '/players',
     dropdown: {
-      loginRequired: false,
       tabs: [
         {
           title: 'Skaters',
@@ -56,7 +54,6 @@ const topBarElements: { [key: string]: TopBarElement } = {
 };
 
 export function TopBar() {
-  const { username } = useAuth();
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [clickedDropdown, setClickedDropdown] = useState<string | null>(null);
   const topBarRef = useRef<HTMLDivElement>(null);
@@ -86,18 +83,17 @@ export function TopBar() {
         {Object.keys(topBarElements).map((key) => {
           const element = topBarElements[key];
           const hasDropdown = element.dropdown;
-          const needsLogin = element.dropdown?.loginRequired;
           const isDropdownOpen = openDropdown === key;
 
           const handleItemClick = (e: React.MouseEvent) => {
-            if (hasDropdown && (!needsLogin || username)) {
+            if (hasDropdown) {
               e.preventDefault();
               handleDropdownToggle(key);
             }
           };
 
           const handleMouseEnter = () => {
-            if (hasDropdown && (!needsLogin || username)) {
+            if (hasDropdown) {
               setOpenDropdown(key);
             }
           };
@@ -115,13 +111,13 @@ export function TopBar() {
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
-              <Link to={element.href} onClick={handleItemClick}>
+              <Link to={element.href ? element.href : '#'} onClick={handleItemClick}>
                 {element.title}
                 {/* Only show arrow if there's a dropdown and user is logged in */}
-                {hasDropdown && (!needsLogin || username) && <span className="ml-1">∨</span>}
+                {hasDropdown && <span className="ml-1">∨</span>}
               </Link>
 
-              {hasDropdown && (!needsLogin || username) && (
+              {hasDropdown && (
                 <div
                   className={`absolute top-full left-0 w-48 bg-white shadow-md ${
                     isDropdownOpen ? 'block' : 'hidden'
@@ -135,7 +131,7 @@ export function TopBar() {
                         {' '}
                         {/* Remove classes from li */}
                         <Link
-                          to={item.href}
+                          to={item.href ? item.href : '#'}
                           className="block p-2 hover:bg-gray-100"
                           onClick={() => setOpenDropdown(null)}
                         >
