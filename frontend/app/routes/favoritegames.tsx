@@ -19,7 +19,11 @@ export default function FavoriteGames() {
   };
 
   if (!username) {
-    return <div className="pt-16 text-center">You need to be logged in to save and browse your favorited games.</div>;
+    return (
+      <div className="pt-16 text-center">
+        You need to be logged in to save and browse your favorited games.
+      </div>
+    );
   }
 
   if (totalGames === 0) {
