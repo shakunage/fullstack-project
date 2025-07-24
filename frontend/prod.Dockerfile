@@ -15,14 +15,4 @@ COPY . .
 # Build the application
 RUN npm run build
 
-# Stage 2: Serve the application
-FROM node:22.13.1
-
-WORKDIR /usr/src/fullstack-project/frontend
-
-COPY --from=build /usr/src/fullstack-project/frontend/build ./build
-COPY package*.json ./
-
-EXPOSE 3000
-
-CMD ["npm", "run", "start", "./build"]
+CMD ["npm", "run", "start"]
