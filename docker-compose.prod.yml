@@ -4,6 +4,10 @@ services:
     build:
       context: ./frontend
       dockerfile: prod.Dockerfile
+      args:
+        SSR_BACKEND_URL: http://reverseproxy/backend
+        NHL_API_URL: http://reverseproxy/api/v1
+        CSR_BACKEND_URL: http://localhost/backend
     environment:
       SSR_BACKEND_URL: http://reverseproxy/backend
       NHL_API_URL: http://reverseproxy/api/v1
