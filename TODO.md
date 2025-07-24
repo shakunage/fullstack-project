@@ -9,6 +9,7 @@
   - make a deployment version of docker compose and nginx conf files
   - clone the repository on the VM
   - start the docker compose setup
+- make a release and tag it, in a newly cut production branch
 - check that the project fulfills all requirements and submit
 - make the application for credits on sisu
 
