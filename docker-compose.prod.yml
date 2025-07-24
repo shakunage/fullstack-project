@@ -93,7 +93,7 @@ services:
 networks:
   fs-network:
     driver: bridge
-    name: fs-network
+    name: fs-network-prod
 volumes:
   mongo_data:
     external: false
