@@ -1,14 +1,7 @@
 # TODO
 - write up a todo on how to run 
-- deployment on hetzner
-  - put ssh key on mac
-  - update timekeeping
-  - fix the formatting pipeline with regards to the autocommit
-  - make a non-privileged user on the vm
-  - install docker and git
-  - make a deployment version of docker compose and nginx conf files
-  - clone the repository on the VM
-  - start the docker compose setup
+  - envs: postgres envs, backend envs (for prisma <-> postgres and mongo)
+- update timekeeping
 - make a release and tag it, in a newly cut production branch
 - check that the project fulfills all requirements and submit
 - make the application for credits on sisu
