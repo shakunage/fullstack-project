@@ -1,0 +1,99 @@
+services:
+  rrv7front:
+    image: fullstack-project-depl
+    build:
+      context: ./frontend
+      dockerfile: depl.Dockerfile
+      args:
+        SSR_BACKEND_URL: http://reverseproxy/backend
+        NHL_API_URL: http://reverseproxy/api/v1
+        CSR_BACKEND_URL: http://0.0.0.0/backend
+    environment:
+      SSR_BACKEND_URL: http://reverseproxy/backend
+      NHL_API_URL: http://reverseproxy/api/v1
+      CSR_BACKEND_URL: http://0.0.0.0/backend
+    networks:
+      - fs-network-depl
+    container_name: rrv7front-depl
+  postgres:
+    image: postgres:17.4
+    env_file:
+      - ./postgres/.env
+    volumes:
+      - ./postgres/postgres_data:/var/lib/postgresql/data
+    networks:
+      - fs-network-depl
+    container_name: postgres-depl
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U myuser -d mydatabase"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+  mongo:
+    image: mongo
+    container_name: mongo-depl
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - mongo_data:/data/db
+    networks: # Explicitly add mongo to the network
+      - fs-network-depl
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+  redis:
+    image: "redis:alpine"
+    container_name: rediscache-depl
+    networks:
+      - fs-network-depl
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli PING | grep PONG"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s # Optional: gives Redis some time to start before healthchecks begin
+  backend:
+    build:
+      context: ./backend
+      dockerfile: depl.Dockerfile
+    networks:
+      - fs-network-depl
+    container_name: backend-depl
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      mongo:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/health || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+  reverseproxy:
+    image: nginx:1.20.1
+    volumes:
+      - ./nginx.depl.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      # react router app
+      - "0.0.0.0:80:80"
+    networks:
+      - fs-network-depl
+    depends_on:
+      backend:
+        condition: service_healthy
+    container_name: reverseproxy-depl
+networks:
+  fs-network-depl:
+    driver: bridge
+    name: fs-network-depl
+volumes:
+  mongo_data:
+    external: false
