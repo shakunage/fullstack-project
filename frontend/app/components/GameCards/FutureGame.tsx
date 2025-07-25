@@ -15,8 +15,10 @@ export function FutureGame({ game }: { game: GameItem | Boxscore }) {
       <div className="flex items-center text-gray-700">
         <StartTimeToggle gameStartTime={game.startTimeUTC} />
       </div>
-      {timeUntilStart !== undefined && (
+      {timeUntilStart !== undefined ? (
         <p className="text-gray-700">Time until start: {timeUntilStart}</p>
+      ) : (
+        <p className="text-gray-700">Calculating time until start...</p>
       )}
       <Venue venue={game.venue.default} homeTeamAbbrev={game.homeTeam.abbrev} />
     </div>
