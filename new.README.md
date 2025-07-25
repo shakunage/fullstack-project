@@ -4,6 +4,13 @@ Browse past and upcoming NHL games and detailed statistics pertaining to them. Y
 
 The app supports user registration and saving past games into user's favorites.  
 
+### User manual 
+
+The application is accessible at http://91.99.195.146/
+
+The Home Page (or landing page) shows the most recent or upcoming NHL games, excluding pre-season games.
+The game cards are clickable, and show additional information about the game. 
+
 ## Tech stack
 
 - Frontend: React Router v7 framework mode
@@ -31,13 +38,13 @@ The frontend will be accessible at `http://localhost:9998`.
 MongoDB control panel (mongo-express) is acccessible at `http://localhost:8081`.
 
 Setting the following .envs is necessary in order to run the app:
-```
+```bash
 # backend/.env
 DATABASE_URL="postgresql://exampleuser:examplepassword@postgres:5432/exampledatabase"
 MONGO_URL="mongodb://root:exampleuser@mongo:27017/gameDb?authSource=admin"
 ```
 
-```
+```bash
 # postgres/.env
 POSTGRES_USER=exampleuser
 POSTGRES_PASSWORD=examplepassword
@@ -46,16 +53,20 @@ POSTGRES_DB=exampledatabase
 
 ### e2e testing
 
-Currently, end-to-end test are not included in the GH actions pipeline, so you need to run them manually with the following command while the development containers are running: `docker exec playwright npm run test:e2e`
+Currently, formatting, linting and unit testing are included in the GH actions pipeline, but e2e tests aren't so you need to run them manually with the following command while the development containers are running: `docker exec playwright npm run test:e2e`
 
 ## Build
 
-`docker compose -f docker-compose.prod.yml up --build` 
+```bash
+docker compose -f docker-compose.prod.yml up --build
+``` 
 The app should should be available on `http://localhost:80`
 
 ## Deployment
 
-Deploying the application containerized on a VPS, EC2 instance or similar while is fairly straightforward.
-Clone the repository on the machine, replace the IP address in the `docker-compose.depl.yml` with the domain or IP address of your server, and use `docker compose -f docker-compose.depl.yml up --build` to build and deploy the application. 
+Deploying the application containerized on a VPS, EC2 instance or similar is fairly straightforward.
+Clone the repository on the server, replace the value of `CSR_BACKEND_URL` in the `docker-compose.depl.yml` with the domain or IP address of your server, and use `docker compose -f docker-compose.depl.yml up --build` to build and deploy the application. 
+
+I personally have the application deployed on a Hetzner VPS (4 ARM vCPUs, 8GB RAM).
 
 ## Timekeeping

@@ -1,8 +1,8 @@
 # TODO
-- write up a todo on how to run 
-  - envs: postgres envs, backend envs (for prisma <-> postgres and mongo)
-- update timekeeping
+- fix problem where incorrect time until start is displayed for a moment
+- add login failure error
 - make a release and tag it, in a newly cut production branch
+- update timekeeping
 - check that the project fulfills all requirements and submit
 - make the application for credits on sisu
 
