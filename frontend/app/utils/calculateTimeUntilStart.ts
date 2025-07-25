@@ -20,15 +20,15 @@ export const calculateTimeUntilStart = (gameStartTime: string) => {
   const minutes = start.diff(now, 'minute') % 60;
 
   if (days > 1) {
-    return `${days} days, ${hours} hours`;
+    return `${days} days ${hours} hours`;
   }
 
   if (days === 1) {
-    return `1 day, ${hours} hours`;
+    return `1 day ${hours} hours`;
   }
 
   if (hours > 0) {
-    return `${hours} hours, ${minutes} minutes`;
+    return `${hours} hours ${minutes} minutes`;
   }
 
   return `${minutes} minutes`;
