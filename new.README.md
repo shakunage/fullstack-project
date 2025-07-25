@@ -20,19 +20,21 @@ In order to Sign up for the application, the user needs to provide a valid usern
 
 Favorited games are saved into a MongoDB database, so that they can be accessed quickly. The game is saved into the database if any user has ever saved it even once. 
 
-## Tech stack
+## Technical Overview
 
-- Frontend: React Router v7 framework mode
-- Backend: Node.js (express)
+- Frontend: React Router v7 framework mode, TypeScript
+- Backend: Node.js (express), TypeScript
 - Database (auth): PostgreSQL, communicating with the backend using Prisma ORM
-- Database (favorited games): MongoDB (communicating with the backend using mongoose)
+- Database (favorited games): MongoDB, communicating with the backend using mongoose
 - Caching: Redis (used to cache the list of favorite games)
-- Reverse Proxy: nginx (also used for caching data fetched from the NHL API)
+- Proxy: nginx (also used for caching data fetched from the NHL API)
 - Development and build environment: Docker using docker-compose
 
 The frontend utilizes server-side rendering (SSR) for most pages, meaning that the frontend server first sends a HTML with no content, and later hydrates it with data that it fetched from the backend server. This reduces the number of network round trips that occur when the user loads a page in the browser. SSR also adds an extra layer of separation between the backend and the browser. 
 
-Diagram below a rough representation of networking of the application. 
+Fetching additional data on pages is done by making a call to a "resource route" (Remix / React Router v7 concept). Resource routes are routes in the frontend application that return data (in our case JSON) instead of React components. For example, opening the Player Statistics dropdown on the page of an individual game, a call to a resource route (frontend server) is made from the browser. The frontend server then calls the NHL API to retrieve the data requested by the browser. The calls to the NHL API are proxied through the nginx server in order to enable caching. 
+
+Diagram below is a rough representation of networking for the application. 
 
 ![Network Structure](docs/network_structure_updated.png)
 
@@ -40,11 +42,11 @@ Authentication utilizes server side session, so all auth tokens are saved in the
 
 Data fetching is managed using TanStack Query, and the library is also used to manage global state (login status) across components. Login and Signup forms are implemented using TanStack Form. 
 
-The application also has formatting (prettier), and non-compliant code is automatically formatted by the pipeline, and a new commit is added. Linting (eslint), and testing (vitest) pipelines are also included, and there it has also e2e tests (Playwright) implemented, although they are not included in the GH Actions pipeline to conserve runner execution time allowance. Testing code coverage is about 85% for the backend, and around 45% for the frontend. 
+The application also has formatting (prettier), and non-compliant code is automatically formatted by the pipeline, and a new commit is added by the workflow. Linting (eslint) and testing (vitest) pipelines are also included, and there it has also e2e tests (Playwright) implemented, although they are not included in the GH Actions pipeline to conserve runner execution time allowance. Testing coverage is about 85% for the backend, and around 45% for the frontend. 
 
 ## Development
 
-Setting the following .envs is necessary in order to run the app:
+Setting the following .envs with appropriate values is necessary in order to run the app:
 ```bash
 # backend/.env
 DATABASE_URL="postgresql://exampleuser:examplepassword@postgres:5432/exampledatabase"
@@ -62,7 +64,7 @@ POSTGRES_DB=exampledatabase
 After the containers have been built, startup including container health checks should take around 15 to 30 seconds. 
 
 The frontend will be accessible at `http://localhost:9998`.
-MongoDB control panel (mongo-express) is acccessible at `http://localhost:8081`.
+MongoDB control panel (mongo-express) is accessible at `http://localhost:8081`.
 
 ### e2e testing
 
@@ -78,6 +80,6 @@ The app should should be available on `http://localhost:80`
 ## Deployment
 
 Deploying the application containerized on a VPS, EC2 instance or similar is fairly straightforward.
-Clone the repository on the server, replace the value of `CSR_BACKEND_URL` in the `docker-compose.depl.yml` with the domain or IP address of your server, and use `docker compose -f docker-compose.depl.yml up --build` to build and deploy the application. 
+Clone the repository on the server, switch to the production branch, replace the value of `CSR_BACKEND_URL` in the `docker-compose.depl.yml` with the domain or IP address of your server, and use `docker compose -f docker-compose.depl.yml up --build` to build and deploy the application. 
 
 I personally have the application deployed on a Hetzner VPS (4 ARM vCPUs, 8GB RAM).
