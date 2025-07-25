@@ -1,6 +1,7 @@
 # Timekeeping
 
-### Total hours: 192.5h
+## Total hours: 192.5h
+(check calculate_total_hours.py for calculation)
 
 | Date| Details | Hours |
 | ----------- | ------------------------------------------------------------------------------------------------------------------- | ----- |
