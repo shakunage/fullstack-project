@@ -72,3 +72,19 @@
 | 29 Jun 2025 | Replace redux toolkit with TanStack Query for managing auth state across components, refactor useQuery hooks into separate files in the hooks folder | 2 |
 | 30 Jun 2025 | Refactoring route components into subcomponents | 1 |
 | 4 Jul 2025 | Refactor spinner into a separate component, apply formatting into frontend code, Light refactoring of conditional rendering syntax, Refactoring of the Goalies, Skaters and Standings pages | 2.5 |
+| 7 Jul 2025 | Improve typing of loaders, improve login and signup forms, refactor hooks & login and signup route components | 1.5 |
+| 8 Jul 2025 | Fix prop types, improve the behavior of pagination controls when the user has lots of favorite games, add stricter validation to login and signup forms | 2 |
+| 9 Jul 2025 | Fix type errors, add a healthcheck to the backend for reliable docker compose behavior, clean up code (consistent function names etc.) | 1 |
+| 10 Jul 2025 | Stylistic fixes | 0.5 |
+| 11 Jul 2025 | Fix linter errors, improve styling | 1 |
+| 12 Jul 2025 | Further fixing of linter errors, fix backend functionality after breaking it by fixing linter errors | 1 |
+| 14 Jul 2025 | Reorganizing endpoints to ENVs, further linter error fixing | 0.5 |
+| 15 Jul 2025 | Start implementing testing for the front and backend, revise docker compose file, add v8 coverage tool, unify endpoint scheme | 2 |
+| 17 Jul 2025 | Fix linter errors on tests, improve loading behavior and handling of future games | 1 |
+| 18 Jul 2025 | Add Playwright for e2e testing | 1 |
+| 19 Jul 2025 | Fix docker compose volume mounts (wrt node modules mounting etc.) | 0.5 |
+| 21 Jul 2025 | Some fixing of e2e tests | 0.5 |
+| 22 Jul 2025 | Fix docker compose setup compatibility between different development environments (WSL, macOS), add testing, linting, formatting pipeline | 2 |
+| 23 Jul 2025 | Further preparing of the setup for production (dockerfiles, docker compose files, envs etc.) | 1 |
+| 24 Jul 2025 | Adding documentation, dockerfile updates, fixing the GH Actions pipeline, setting up deployment | 2 |
+| 25 Jul 2025 | Finishing touches to the project & fixing some minor issues with hydration due to deployment server being on a different time zone | 2 |
