@@ -1,100 +1,85 @@
-# Welcome to React Router!
+# NHL Games Browser
 
-A modern, production-ready template for building full-stack React applications using React Router.
+Browse past and upcoming NHL games and detailed statistics pertaining to them. The app also allows the user to view present and past standings as well as statistics for current top goalies and skaters. Data is retrieved from the NHL API: https://github.com/Zmalski/NHL-API-Reference
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+The app supports user registration and saving past games into user's favorites.  
 
-## Features
+## User manual 
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+The application is accessible at http://91.99.195.146/
 
-## Getting Started
+The Home Page (or landing page) shows the most recent or upcoming NHL games, excluding pre-season games. The game cards are clickable, and show additional information about the game. 
+n
+For browsing future and all past games, click the Games text on the top bar, and select Browse Games. The calendar date selector lets you jump between dates, and the game cards are once again clickable 
 
-### Installation
+The Standings page includes information about current standings by default, and the calendar date picker once again lets you see past standings. 
 
-Install the dependencies:
+Behind the dropdown in the Players tab, the user can either click the text Skaters or Goalies, and browse information about the current stat leaders in these categories. 
 
+In order to Sign up for the application, the user needs to provide a valid username, an email address that is in the format of an email address, and a password that is at least 8 characters long. Logged in users can save ended games into favorites using the star icon that appears on game cards for ended games after logging in. 
+
+Favorited games are saved into a MongoDB database, so that they can be accessed quickly. The game is saved into the database if any user has ever saved it even once. 
+
+## Technical Overview
+
+- Frontend: React Router v7 framework mode, TypeScript
+- Backend: Node.js (express), TypeScript
+- Database (auth): PostgreSQL, communicating with the backend using Prisma ORM
+- Database (favorited games): MongoDB, communicating with the backend using mongoose
+- Caching: Redis (used to cache the list of favorite games)
+- Proxy: nginx (also used for caching data fetched from the NHL API)
+- Development and build environment: Docker using docker-compose
+
+The frontend utilizes server-side rendering (SSR) for most pages, meaning that the frontend server first sends a HTML with no content, and later hydrates it with data that it fetched from the backend server. This reduces the number of network round trips that occur when the user loads a page in the browser. SSR also adds an extra layer of separation between the backend and the browser. 
+
+Fetching additional data on pages is done by making a call to a "resource route" (Remix / React Router v7 concept). Resource routes are routes in the frontend application that return data (in our case JSON) instead of React components. For example, opening the Player Statistics dropdown on the page of an individual game, a call to a resource route (frontend server) is made from the browser. The frontend server then calls the NHL API to retrieve the data requested by the browser. The calls to the NHL API are proxied through the nginx server in order to enable caching. 
+
+Diagram below is a rough representation of networking for the application. 
+
+![Network Structure](docs/network_structure_updated.png)
+
+Authentication utilizes server side session, so all auth tokens are saved in the backend PostgreSQL database, and the validity of the token is confirmed upon every navigation. Only one valid token is allowed at a time, and tokens are limited to a 24-hour validity. 
+
+Data fetching is managed using TanStack Query, and the library is also used to manage global state (login status) across components. Login and Signup forms are implemented using TanStack Form. 
+
+The application also has formatting (prettier), and non-compliant code is automatically formatted by the pipeline, and a new commit is added by the workflow. Linting (eslint) and testing (vitest) pipelines are also included, and there it has also e2e tests (Playwright) implemented, although they are not included in the GH Actions pipeline to conserve runner execution time allowance. Testing coverage is about 85% for the backend, and around 45% for the frontend. 
+
+## Development
+
+Setting the following .envs with appropriate values is necessary in order to run the app:
 ```bash
-npm install
+# backend/.env
+DATABASE_URL="postgresql://exampleuser:examplepassword@postgres:5432/exampledatabase"
+MONGO_URL="mongodb://root:exampleuser@mongo:27017/gameDb?authSource=admin"
 ```
 
-### Development
-
-Start the development server with HMR:
-
 ```bash
-npm run dev
+# postgres/.env
+POSTGRES_USER=exampleuser
+POSTGRES_PASSWORD=examplepassword
+POSTGRES_DB=exampledatabase
 ```
 
-Your application will be available at `http://localhost:5173`.
+`docker compose -f docker-compose.dev.yml up --build` 
+After the containers have been built, startup including container health checks should take around 15 to 30 seconds. 
 
-## Building for Production
+The frontend will be accessible at `http://localhost:9998`.
+MongoDB control panel (mongo-express) is accessible at `http://localhost:8081`.
 
-Create a production build:
+### e2e testing
+
+Currently, formatting, linting and unit testing are included in the GH actions pipeline, but e2e tests aren't so you need to run them manually with the following command while the development containers are running: `docker exec playwright npm run test:e2e`
+
+## Build
 
 ```bash
-npm run build
-```
+docker compose -f docker-compose.prod.yml up --build
+``` 
+The app should should be available on `http://localhost:80`
 
 ## Deployment
 
-### Docker Deployment
+Deploying the application containerized on a VPS, EC2 instance or similar is fairly straightforward.
+Clone the repository on the server, switch to the production branch, replace the value of `CSR_BACKEND_URL` in the `docker-compose.depl.yml` with the domain or IP address of your server, and use `docker compose -f docker-compose.depl.yml up --build` to build and deploy the application. 
 
-This template includes three Dockerfiles optimized for different package managers:
-
-- `Dockerfile` - for npm
-- `Dockerfile.pnpm` - for pnpm
-- `Dockerfile.bun` - for bun
-
-To build and run using Docker:
-
-```bash
-# For npm
-docker build -t my-app .
-
-# For pnpm
-docker build -f Dockerfile.pnpm -t my-app .
-
-# For bun
-docker build -f Dockerfile.bun -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
-```
-
-The containerized application can be deployed to any platform that supports Docker, including:
-
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
-
----
-
-Built with ❤️ using React Router.
+I personally have the application deployed on a Hetzner VPS (4 ARM vCPUs, 8GB RAM).
