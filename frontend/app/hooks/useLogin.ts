@@ -12,6 +12,7 @@ export function useLogin() {
       // Do something with form data
       const loginSuccess = await loginService(value.email, value.password);
       if (!loginSuccess) {
+        console.error('Login failed');
         alert('Login failed. Please check your credentials.');
         return;
       }
