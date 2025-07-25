@@ -15,11 +15,8 @@ COPY . .
 # Generate Prisma client
 RUN npx prisma generate
 
-# Create database migrations
-RUN npx prisma migrate deploy
-
 # Build the application
 RUN npm run build
 
 # Start the application
-CMD ["npm", "run", "start"]
+CMD ["sh", "-c", "npx prisma migrate deploy && npm run start"]
