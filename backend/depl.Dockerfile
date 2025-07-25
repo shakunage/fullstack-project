@@ -18,8 +18,5 @@ RUN npx prisma generate
 # Build the application
 RUN npm run build
 
-# Create database migrations
-RUN npx prisma migrate deploy
-
 # Start the application
 CMD ["sh", "-c", "npx prisma migrate deploy && npm run start"]
