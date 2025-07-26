@@ -13,8 +13,6 @@ export async function createUserRepository(userData: UserSignupData): Promise<Us
       throw new Error('Email already in use');
     }
 
-    // Hash the password
-    // TODO: replace with secure way of storing secrets
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(userData.password, saltRounds);
 
