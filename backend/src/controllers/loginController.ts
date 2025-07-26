@@ -9,7 +9,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const router: Router = express.Router();
-const SECRET_KEY: string = process.env.JWT_SECRET_KEY || "your_secret_key";
+const SECRET_KEY: string = process.env.JWT_SECRET_KEY || 'your_secret_key';
 
 router.post(
   '/',
