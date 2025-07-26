@@ -42,7 +42,7 @@ Authentication utilizes server side session, so all auth tokens are saved in the
 
 Data fetching is managed using TanStack Query, and the library is also used to manage global state (login status) across components. Login and Signup forms are implemented using TanStack Form. 
 
-The application also has formatting (prettier), and non-compliant code is automatically formatted by the pipeline, and a new commit is added by the workflow. Linting (eslint) and testing (vitest) pipelines are also included, and there it has also e2e tests (Playwright) implemented, although they are not included in the GH Actions pipeline to conserve runner execution time allowance. Testing coverage is about 85% for the backend, and around 45% for the frontend. 
+The application also has formatting (prettier), and non-compliant code is automatically formatted by the pipeline, and a new commit is added by the workflow. Linting (eslint) and testing (vitest) pipelines are also included, and e2e tests (Playwright) are also implemented, although they are not included in the GH Actions pipeline to conserve runner execution time allowance. Testing coverage is about 85% for the backend, and around 45% for the frontend. 
 
 ## Development
 
