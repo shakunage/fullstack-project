@@ -4,6 +4,8 @@ Browse past and upcoming NHL games and detailed statistics pertaining to them. T
 
 The app supports user registration and saving past games into user's favorites.  
 
+[Link to timekeeping](https://github.com/shakunage/fullstack-project/blob/dd7e816eb02db9aee471e541fa8d125a3d8903ef/docs/timekeeping.md)
+
 ## User manual 
 
 The application is accessible at http://91.99.195.146/
