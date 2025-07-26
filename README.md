@@ -51,6 +51,7 @@ Setting the following .envs with appropriate values is necessary in order to run
 # backend/.env
 DATABASE_URL="postgresql://exampleuser:examplepassword@postgres:5432/exampledatabase"
 MONGO_URL="mongodb://root:exampleuser@mongo:27017/gameDb?authSource=admin"
+JWT_SECRET_KEY="examplekey"
 ```
 
 ```bash
