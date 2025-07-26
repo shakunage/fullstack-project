@@ -4,10 +4,12 @@ import bcrypt from 'bcrypt';
 import { findUserByEmailRepository } from '../repositories/findUserRepository.ts';
 import { addTokenRepository } from '../repositories/addTokenRepository.ts';
 import { type UserLoginData } from '../dtos/index.ts';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const router: Router = express.Router();
-// TODO: replace with secure way of storing secret keys
-const SECRET_KEY = 'your_secret_key';
+const SECRET_KEY: string = process.env.JWT_SECRET_KEY || 'your_secret_key';
 
 router.post(
   '/',

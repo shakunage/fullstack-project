@@ -1,7 +1,9 @@
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 
-// TODO: replace with secure way of storing secret keys
-const SECRET_KEY = 'your_secret_key';
+dotenv.config();
+
+const SECRET_KEY: string = process.env.JWT_SECRET_KEY || 'your_secret_key';
 
 export function checkAuthTokenValidity(token: string): boolean {
   try {

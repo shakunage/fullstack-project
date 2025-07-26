@@ -1,7 +1,5 @@
 # TODO
-- fix problem where incorrect time until start is displayed for a moment
-- make a release and tag it, in a newly cut production branch
-- update timekeeping
+- revise secrets handling in the backend (search with TODO)
 - check that the project fulfills all requirements and submit
 - make the application for credits on sisu
 
