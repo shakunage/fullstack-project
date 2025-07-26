@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const SECRET_KEY: string = process.env.JWT_SECRET_KEY || "your_secret_key";
+const SECRET_KEY: string = process.env.JWT_SECRET_KEY || 'your_secret_key';
 
 export function checkAuthTokenValidity(token: string): boolean {
   try {
