@@ -40,7 +40,7 @@ Diagram below is a rough representation of networking for the application.
 
 ![Network Structure](docs/network_structure_updated.png)
 
-Authentication utilizes server side session, so all auth tokens are saved in the backend PostgreSQL database, and the validity of the token is confirmed upon every navigation. Only one valid token is allowed at a time, and tokens are limited to a 24-hour validity. 
+Authentication utilizes server side session, so all auth tokens are saved in the backend PostgreSQL database, and the validity of the token is confirmed upon every privilege-requiring request. Only one valid token is allowed at a time, and tokens are limited to a 24-hour validity. 
 
 Data fetching is managed using TanStack Query, and the library is also used to manage global state (login status) across components. Login and Signup forms are implemented using TanStack Form. 
 
