@@ -85,4 +85,4 @@ The app should should be available on `http://localhost:80`
 Deploying the application containerized on a VPS, EC2 instance or similar is fairly straightforward.
 Clone the repository on the server, switch to the production branch, replace the value of `CSR_BACKEND_URL` in the `docker-compose.depl.yml` with the domain or IP address of your server, and use `docker compose -f docker-compose.depl.yml up --build` to build and deploy the application. 
 
-I personally have the application deployed on a Hetzner VPS (4 ARM vCPUs, 8GB RAM).
+I personally have the application deployed on a Hetzner VPS (4 ARM vCPUs, 8GB RAM). This is probably more than what's sufficient though, since memory consumption hovers around 700-800M once the containers have been launched.
