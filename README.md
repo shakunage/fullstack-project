@@ -11,7 +11,7 @@ The app supports user registration and saving past games into user's favorites.
 The application is accessible at http://91.99.195.146/
 
 The Home Page (or landing page) shows the most recent or upcoming NHL games, excluding pre-season games. The game cards are clickable, and show additional information about the game. 
-n
+
 For browsing future and all past games, click the Games text on the top bar, and select Browse Games. The calendar date selector lets you jump between dates, and the game cards are once again clickable 
 
 The Standings page includes information about current standings by default, and the calendar date picker once again lets you see past standings. 
